@@ -1,0 +1,1811 @@
+@font-face {
+  font-family: "Poppins-Regular";
+  src: url("../fonts/Poppins-Regular.eot"); /* IE9 Compat Modes */
+  src: url("../fonts/Poppins-Regular.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("../fonts/Poppins-Regular.otf") format("opentype"), /* Open Type Font */
+    url("../fonts/Poppins-Regular.svg") format("svg"), /* Legacy iOS */
+    url("../fonts/Poppins-Regular.ttf") format("truetype"), /* Safari, Android, iOS */
+    url("../fonts/Poppins-Regular.woff") format("woff"), /* Modern Browsers */
+    url("../fonts/Poppins-Regular.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Poppins-Light';
+  src: url('../fonts/Poppins-Light.eot');
+  src: url('../fonts/Poppins-Light.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/Poppins-Light.svg#Poppins-Light') format('svg'),
+       url('../fonts/Poppins-Light.ttf') format('truetype'),
+       url('../fonts/Poppins-Light.woff') format('woff'),
+       url('../fonts/Poppins-Light.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+body {
+	font-family: 'Poppins-Light';
+}
+img{
+	max-width:100%;
+}
+.app_container{
+	max-width:768px;
+	margin:auto;
+	overflow-x: hidden;
+}
+/****************
+    Welcome Page
+*****************/
+.app_welcome{
+	position:absolute;
+	float:left;
+	width:100%;
+	background-color:rgb(245 91 2);
+	text-align:center;
+}
+.app_welcome .app_row{
+	text-align:center;
+}
+.app_welcome .app_banner_image{
+	position:relative;
+	display:inline-block;
+	width:150px;
+	height:150px;
+	border:1px solid rgb(245 91 2);
+	border-radius:100%;
+	background-color:#fff;
+	margin-top:100px;
+	margin-bottom:75px;	
+}
+.app_welcome .app_banner_image img{
+	max-width:100%;
+	padding:22px;
+}
+.app_heading{
+	font-size:21px;
+	font-weight:700;
+	letter-spacing: 1px;	
+}
+.app_welcome .app_heading{
+	color:#fff;
+}
+.app_content{
+	font-size:15px;
+	padding-top:10px;
+	letter-spacing: 0.3px;
+    font-weight: 600;
+}
+.app_welcome .app_content{
+		color:#fff;
+}
+.app_welcome .app_social_icon{
+	position:relative;
+	width:100;
+	text-align:center;
+	margin-bottom:70px;
+	margin-right: 30px;
+}
+.app_welcome .app_social_icon ul{
+	top:0;
+	left:0;	
+    bottom: 0;
+}
+.app_welcome .app_social_icon ul li{
+	width:50px;
+	height:50px;
+	border:1px solid rgb(245 91 2);
+	border-radius:100%;
+	background-color:#fff;
+	list-style:none;
+	display:inline-block;
+	margin-left: 10px;
+	text-align:center;
+}
+.app_welcome .app_social_icon ul li a{
+	color:rgb(245 91 2);
+}
+.app_welcome .app_social_icon ul li a i{
+    padding-top: 12px;
+	font-size:26px;
+}
+.app_full_btn{
+	position:relative;
+	width:80%;
+	min-height:60px;
+	border:1px solid rgb(245 91 2);
+	border-radius:22px;
+	background-color:rgb(245 91 2);
+	display:inline-block;
+	color:#fff;
+	max-width: 100%;
+	text-transform:capitalize;
+	font-size:20px;
+	font-weight:700;
+	text-align:center;
+	padding:14px 0;
+}
+.app_welcome .app_full_btn{
+	background-color:#fff;
+	color:rgb(245 91 2);
+	margin:0 34px 70px 34px;
+}
+.app_welcome .app_full_btn img{
+    max-width: 22px;
+	margin-left:10px;
+}
+
+/*************
+ location Page
+*************/
+
+.app_location{
+	position:absolute;
+	width:100%;
+	text-align:center;
+}
+.app_location .app_location_image{
+	margin:100px 0 50px;
+	text-align:center;
+}
+.app_location .app_location_image img{
+	max-width:100%;
+	text-align:center;
+}
+
+.app_location .app_content {
+    margin-bottom: 50px;
+}
+.app_location .app_location_btn {
+    margin: 20px 0 100px;
+	background-color:rgb(246 244 244);
+	color:rgb(42 59 86);
+	border-color:rgb(246 244 244);
+}
+
+/*************
+App_verification
+***************/
+
+.app_verification{
+	position:relative;
+	width:100%;
+	padding:20px;
+}
+.app_verification .app_verification_image a{
+	color:rgb(42 59 86);
+}
+.app_verification .app_verification_image a i{
+    font-size: 40px;
+	padding:30px 0 60px;	
+}
+.app_checkout .app_heading,
+.app_verification_caption .app_heading{
+	font-size:30px;
+    line-height: 40px;
+}
+.app_checkout .app_content,
+.app_contact .app_content,
+.app_verification_caption .app_content{
+	font-weight:500;
+	color:rgb(209 213 218);
+	padding-bottom: 30px;
+}
+input[type="email"],
+input[type="number"],
+input[type="text"]{
+	width: 100%;
+    min-height:60px;
+    border-radius:30px;
+    border: none;
+    padding-left: 20px;
+    font-size: 18px;
+	background-color:rgb(246 244 244);
+	font-weight:600;	
+}
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="text"]:focus{
+	outline: none;
+}
+input[type="email"]::placeholder,
+input[type="number"]::placeholder,
+input[type="text"]::placeholder{
+	color:rgb(209 213 218);
+}
+input[type="submit"]{
+	width:100%;
+	margin:20px 0;
+	letter-spacing: 1px;
+}
+
+.app_verification_caption .app_icon_input{
+	position:relative;
+}
+.app_verification_caption .app_icon_input_pad{
+	padding-left:50px;
+}
+/*************
+App_otp
+***************/
+
+.app_otp{
+	position:relative;
+	width:100%;
+	padding:20px;
+}
+.app_otp .app_resend_otp{
+	font-size:18px;
+	font-weight:700;
+	color:rgb(42 59 86);
+	padding-top:20px;
+	text-align:center;
+}
+.app_otp .app_resend_otp a{
+	text-transform:capitalize;
+	color:rgb(245 91 2);
+} 
+
+/*************
+App_login
+***************/
+
+.app_login{
+	position:relative;
+	width:100%;
+	padding:20px;	
+}
+.app_contact .app_content ,
+.app_login .app_login_input .app_content {
+	padding:15px 0 15px 20px;
+}
+.app_login .app_login_input {
+    margin-top: 40px;
+}
+.app_login .app_full_btn {
+    margin-top: 120px;
+}
+
+
+/*************
+ Contact Page
+***************/
+
+.app_contact{
+	position:relative;
+	width:100%;	
+	padding:0;
+}
+.app_contact .app_container{
+	padding:20px;	
+}
+.app_contact .app_heading{
+	margin-bottom:30px;
+}
+
+.app_contact_map iframe{
+	border-radius:22px;	
+	width:100%;
+}
+.app_contact_collapse {
+    border: 3px solid rgb(209 213 218);
+    max-width: 50%;
+    background-color: rgb(209 213 218);
+    margin: 0 auto 15px;
+    border-radius: 25px;
+}
+.app_contact .app_contact_form{
+    border-top-left-radius: 22px;
+    border-top-right-radius: 22px;
+    padding: 20px;
+	box-shadow: 0px 0px 20px 0px rgba(165,165,165,0.5);
+}
+.app_contact .app_contact_form .app_content i{
+	padding-right: 5px;
+} 
+.app_require_icon{
+	color:rgb(245 91 2);
+}
+
+/*************
+Checkout Page
+***************/
+
+.app_checkout{
+	position:relative;
+	width:100%;
+	padding:20px;
+}
+.app_checkout .app_verification_image a i {
+    padding: 20px 0;
+}
+.app_checkout .app_heading{
+	display:inline-block;
+	padding-left:20px;
+}
+.app_checkout_content{
+    max-width: 100%;
+}
+.app_checkout .app_content {
+    padding: 20px 0 0 ;
+}
+.app_checkout .app_checkout_content img{
+	max-width: 24px;
+    position: absolute;
+}
+.app_checkout .app_checkout_content .app_checkout_input_deliver img{
+	max-width:20px;
+	padding-top: 4px;
+}
+.app_checkout .app_checkout_input_pro img {
+    top: 15px;
+    left: 5px;
+    max-width: 30px;
+}
+.app_verification_caption .app_checkout_input_pro:before {
+	left:10px;
+	color:#000;
+}
+.app_verification_caption .app_checkout_input_pro{
+	position:relative;
+}
+.app_verification_caption .app_checkout_input_pro .app_icon_input_pad{
+	padding-left: 40px;
+    background-color: transparent;
+    border: 1px solid rgb(209 213 218);
+}
+.app_checkout .app_verification_caption .app_check_input_loc{
+	width: calc(100% - 70px);
+} 
+.app_checkout .app_verification_caption .app_checkout_input_pad {
+    background-color: transparent;
+    padding-left: 25px;
+	overflow: hidden;
+    text-overflow: ellipsis;
+	min-height:auto;
+}	
+.app_checkout .app_verification_caption .app_checkout_code,
+.app_checkout .app_verification_caption .app_checkout_input_link{
+	color:rgb(245 91 2);
+	text-transform: capitalize;
+	text-decoration:none;
+	font-weight:600;
+}
+.app_checkout .app_verification_caption .app_checkout_code{
+    position: absolute;
+    top: 18px;
+    right: 10px;
+}
+.app_checkout .app_order_detail p{
+	color:rgb(146 155 169);
+	padding: 10px 0px;
+	font-size:16px;
+}
+.app_checkout .app_choose_payment_option {
+    padding: 10px 0;
+}
+.app_checkout .app_order_detail_price p{
+	color:#000;
+	font-size:16px;
+	padding: 10px 0px;
+	text-align:right;
+}
+.app_checkout .app_order_detail_total p{
+	font-size:18px;
+	color:#000;
+	padding: 15px 0
+}
+.app_checkout .app_order_detail_total_price p{
+	text-align: right;
+	font-size:24px;
+	color:rgb(245 91 2);
+    padding: 10px 0;
+}
+.app_checkout .app_full_btn{
+	margin-top:50px;
+}
+
+.app_checkout p{
+	font-size:16px;
+	font-weight:700;
+	color:rgb(0 140 255);
+	margin-top:10px;
+	margin-bottom: 0px;
+}
+.app_checkout .app_checkout_input_pro .app_checkout_applied{
+	color:#0d9e0d;
+}
+.app_checkout .app_checkout_applied_input{
+	color:rgb(209 213 218);	
+}
+
+.app_checkout .app_choose_payment_option img{
+	max-width:20px;
+	padding-top: 15px;
+}
+.app_checkout .app_choose_payment_option p{
+    padding-left: 22px;
+    padding-right: 35px;
+    color: #000;
+}
+.app_checkout .app_choose_payment_option .app_checkout_text_left{
+    text-align: left;	
+}
+.app_checkout .app_choose_payment_option .app_checkout_text_right{
+    text-align: right;	
+}
+.app_checkout .left_content_text{
+	color:rgb(146 155 169);
+	font-size: 18px;
+}
+.app_checkout .right_content_text{
+	color: rgb(42 59 86);
+	text-transform:uppercase;
+	font-size: 18px;
+	padding-left:70px;
+	display:block;
+	text-align:right;
+	font-weight: 700;
+	text-decoration:none;
+}
+.app_checkout .totle{
+	color: rgb(42 59 86);
+	font-size: 22px;
+    padding-top: 30px;
+}
+.app_checkout .orange_text{
+	color:rgb(245 91 2);
+	text-align: right;
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: block;
+    margin-top: -30px;
+	text-decoration:none;
+}
+.app_checkout .btn-1{
+	text-align: center;
+	width:100%;
+	margin-top:40px;
+}
+
+/*************
+App Close
+***************/
+
+.app_close{
+	position:relative;
+	width:100%;
+	padding:20px;
+}
+.app_close .app_full_btn{
+	width:100%;
+}
+.app_close .app_close_image_rest{
+	position: relative;
+    width: 140px;
+    margin: auto;
+	padding-top:50px;
+	padding-bottom:40px;
+}
+.app_close .app_close_image img{
+	max-width:140px;
+}
+.app_close .app_close_image .app_closed_restaurant{
+	position: absolute;
+    right: -20px;
+    top: 45px;
+    width: 80px;
+    height: 80px;
+    border: 1px solid rgb(155 155 155);
+    background-color: rgb(246 244 244);
+    border-radius: 100%;
+    text-align: center;
+    color: rgb(155 155 155);
+    transform: rotate(-35deg);
+    text-transform: uppercase;
+	padding-top:20px;
+}
+.app_close_content{
+	position:relative;
+	width:100%;
+	display:block;
+}
+.app_close_content h3{
+	color: rgb(155 155 155);
+	font-size:19px;
+	font-weight:700;
+	text-align:center;
+}
+.app_close_content h2{
+	color: rgb(42 59 86);
+	font-size:18px;
+	font-weight:700;
+	text-align:center;
+	padding-top:100px;
+}
+.app_close_content p{
+	color: rgb(155 155 155);
+	font-size:12px;
+	font-weight:700;
+	text-align:center;
+}
+
+/*****************
+Add Cart Section
+*****************/
+
+.app_add_card{
+	position:relative;
+	float:left;
+	width:100%;
+}
+.app_add_card .app_content{
+	color:#000;
+}
+
+/*****************
+Pick Up Location
+*****************/
+
+.app_pickup_location .app_verification_image{
+	display:flex;
+	padding-bottom:40px;
+}
+.app_pickup_location .app_verification_image .app_heading{
+	padding-top:25px;
+}
+.app_pickup_location .app_verification_image img{
+	margin-top:30px;
+    max-width: 30px;
+}
+.app_pickup_location .app_pickup_location_item h4{
+	font-size:20px;
+	font-weight:600;
+	letter-spacing:1px;
+}
+.app_pickup_location .app_pickup_location_address .app_content{
+	padding-top:0;
+	margin-bottom:15px;
+}
+.app_review_food_section .app_full_btn,
+.app_pickup_location  .app_full_btn{
+	width:100%;
+}
+
+.app_pickup_location_icons{
+    position: absolute;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    border: 1px solid #d6d0d0;
+    padding-top: 4px;
+    text-align: center;
+	right: 20px;
+	background-color:#d6d0d0;
+	color:#d6d0d0;
+}
+.app_choose_payment_add_card .app_pickup_location_icons{
+	color:#000;
+}
+.app_pickup_location_icons.active{
+	background-color:rgb(245 91 2);
+	color:#fff;
+}
+.app_pickup_item_main:not(:last-child){
+	border-bottom:1px solid rgb(209 213 218);
+	margin-bottom:25px;
+}
+
+/*****************
+Order Details Section
+*****************/
+
+.app_order_details .app_order_details_total {
+    text-align: right;
+}
+.app_order_details .app_order_details_heading_left h2{
+	font-weight:700;
+	font-size: 30px;
+	}
+.app_order_details .app_order_details_content_text{
+	padding-top:25px;
+	}
+.app_order_details  .app_order_details_heading_4_left h4{
+	font-size: 16px;
+    font-weight: 700;
+}
+.app_order_details  .app_order_details_heading_6_left h6{
+	font-size: 14px;
+	color:#8a8787;
+}
+.app_order_details .app_order_details_heading_left_icons_maps h4{
+	font-size: 16px;
+    font-weight: 700;
+    padding-left: 25px;
+    padding-top: 9px;
+}
+.app_order_details .app_order_details_heading_left_icons_maps:before{
+	content:"\f041";
+	font-family:fontAwesome;
+	position:absolute;
+	font-size: 25px;
+}
+.app_order_details .app_order_details_heading_left_icons_clock h4{
+	font-size: 16px;
+    font-weight: 700;
+    padding-left: 30px;
+    padding-top: 9px;
+}
+.app_order_details .app_order_details_heading_left_icons_clock:before{
+	content:"\f017";
+	font-family:fontAwesome;
+	position:absolute;
+	font-size: 25px;
+}
+.app_order_details .app_order_details_image img{
+	width:100%;
+	border-radius:15px;
+}
+.app_order_details .app_order_details_heading_3_right h3{
+	font-weight: 700;
+    font-size: 17px;
+}
+.app_order_details .app_order_details_heading_6_right h6{
+	font-size: 11px;
+	color:#8a8787;
+	line-height:1.5;
+}
+.app_order_details .app_order_details_heading_5_right h5{
+	font-weight: 700;
+    font-size: 17px;
+}
+.app_order_details .app_order_details_content_text_bottom{
+	padding-top:25px;
+	}
+.app_order_details .app_order_details_heading_left_bottom h3{
+	font-size: 16px;
+	color:#8a8787;
+}
+.app_order_details .app_order_details_heading_right_bottom{
+	font-weight: 700;
+	color:#8a8787;
+	font-size:13px;
+	text-align:right;
+}
+.app_order_details .app_order_details_text_right_bottom{
+	color: black;
+    font-size: 17px;
+}
+.app_order_details .app_order_details_heading_text_right_bottom h4{
+	text-align:right;
+	font-weight:700;
+	font-size:17px;
+}
+.app_order_details .app_order_details_heading_text_left_bottom h3{
+	font-weight:700;
+	font-size:20px;
+}
+.app_order_details .app_btn_details{
+	margin-top:-7px;
+	border-radius: 5px;
+    border-color: #bcc1c1;
+    background-color: #fff;
+    font-size: 14px;
+    color: #b2b9b9;
+    padding: 4px 7px;
+}
+.app_order_details .app_order_deatils_heading_text_right_bottom h4{
+	font-weight: 800;
+    font-size: 25px;
+    color: rgb(245 91 2);
+    padding-left: 12px;
+}
+.app_order_details .app_order_deatils_heading_text_right_bottom{
+	display: inline-block;
+	}
+.app_your_basket_section .app_full_btn,
+.app_order_details .app_full_btn{
+	width:100%;
+}
+
+.app_order_details .app_order_details_second_icons_top{
+    font-size: 50px;
+    margin-top: 25px;
+    text-align: right;
+	color:#000;
+}
+
+/*****************
+Your Basket Section
+*****************/
+
+.app_your_basket_icons_heading_left h4{
+	color: red;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 17px 10px 15px 38px;
+    background-color:#f9e7e7;
+    border-radius: 5px;
+}
+.app_your_basket_icons_heading_left:before{
+	content:"\f0c7";
+	font-family:fontAwesome;
+	position:absolute;
+	color:red;
+	font-weight:700;
+	top: 11px;
+    left:30px;
+}
+.app_your_basket_image img{
+	width:100%;
+	border-radius:15px;
+}
+.app_your_basket_image_left_text_right{
+	padding-top:15px;
+}
+.app_your_basket_heading_3_right h3{
+	font-weight: 700;
+    font-size: 16px;
+}
+.app_your_basket_heading_6_right h6{
+	font-size: 10px;
+	color:#8a8787;
+	line-height:1.5;
+}
+.app_your_basket_text_right{
+	font-weight: 700;
+    font-size: 15px;
+	color:rgb(245 91 2);
+}
+.app_your_basket_text_right_del{
+	font-size:9px;
+	color:#8a8787;
+	font-weight: 700;
+}
+.app_your_basket_icons{
+	border-radius: 50%;
+    font-size: 14px;
+    padding-top: 5px;
+    width: 22px;
+    height: 22px;
+	background-color:#d6d0d0;
+	color:black;
+	text-align: center;    
+}
+.app_your_basket_icons:active{
+	color: #fff;
+    background-color: rgb(245 91 2);
+}
+.app_your_basket_text_icons_number{
+	color:black;
+	font-size: 16px;
+}
+.app_your_basket_text_right_bottom h2{
+	font-size:17px;
+	padding-top:10px;
+}
+.app_your_basket_text_bottom h4{
+	font-size: 15px;
+    font-weight: 500;
+	padding-top:25px;
+}
+.app_your_basket_content_text_bottom{
+	padding-top:20px;
+}
+.app_your_basket_heading_left_bottom h3{
+	font-size: 16px;
+    color: #8a8787;
+}
+.app_your_basket_heading_right_bottom h3{
+	font-weight:700;
+	font-size:17px;
+	
+}
+.app_your_basket_heading_number_text_right_bottom h3{
+	font-weight:700;
+	font-size:17px;
+	padding-left: 19px;
+}
+.app_your_basket_heading_left_bottom_last h3{
+	font-size: 17px;
+    font-weight: 700;
+}
+.app_your_basket_heading_right_bottom_last h3{
+	font-weight: 700;
+    font-size: 21px;
+    color: rgb(245 91 2);
+}
+.app_your_basket_button{
+	position:relative;
+	width:100%;
+	height:55px;
+	border:1px solid rgb(245 91 2);
+	border-radius:20px;
+	background-color:rgb(245 91 2);
+	display:inline-block;
+	color:#fff;
+	max-width: 100%;
+	font-size:22px;
+	font-weight:700;
+	text-align:center;
+	margin-top:90px;
+	margin-bottom: 50px
+}
+.app_your_basket_button:hover{color:#fff}
+
+/*****************
+Your Orders Section
+*****************/
+
+.app_your_orders_heading_left h2{
+	font-weight: 700;
+	font-size: 30px;
+}
+.app_your_orders_content_text{
+	padding-top:20px;
+}
+.app_your_orders_image img{
+	width:100%;
+	border-radius:15px;
+}
+.app_your_orders_heading_left_text_image h3{
+	font-weight: 700;
+	font-size: 15px;
+    color: #8a8787;
+	padding: 10px;
+}
+.app_your_orders_heading_right h3{
+	font-weight: 700;
+    font-size: 16px;
+}
+.app_your_orders_heading_right_icons .your_order_full_detail{
+    position: absolute;
+    right: 20px;
+    font-size: 25px;
+    color: #000;
+    top: -2px;
+}
+.app_your_orders_heading_right h5{
+	font-size: 12px;
+    color: #8a8787;
+    margin: 12px 0 0;	
+}
+.app_your_orders_heading_right_text_bold h4{
+	font-weight: 700;
+	font-size:13px;
+	display:inline-block;
+}
+.app_your_orders_right_try_icons{
+	padding-left: 15px;
+    font-size: 14px;
+}
+.app_your_orders_right_try_icons img{
+	max-width:15px;
+	margin-right: 5px;
+}
+.app_your_orders_heading_left_text_image_second h3{
+	font-weight: 700;
+	font-size: 16px;
+	color:rgb(245 91 2);
+	padding: 10px;
+	line-height:1.5;
+}
+
+/*****************
+Review Food Section
+*****************/
+
+.app_review_food_content_text {
+    margin-top: 30px;
+}
+.app_review_food_image img{
+	width:100%;
+	border-radius:15px;
+}
+.app_review_food_heading_right h3{
+	font-weight: 700;
+    font-size: 16px;
+}
+.app_your_basket_heading_number_text_right_bottom,
+.app_your_basket_heading_right_bottom_last,
+.app_your_basket_heading_right_bottom{
+	text-align:right;
+}
+.app_review_food_heading_6_right h6{
+	font-size: 10px;
+	color:#8a8787;
+	line-height:1.5;
+}
+.app_review_food_text_right{
+	font-weight: 700;
+    font-size: 15px;
+    color: rgb(245 91 2);
+}
+.app_review_food_icons_right{
+	padding-left: 30px;
+}
+.app_review_food_icons{
+    border-radius: 50%;
+    font-size: 14px;
+    width: 22px;
+    height: 22px;
+    text-align: center;
+    padding-top: 5px;
+		background-color:#d6d0d0;
+	color:black;
+}
+.app_review_food_icons:active{
+    color: #fff;
+    background-color: rgb(245 91 2);
+}
+.app_review_food_text_icons_number{
+	color:black;
+	font-size: 16px;
+}
+.app_review_food_text_right_bottom h2{
+	font-size:15px;
+	padding-top:10px;
+}
+.app_review_food_text__left_special{
+	margin-top:25px;
+	font-weight: 700;
+    font-size: 16px;
+}
+.app_review_input_text{
+	width:100%;
+	border-radius: 20px;
+    font-size: 12px;
+    padding: 15px;
+    background-color:#f7f4f4;
+	border:none;
+	margin-bottom: 30px;
+}
+.app_review_input_text:focus{
+	outline:none;
+}
+.app_review_food_content_text_bottom{
+	padding-top:20px;
+}
+.app_review_food_heading_left_bottom h3{
+	font-size: 14px;
+    color: #8a8787;
+}
+.app_review_food_heading_right_bottom h3{
+	font-weight:700;
+	font-size:16px;
+	text-align:right;
+}
+.app_review_food_heading_number_text_right_bottom h3{
+	font-weight:700;
+	font-size:15px;
+	text-align:right;
+}
+.app_review_food_heading_left_bottom_last h3{
+	font-size: 17px;
+    font-weight: 700;
+}
+.app_review_food_heading_right_bottom_last h3{
+	font-weight: 700;
+    font-size: 20px;
+    color: rgb(245 91 2);
+	text-align:right;
+}
+.app_popup_overlay{
+	top: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: rgba(0,0,0,0.5);
+	display:none;
+	}
+.app_the_food_image_section {
+    position: fixed;
+    width: 100%;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 100%;
+	max-width: 768px;
+    margin: auto;
+    overflow-y: auto;
+	overflow-x: hidden;
+    z-index: 2;
+	opacity:0;
+	transition:0.5s all;
+}
+.app_the_food_image_section.active{
+	top:0;
+	opacity:1;
+	transition:0.5s all;
+}
+.app_full_btn:hover{
+	text-decoration:none;
+	color:#fff;
+}
+.app_close_review_popup {
+	padding: 30px 0;
+	text-align:center;
+}
+.app_close_review_popup img{
+    background-color: #fff;
+    padding: 8px;
+    border-radius: 100%;
+    max-width: 40px;
+}
+.app_the_food_image{
+    background-color: #fff;	
+}
+.app_the_food_image img{
+    width: 100%;
+    margin-bottom: 25px;
+    border-radius: 40px;
+}
+.app_food_popup {
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    width: 100%;
+    padding: 0 20px;
+    background-color: #fff;
+}
+.app_the_food_image_content_text_icons{
+	padding-top:20px;
+}
+.app_the_food_image_heading_left h3{
+	font-weight: 700;
+    font-size: 16px;
+}
+.app_the_food_image_icons{
+    border-radius: 50%;
+    font-size: 14px;
+    width: 22px;
+    height: 22px;
+    text-align: center;
+    background-color: #d6d0d0;
+    padding-top: 4px;
+    color: black;
+}
+.app_the_food_image_icons:active{
+	color: #fff;
+    background-color: rgb(245 91 2);
+}
+.app_the_food__image_heading_6_left h6{
+	font-size: 10px;
+	color:#8a8787;
+	border:none;
+}
+.app_the_food_image_heading_left_choose h3{
+	font-weight: 700;
+    font-size: 16px;
+	padding-top:10px;
+}
+.app_the_food_image_heading_left_bottom h4{
+	font-size: 15px;
+    color: #8a8787;
+}
+.app_the_food_image_heading_number_icons{
+	text-align:right;
+	font-weight: 700;
+    font-size: 16px;	
+}
+.app_the_food_image_icons_right{
+    border-radius: 6px;
+    font-size: 14px;
+    width: 22px;
+    height: 22px;
+    text-align: center;
+    background-color: #d6d0d0;
+    padding-top: 4px;
+    color: #d6d0d0;
+}
+.aap_the_food_image_heading_number_icons,
+.app_review_counter {
+    text-align: right;
+}
+.app_the_food_image_icons_right.active{
+    background-color: rgb(245 91 2);
+    color: #fff;	
+}
+.app_the_food_image_icons_right_button {
+    float: right;
+}
+.app_the_food_image_check_icons_right{
+	padding-left:15px;
+}
+.app_the_food_image_heading_left_center h3{
+	font-weight: 700;
+    font-size: 16px;
+}
+.app_the_food_image_button_center{
+	float:right;
+    background-color: #fff;
+    color:rgb(245 91 2);
+    padding: 3px 9px;
+    font-size: 16px;
+    border-color:rgb(245 91 2);
+}
+.app_the_food_image_button_center:active{
+	background-color: rgb(245 91 2);
+	color:#fff;
+}
+.app_the_food_image_check_icons_right_bottom{
+	padding-left:6px;
+}
+.app_the_food_image_button{
+	position:relative;
+	width:100%;
+	height:55px;
+	border:1px solid rgb(245 91 2);
+	border-radius:20px;
+	background-color:rgb(245 91 2);
+	display:inline-block;
+	color:#fff;
+	max-width: 100%;
+	font-size:22px;
+	font-weight:700;
+	text-align:center;
+	margin-top: 25px;
+	margin-bottom:50px;
+}
+.app_the_food_image_button:hover{color:#fff}
+
+
+/*****************
+Profile Page
+*****************/
+
+.app_my_profile .app_content{
+	padding-left:20px;
+}
+.app_my_profile .app_my_profile_icons_bottom {
+	text-align:center;
+}
+.app_my_profile .app_my_profile_icons_bottom img{
+	max-width:30px;
+}
+.app_my_profile .app_my_profile_home img{
+	max-width:40px;	
+}
+.app_my_profile .app_my_profile_icons_text_bottom h4{
+	text-align:center;
+	 margin-top: 8px;
+	color: gray;
+    font-size: 18px;
+	font-weight: 700;
+	letter-spacing:0.5px;
+}
+.app_my_profile .app_my_profile_icons_text_bottom.active h4{
+    color: rgb(245 91 2);
+}
+
+
+/*****************
+My Profile
+*****************/
+
+.app_profile_col_pad{
+	padding-left:10px;
+}
+.app_my_profile_second_heading_left h3{
+	color:#8a8787;
+	font-size:15px;
+}
+.app_my_profile_second_heading_right_name h3{
+	font-size:15px;
+	font-weight:700;
+	padding-left: 25px;
+}
+.app_my_profile_second_heading_right_number h3{
+	font-size:15px;
+	font-weight:700;
+}
+.app_my_profile_second_heading_right_email h3{
+	font-size:15px;
+	font-weight:700;
+}
+.app_my_profile_second_heading_right_icon h3{
+	font-size:15px;
+	font-weight:700;
+}
+.app_my_profile_second_heading_right_icon:before{
+	content: "\f105";
+    font-family: fontAwesome;
+	font-size:20px;
+    position: absolute;
+    right:20px;
+    top: -4px;
+}
+.app_my_profile_second_content_text{
+	padding-top:20px;
+}
+.app_my_profile_icons_left_second{
+	color:#8a8787;
+    font-size: 37px;
+    padding-left: 7px;
+}
+.app_my_profile_icons_text_bottom_second h4{
+	color:#8a8787;
+    font-size: 18px;
+	font-weight: 700;
+}
+.app_my_profile_icons_right_second{
+	color:rgb(245 91 2);
+	font-size: 37px;
+    padding-left: 12px;
+}
+.app_my_profile_icons_text_bottom_right_second h4{
+    color: rgb(245 91 2);
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/*****************
+Personal Detail
+*****************/
+
+.app_personal_detail .app_content{
+	padding: 20px 0 0 20px;
+}
+.app_personal_detail .app_full_btn {
+    margin-top: 80px;
+}
+
+/*******
+  Food
+*******/
+
+.app_hot_food_restaurant{
+	position:relative;
+	float:left;
+	width:100%;
+}
+.app_restaurant{
+	padding:20px;
+	}
+	.app_border_bottom{
+	border:1px solid #eeeeee;
+	margin-top: -45px;
+	}
+.app_nav_bar{
+    height: 100%;
+    margin-right: auto;
+    width:0;
+    position: fixed;
+    z-index:4;
+    top: 0;
+    right: 0;
+    background-color: #fff;
+    transition: all 0.5s;
+    padding-top: 60px;
+	padding-left:15px;
+	visibility:hidden;
+  }
+  .app_nav_bar .app_nav_bar_content{
+	  padding-left:25px;
+  }
+  .app_nav_bar .app_full_btn{
+	  position:fixed;
+	  width:250px;
+	  bottom:20px;
+	  background-color:#f6f4f4;
+	  border-color:#f6f4f4;
+	  color:#000;
+  }
+  .app_nav_bar.active{
+	  width: 280px;
+	  visibility:visible;
+    transition: all 0.5s;
+  }
+ .app_nav_bar h4 {
+    padding-bottom: 30px;
+	color:#929292;
+	font-weight: 800;
+	font-size: 20px;
+	}
+  .app_nav_bar ul{
+	list-style:none;
+    padding: 0;
+  } 
+  .app_nav_bar ul li{
+	padding: 10px 0;
+  } 
+  .app_nav_bar ul li a{
+	color:#000;
+    font-weight: 600;
+	font-size: 16px;
+  } 
+   .app_nav_bar ul li a.active{
+	   color:#f55b02;
+   }
+   .app_bar_icon .app_nav_icon {
+    background-color: transparent;
+    border: none;
+	outline: none;
+	}
+.app_hot_food_restaurant_image img{
+	max-width:100%;
+}
+
+.app_hot_food_restaurant_logo{
+    text-align: center;
+    width: 120px;
+    height: 120px;
+    padding: 20px;
+    margin-top: -72px;
+    background-color: #fff;
+    border-radius: 100%;
+	margin-left:-10px;
+}
+.app_hot_food_restaurant_logo img{
+	max-width: 65%;
+}
+.app_hot_food_restaurant_heading h2{
+	font-size: 22px;
+    font-weight: 700;    
+}
+.app_hot_food_restaurant_heading h3{
+	font-size: 14px;    
+    color: #ccc;
+	
+}
+ .app_bar_icon{
+    font-size: 22px;
+    color: #000;
+    text-align: right;
+}
+.app_hot_food_restaurant_delivery_details{
+	
+    margin-bottom: 10px;
+    margin-top: 15px;
+	display:inline-block;
+	position:relative;
+	clear:both;
+	width:100%;
+}
+.app_hot_food_restaurant_delivery_details ul{
+    position: relative;
+    padding: 0;
+    display: inline-block;
+    width: 100%;
+
+}
+
+.app_hot_food_restaurant_delivery_details ul li {
+    position: relative;
+    display: inline-block;
+    width: 60%;
+    margin-left: 0px;
+	margin-right: 3px;
+}
+.app_hot_food_restaurant_delivery_details ul li:first-child {
+	width: 35%;		
+}
+.app_hot_food_restaurant_delivery_details ul li a {
+    position: relative;
+    float: left;
+    width: 100%;
+    display: block;
+    font-size: 14px;
+    min-height: 42px;
+    color: #ccc;
+}
+.app_hot_food_restaurant_delivery_details ul li a img {
+   max-width: 15px;
+   margin-bottom: 5px;
+   margin-right:2px;
+}
+.app_hot_food_restaurant_delivery_details .app_clock{
+	   
+    color: darkgrey;
+ font-size: 12px;
+	
+}
+.app_hot_food_restaurant_delivery_details .app_clock i{
+	font-size:19px;
+	padding-right: 10px;
+		
+}
+.app_hot_food_restaurant_delivery_details .app_shopping{
+    color: darkgrey;
+   font-size: 12px;
+
+}
+.app_hot_food_restaurant_delivery_details .app_shopping i{
+	font-size:16px;
+	    padding-right: 10px;
+		margin-left: 20px;
+}
+.app_hot_food_restaurant_location{
+	
+
+	display:inline-block;
+	position:relative;
+	clear:both;
+	width:100%;
+}
+.app_hot_food_restaurant_location ul{
+	position: relative;
+    padding: 0;
+    display: inline-block;
+    width: 100%;
+}
+.app_hot_food_restaurant_location ul li {
+    position: relative;
+    display: inline-block;
+    width: 60%;
+    margin-left: 0px;
+	margin-right: 3px;
+} 
+.app_hot_food_restaurant_location ul li:first-child {
+	width: 84%;		
+}
+.app_hot_food_restaurant_location ul li a {
+    display: block;
+    font-size: 14px;
+	font-weight: 700;
+    min-height: 42px;
+    color: #000;
+}
+.app_hot_food_restaurant_location li a img {
+    max-width: 20px;
+    margin-right: 5px;
+}
+.app_delivery_button .app_delivery_pickup_btn_main{
+   float:right;
+}
+.app_delivery_button .app_delivery_pickup_btn{
+		border: 1px solid rgb(245 91 2);
+    color:rgb(245 91 2);
+}
+.app_delivery_button .app_delivery_pickup_btn.active{
+	background-color: rgb(245 91 2);
+    color: #fff;
+}
+.app_category_scroll_button a:focus,
+.app_delivery_button .app_delivery_pickup_btn.btn:focus{
+    box-shadow: none;
+}
+.app_delivery_btn{
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+.app_pickup_btn{
+	border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+.app_hot_food_restaurant_category{
+	position: relative;
+    float: left;
+    width: 100%;
+
+}
+.app_hot_food_restaurant_category h3{
+	font-size: 14px;
+    color: #ccc;
+    font-weight: 600;
+}
+.app_category_scroll_button{
+	position:relative;
+	float:left;
+	width:1000px;
+	
+}
+.app_scroll{
+	overflow-x:scroll;
+}
+.app_category_scroll_button ul{
+	position: relative;
+    padding-left:0;
+    display: inline-block;
+    width: 100%
+}
+.app_category_scroll_button ul li{
+	position: relative;
+    display: inline-block;
+  
+    margin-left: 0px;
+	margin-right: 3px;
+}
+.app_category_scroll_button ul li a{
+	position: relative;
+    float: left;
+    width: 100%;
+    display: inline-block;
+}
+.app_scroll_button{
+	position: relative;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    background-color: #fff;
+    display: inline-block;
+    color: #ccc;
+    max-width: 100%;
+    text-transform: capitalize;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+}
+.app_scroll_button.active{
+    border: 2px solid #03A9F4;
+    border-radius: 20px;
+    background-color: #fff;
+    display: inline-block;
+    color: #03A9F4;
+    max-width: 100%;
+    text-transform: capitalize;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+}
+.app_hot_food_restaurant_bestsellers,.app_hot_food_restaurant_bestsellers_1{
+	position: relative;
+    float: left;
+    width: 100%;
+  
+}
+.app_hot_food_restaurant_bestsellers h4{
+	font-size: 22px;
+    font-weight: 700;
+
+}
+.app_bestsellers_detail{
+	position:relative;
+	float:left;
+	width:100%;
+	
+}
+.app_bestsellers_detail img{
+     border-radius: 18px;
+    margin-top: 20px;
+    width: 100%;
+}
+.app_bestsellers_detail h5{
+	font-size: 15px;
+    font-weight: 700;
+    margin-top: 10px;
+}
+.app_bestsellers_detail h6{
+   color: #ccc;
+    font-size: 13px;
+    font-weight: 500;
+}
+.app_bestseller_foot .app_footer {
+	font-size: 16px;
+    color:rgb(245 91 2);
+    font-weight: 600;
+	padding-right: 2px;
+}
+.app_bestseller_foot span{
+	color:#ccc;
+	font-size:13px;
+}
+.app_add_baset_icon {
+    display: inline-block;
+    float: right;
+}
+.app_bestseller_foot .app_addition_icon i{
+    width: 18px;
+    text-align: center;
+    height: 18px;
+    padding-top: 3px;
+    border-radius: 50%;
+    font-size: 13px;
+    color: #fff;
+    background-color: rgb(245 91 2);
+}
+.app_bestseller_foot .app_minus_icon i{
+	 background-color:#f6f4f4;
+	 color: #000; 
+}
+ .app_food_grid .app_basket_quantity{
+	font-size:15px;
+	font-weight:600;
+	color:#000;
+}
+.app_bestsellers_detail img,
+.app_bestseller_foot{
+	margin-bottom: 30px;
+}
+.app_hot_food_restaurant_bestsellers_1{
+	border-top: 4px solid #f0ebeb;
+}
+.app_hot_food_restaurant_bestsellers_1 h4{
+	font-size: 22px;
+    font-weight: 700;
+	margin-top: 20px;
+}
+.app_basket_btn_submit .app_full_btn.app_add_basket_btn {
+    position: fixed;
+    bottom: 15px;
+    width: calc(100% - 30px);
+    left: 15px;
+    right: 15px;
+}
+.app_basket_btn_submit img{
+	max-width: 28px;
+    padding-bottom: 5px;
+    position: absolute;
+    left: 50px;
+}
+.app_basket_btn_submit span {
+    position: absolute;
+    left: 62px;
+    font-size: 12px;
+    top: 32px;
+    width: 18px;
+    height: 18px;
+    background-color: #fff;
+    border-radius: 100%;
+    color: rgb(245 91 2);
+}
+/****************Order Placed****************/
+.app_order_placed{
+	position: relative;
+    float: left;
+    width: 100%;
+    
+    background-color: rgb(245 91 2);
+}
+.app_order{
+	padding: 20px;
+}
+.app_order_placed_banner{
+	position: relative;
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    border: 1px solid rgb(245 91 2);
+    border-radius: 100%;
+    background-color: #fff;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+.app_order_placed_banner .app_inner_circle_icon{
+	position: absolute;
+    border-radius: 50%;
+    top: 20%;
+    left: 20%;
+    border: 2px solid #fd7e14;
+    padding: 15px;
+    color: #fd7e14;
+    font-size: 26px;
+}
+.app_order_placed_header{
+	position:relative;
+	float:left;
+	width:100%;
+	    margin-bottom: 35px;
+}
+.app_order_placed_header h2{
+	font-size: 22px;
+    color: #fff;
+    font-weight: 700;
+}
+.app_order_placed_header p{
+	color: #fff;
+    font-size: 15px;
+    font-weight: 500;
+}
+.app_order_progress_detail{
+	position:relative;
+	float:left;
+	width:100%;
+}
+
+.StepProgress {
+  position: relative;
+  padding-left: 45px;
+  list-style: none;
+  font-size: 18px;
+    color: lightsalmon;
+}
+.StepProgress::before {
+ display: inline-block;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 15px;
+    width: 10px;
+    height: 97%;
+  border-left: 2px solid #4e526a;
+}
+.StepProgress-item {
+  position: relative;
+
+}
+.StepProgress-item:not(:last-child) {
+  padding-bottom: 50px;
+}
+.StepProgress-item::before {
+  display: inline-block;
+  content: '';
+  position: absolute;
+  left: -30px;
+  height: 100%;
+  width: 10px;
+}
+
+.StepProgress-item::after {
+  content: '';
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: -38px;
+    width: 19px;
+    height: 18px;
+    border-left: 2px solid #4e526a;
+    border-radius: 50%;
+    background-color:#4e526a;
+}
+.StepProgress-item.is-done::before {
+ border-left: 2px solid #ffff;
+}
+.StepProgress-item.is-done::after {
+    content: "";
+    font-size: 10px;
+    color: #FFF;
+    text-align: center;
+    border: 2px solid #fff;
+    background-color: #ffff;
+    width: 19px;
+    height: 18px;
+    left: -38px;
+}
+.StepProgress-item.current{
+	color:#fff;
+}
+.StepProgress-item.current::before {
+    border-left: 2px solid #4e526a;
+}
+.StepProgress-item.current::after {
+   content: url(.\assets/img/down-arrow.png);
+   font-family:FontAwesome;
+    padding-top: 1px;
+    width: 19px;
+    height: 18px;
+    top: -4px;
+    left: -38px;
+    font-size: 18px;
+    text-align: center;
+    /* color: green; */
+   border: 2px solid #f55b02;
+    background-color: #f55b02;
+}
+.StepProgress strong {
+  display: block;
+}
+.StepProgress-item_1{
+	padding-bottom:50px;
+}
+.app_order_delivery{
+	border-top-left-radius: 20px;
+    position: relative;
+    width: 100%;
+    float: left;
+    background-color: #fff;
+    border-top-right-radius: 20px;
+}
+.app_order_delivery_status{
+	text-align: center;
+    position: relative;
+    float: none;
+    width: 230px;
+    display: block;
+    margin: auto;
+}
+.app_order_delivery_status span.app_upward_line{
+	position: relative;
+    float: none;
+    width: 40%;
+    border-top: 5px solid #f3efef;
+    height: 1px;
+    display: inline-block;
+}
+.app_order_delivery_status_details h3{
+	font-size: 14px;
+    color: #ccc;
+    font-weight: 500;
+}
+.app_order_delivery_status_details_header h4{
+	    font-size: 16px;
+    font-weight: 700;
+}
+

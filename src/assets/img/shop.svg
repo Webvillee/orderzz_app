@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 25" width="200" height="180">
+	<style>
+		tspan { white-space:pre }
+		.shp0 { fill: none;stroke: #8a94a3;stroke-linecap:round;stroke-width: 2 } 
+	</style>
+	<g id="shop">
+		<path id="Path" class="shp0" d="M6 14L6 23L22 23L22 14" />
+		<path id="Path" class="shp0" d="M6 3L3 8C3 9.39 3.95 10.6 5.3 10.92C6.65 11.24 8.04 10.59 8.67 9.35C9.17 10.36 10.2 11 11.33 11C12.46 11 13.5 10.36 14 9.35C14.5 10.36 15.54 11 16.67 11C17.8 11 18.83 10.36 19.33 9.35C19.95 10.59 21.35 11.24 22.7 10.92C24.05 10.6 25 9.39 25 8L22 3L6 3Z" />
+		<path id="Path" class="shp0" d="M12 23L12 17L16 17L16 23" />
+	</g>
+</svg>

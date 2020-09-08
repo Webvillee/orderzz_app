@@ -1,0 +1,22 @@
+<svg width="24" height="24.01185" xmlns="http://www.w3.org/2000/svg">
+ <title/>
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <path id="svg_1" stroke-linejoin="round" stroke-linecap="round" stroke="#000" fill="none" d="m18.81681,0.78579l-1.07828,1.472a0.2,0.2 0 0 1 -0.32314,-0.00063l-1.07462,-1.479a0.2,0.2 0 0 0 -0.32338,-0.0003l-1.07406,1.47246a0.2,0.2 0 0 1 -0.32262,0.00074l-1.07259,-1.45635a0.2,0.2 0 0 0 -0.32329,0.00167l-1.07583,1.49271a0.2,0.2 0 0 1 -0.32332,0.00163l-1.10353,-1.49906a0.2,0.2 0 0 0 -0.3224,0.00034l-1.0737,1.46579a0.2,0.2 0 0 1 -0.32315,-0.00063l-1.07457,-1.47899a0.2,0.2 0 0 0 -0.32338,-0.0003l-1.07406,1.47245a0.2,0.2 0 0 1 -0.32262,0.00074l-1.0761,-1.46106a0.2,0.2 0 0 0 -0.32085,-0.00164l-1.29675,1.72349l0,21l16.97086,0l0,-21l-1.34956,-1.73085a0.2,0.2 0 0 0 -0.31906,0.00479z"/>
+  <line id="svg_2" y2="19.53635" y1="19.53635" x2="13.5091" x1="6.4993" stroke-linejoin="round" stroke-linecap="round" stroke="#000" fill="none"/>
+  <line id="svg_3" y2="16.53605" y1="16.53605" x2="13.5091" x1="6.4993" stroke-linejoin="round" stroke-linecap="round" stroke="#000" fill="none"/>
+  <path id="svg_4" stroke-linejoin="round" stroke-linecap="round" stroke="#000" fill="none" d="m16.5091,19.53635"/>
+  <path id="svg_5" stroke-linejoin="round" stroke-linecap="round" stroke="#000" fill="none" d="m16.5091,16.536"/>
+  <line id="svg_6" y2="19.53635" y1="19.53635" x2="17.5091" x1="16.4993" stroke-linejoin="round" stroke-linecap="round" stroke="#000" fill="none"/>
+  <line id="svg_7" y2="16.53605" y1="16.53605" x2="17.5091" x1="16.4993" stroke-linejoin="round" stroke-linecap="round" stroke="#000" fill="none"/>
+  <path id="svg_8" stroke-linejoin="round" stroke-linecap="round" stroke="#000" fill="none" d="m6.89927,11.21371a2.65035,2.65035 0 0 0 1.53286,0.63916a1.27589,1.27589 0 0 0 1.35228,-1.18236c0,-0.653 -0.64647,-0.976 -1.35228,-1.18235c-0.73155,-0.22925 -1.35236,-0.52933 -1.35236,-1.18236a1.276,1.276 0 0 1 1.35236,-1.18236a1.39541,1.39541 0 0 1 1.17467,0.59613"/>
+  <line id="svg_9" y2="7.12344" y1="6.47727" x2="8.43213" x1="8.43213" stroke-linejoin="round" stroke-linecap="round" stroke="#000" fill="none"/>
+  <line id="svg_10" y2="12.49905" y1="11.85288" x2="8.43213" x1="8.43213" stroke-linejoin="round" stroke-linecap="round" stroke="#000" fill="none"/>
+  <rect id="svg_11" width="24" height="24" fill="none"/>
+ </g>
+</svg>

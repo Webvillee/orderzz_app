@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 27" width="40" height="45">
+	<style>
+		tspan { white-space:pre }
+		.shp0 { fill: none;stroke: #8a94a3;stroke-linecap:round;stroke-width: 2 } 
+	</style>
+	<g id="receipt-list-43 (1)">
+		<path id="Path" class="shp0" d="M3 3L21 3L21 24L18 22L15 24L12 22L9 24L6 22L3 24L3 3Z" />
+		<path id="Path" class="shp0" d="M7 9L12 9" />
+		<path id="Path" class="shp0" d="M16 9L17 9" />
+		<path id="Path" class="shp0" d="M7 13L12 13" />
+		<path id="Path" class="shp0" d="M16 13L17 13" />
+		<path id="Path" class="shp0" d="M7 17L12 17" />
+		<path id="Path" class="shp0" d="M16 17L17 17" />
+	</g>
+</svg>
