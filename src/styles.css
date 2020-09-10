@@ -1,1 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.res_plansList .custom_radio {
+    display: inline-block;
+    margin-right: 15px;
+    position: relative;
+}
+.res_plansList .custom_radio > input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+.res_plansList .custom_radio .cr_content .btn {
+    background: #e0e0e0;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 8px 27px;
+}
+.res_plansList .custom_radio > input:checked + .cr_content .btn {
+    background: #ff5656;
+    color: #fff;
+}
+.compulsaryValidate{
+    color:red
+}
+.textCapitalize{
+    text-transform: capitalize;
+  }
+  .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    padding: 5px 4px !important;
+    max-height: 60px !important;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    padding: 5px 5px!important;
+}
+.select2-container--default .select2-search--inline .select2-search__field {
+    padding-top: 6px !important;
+}

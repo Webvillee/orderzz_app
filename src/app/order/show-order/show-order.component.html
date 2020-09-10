@@ -1,7 +1,9 @@
 
-	<div *ngIf="condition; else elseBlock">
+	<div *ngIf="themeCondition; else elseBlock">
 
+		
 		<div class="app_hot_food_restaurant">
+			<!-- sidebar open -->
 			<div class="app_nav_bar">
 				<div class="app_nav_bar_content">
 					<h4>Menu Options</h4>
@@ -13,27 +15,32 @@
 				</div>
 				<a href="#" class="app_full_btn">Sign Out</a>
 			</div>
+			<!-- sidebar close -->
+
+			<!-- order section open -->
 			<div class="app_container">
 				<div class="app_hot_food_restaurant_image">
-					<img src="assets/img/food1.jpg">
+					<img *ngIf="!banner" src="assets/img/food1.jpg">
+				    <img *ngIf="banner" height="150px" width="150px" src="{{img_url}}{{banner}}" alt="item Image" class="image_adjust">
 				</div>
 				<div class="app_restaurant">
 					<div class="row">
 						<div class="col-6">
 							<div class="app_hot_food_restaurant_logo">
-								<img src="assets/img/food_logo.png">
+								<img *ngIf="!logo" src="assets/img/food_logo.png">
+								<img *ngIf="logo" height="150px" width="150px" src="{{img_url}}{{logo}}" alt="item Image" class="image_adjust">
 							</div>		   
 						</div>
 						<div class="col-6"></div>
 						<div class="col-10">   
 							<div class="app_hot_food_restaurant_heading">
-									<h2>Hot & Food Restaurant</h2>	
-									<h3>78th Street. 88 W 21th St, NY</h3>
+									<h2>{{restName}}</h2>	
+									<h3>{{restAddress}}</h3>
 							</div>
 							<div class="app_hot_food_restaurant_delivery_details">
 								<ul>
 									<li><a href="#"><img src="assets/img/clock.svg"> 30-45 min</a></li>
-									<li><a href="#"><img src="assets/img/shopping_bag.svg">AED 50 minimum order</a></li>
+									<li><a href="#"><img src="assets/img/shopping_bag.svg">AED  {{minimumOrderValue}} Minimum Value</a></li>
 								</ul>
 							</div>		
 						</div>
@@ -50,7 +57,7 @@
 						<div class="col-6">
 							<div class="app_hot_food_restaurant_location">
 								<ul>
-									<li><a href="#"><img src="assets/img/position_pin.svg">9 West 46th Street, New</a></li>
+									<li><a href="#"><img src="assets/img/position_pin.svg">{{customer_address}}</a></li>
 								</ul>
 							</div>
 						</div>
@@ -141,12 +148,15 @@
 					</div>
 				</div>
 			</div>
+			<!-- order section close -->
+
 		</div>
 
 	</div>
 	<ng-template #elseBlock>
 
 		<div class="app_hot_food_restaurant app_food_grid">
+			<!-- sidebar open -->
 			<div class="app_nav_bar">
 				<div class="app_nav_bar_content">
 					<h4>Menu Options</h4>
@@ -158,27 +168,32 @@
 				</div>
 				<a href="#" class="app_full_btn">Sign Out</a>
 			</div>
+			<!-- sidebar close -->
+
+			<!-- order section open -->
 			<div class="app_container">
 				<div class="app_hot_food_restaurant_image">
-					<img src="assets/img/food1.jpg">
+					<img *ngIf="!banner" src="assets/img/food1.jpg">
+				    <img *ngIf="banner" height="150px" width="150px" src="{{img_url}}{{banner}}" alt="item Image" class="image_adjust">
 				</div>
 				<div class="app_restaurant">
 					<div class="row">
 						<div class="col-6">
 							<div class="app_hot_food_restaurant_logo">
-								<img src="assets/img/food_logo.png">
-							</div>		   
+								<img *ngIf="!logo" src="assets/img/food_logo.png">
+								<img *ngIf="logo" height="150px" width="150px" src="{{img_url}}{{logo}}" alt="item Image" class="image_adjust">
+							</div>
 						</div>
 						<div class="col-6"></div>
 						<div class="col-10">   
 							<div class="app_hot_food_restaurant_heading">
-									<h2>Hot & Food Restaurant</h2>	
-									<h3>78th Street. 88 W 21th St, NY</h3>
+								<h2>{{restName}}</h2>	
+								<h3>{{restAddress}}</h3>
 							</div>
 							<div class="app_hot_food_restaurant_delivery_details">
 								<ul>
 									<li><a href="#"><img src="assets/img/clock.svg"> 30-45 min</a></li>
-									<li><a href="#"><img src="assets/img/shopping_bag.svg">AED 50 minimum order</a></li>
+									<li><a href="#"><img src="assets/img/shopping_bag.svg">AED {{minimumOrderValue}} Minimum Value</a></li>
 								</ul>
 							</div>		
 						</div>
@@ -195,7 +210,7 @@
 						<div class="col-6">
 							<div class="app_hot_food_restaurant_location">
 								<ul>
-									<li><a href="#"><img src="assets/img/position_pin.svg">9 West 46th Street, New</a></li>
+									<li><a href="#"><img src="assets/img/position_pin.svg">{{customer_address}}</a></li>
 								</ul>
 							</div>
 						</div>
@@ -316,6 +331,8 @@
 					</div>
 				</div>
 			</div>
+			<!-- order section close -->
+
 		</div>
 		
 	</ng-template>

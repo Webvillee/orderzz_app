@@ -1,0 +1,19 @@
+<svg width="999.9999999999999" height="999.9999999999999" xmlns="http://www.w3.org/2000/svg">
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <circle fill="#666666" id="svg_3" r="85.2" cy="743.8" cx="500" class="st1"/>
+  <circle fill="#666666" id="svg_5" r="79.1" cy="679.1" cx="322.7" class="st1"/>
+  <circle fill="#666666" id="svg_7" r="72.9" cy="518" cx="229.2" class="st1"/>
+  <ellipse fill="#666666" id="svg_9" transform="matrix(0.7071,-0.7071,0.7071,0.7071,-156.2596,282.0392) " ry="66.8" rx="66.8" cy="329.6" cx="262.3" class="st1"/>
+  <ellipse fill="#666666" id="svg_11" transform="matrix(0.9239,-0.3827,0.3827,0.9239,-49.8179,170.6118) " ry="60.7" rx="60.7" cy="210.5" cx="404" class="st1"/>
+  <circle fill="#666666" id="svg_13" r="54.5" cy="210.5" cx="596" class="st1"/>
+  <ellipse fill="#666666" id="svg_15" transform="matrix(0.9239,-0.3827,0.3827,0.9239,-69.9956,307.3893) " ry="48.4" rx="48.4" cy="329.6" cx="737.7" class="st1"/>
+  <circle fill="#666666" id="svg_17" r="42.3" cy="518" cx="770.8" class="st1"/>
+  <circle fill="#666666" id="svg_19" r="36.1" cy="679.1" cx="677.3" class="st1"/>
+ </g>
+</svg>

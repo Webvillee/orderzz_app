@@ -3,17 +3,21 @@
 	<div class="app_container">
 		<div class="app_row">
 			<div class="app_banner_image">
-				<img src="assets/img/food_logo.png" alt="">
+				<!-- <img src="assets/img/food_logo.png" alt=""> -->
+				
+				<img *ngIf="!logo" src="assets/img/food_logo.png">
+				<img *ngIf="logo" height="150px" width="150px" src="{{img_url}}{{logo}}" alt="item Image" class="image_adjust">
+											
 			</div>
 			<div class="app_banner_caption">
-				<h1 class="app_heading">welcome to hotfood</h1>
-				<p class="app_content">Duis aute irure dolor in reprehenderit <br>in voluptate velit esse cillum dolore <br>eu fugiat<p>
+				<h1 class="app_heading">welcome to {{restName}}</h1>
+				<p class="app_content">{{restDescription}}<p>
 			</div>
 			<div class="app_social_icon">
 				<ul>
-					<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-					<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-					<li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+					<li><a href="{{facebookId}}"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+					<li><a href="{{instaId}}"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+					<li><a href="{{linkeinId}}"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
 				</ul>
 			</div>
 				<a [routerLink]="['/location']"  class="btn app_full_btn">next<img src="assets/img/arrow.svg" alt=""></a> 

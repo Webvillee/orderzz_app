@@ -11,11 +11,8 @@ export class OrderService {
   constructor(private http: HttpClient) { }
   uri = UrlSetting.uri; 
 
-  get_restaurant_data(slugId){
-    const obj = {
-      slugId:slugId,
-    };
-    return this.http.post<any>(`${this.uri}/get_restaurant_data`, obj);
+  get_restaurant_data(data){
+    return this.http.post<any>(`${this.uri}/get_restaurant_details`, data);
   }
 
 }

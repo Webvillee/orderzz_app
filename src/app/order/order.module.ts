@@ -9,6 +9,9 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { ShowLocationComponent } from './show-location/show-location.component';
 import { HeaderComponent } from './header/header.component';
 import { ShowOrderComponent } from './show-order/show-order.component';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+
+import { AgmCoreModule } from '@agm/core';            // @agm/core
 
 // const routes: Routes = [
 //   {
@@ -31,10 +34,13 @@ const routes: Routes = [
     path: '',
     component: OrderComponent,
     children: [
-      {path: '',redirectTo:'/welcome', pathMatch: 'full'},
-      {path: 'welcome',component:WelcomeComponent},
+     // {path: '',redirectTo:'/welcome', pathMatch: 'full'},
+    //  {path: 'welcome',component:WelcomeComponent},
       {path: 'location', component:ShowLocationComponent},
       {path: 'order', component:ShowOrderComponent},
+      {path: 'not-found',component:PagenotfoundComponent},
+      {path: ':id',component:WelcomeComponent},
+      {path: '**', component:PagenotfoundComponent},
 
     ]
   }
@@ -47,10 +53,12 @@ const routes: Routes = [
     ShowLocationComponent,
     HeaderComponent,
     ShowOrderComponent,
+    PagenotfoundComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
+    AgmCoreModule,
     SharedModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes)

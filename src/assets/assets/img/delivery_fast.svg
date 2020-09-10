@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 19" width="40" height="36">
+	<style>
+		tspan { white-space:pre }
+		.shp0 { fill: none;stroke: #8a94a3;stroke-linecap:round } 
+	</style>
+	<g id="delivery-fast">
+		<path id="Path" class="shp0" d="M6.75 10.5L4.5 10.5" />
+		<path id="Path" class="shp0" d="M6.75 14.25L6 14.25" />
+		<path id="Path" class="shp0" d="M15.62 15L19.5 15L19.5 10.5L16.5 9L15.75 6L9.75 6L9.75 15L11.38 15" />
+		<path id="Path" class="shp0" d="M3 6.75L6.75 6.75" />
+		<path id="Path" class="shp0" d="M3 3L9.75 3L9.75 6" />
+		<path id="Oval" class="shp0" d="M13.5 18C12.26 18 11.25 16.99 11.25 15.75C11.25 14.51 12.26 13.5 13.5 13.5C14.74 13.5 15.75 14.51 15.75 15.75C15.75 16.99 14.74 18 13.5 18Z" />
+		<path id="Path" class="shp0" d="M12.75 8.25L12.75 9.75L14.25 9.75" />
+	</g>
+</svg>
