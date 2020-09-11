@@ -21,14 +21,14 @@
 			<div class="app_container">
 				<div class="app_hot_food_restaurant_image">
 					<img *ngIf="!banner" src="assets/img/food1.jpg">
-				    <img *ngIf="banner" height="150px" width="150px" src="{{img_url}}{{banner}}" alt="item Image" class="image_adjust">
+				    <img *ngIf="banner"  src="{{img_url}}{{banner}}" alt="item Image" class="image_adjust">
 				</div>
 				<div class="app_restaurant">
 					<div class="row">
 						<div class="col-6">
 							<div class="app_hot_food_restaurant_logo">
 								<img *ngIf="!logo" src="assets/img/food_logo.png">
-								<img *ngIf="logo" height="150px" width="150px" src="{{img_url}}{{logo}}" alt="item Image" class="image_adjust">
+								<img *ngIf="logo" src="{{img_url}}{{logo}}" alt="item Image" class="image_adjust">
 							</div>		   
 						</div>
 						<div class="col-6"></div>
@@ -74,84 +74,54 @@
 								  <h3>Categories</h3>
 							   </div>
 						</div>
+
 						<div class="col-12 app_scroll">
 							<div class="app_category_scroll_button">
-								<ul>
-									<li><a href="#" class="btn app_scroll_button active">Bestsellers</a></li>
-									<li><a href="#" class="btn app_scroll_button">Starters</a></li>
-									<li><a href="#" class="btn app_scroll_button">Snacks</a></li>
-									<li><a href="#" class="btn app_scroll_button">Starters</a></li>
-									<li><a href="#" class="btn app_scroll_button">Snacks</a></li>
-								</ul>
+								<ng-container *ngIf="getCategoryData">
+									<ul>
+										<li  *ngFor="let catData of getCategoryData">
+											<a (click)="findItem(catData)" class="btn app_scroll_button active">{{catData.cate_name}}</a>
+										</li> &nbsp;
+									</ul>
+								</ng-container>
 							</div>
 						</div>
 						<div class="col-12">
 							<div class="app_hot_food_restaurant_bestsellers">
-							   <h4>Bestsellers</h4>
+							   <h4>{{catName}}</h4>
 							</div>
 						</div>
-						<div class="col-6">
-							<div class="app_bestsellers_detail">
-								<img src="./assets/img/biryani.jpg">
-								<h5>Hamburger Lover</h5>
-								<h6>Freshly chopped veg noodles Japanese</h6>
-								<div class="app_bestseller_foot">
-								  <span class="app_footer">24 AED</span>
-								  <span><del>30 AED</del></span>
-								  <span class="app_addition_icon"><i class="fa fa-plus" aria-hidden="true"></i></span>
+						<ng-container *ngIf="getItemData">
+							<div class="col-12">
+								<div class="app_bestsellers_detail">
+										<div class="row" *ngFor="let itemData of getItemData"> 
+											<div class="col-4">
+												<!-- <img src="{{img_url}}{{itemData.item_image}}"> -->
+												<!-- <img *ngIf="!banner" src="assets/img/biryani.jpg"> -->
+												<img src="{{img_url}}{{itemData.item_image}}" alt="item Image" class="image_adjust">
+												
+
+											</div>
+											<div class="col-8">
+												<h5>{{itemData.item_name}}</h5>
+												<h6>{{itemData.item_description}}</h6>
+												<div class="app_bestseller_foot">
+												<span class="app_footer">{{itemData.price}} AED</span>
+												<span><del>{{itemData.price}} AED</del></span>
+												<div class="app_add_baset_icon">
+													<span class="app_addition_icon"><i class="fa fa-plus" aria-hidden="true"></i></span>
+												</div>
+												</div>
+											</div>
+										</div>
 								</div>
 							</div>
-						</div>
-						<div class="col-6">
-							<div class="app_bestsellers_detail">
-									<img src="./assets/img/biryani.jpg">
-									<h5>Hamburger Lover</h5>
-									<h6>Freshly chopped veg noodles Japanese</h6>
-									<div class="app_bestseller_foot">
-									  <span class="app_footer">24 AED</span>
-									  <span><del>30 AED</del></span>
-									  <span class="app_addition_icon"><i class="fa fa-plus" aria-hidden="true"></i></span>
-									</div>
-							</div>
-						</div>
-						<div class="col-12">
-								<div class="app_hot_food_restaurant_bestsellers_1">
-								   <h4>Starters</h4>
-								</div>
-						</div>
-						<div class="col-6">
-							<div class="app_bestsellers_detail">
-									<img src="./assets/img/biryani.jpg">
-									<h5>Hamburger Lover</h5>
-									<h6>Freshly chopped veg noodles Japanese</h6>
-									<div class="app_bestseller_foot">
-									  <span class="app_footer">24 AED</span>
-									  <span><del>30 AED</del></span>
-									  <span class="app_addition_icon"><i class="fa fa-plus" aria-hidden="true"></i></span>
-									</div>
-									
-							</div>
-						</div>
-						<div class="col-6">
-							<div class="app_bestsellers_detail">
-								<img src="./assets/img/biryani.jpg">
-								<h5>Hamburger Lover</h5>
-								<h6>Freshly chopped veg noodles Japanese</h6>
-								<div class="app_bestseller_foot">
-								  <span class="app_footer">24 AED</span>
-								  <span><del>30 AED</del></span>
-								  <span class="app_addition_icon"><i class="fa fa-plus" aria-hidden="true"></i></span>
-								</div>
-								
-							</div>	
-						</div>
+					    </ng-container>
 					</div>
 				</div>
 			</div>
 			<!-- order section close -->
-
 		</div>
-
 	</div>
 	<ng-template #elseBlock>
 
@@ -174,14 +144,14 @@
 			<div class="app_container">
 				<div class="app_hot_food_restaurant_image">
 					<img *ngIf="!banner" src="assets/img/food1.jpg">
-				    <img *ngIf="banner" height="150px" width="150px" src="{{img_url}}{{banner}}" alt="item Image" class="image_adjust">
+				    <img *ngIf="banner" src="{{img_url}}{{banner}}" class="image_adjust">
 				</div>
 				<div class="app_restaurant">
 					<div class="row">
 						<div class="col-6">
 							<div class="app_hot_food_restaurant_logo">
 								<img *ngIf="!logo" src="assets/img/food_logo.png">
-								<img *ngIf="logo" height="150px" width="150px" src="{{img_url}}{{logo}}" alt="item Image" class="image_adjust">
+								<img *ngIf="logo"  src="{{img_url}}{{logo}}"  class="image_adjust">
 							</div>
 						</div>
 						<div class="col-6"></div>
@@ -229,41 +199,46 @@
 						</div>
 						<div class="col-12 app_scroll">
 							<div class="app_category_scroll_button">
-								<ul>
-									<li><a href="#" class="btn app_scroll_button active">Bestsellers</a></li>
-									<li><a href="#" class="btn app_scroll_button">Starters</a></li>
-									<li><a href="#" class="btn app_scroll_button">Snacks</a></li>
-									<li><a href="#" class="btn app_scroll_button">Starters</a></li>
-									<li><a href="#" class="btn app_scroll_button">Snacks</a></li>
-								</ul>
+								<ng-container *ngIf="getCategoryData">
+									<ul>
+										<li  *ngFor="let catData of getCategoryData">
+											<a (click)="findItem(catData)" class="btn app_scroll_button active">{{catData.cate_name}}</a>
+										</li> &nbsp;
+									</ul>
+								</ng-container>
 							</div>
 						</div>
 						<div class="col-12">
 							<div class="app_hot_food_restaurant_bestsellers">
-							   <h4>Bestsellers</h4>
+							   <h4>{{catName}}</h4>
 							</div>
 						</div>
-						<div class="col-12">
-							<div class="app_bestsellers_detail">
-								<div class="row">
-									<div class="col-4">
-										<img src="assets/img/biryani.jpg">
-									</div>
-									<div class="col-8">
-										<h5>Hamburger Lover</h5>
-										<h6>Freshly chopped veg noodles Japanese</h6>
-										<div class="app_bestseller_foot">
-										  <span class="app_footer">24 AED</span>
-										  <span><del>30 AED</del></span>
-										  <div class="app_add_baset_icon">
-											<span class="app_addition_icon"><i class="fa fa-plus" aria-hidden="true"></i></span>
-										  </div>
+						<ng-container *ngIf="getItemData">
+							<div class="col-12">
+								<div class="app_bestsellers_detail">
+									<div class="row" *ngFor="let itemData of getItemData"> 
+										<div class="col-4">
+											<!-- <img src="{{img_url}}{{itemData.item_image}}"> -->
+											<!-- <img *ngIf="!banner" src="assets/img/biryani.jpg"> -->
+											<img src="{{img_url}}{{itemData.item_image}}" alt="item Image" class="image_adjust">
+										</div>
+										<div class="col-8">
+											<h5>{{itemData.item_name}}</h5>
+											<h6>{{itemData.item_description}}</h6>
+											<div class="app_bestseller_foot">
+											<span class="app_footer">{{itemData.price}} AED</span>
+											<span><del>{{itemData.price}} AED</del></span>
+											<div class="app_add_baset_icon">
+												<span class="app_addition_icon"><i class="fa fa-plus" aria-hidden="true"></i></span>
+											</div>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="col-12">
+					    </ng-container>
+
+						<!-- <div class="col-12">
 							<div class="app_bestsellers_detail">
 								<div class="row">
 									<div class="col-4">
@@ -327,7 +302,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>

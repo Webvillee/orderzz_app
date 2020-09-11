@@ -23,6 +23,11 @@ export class ShowOrderComponent implements OnInit {
   minimumOrderValue
   img_url = UrlSetting.image_uri
 
+  getCategoryData: any;
+  catId
+  menuId
+  restId
+
   constructor( private route: ActivatedRoute, private router: Router,private orderService: OrderService ) { 
   
     if( localStorage.getItem('rest_id')==null ){
@@ -36,11 +41,12 @@ export class ShowOrderComponent implements OnInit {
     }
 
     this.get_all_rest_data()
+    this.get_all_category()
+
     
   }
 
   get_all_rest_data(){
-
       const obj = {
         restId:CryptoJS.AES.decrypt(localStorage.getItem('rest_id'),'').toString(CryptoJS.enc.Utf8)
       };
@@ -60,11 +66,7 @@ export class ShowOrderComponent implements OnInit {
           this.restAddress = res.data.rest_full_address
           this.minimumOrderValue = res.data.minimum_order_value
 
-          console.log(this.banner)
-          console.log(this.logo)
-          console.log(this.restName)
-          console.log(this.restAddress)
-          console.log(this.minimumOrderValue)
+         
 
           // this.minimum_order_value = res.data.end_delevery_time
           // this.themeColor = res.data.theme_color
@@ -73,10 +75,49 @@ export class ShowOrderComponent implements OnInit {
           this.router.navigate(['/not-found'])
         }
       });
-    
   }
   
 
+  get_all_category(){
+    const obj = {
+      restId:CryptoJS.AES.decrypt(localStorage.getItem('rest_id'),'').toString(CryptoJS.enc.Utf8)
+    };
+
+    this.orderService.get_all_category(obj).subscribe((res) => {
+      if (res.status == 200) {
+        this.getCategoryData = res.data
+      } else {
+        this.router.navigate(['/not-found'])
+      }
+    });
+  
+  }
+
+  getItemData
+  catName
+  findItem(catData){
+    this.catId=catData._id
+    this.menuId=catData.menu_id
+    this.restId=catData.rest_id
+    this.catName=catData.cate_name
+    const obj = {
+      catId: this.catId,
+      menuId: this.menuId,
+      restId: this.restId,
+    };
+    this.orderService.get_all_item(obj).subscribe((res) => {
+      console.log(res)
+      if (res.status == 200) {
+        this.getItemData = res.data.item
+        console.log(this.getItemData)
+      } else if (res.status == 201){
+        this.getItemData =[]
+      }else{
+        this.router.navigate(['/not-found'])
+      }
+    });
+  }
+  
   ngOnInit(): void {
   }
 

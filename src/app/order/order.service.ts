@@ -15,4 +15,11 @@ export class OrderService {
     return this.http.post<any>(`${this.uri}/get_restaurant_details`, data);
   }
 
+  get_all_category(data){
+    return this.http.post<any>(`${this.uri}/get_all_category`, data);
+  }
+
+  get_all_item(data){
+    return this.http.post<any>(`${this.uri}/get_all_Item`, data);
+  }
 }
