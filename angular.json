@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "orderzzApp"
+    }
+  },
+  "defaultProject": "orderzzApp",
+  "cli": {
+    "analytics": false
+  }
 }

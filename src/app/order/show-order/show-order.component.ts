@@ -12,7 +12,6 @@ import * as CryptoJS from 'crypto-js'
   styleUrls: ['./show-order.component.css']
 })
 export class ShowOrderComponent implements OnInit {
-
   themeCondition
   themeView
   customer_address
@@ -26,7 +25,9 @@ export class ShowOrderComponent implements OnInit {
   getCategoryData: any;
   catId
   menuId
-  restId
+  restId;
+  orderCount;
+  itemArray=[];
 
   constructor( private route: ActivatedRoute, private router: Router,private orderService: OrderService ) { 
   
@@ -42,8 +43,6 @@ export class ShowOrderComponent implements OnInit {
 
     this.get_all_rest_data()
     this.get_all_category()
-
-    
   }
 
   get_all_rest_data(){
@@ -117,6 +116,27 @@ export class ShowOrderComponent implements OnInit {
         this.router.navigate(['/not-found'])
       }
     });
+  }
+
+
+  addToCart(itemData){
+    // console.log(itemData, 'itemDatakkkkk');
+    this.itemArray.push(itemData._id);
+    // console.log(this.itemArray);
+   
+  }
+  countOrder(id){
+    var count = (input, arr) => arr.filter(x => x === input).length;
+    // console.log (count(id, this.itemArray));
+    return count(id, this.itemArray);
+  }
+
+  removeToCart(value){
+      var index = this.itemArray.indexOf(value);
+      if (index > -1) {
+        this.itemArray.splice(index, 1);
+      }
+      return this.itemArray;
   }
   
   ngOnInit(): void {

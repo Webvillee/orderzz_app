@@ -98,6 +98,7 @@
 											<div class="col-4">
 												<!-- <img src="{{img_url}}{{itemData.item_image}}"> -->
 												<!-- <img *ngIf="!banner" src="assets/img/biryani.jpg"> -->
+												<span *ngIf="itemData.add_lable!=3" class="image_title_sec">{{(itemData.add_lable===1)? 'New':  (itemData.add_lable===2)? 'Signature' : ''}}</span>
 												<img src="{{img_url}}{{itemData.item_image}}" alt="item Image" class="image_adjust">
 												
 
@@ -220,6 +221,7 @@
 										<div class="col-4">
 											<!-- <img src="{{img_url}}{{itemData.item_image}}"> -->
 											<!-- <img *ngIf="!banner" src="assets/img/biryani.jpg"> -->
+											<span *ngIf="itemData.add_lable!=3" class="image_title_sec">{{(itemData.add_lable===1)? 'New':  (itemData.add_lable===2)? 'Signature' : ''}}</span>
 											<img src="{{img_url}}{{itemData.item_image}}" alt="item Image" class="image_adjust">
 										</div>
 										<div class="col-8">
@@ -227,15 +229,24 @@
 											<h6>{{itemData.item_description}}</h6>
 											<div class="app_bestseller_foot">
 											<span class="app_footer">{{itemData.price}} AED</span>
-											<span><del>{{itemData.price}} AED</del></span>
-											<div class="app_add_baset_icon">
-												<span class="app_addition_icon"><i class="fa fa-plus" aria-hidden="true"></i></span>
+											<span><del>{{itemData.price}} AED</del></span><br>
+											
+											
+											<div  class="app_add_baset_icon">
+												<span *ngIf="countOrder(itemData._id)!=0">
+													<span class="app_addition_icon app_minus_icon" (click)="removeToCart(itemData._id)"><i class="fa fa-minus" aria-hidden="true"></i></span>
+													<span class="app_basket_quantity">{{countOrder(itemData._id)}}</span>
+												</span>
+												<span class="app_addition_icon" (click)="addToCart(itemData)" ><i class="fa fa-plus" aria-hidden="true"></i></span>
 											</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
+							<div *ngIf="itemArray.length != 0" class="app_basket_btn_submit">
+								<a href="#" class="app_full_btn app_add_basket_btn"><img src="assets/img/basket_bag.svg" alt=""><span>{{itemArray.length}}</span>View Basket</a>
+							</div>	
 					    </ng-container>
 
 						<!-- <div class="col-12">

@@ -21,6 +21,11 @@
   font-weight: normal;
   font-style: normal;
 }
+:root {
+	--primary-color: rgb(245 91 2);
+	/* --second-color: #ffff8c; */
+}
+
 body {
 	font-family: 'Poppins-Light';
 }
@@ -39,7 +44,7 @@ img{
 	position:absolute;
 	float:left;
 	width:100%;
-	background-color:rgb(245 91 2);
+	background-color:var(--primary-color);
 	text-align:center;
 }
 .app_welcome .app_row{
@@ -50,7 +55,7 @@ img{
 	display:inline-block;
 	width:150px;
 	height:150px;
-	border:1px solid rgb(245 91 2);
+	border:1px solid var(--primary-color);
 	border-radius:100%;
 	background-color:#fff;
 	margin-top:100px;
@@ -92,7 +97,7 @@ img{
 .app_welcome .app_social_icon ul li{
 	width:50px;
 	height:50px;
-	border:1px solid rgb(245 91 2);
+	border:1px solid var(--primary-color);
 	border-radius:100%;
 	background-color:#fff;
 	list-style:none;
@@ -101,7 +106,7 @@ img{
 	text-align:center;
 }
 .app_welcome .app_social_icon ul li a{
-	color:rgb(245 91 2);
+	color:var(--primary-color);
 }
 .app_welcome .app_social_icon ul li a i{
     padding-top: 12px;
@@ -111,9 +116,9 @@ img{
 	position:relative;
 	width:80%;
 	min-height:60px;
-	border:1px solid rgb(245 91 2);
+	border:1px solid var(--primary-color);
 	border-radius:22px;
-	background-color:rgb(245 91 2);
+	background-color:var(--primary-color);
 	display:inline-block;
 	color:#fff;
 	max-width: 100%;
@@ -125,7 +130,7 @@ img{
 }
 .app_welcome .app_full_btn{
 	background-color:#fff;
-	color:rgb(245 91 2);
+	color:var(--primary-color);
 	margin:0 34px 70px 34px;
 }
 .app_welcome .app_full_btn img{
@@ -241,7 +246,7 @@ App_otp
 }
 .app_otp .app_resend_otp a{
 	text-transform:capitalize;
-	color:rgb(245 91 2);
+	color:var(--primary-color);
 } 
 
 /*************
@@ -302,7 +307,7 @@ App_login
 	padding-right: 5px;
 } 
 .app_require_icon{
-	color:rgb(245 91 2);
+	color:var(--primary-color);
 }
 
 /*************
@@ -364,7 +369,7 @@ Checkout Page
 }	
 .app_checkout .app_verification_caption .app_checkout_code,
 .app_checkout .app_verification_caption .app_checkout_input_link{
-	color:rgb(245 91 2);
+	color:var(--primary-color);
 	text-transform: capitalize;
 	text-decoration:none;
 	font-weight:600;
@@ -396,7 +401,7 @@ Checkout Page
 .app_checkout .app_order_detail_total_price p{
 	text-align: right;
 	font-size:24px;
-	color:rgb(245 91 2);
+	color:var(--primary-color);
     padding: 10px 0;
 }
 .app_checkout .app_full_btn{
@@ -452,7 +457,7 @@ Checkout Page
     padding-top: 30px;
 }
 .app_checkout .orange_text{
-	color:rgb(245 91 2);
+	color:var(--primary-color);
 	text-align: right;
     font-size: 24px;
     font-weight: 700;
@@ -587,7 +592,7 @@ Pick Up Location
 	color:#000;
 }
 .app_pickup_location_icons.active{
-	background-color:rgb(245 91 2);
+	background-color:var(--primary-color);
 	color:#fff;
 }
 .app_pickup_item_main:not(:last-child){
@@ -696,7 +701,7 @@ Order Details Section
 .app_order_details .app_order_deatils_heading_text_right_bottom h4{
 	font-weight: 800;
     font-size: 25px;
-    color: rgb(245 91 2);
+    color: var(--primary-color);
     padding-left: 12px;
 }
 .app_order_details .app_order_deatils_heading_text_right_bottom{
@@ -754,7 +759,7 @@ Your Basket Section
 .app_your_basket_text_right{
 	font-weight: 700;
     font-size: 15px;
-	color:rgb(245 91 2);
+	color:var(--primary-color);
 }
 .app_your_basket_text_right_del{
 	font-size:9px;
@@ -773,7 +778,7 @@ Your Basket Section
 }
 .app_your_basket_icons:active{
 	color: #fff;
-    background-color: rgb(245 91 2);
+    background-color: var(--primary-color);
 }
 .app_your_basket_text_icons_number{
 	color:black;
@@ -812,15 +817,15 @@ Your Basket Section
 .app_your_basket_heading_right_bottom_last h3{
 	font-weight: 700;
     font-size: 21px;
-    color: rgb(245 91 2);
+    color: var(--primary-color);
 }
 .app_your_basket_button{
 	position:relative;
 	width:100%;
 	height:55px;
-	border:1px solid rgb(245 91 2);
+	border:1px solid var(--primary-color);
 	border-radius:20px;
-	background-color:rgb(245 91 2);
+	background-color:var(--primary-color);
 	display:inline-block;
 	color:#fff;
 	max-width: 100%;
@@ -885,7 +890,7 @@ Your Orders Section
 .app_your_orders_heading_left_text_image_second h3{
 	font-weight: 700;
 	font-size: 16px;
-	color:rgb(245 91 2);
+	color:var(--primary-color);
 	padding: 10px;
 	line-height:1.5;
 }
@@ -918,7 +923,7 @@ Review Food Section
 .app_review_food_text_right{
 	font-weight: 700;
     font-size: 15px;
-    color: rgb(245 91 2);
+    color: var(--primary-color);
 }
 .app_review_food_icons_right{
 	padding-left: 30px;
@@ -935,7 +940,7 @@ Review Food Section
 }
 .app_review_food_icons:active{
     color: #fff;
-    background-color: rgb(245 91 2);
+    background-color: var(--primary-color);
 }
 .app_review_food_text_icons_number{
 	color:black;
@@ -986,7 +991,7 @@ Review Food Section
 .app_review_food_heading_right_bottom_last h3{
 	font-weight: 700;
     font-size: 20px;
-    color: rgb(245 91 2);
+    color: var(--primary-color);
 	text-align:right;
 }
 .app_popup_overlay{
@@ -1065,7 +1070,7 @@ Review Food Section
 }
 .app_the_food_image_icons:active{
 	color: #fff;
-    background-color: rgb(245 91 2);
+    background-color: var(--primary-color);
 }
 .app_the_food__image_heading_6_left h6{
 	font-size: 10px;
@@ -1101,7 +1106,7 @@ Review Food Section
     text-align: right;
 }
 .app_the_food_image_icons_right.active{
-    background-color: rgb(245 91 2);
+    background-color: var(--primary-color);
     color: #fff;	
 }
 .app_the_food_image_icons_right_button {
@@ -1117,13 +1122,13 @@ Review Food Section
 .app_the_food_image_button_center{
 	float:right;
     background-color: #fff;
-    color:rgb(245 91 2);
+    color:var(--primary-color);
     padding: 3px 9px;
     font-size: 16px;
-    border-color:rgb(245 91 2);
+    border-color:var(--primary-color);
 }
 .app_the_food_image_button_center:active{
-	background-color: rgb(245 91 2);
+	background-color: var(--primary-color);
 	color:#fff;
 }
 .app_the_food_image_check_icons_right_bottom{
@@ -1133,9 +1138,9 @@ Review Food Section
 	position:relative;
 	width:100%;
 	height:55px;
-	border:1px solid rgb(245 91 2);
+	border:1px solid var(--primary-color);
 	border-radius:20px;
-	background-color:rgb(245 91 2);
+	background-color:var(--primary-color);
 	display:inline-block;
 	color:#fff;
 	max-width: 100%;
@@ -1173,7 +1178,7 @@ Profile Page
 	letter-spacing:0.5px;
 }
 .app_my_profile .app_my_profile_icons_text_bottom.active h4{
-    color: rgb(245 91 2);
+    color: var(--primary-color);
 }
 
 
@@ -1227,12 +1232,12 @@ My Profile
 	font-weight: 700;
 }
 .app_my_profile_icons_right_second{
-	color:rgb(245 91 2);
+	color:var(--primary-color);
 	font-size: 37px;
     padding-left: 12px;
 }
 .app_my_profile_icons_text_bottom_right_second h4{
-    color: rgb(245 91 2);
+    color: var(--primary-color);
     font-size: 18px;
     font-weight: 700;
 }
@@ -1452,11 +1457,11 @@ Personal Detail
    float:right;
 }
 .app_delivery_button .app_delivery_pickup_btn{
-		border: 1px solid rgb(245 91 2);
-    color:rgb(245 91 2);
+		border: 1px solid var(--primary-color);
+    color:var(--primary-color);
 }
 .app_delivery_button .app_delivery_pickup_btn.active{
-	background-color: rgb(245 91 2);
+	background-color: var(--primary-color);
     color: #fff;
 }
 .app_category_scroll_button a:focus,
@@ -1569,7 +1574,7 @@ Personal Detail
 }
 .app_bestseller_foot .app_footer {
 	font-size: 16px;
-    color:rgb(245 91 2);
+    color:var(--primary-color);
     font-weight: 600;
 	padding-right: 2px;
 }
@@ -1589,7 +1594,7 @@ Personal Detail
     border-radius: 50%;
     font-size: 13px;
     color: #fff;
-    background-color: rgb(245 91 2);
+    background-color: var(--primary-color);
 }
 .app_bestseller_foot .app_minus_icon i{
 	 background-color:#f6f4f4;
@@ -1634,7 +1639,7 @@ Personal Detail
     height: 18px;
     background-color: #fff;
     border-radius: 100%;
-    color: rgb(245 91 2);
+    color: var(--primary-color);
 }
 /****************Order Placed****************/
 .app_order_placed{
@@ -1642,7 +1647,7 @@ Personal Detail
     float: left;
     width: 100%;
     
-    background-color: rgb(245 91 2);
+    background-color: var(--primary-color);
 }
 .app_order{
 	padding: 20px;
@@ -1652,7 +1657,7 @@ Personal Detail
     display: inline-block;
     width: 100px;
     height: 100px;
-    border: 1px solid rgb(245 91 2);
+    border: 1px solid var(--primary-color);
     border-radius: 100%;
     background-color: #fff;
     margin-top: 50px;
@@ -1808,4 +1813,21 @@ Personal Detail
 	    font-size: 16px;
     font-weight: 700;
 }
-
+.image_title_sec{
+	background: var(--primary-color);
+    transform: rotate(-55deg);
+    width: 200px;
+    display: block;
+    position: absolute;
+    top: 47px;
+    color: #fff;
+    text-align: center;
+    font-size: 22px;
+    left: -51px;
+    height: 42px;
+    line-height: 36px;
+    clip-path: polygon(35% 0%, 72% 0%, 100% 196%, 0% 119%);
+    border: 2px solid #fff !important;
+	font-weight: 600;
+	text-transform: lowercase;
+}
