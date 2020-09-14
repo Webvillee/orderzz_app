@@ -84,6 +84,7 @@ export class ShowOrderComponent implements OnInit {
     };
 
     this.orderService.get_all_category(obj).subscribe((res) => {
+      console.log(res)
       if (res.status == 200) {
         this.getCategoryData = res.data
       } else {
