@@ -1,5 +1,9 @@
 
-<div class="app_welcome">
+<mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center ;">
+	<mat-progress-spinner color="primary" mode="indeterminate">
+	</mat-progress-spinner>
+</mat-card>
+<div  *ngIf="!isLoading" class="app_welcome">
 	<div class="app_container">
 		<div class="app_row">
 			<div class="app_banner_image">

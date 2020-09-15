@@ -11,7 +11,8 @@ import { HeaderComponent } from './header/header.component';
 import { ShowOrderComponent } from './show-order/show-order.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
-import { AgmCoreModule } from '@agm/core';            // @agm/core
+import { AgmCoreModule } from '@agm/core';
+import { ViewBasketComponent } from './view-basket/view-basket.component';            // @agm/core
 
 // const routes: Routes = [
 //   {
@@ -38,6 +39,7 @@ const routes: Routes = [
     //  {path: 'welcome',component:WelcomeComponent},
       {path: 'location', component:ShowLocationComponent},
       {path: 'order', component:ShowOrderComponent},
+      {path: 'view-basket', component:ViewBasketComponent},
       {path: 'not-found',component:PagenotfoundComponent},
       {path: ':id',component:WelcomeComponent},
       {path: '**', component:PagenotfoundComponent},
@@ -54,6 +56,7 @@ const routes: Routes = [
     HeaderComponent,
     ShowOrderComponent,
     PagenotfoundComponent,
+    ViewBasketComponent,
   ],
   imports: [
     CommonModule,

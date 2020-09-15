@@ -12,31 +12,29 @@ import * as CryptoJS from 'crypto-js'
   styleUrls: ['./welcome.component.css']
 })
 export class WelcomeComponent implements OnInit {
-  getRestData
-  facebookId
-  instaId
-  linkeinId
-  logo
-  restName
-  themeView
-  themeTechniq
-  themeColor
-  restAddress
-  restEmail
-  restDescription
-  restContact
-  restContactAlter
-  minimumOrderValue
-  maximumOrderValueForFreeDelevery
-  deleveryFee
-  
-
-
-  img_url=UrlSetting.image_uri
+  getRestData;
+  facebookId;
+  instaId;
+  linkeinId;
+  logo;
+  restName;
+  themeView;
+  themeTechniq;
+  themeColor;
+  restAddress;
+  restEmail;
+  restDescription;
+  restContact;
+  restContactAlter;
+  minimumOrderValue;
+  maximumOrderValueForFreeDelevery;
+  deleveryFee;
+  img_url=UrlSetting.image_uri;
+  isLoading;
   constructor( private route: ActivatedRoute, private router: Router,private orderService: OrderService ) { 
     
     const slugId = this.route.snapshot.paramMap.get('id');
-
+    this.isLoading =true
     const obj = {
       slugId:slugId,
     };
@@ -55,12 +53,12 @@ export class WelcomeComponent implements OnInit {
         localStorage.setItem('rest_id',encrypted_restid.toString());
         var theme_color = res.data.theme_color;
         document.documentElement.style.setProperty('--primary-color', theme_color);
-
+        this.isLoading =false
         // // for decrypted the encripted code
         // //var decrypted =  CryptoJS.AES.decrypt(encrypted_token,'');
         //// console.log(decrypted.toString(CryptoJS.enc.Utf8))
       } else {
-        
+        this.isLoading =false
         this.router.navigate(['/not-found'])
         this.getRestData = [];
       }

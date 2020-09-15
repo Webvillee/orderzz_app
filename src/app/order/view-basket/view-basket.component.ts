@@ -7,11 +7,11 @@ import { UrlSetting } from '../../urlSetting'
 import * as CryptoJS from 'crypto-js'
 
 @Component({
-  selector: 'app-show-order',
-  templateUrl: './show-order.component.html',
-  styleUrls: ['./show-order.component.css']
+  selector: 'app-view-basket',
+  templateUrl: './view-basket.component.html',
+  styleUrls: ['./view-basket.component.css']
 })
-export class ShowOrderComponent implements OnInit {
+export class ViewBasketComponent implements OnInit {
   themeCondition
   themeView
   customer_address
@@ -22,13 +22,16 @@ export class ShowOrderComponent implements OnInit {
   minimumOrderValue
   img_url = UrlSetting.image_uri
 
-  getCategoryData: any;
   catId
   menuId
   restId;
   orderCount;
   itemArray=[];
+  getItemData;
 
+  orderTotal;
+  savingCost;
+  shippingCost;
   constructor( private route: ActivatedRoute, private router: Router,private orderService: OrderService ) { 
   
     if( localStorage.getItem('rest_id')==null ){
@@ -41,8 +44,8 @@ export class ShowOrderComponent implements OnInit {
       this.customer_address = CryptoJS.AES.decrypt(localStorage.getItem('customer_address'),'').toString(CryptoJS.enc.Utf8);
     }
 
-    this.get_all_rest_data()
-    this.get_all_category()
+    this.get_all_rest_data();
+    this.getAllorderData();
   }
 
   get_all_rest_data(){
@@ -65,8 +68,6 @@ export class ShowOrderComponent implements OnInit {
           this.restAddress = res.data.rest_full_address
           this.minimumOrderValue = res.data.minimum_order_value
 
-         
-
           // this.minimum_order_value = res.data.end_delevery_time
           // this.themeColor = res.data.theme_color
           
@@ -74,62 +75,34 @@ export class ShowOrderComponent implements OnInit {
           this.router.navigate(['/not-found'])
         }
       });
-
-      if (localStorage.getItem("OrderData")) {
-        const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))
-        this.itemArray = data;
-       }
   }
-  
 
-  get_all_category(){
-    const obj = {
-      restId:CryptoJS.AES.decrypt(localStorage.getItem('rest_id'),'').toString(CryptoJS.enc.Utf8)
-    };
-
-    this.orderService.get_all_category(obj).subscribe((res) => {
-      console.log(res)
-      if (res.status == 200) {
-        this.getCategoryData = res.data
-      } else {
-        this.router.navigate(['/not-found'])
-      }
+  getAllorderData(){
+    if (localStorage.getItem("OrderData")) {
+     const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))
+     this.itemArray = data;
+     let total = this.itemArray.reduce((prev, item) => prev + item.price, 0);
+     this.orderTotal= total;
+     let sellPrice = this.itemArray.reduce((prev, item) => prev + item.sell_price, 0);
+     this.savingCost= sellPrice;
+     const seen = new Set();
+     const filteredArr = data.filter(el => {
+      const duplicate = seen.has(el._id);
+      seen.add(el._id);
+      return !duplicate;
     });
-  
+      this.getItemData = filteredArr
+      console.log(this.getItemData, "OrderData")
+    }
   }
-
-  getItemData
-  catName
-  findItem(catData){
-    this.catId=catData._id
-    this.menuId=catData.menu_id
-    this.restId=catData.rest_id
-    this.catName=catData.cate_name
-    const obj = {
-      catId: this.catId,
-      menuId: this.menuId,
-      restId: this.restId,
-    };
-    this.orderService.get_all_item(obj).subscribe((res) => {
-      console.log(res)
-      if (res.status == 200) {
-        this.getItemData = res.data.item
-        console.log(this.getItemData)
-      } else if (res.status == 201){
-        this.getItemData =[]
-      }else{
-        this.router.navigate(['/not-found'])
-      }
-    });
-  }
-
 
   addToCart(itemData){
     // console.log(itemData, 'itemDatakkkkk');
     this.itemArray.push(itemData);
     console.log(this.itemArray);
     var userOrderData = CryptoJS.AES.encrypt(JSON.stringify(this.itemArray), '').toString();
-    localStorage.setItem('OrderData', userOrderData)
+    localStorage.setItem('OrderData', userOrderData);
+    this.getAllorderData();
   }
 
   countOrder(id){
@@ -144,7 +117,8 @@ export class ShowOrderComponent implements OnInit {
         this.itemArray.splice(index, 1);
       }
       var userOrderData = CryptoJS.AES.encrypt(JSON.stringify(this.itemArray), '').toString();
-      localStorage.setItem('OrderData', userOrderData)
+      localStorage.setItem('OrderData', userOrderData);
+      this.getAllorderData();
       return this.itemArray;
   }
   

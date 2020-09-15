@@ -772,8 +772,8 @@ Your Basket Section
     padding-top: 5px;
     width: 22px;
     height: 22px;
-	background-color:#d6d0d0;
-	color:black;
+	background-color: var(--primary-color);
+    color: #fff;
 	text-align: center;    
 }
 .app_your_basket_icons:active{
