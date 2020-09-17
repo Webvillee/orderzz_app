@@ -6,3 +6,12 @@
 .image_title_sec {
     top: 27px;
 }
+
+.app_add_minus_icon {
+    padding-right: 15px;
+    cursor: pointer;
+    color: #000;
+}
+.padRight{
+    padding-right: 15px;
+}

@@ -1,0 +1,30 @@
+.app_bestseller_foot span {
+    padding-right: 15px;
+    cursor: pointer;
+}
+
+.image_title_sec {
+    top: 27px;
+}
+
+.app_add_minus_icon {
+    padding-right: 15px;
+    cursor: pointer;
+    color: #000;
+}
+.padRight{
+    padding-right: 15px;
+}
+input[type=checkbox] {
+    /* box-sizing: border-box; */
+    /* padding: 0; */
+    position: absolute;
+    /* top: 0; */
+    /* left: 0; */
+    height: 22px;
+    width: 22px;
+    background-color: #d6d0d0 !important;
+}
+.padRightfive{
+    padding-right: 5px;
+}

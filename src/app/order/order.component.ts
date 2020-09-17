@@ -50,8 +50,7 @@ export class OrderComponent implements OnInit {
       };
       this.orderService.get_restaurant_data(obj).subscribe((res) => {
         if (res.status == 200) {
-  
-          console.log(res.data)
+          // console.log(res.data)
           // this.themeView = res.data.theme_view
           // if(this.themeView=="1"){       //1=listview in  and 2= gridmeans
           //   this.themeCondition=false

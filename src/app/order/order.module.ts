@@ -12,7 +12,8 @@ import { ShowOrderComponent } from './show-order/show-order.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
 import { AgmCoreModule } from '@agm/core';
-import { ViewBasketComponent } from './view-basket/view-basket.component';            // @agm/core
+import { ViewBasketComponent } from './view-basket/view-basket.component';
+import { CustomiseOrderComponent } from './customise-order/customise-order.component';           // @agm/core
 
 // const routes: Routes = [
 //   {
@@ -57,6 +58,7 @@ const routes: Routes = [
     ShowOrderComponent,
     PagenotfoundComponent,
     ViewBasketComponent,
+    CustomiseOrderComponent,
   ],
   imports: [
     CommonModule,
@@ -67,6 +69,6 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   providers: [OrderService],
-
+  entryComponents: [CustomiseOrderComponent]
 })
 export class OrderModule { }

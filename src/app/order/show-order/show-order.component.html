@@ -108,9 +108,13 @@
 												<h6>{{itemData.item_description}}</h6>
 												<div class="app_bestseller_foot">
 												<span class="app_footer">{{itemData.price}} AED</span>
-												<span><del>{{itemData.price}} AED</del></span>
-												<div class="app_add_baset_icon">
-													<span class="app_addition_icon"><i class="fa fa-plus" aria-hidden="true"></i></span>
+												<!-- <span><del>{{itemData.price}} AED</del></span> -->
+												<div  class="app_add_baset_icon">
+													<span *ngIf="countOrder(itemData._id)!=0">
+														<span class="app_addition_icon app_minus_icon" (click)="removeToCart(itemData._id)"><i class="fa fa-minus" aria-hidden="true"></i></span>
+														<span class="app_basket_quantity">{{countOrder(itemData._id)}}</span>
+													</span>
+													<span class="app_addition_icon" (click)="addToCart(itemData)" ><i class="fa fa-plus" aria-hidden="true"></i></span>
 												</div>
 												</div>
 											</div>
@@ -188,8 +192,8 @@
 						<div class="col-6">
 							<div class="app_delivery_button">
 								<div class="btn-group app_delivery_pickup_btn_main"> 
-									<button class="btn btn-sm  app_delivery_pickup_btn app_delivery_btn active"><span>Delivery</span></button>
-									<button class="btn btn-sm btn-default app_delivery_pickup_btn app_pickup_btn"><span>Pickup</span></button>
+									<button class="btn btn-sm  app_delivery_pickup_btn app_delivery_btn" (click)="onClick(2)"  [ngClass]="{'active': selectedDeliveryType==='2'}"><span>Delivery</span></button>
+									<button class="btn btn-sm btn-default app_delivery_pickup_btn app_pickup_btn" [ngClass]="{'active': selectedDeliveryType==='1'}" (click)="onClick(1)" ><span>Pickup</span></button>
 								</div>
 							</div>
 						</div>
@@ -229,7 +233,7 @@
 											<h6>{{itemData.item_description}}</h6>
 											<div class="app_bestseller_foot">
 											<span class="app_footer">{{itemData.price}} AED</span>
-											<span><del>{{itemData.price}} AED</del></span><br>
+											<!-- <span><del>{{itemData.price}} AED</del></span><br> -->
 											
 											<div  class="app_add_baset_icon">
 												<span *ngIf="countOrder(itemData._id)!=0">

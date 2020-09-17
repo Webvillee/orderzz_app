@@ -1457,7 +1457,7 @@ Personal Detail
    float:right;
 }
 .app_delivery_button .app_delivery_pickup_btn{
-		border: 1px solid var(--primary-color);
+	border: 1px solid var(--primary-color);
     color:var(--primary-color);
 }
 .app_delivery_button .app_delivery_pickup_btn.active{
@@ -1830,4 +1830,11 @@ Personal Detail
     border: 2px solid #fff !important;
 	font-weight: 600;
 	text-transform: lowercase;
+}
+.linkColor{
+	color: #007bff !important;
+    cursor: pointer;
+}
+.cursorCss{
+  cursor: pointer;
 }
