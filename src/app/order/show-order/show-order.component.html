@@ -39,8 +39,8 @@
 							</div>
 							<div class="app_hot_food_restaurant_delivery_details">
 								<ul>
-									<li><a href="#"><img src="assets/img/clock.svg"> 30-45 min</a></li>
-									<li><a href="#"><img src="assets/img/shopping_bag.svg">AED  {{minimumOrderValue}} Minimum Value</a></li>
+									<li class="minutess"><a href="#"><img src="assets/img/clock.svg"> 30-45 min</a></li>
+									<li class="valuess"><a href="#"><img src="assets/img/shopping_bag.svg">AED  {{minimumOrderValue}} Minimum Value</a></li>
 								</ul>
 							</div>		
 						</div>
@@ -93,7 +93,7 @@
 						</div>
 						<ng-container *ngIf="getItemData">
 							<div class="col-12">
-								<div class="app_bestsellers_detail">
+								<div class="app_bestsellers_detail  product_sec">
 										<div class="row" *ngFor="let itemData of getItemData"> 
 											<div class="col-4">
 												<!-- <img src="{{img_url}}{{itemData.item_image}}"> -->

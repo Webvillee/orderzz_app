@@ -44,3 +44,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .select2-container--default .select2-search--inline .select2-search__field {
     padding-top: 6px !important;
 }
+@media only screen and (max-width: 800px) and (min-width: 320px){
+.cdk-overlay-pane {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+.mat-dialog-container {
+    margin-top: 20% !important;
+        border-radius: 42px !important;
+}
+}
+.mat-dialog-container {
+    margin-top: 10%;
+     border-radius: 42px !important;
+}

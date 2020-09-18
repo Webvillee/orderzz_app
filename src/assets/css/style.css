@@ -769,7 +769,7 @@ Your Basket Section
 .app_your_basket_icons{
 	border-radius: 50%;
     font-size: 14px;
-    padding-top: 5px;
+    padding-top: 3px;
     width: 22px;
     height: 22px;
 	background-color: var(--primary-color);
@@ -1837,4 +1837,70 @@ Personal Detail
 }
 .cursorCss{
   cursor: pointer;
+}
+.container_checkboxes input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+position: absolute;
+    top: 0;
+    left: 95%;
+    height: 23px;
+    width: 23px;
+    border-radius: 5px;
+    background: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container_checkboxes:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container_checkboxes input:checked ~ .checkmark {
+  background-color: var(--primary-color);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container_checkboxes input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container_checkboxes .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+h1,h3, h2, h4, h5, h6 {
+    text-transform: capitalize;
+}
+p.required_btnn {
+    float: right;
+    background-color: #fff;
+    color: var(--primary-color);
+    padding: 3px 9px;
+    font-size: 16px;
+    border-color: var(--primary-color);
+    border: 1px solid;
+    border-radius: 5px;
 }

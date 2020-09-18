@@ -10,7 +10,7 @@
                             <img src="{{img_url}}{{itemData.item_image}}">
                         </div>
                     </div>
-                    <div class=" col-12">
+                    <div class=" col-12 add_cart">
                         <div class="row ">
                             <div class="col-8">
                                 <div class="app_the_food_image_heading_left">
@@ -36,8 +36,8 @@
                     </div>
                 </div>
             </div>
-            <div *ngFor="let modifire of available_modifire">
-                <div class="app_the_food_image_content_text_icons">
+            <div *ngFor="let modifire of available_modifire ">
+                <div class="app_the_food_image_content_text_icons requireds">
                     <div class="row ">
                         <div class=" col-12">
                             <div class="row ">
@@ -47,7 +47,8 @@
                                     </div>
                                 </div>
                                 <div class="col-5" *ngIf="modifire.minimum_modifiers!=0">
-                                    <button type="button" class="btn app_the_food_image_button_center">Required</button>
+                                   <!--  <button type="button" class="btn app_the_food_image_button_center">Required</button> -->
+                                    <p class="required_btnn">Required</p>
                                 </div>
                             </div>
                         </div>
@@ -66,7 +67,11 @@
                                 <div class="col-5">
                                     <div class="aap_the_food_image_heading_number_icons">
                                         <span class="padRightfive">{{modifiersVal.price}} AED</span>
-                                        <input type="checkbox" [checked]="modifiersVal.isChecked == true" name="myval{{i}}" value="i" (change)="changeSelection($event, modifiersVal, modifire)">
+                                       <!--  <input type="checkbox" [checked]="modifiersVal.isChecked == true" name="myval{{i}}" value="i" (change)="changeSelection($event, modifiersVal, modifire)"> -->
+                                        <label class="container_checkboxes">
+                                          <input type="checkbox" [checked]="modifiersVal.isChecked == true" name="myval{{i}}" value="i" (change)="changeSelection($event, modifiersVal, modifire)">
+                                          <span class="checkmark"></span>
+                                        </label>
                                         <!-- <input type="checkbox" class="myinput large" (change)="onChangemodifire(modifiersVal)"> -->
                                         <!-- <span class="app_the_food_image_check_icons">
                                             <i class="fa fa-check app_the_food_image_icons_right" aria-hidden="true"></i>
