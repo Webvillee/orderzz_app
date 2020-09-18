@@ -13,7 +13,13 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
 import { AgmCoreModule } from '@agm/core';
 import { ViewBasketComponent } from './view-basket/view-basket.component';
-import { CustomiseOrderComponent } from './customise-order/customise-order.component';           // @agm/core
+import { CustomiseOrderComponent } from './customise-order/customise-order.component';
+import { PhoneVerificationComponent } from './phone-verification/phone-verification.component';
+import { OtpVerificationComponent } from './otp-verification/otp-verification.component';
+import { PersonalDetailsComponent } from './personal-details/personal-details.component';
+import { ConfirmAddressComponent } from './confirm-address/confirm-address.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { OrderPlacedComponent } from './order-placed/order-placed.component';           // @agm/core
 
 // const routes: Routes = [
 //   {
@@ -41,6 +47,14 @@ const routes: Routes = [
       {path: 'location', component:ShowLocationComponent},
       {path: 'order', component:ShowOrderComponent},
       {path: 'view-basket', component:ViewBasketComponent},
+
+      {path: 'phone-verification', component:PhoneVerificationComponent},
+      {path: 'otp', component:OtpVerificationComponent},
+      {path: 'personal-details', component:PersonalDetailsComponent},
+      {path: 'confirm-address', component:ConfirmAddressComponent},
+      {path: 'checkout', component:CheckoutComponent},
+      {path: 'order-placed', component:OrderPlacedComponent},
+
       {path: 'not-found',component:PagenotfoundComponent},
       {path: ':id',component:WelcomeComponent},
       {path: '**', component:PagenotfoundComponent},
@@ -59,6 +73,12 @@ const routes: Routes = [
     PagenotfoundComponent,
     ViewBasketComponent,
     CustomiseOrderComponent,
+    PhoneVerificationComponent,
+    OtpVerificationComponent,
+    PersonalDetailsComponent,
+    ConfirmAddressComponent,
+    CheckoutComponent,
+    OrderPlacedComponent,
   ],
   imports: [
     CommonModule,

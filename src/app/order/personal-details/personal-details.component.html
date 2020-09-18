@@ -1,0 +1,27 @@
+<div class="app_verification app_personal_detail">
+    <div class="app_container">
+        <div class="app_verification_image">
+            <a [routerLink]="['/otp']"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+        </div>
+        <div class="app_verification_caption">
+            <h2 class="app_heading">Personal Details</h2>
+            <h6 style="color: red">{{ display }}</h6>
+            <h6 style="color: green">{{ displaysuccess }}</h6>
+            <form [formGroup]="angForm" (ngSubmit)="onSubmit()">
+                <label class="app_content">Name</label>
+                <input type="text" [(ngModel)]="userName" formControlName="userName" placeholder="eg:- John Doe" [ngClass]="{ 'is-invalid': submitted && f.userName.errors }" />
+                    <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
+                        <div *ngIf="f.userName.errors.required">User Name is required</div>
+                        <div *ngIf="f.userName.errors.minlength">*User Name length 4 is required</div>
+                    </div>
+                <label class="app_content">Email</label>
+                <input  [(ngModel)]="email" type="text" formControlName="email" placeholder="eg:- Johndoe@gmail.com" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.errors.required">Email is required</div>
+                    <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                </div>
+                <input type="submit" class="app_full_btn" value="Confirm">
+            </form>
+        </div>
+    </div>
+</div>

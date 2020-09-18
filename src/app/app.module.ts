@@ -16,7 +16,6 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { UrlSetting } from "./urlSetting";
 
 
-
 const routes: Routes = [
   { path: '', loadChildren: () => import('./order/order.module').then(m => m.OrderModule), pathMatch: 'full' },
   { path: 'control-panel/dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },

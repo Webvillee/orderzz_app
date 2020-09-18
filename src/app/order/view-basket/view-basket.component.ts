@@ -14,6 +14,7 @@ import * as CryptoJS from 'crypto-js'
   styleUrls: ['./view-basket.component.css']
 })
 export class ViewBasketComponent implements OnInit {
+  
   themeCondition
   themeView
   customer_address
@@ -34,6 +35,7 @@ export class ViewBasketComponent implements OnInit {
   orderTotal;
   savingCost;
   shippingCost;
+  special_instruction;
   constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -84,7 +86,7 @@ export class ViewBasketComponent implements OnInit {
       const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))
       this.itemArray = data;
       let total = this.itemArray.reduce((prev, item) => prev + item.price, 0);
-      
+      //  console.log(JSON.stringify(this.itemArray))
       const arr_total = this.itemArray
 
       this.itemArray.map((element, index) => {
@@ -102,6 +104,7 @@ export class ViewBasketComponent implements OnInit {
           }
         }
       });
+
       this.orderTotal = total;
       let sellPrice = this.itemArray.reduce((prev, item) => prev + item.sell_price, 0);
       this.savingCost = sellPrice;
@@ -157,6 +160,16 @@ export class ViewBasketComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.getAllorderData();
     });
+  }
+
+  submit(){
+    
+    var encrypted_order_type = CryptoJS.AES.encrypt(this.special_instruction, '');
+    localStorage.setItem('order_instruction',encrypted_order_type.toString());
+    
+    var userOrderData = CryptoJS.AES.encrypt(JSON.stringify(this.itemArray), '').toString();
+    localStorage.setItem('OrderData', userOrderData);
+    
   }
 
   ngOnInit(): void {

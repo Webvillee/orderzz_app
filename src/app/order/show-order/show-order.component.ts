@@ -97,9 +97,10 @@ export class ShowOrderComponent implements OnInit {
     };
 
     this.orderService.get_all_category(obj).subscribe((res) => {
-      console.log(res)
+      // console.log(res)
       if (res.status == 200) {
-        this.getCategoryData = res.data
+        this.getCategoryData = res.data;
+        this.findItem(res.data[0]);
       } else {
         this.router.navigate(['/not-found'])
       }
@@ -110,10 +111,10 @@ export class ShowOrderComponent implements OnInit {
   getItemData
   catName
   findItem(catData) {
-    this.catId = catData._id
-    this.menuId = catData.menu_id
-    this.restId = catData.rest_id
-    this.catName = catData.cate_name
+    this.catId = catData._id;
+    this.menuId = catData.menu_id;
+    this.restId = catData.rest_id;
+    this.catName = catData.cate_name;
     const obj = {
       catId: this.catId,
       menuId: this.menuId,

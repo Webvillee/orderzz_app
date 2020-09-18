@@ -1,0 +1,39 @@
+<div class="app_verification app_contact">
+    <div class="app_container">
+        <div class="app_contact_map_main">
+            <div class="app_verification_image">
+                <a [routerLink]="['/personal-details']"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+            </div>
+            <div class="app_verification_caption">
+                <h2 class="app_heading">Confirm Address</h2>
+                <div class="app_contact_map" >
+                    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+                        <agm-marker [latitude]="lat" [longitude]="lng" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)"></agm-marker>
+                    </agm-map>
+                    <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3680.136475553706!2d75.88048021443679!3d22.723168233154794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962fd8fd7d29a97%3A0x88baf1c13dbd9e3a!2sWebvillee%20Technology%20Pvt.%20Ltd!5e0!3m2!1sen!2sin!4v1597842145885!5m2!1sen!2sin" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe> -->
+                </div>
+            </div>
+        </div>	
+        <div class="app_contact_form">
+            <div class="app_contact_collapse" data-toggle="collapse" data-target="#app_contact_form_collapse"></div>
+            <h6 style="color: red">{{ display }}</h6>
+            <h6 style="color: green">{{ displaysuccess }}</h6>
+            <form [formGroup]="angForm" (ngSubmit)="onSubmit()" id="app_contact_form_collapse" class="collapse show">
+                
+                <label class="app_content"><i class="fa fa-home" aria-hidden="true"></i>House/Flat no.<span class="app_require_icon"> *</span></label>
+                <input  formControlName="address" #search autocorrect="off" autocapitalize="off" spellcheck="off" type="text"  class="mb-3 form-control change_placeholder" [(ngModel)]="address" placeholder="eg., Naruka Home / B-53" >
+                <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                    <div *ngIf="f.address.errors.required">Address is required</div>
+                    <div *ngIf="f.address.errors.minlength">*Address length 4 is required</div>
+                </div>
+                
+                <label class="app_content"><i class="fa fa-map-marker" aria-hidden="true"></i>Landmark<span class="app_require_icon">*</span></label>
+                <input formControlName="landmark" [(ngModel)]="landmark" type="text" class="btn-2"  placeholder="eg., Opposite to HDFC Bank">
+                <div *ngIf="submitted && f.landmark.errors" class="invalid-feedback">
+                    <div *ngIf="f.landmark.errors.required">Landmark is required</div>
+                </div>
+                <input type="submit" class="app_full_btn"value="Save">
+            </form>
+        </div>
+    </div>	
+</div>

@@ -60,11 +60,11 @@
                 <div class="col-12">
                     <form>
                         <label class="app_review_food_text__left_special">Special Instructions</label>
-                        <textarea class="app_review_input_text" rows="3" placeholder="Add a note or any special instructions"></textarea>
+                        <textarea name="special_instruction" [(ngModel)]="special_instruction" class="app_review_input_text"  rows="3" placeholder="Add a note or any special instructions"></textarea>
                     </form>
-                    <div class="app_review_food_heading_right">
+                    <!-- <div class="app_review_food_heading_right">
                         <h3>Order Summary</h3>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <hr>
@@ -113,7 +113,7 @@
                     </div>
                 </div>
             </div>
-            <div class="app_your_basket_content_text_bottom">
+            <!-- <div class="app_your_basket_content_text_bottom">
                 <div class="row app_row">
                     <div class=" col-12">
                         <div class="row app_row">
@@ -130,7 +130,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="app_your_basket_content_text_bottom">
                 <div class="row app_row">
                     <div class=" col-12">
@@ -149,7 +149,7 @@
                     </div>
                 </div>
                 <a *ngIf="orderTotal<minimumOrderValue" [routerLink]="['/order']" class="app_full_btn">Add more item</a>
-                <a *ngIf="orderTotal>=minimumOrderValue" [routerLink]="['/order']" class="app_full_btn">Proceed to order</a>
+                <a *ngIf="orderTotal>=minimumOrderValue" [routerLink]="['/phone-verification']" class="app_full_btn" (click)="submit()" >Proceed to order</a>
             </div>
     </div>
 

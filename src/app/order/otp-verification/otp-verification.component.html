@@ -1,0 +1,26 @@
+<div class="app_verification app_otp">
+    <div class="app_container">
+        <div class="app_verification_image">
+            <a [routerLink]="['/phone-verification']"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+        </div>
+        <div class="app_verification_caption">
+            <h2 class="app_heading">Enter OTP</h2>
+            <p class="app_content">An OTP code sent to your phone. Enter it here:</p>
+            <h6 style="color: red">{{ display }}</h6>
+            <h6 style="color: green">{{ displaysuccess }}</h6>
+            <form [formGroup]="angForm" (ngSubmit)="onSubmit()">
+                    <div class="app_icon_input">
+                        <input type="text" (keypress)="onKeypressEvent($event)" minlength="4" maxlength="4"
+                            placeholder="Enter OTP Code" formControlName="otp" class="app_icon_input_pad"
+                            [ngClass]="{ 'is-invalid': submitted && f.otp.errors }" />
+                        <div *ngIf="submitted && f.otp.errors" class="invalid-feedback">
+                            <div *ngIf="f.otp.errors.required">*OTP code is required</div>
+                            <div *ngIf="f.otp.errors.minlength">*OTP code length 4 is required</div>
+                        </div>
+                    </div>
+                <input type="submit" class="app_full_btn" value="Verify">
+            </form>
+            <h3 class="app_resend_otp">OTP not received? <a (click)="resendotp()" class="cursorCss">Resend</a></h3>
+        </div>
+    </div>
+</div>	

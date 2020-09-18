@@ -1,0 +1,121 @@
+<div class="app_verification app_checkout">
+    <div class="app_container">
+        <div class="app_verification_image">
+            <a href="#"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+            <h2 class="app_heading">checkout</h2>
+        </div>			
+        <div class="app_verification_caption app_checkout_content">
+            <form >
+                <label class="app_content">Deliver to</label>
+                <div class="app_checkout_input">
+                    <img src="assets/img/position_pin.svg" alt="">
+                    <input type="text" class="app_checkout_input_pad app_check_input_loc" value="9 west 46th steet,New York">
+                    <a href="#" class="app_checkout_input_link">change</a>
+                </div>
+                <label class="app_content">Deliver in</label>
+                <div class="app_checkout_input app_checkout_input_deliver">
+                    <img src="assets/img/clock.svg" alt="">
+                    <input type="text" class="app_checkout_input_pad" value="56 minutes">
+                </div>
+                <label  class="app_content">Add Promo</label>
+                <div class="app_checkout_input app_checkout_input_pro">
+                    <img src="assets/img/apply_code.svg" alt="">
+                    <input type="text" class="app_icon_input_pad" value="" placeholder="Paste Code Here">
+                    <a href="#" class="app_checkout_code">apply</a>
+                </div>
+                <label class="app_content">choose payment</label>					
+                <div class="app_choose_payment">
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="app_choose_payment_option">
+                                <img src="assets/img/mastercard.svg" alt="">
+                                <p class="app_checkout_text_left">Card</p>
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="app_choose_payment_option">
+                                <p class="app_checkout_text_right">4221 **** **** 4221<i class="fa fa-check app_pickup_location_icons" aria-hidden="true"></i></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="app_choose_payment">
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="app_choose_payment_option">
+                                <img src="assets/img/coins.svg" alt="">
+                                <p class="app_checkout_text_left">Cash </p>
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="app_choose_payment_option">
+                                <p class="app_checkout_text_right">Pay when receive order<i class="fa fa-check app_pickup_location_icons" aria-hidden="true"></i></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="app_choose_payment">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="app_choose_payment_option">
+                                <img src="assets/img/payment_method.svg" alt="">
+                                <p class="app_checkout_text_left">Add new card</p>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="app_choose_payment_option app_choose_payment_add_card">
+                                <p class="app_checkout_text_right"><a href="#"><i class="fa fa-plus app_pickup_location_icons" aria-hidden="true"></i></a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>	
+                <div class="app_choose_text">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="app_order_detail">
+                                <p>Order Price</p>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="app_order_detail_price">
+                                <p>{{orderTotal}} AED</p>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="app_order_detail">
+                                <p>savings</p>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="app_order_detail_price">
+                                <p>{{savingCost}} AED</p>
+                            </div>
+                        </div>
+                        <!-- <div class="col-7">
+                            <div class="app_order_detail">
+                                <p>shiping cost (1.5km)</p>
+                            </div>
+                        </div> -->
+                        <!-- <div class="col-5">
+                            <div class="app_order_detail_price">
+                                <p>0.99 AED</p>
+                            </div>
+                        </div> -->
+                        
+                        <div class="col-6">
+                            <div class="app_order_detail_total">
+                                <p>Total</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="app_order_detail_total_price">
+                                <p>{{orderTotal}} AED</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input (click)="onSubmit()" type="submit" class="app_full_btn" value="pay">
+            </form>
+        </div>
+    </div>
+</div>
