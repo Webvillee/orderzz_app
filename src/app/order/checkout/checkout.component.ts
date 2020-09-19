@@ -167,10 +167,10 @@ export class CheckoutComponent implements OnInit {
 
     this.orderService.postAll('place_order', obj).subscribe((res) => {
       if (res.status === 200) {
-
-      var encrypted_order_type = CryptoJS.AES.encrypt(res.data, '');
-      localStorage.setItem('placedData',encrypted_order_type.toString());
-
+        var encrypted_order_type = CryptoJS.AES.encrypt(JSON.stringify(res.data), '').toString();;
+        localStorage.setItem('placedData',encrypted_order_type.toString());
+    
+        localStorage.removeItem("OrderData")
         this.display = ''
         this.displaysuccess = "Succussfully";
         this.router.navigate(['/order-placed']);

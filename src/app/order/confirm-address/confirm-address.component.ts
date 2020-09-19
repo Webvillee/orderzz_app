@@ -114,7 +114,6 @@ export class ConfirmAddressComponent implements OnInit {
 
 
   onSubmit() {
-    console.log(this.angForm.controls.address.value, '776767888');
     var address = this.angForm.controls.address.value;
     var landmark = this.angForm.controls.landmark.value;
     const obj = { userId: this.userId, address: address, landmark: landmark }
@@ -127,7 +126,6 @@ export class ConfirmAddressComponent implements OnInit {
       return;
     }
     if (this.submitted === true && (address || '').trim().length != 0 && address.length >= 4 && landmark!='') {
-      console.log(this.angForm.controls.address, '787678', address.length);
 
       this.orderService.postAll('update_profile', obj).subscribe((res) => {
         if (res.status === 200) {

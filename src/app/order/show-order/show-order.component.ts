@@ -29,7 +29,9 @@ export class ShowOrderComponent implements OnInit {
   restId;
   orderCount;
   itemArray = [];
-  
+  getItemData
+  catName
+
   constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -97,19 +99,18 @@ export class ShowOrderComponent implements OnInit {
     };
 
     this.orderService.get_all_category(obj).subscribe((res) => {
-      // console.log(res)
+       console.log(res)
       if (res.status == 200) {
         this.getCategoryData = res.data;
         this.findItem(res.data[0]);
       } else {
-        this.router.navigate(['/not-found'])
+        this.getCategoryData = 0
       }
     });
 
   }
 
-  getItemData
-  catName
+ 
   findItem(catData) {
     this.catId = catData._id;
     this.menuId = catData.menu_id;
@@ -124,9 +125,8 @@ export class ShowOrderComponent implements OnInit {
       console.log(res)
       if (res.status == 200) {
         this.getItemData = res.data.item
-        console.log(this.getItemData)
       } else if (res.status == 201) {
-        this.getItemData = []
+        this.getItemData = 0
       } else {
         this.router.navigate(['/not-found'])
       }
