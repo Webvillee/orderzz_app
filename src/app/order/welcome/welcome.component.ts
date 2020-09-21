@@ -41,6 +41,7 @@ export class WelcomeComponent implements OnInit {
 
     this.orderService.get_restaurant_data(obj).subscribe((res) => {
       if (res.status == 200) {
+        // console.log(res.data, 'jkhjk');
         this.logo = res.data.rest_logo
         this.instaId = res.data.rest_instagram_id
         this.linkeinId = res.data.rest_linkedin_id
@@ -56,7 +57,7 @@ export class WelcomeComponent implements OnInit {
         this.isLoading =false
         // // for decrypted the encripted code
         // //var decrypted =  CryptoJS.AES.decrypt(encrypted_token,'');
-        //// console.log(decrypted.toString(CryptoJS.enc.Utf8))
+        // // console.log(decrypted.toString(CryptoJS.enc.Utf8))
       } else {
         this.isLoading =false
         this.router.navigate(['/not-found'])

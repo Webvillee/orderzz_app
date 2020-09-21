@@ -29,12 +29,17 @@ export class ShowLocationComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngAfterContentChecked() {
+   
+  }
+
   setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.lat = position.coords.latitude;
         this.lng = position.coords.longitude;
         this.getAddress(this.lat, this.lng);
+        this.router.navigate(['/order']);
       });
     }
   }

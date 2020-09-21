@@ -1,0 +1,14 @@
+.app_full_btn:hover {
+    text-decoration: none;
+    color: #ff3d00;
+}
+.app_welcome {
+    position: fixed;
+    float: left;
+    width: 100%;
+    background-color: var(--primary-color);
+    text-align: center;
+    bottom: 0;
+    top: 0;
+    min-height: calc(100vh - 30px);
+}

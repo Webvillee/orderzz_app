@@ -36,7 +36,7 @@ export class CustomiseOrderComponent implements OnInit {
   shippingCost;
   itemData: any;
   available_modifire = [];
-  selectedItemArray=[]
+  selectedItemArray = []
   constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, private errorService: ErrorHandlerService,
     private fb: FormBuilder,
     private dialog: MatDialog,
@@ -106,6 +106,34 @@ export class CustomiseOrderComponent implements OnInit {
       this.itemArray = data;
       let total = this.itemArray.reduce((prev, item) => prev + item.price, 0);
       this.orderTotal = total;
+
+      this.itemArray.map((element, index) => {
+        if (element.is_modifire_status === 1) {
+          const availmodifire = JSON.parse(element.available_modifire);
+          // console.log(availmodifire, 'pppppp');
+          for (let step = 0; step < availmodifire.length; step++) {
+            // availmodifire[step].modifire.reduce((prev, item) => prev + item.sell_price, 0);
+            availmodifire[step].modifire.map(function (el) {
+              console.log(availmodifire[step].cat_name, el.isChecked)
+              if (el.isChecked === true) {
+                // console.log(availmodifire[step].cat_name, '00');
+                if(availmodifire[step].cat_name==='size'){
+                  // console.log(availmodifire[step].cat_name, 'kljkljkl');
+                  // console.log(el.price, '99999');
+                  total = total + el.price;
+                  total = total - element.price
+
+                  element.priceNew = el.price;
+                }else{
+                  // console.log(el.price, 'elllll');
+                  total = total + el.price
+                }
+              }
+            })
+          }
+        }
+      });
+      
       let sellPrice = this.itemArray.reduce((prev, item) => prev + item.sell_price, 0);
       this.savingCost = sellPrice;
       const seen = new Set();
@@ -115,13 +143,10 @@ export class CustomiseOrderComponent implements OnInit {
         return !duplicate;
       });
       this.getItemData = filteredArr
-      // console.log(this.getItemData, "OrderData")
     }
   }
 
   addToCart(itemData) {
-    // console.log(itemData, 'itemDatakkkkk');
-
     var index = this.itemArray.findIndex(x => x._id === itemData._id);
     if (index > -1) {
       this.itemArray.splice(index, 0, itemData);
@@ -155,67 +180,62 @@ export class CustomiseOrderComponent implements OnInit {
     this.dialogRef.close();
   }
 
- changeSelection(event, modifiersVal, modifire) {
-  // console.log('7666666666',event.target.checked);
-   this.itemArray.map((element, index) => {
+  changeSelection(event, modifiersVal, modifire) {
+    // console.log('7666666666',event.target.checked);
+    this.itemArray.map((element, index) => {
       if (element._id === this.itemData._id) {
         const availmodifire = JSON.parse(element.available_modifire);
         const modifiersIndex = availmodifire.findIndex(z => z._id === modifire._id)
-        // console.log(modifiersIndex, 'ppppp',  availmodifire[modifiersIndex].modifire);
+       
         const modifiersValIndex = availmodifire[modifiersIndex].modifire.findIndex(y => y._id == modifiersVal._id);
-        let updatedModifire= availmodifire[modifiersIndex].modifire[modifiersValIndex];
-      
-       
-        if(event.target.checked===true){
-          updatedModifire.isChecked = true
-        }else if(event.target.checked===false){
-          updatedModifire.isChecked = false
-        }
-        console.log(updatedModifire.isChecked);
 
-       
+        availmodifire[modifiersIndex].modifire.map(function (el, index) {
+          if (modifiersValIndex === index) {
+            if (event.target.checked === true) {
+              el.isChecked = true;
+            }
+            console.log(el, 'yessss', modifiersValIndex);
+          } else {
+            el.isChecked = false;
+            console.log(el, 'no', modifiersValIndex);
+          }
+          return el;
+        });
         element.available_modifire = JSON.stringify(availmodifire)
-        // console.log(updatedModifire, 'llllpp' ,availmodifire);
-        // this.itemArray[index] = item;
         this.itemData = element
       }
     });
-
-    // this.itemArray=this.itemArray
-    // console.log('99999', this.itemArray);
-    // return this.itemArray;
   }
 
   save() {
-    console.log('8888', this.itemData);
-    let testArr=[]
+    // console.log('8888', this.itemData);
+    let testArr = []
     this.available_modifire = JSON.parse(this.itemData.available_modifire);
     for (let step = 0; step < this.available_modifire.length; step++) {
-    var count = (input, arr) => arr.filter(x => x.isChecked === input).length;
+      var count = (input, arr) => arr.filter(x => x.isChecked === input).length;
       // console.log (count(id, this.itemArray));
-    const allCount= count(true, this.available_modifire[step].modifire);
-    if(this.available_modifire[step].minimum_modifiers !== allCount){
-      this.available_modifire[step].isRequired = true;
-      testArr.push("1");
-      testArr= testArr
-    }else{
-      testArr.push("2");
-      testArr= testArr
-    }
-    
-    console.log(this.available_modifire[step].minimum_modifiers, 'ooo', allCount);
+      const allCount = count(true, this.available_modifire[step].modifire);
+      if (this.available_modifire[step].minimum_modifiers !== allCount) {
+        this.available_modifire[step].isRequired = true;
+        testArr.push("1");
+        testArr = testArr
+      } else {
+        testArr.push("2");
+        testArr = testArr
+      }
 
-   }
-   let  n = testArr.includes("1");
-   console.log(n , 'nnnn')
-   if(n===false){
-    // console.log(testArr, '767676');
-    var userOrderData = CryptoJS.AES.encrypt(JSON.stringify(this.itemArray), '').toString();
-    localStorage.setItem('OrderData', userOrderData);
-    this.dialogRef.close();
-   }
-  
-    
+      console.log(this.available_modifire[step].minimum_modifiers, 'ooo', allCount);
+
+    }
+    let n = testArr.includes("1");
+    if (n === false) {
+      // console.log(testArr, '767676');
+      var userOrderData = CryptoJS.AES.encrypt(JSON.stringify(this.itemArray), '').toString();
+      localStorage.setItem('OrderData', userOrderData);
+      this.dialogRef.close();
+    }
+
+
   }
 
   ngOnInit(): void {

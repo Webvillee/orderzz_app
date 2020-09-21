@@ -1,27 +1,29 @@
 <div class="app_verification app_checkout">
     <div class="app_container">
         <div class="app_verification_image">
-            <a href="#"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+            <a [routerLink]="['/confirm-address']" ><i class="fa fa-angle-left" aria-hidden="true"></i></a>
             <h2 class="app_heading">checkout</h2>
         </div>			
         <div class="app_verification_caption app_checkout_content">
-            <form >
+            <h6 style="color: red">{{ display }}</h6>
+            <h6 style="color: green">{{ displaysuccess }}</h6>
+            <form [formGroup]="angForm" (ngSubmit)="onSubmit()">
                 <label class="app_content">Deliver to</label>
                 <div class="app_checkout_input">
                     <img src="assets/img/position_pin.svg" alt="">
-                    <input type="text" class="app_checkout_input_pad app_check_input_loc" value="9 west 46th steet,New York">
-                    <a href="#" class="app_checkout_input_link">change</a>
+                    <input type="text" class="app_checkout_input_pad app_check_input_loc" value="{{customer_address}}">
+                    <a [routerLink]="['/confirm-address']" class="app_checkout_input_link">change</a>
                 </div>
                 <label class="app_content">Deliver in</label>
                 <div class="app_checkout_input app_checkout_input_deliver">
                     <img src="assets/img/clock.svg" alt="">
-                    <input type="text" class="app_checkout_input_pad" value="56 minutes">
+                    <input type="text" class="app_checkout_input_pad" value="30-45 minutes">
                 </div>
                 <label  class="app_content">Add Promo</label>
                 <div class="app_checkout_input app_checkout_input_pro">
                     <img src="assets/img/apply_code.svg" alt="">
                     <input type="text" class="app_icon_input_pad" value="" placeholder="Paste Code Here">
-                    <a href="#" class="app_checkout_code">apply</a>
+                    <a  class="app_checkout_code">apply</a>
                 </div>
                 <label class="app_content">choose payment</label>					
                 <div class="app_choose_payment">
@@ -34,7 +36,10 @@
                         </div>
                         <div class="col-9">
                             <div class="app_choose_payment_option">
-                                <p class="app_checkout_text_right">4221 **** **** 4221<i class="fa fa-check app_pickup_location_icons" aria-hidden="true"></i></p>
+                                <p class="app_checkout_text_right">4221 **** **** 4221<label class="container_radio">
+                                  <input type="radio" formControlName="paymentMethod" value="1"  name="paymentMethod">
+                                  <span class="checkmark"></span>
+                                </label></p>
                             </div>
                         </div>
                     </div>
@@ -49,7 +54,10 @@
                         </div>
                         <div class="col-9">
                             <div class="app_choose_payment_option">
-                                <p class="app_checkout_text_right">Pay when receive order<i class="fa fa-check app_pickup_location_icons" aria-hidden="true"></i></p>
+                                <p class="app_checkout_text_right">Pay when receive order<label class="container_radio">
+                                  <input type="radio" value="3" formControlName="paymentMethod" name="paymentMethod">
+                                  <span class="checkmark"></span>
+                                </label></p>
                             </div>
                         </div>
                     </div>
@@ -64,7 +72,7 @@
                         </div>
                         <div class="col-4">
                             <div class="app_choose_payment_option app_choose_payment_add_card">
-                                <p class="app_checkout_text_right"><a href="#"><i class="fa fa-plus app_pickup_location_icons" aria-hidden="true"></i></a></p>
+                                <p class="app_checkout_text_right"><a ><i class="fa fa-plus app_pickup_location_icons" aria-hidden="true"></i></a></p>
                             </div>
                         </div>
                     </div>
@@ -114,7 +122,10 @@
                         </div>
                     </div>
                 </div>
-                <input (click)="onSubmit()" type="submit" class="app_full_btn" value="pay">
+                <div class="invalid-feedback">
+                    <div >*Payment Method code is required</div>
+                </div>
+                <input type="submit" [disabled]="angForm.invalid" class="app_full_btn" value="pay">
             </form>
         </div>
     </div>

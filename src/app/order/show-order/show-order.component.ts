@@ -38,15 +38,19 @@ export class ShowOrderComponent implements OnInit {
       this.router.navigate(['/not-found'])
     }
 
-    if (localStorage.getItem('customer_address') == null) {
-      this.customer_address = ""
-    } else {
-      this.customer_address = CryptoJS.AES.decrypt(localStorage.getItem('customer_address'), '').toString(CryptoJS.enc.Utf8);
-    }
-    
-
     this.get_all_rest_data()
     this.get_all_category()
+  }
+
+  ngOnInit(): void {
+  }
+
+  ngAfterContentChecked() {
+    if (localStorage.getItem('customer_address')) {
+      this.customer_address = CryptoJS.AES.decrypt(localStorage.getItem('customer_address'), '').toString(CryptoJS.enc.Utf8);
+    } else {
+      this.customer_address = ""
+    }
   }
 
   get_all_rest_data() {
@@ -55,7 +59,7 @@ export class ShowOrderComponent implements OnInit {
     };
     this.orderService.get_restaurant_data(obj).subscribe((res) => {
       if (res.status == 200) {
-
+        console.log(res.data, 'ifff')
         this.themeView = res.data.theme_view
         if (this.themeView == "1") {       //1=listview in  and 2= gridmeans
           this.themeCondition = false
@@ -69,20 +73,21 @@ export class ShowOrderComponent implements OnInit {
         this.restAddress = res.data.rest_full_address
         this.minimumOrderValue = res.data.minimum_order_value
 
-        
 
-    if (localStorage.getItem('order_type')) {
-      const orderType =CryptoJS.AES.decrypt(localStorage.getItem('order_type'), '').toString(CryptoJS.enc.Utf8)
-      this.selectedDeliveryType = orderType
-    }else{
-      var encrypted_order_type = CryptoJS.AES.encrypt(this.selectedDeliveryType, '');
-      localStorage.setItem('order_type',encrypted_order_type.toString());
-    }
+
+        if (localStorage.getItem('order_type')) {
+          const orderType = CryptoJS.AES.decrypt(localStorage.getItem('order_type'), '').toString(CryptoJS.enc.Utf8)
+          this.selectedDeliveryType = orderType
+        } else {
+          var encrypted_order_type = CryptoJS.AES.encrypt(this.selectedDeliveryType, '');
+          localStorage.setItem('order_type', encrypted_order_type.toString());
+        }
         // this.minimum_order_value = res.data.end_delevery_time
         // this.themeColor = res.data.theme_color
 
       } else {
-        this.router.navigate(['/not-found'])
+        console.log('ellls')
+        // this.router.navigate(['/not-found'])
       }
     });
 
@@ -99,7 +104,7 @@ export class ShowOrderComponent implements OnInit {
     };
 
     this.orderService.get_all_category(obj).subscribe((res) => {
-       console.log(res)
+      console.log(res)
       if (res.status == 200) {
         this.getCategoryData = res.data;
         this.findItem(res.data[0]);
@@ -110,7 +115,7 @@ export class ShowOrderComponent implements OnInit {
 
   }
 
- 
+
   findItem(catData) {
     this.catId = catData._id;
     this.menuId = catData.menu_id;
@@ -167,15 +172,14 @@ export class ShowOrderComponent implements OnInit {
     if (check === 1) {
       this.selectedDeliveryType = "1";
       var encrypted_order_type = CryptoJS.AES.encrypt('1', '');
-      localStorage.setItem('order_type',encrypted_order_type.toString());
+      localStorage.setItem('order_type', encrypted_order_type.toString());
     } else {
       this.selectedDeliveryType = "2";
       var encrypted_order_type = CryptoJS.AES.encrypt('2', '');
-      localStorage.setItem('order_type',encrypted_order_type.toString());
+      localStorage.setItem('order_type', encrypted_order_type.toString());
     }
   }
 
-  ngOnInit(): void {
-  }
+
 
 }

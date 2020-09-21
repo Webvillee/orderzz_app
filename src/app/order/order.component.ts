@@ -67,8 +67,6 @@ export class OrderComponent implements OnInit {
           // this.minimum_order_value = res.data.end_delevery_time
           // this.themeColor = res.data.theme_color
           
-        } else {
-          this.router.navigate(['/not-found'])
         }
       });
     }

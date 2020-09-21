@@ -61,10 +61,9 @@ export class CheckoutComponent implements OnInit {
       this.email= data.user_email
     }
 
-    // this.angForm = this.fb.group({
-    //   userName: ['', Validators.required, Validators.minLength(4)],
-    //   email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
-    // });
+    this.angForm = this.fb.group({
+      paymentMethod: ['', Validators.required],
+    });
 
     
 
@@ -72,35 +71,36 @@ export class CheckoutComponent implements OnInit {
     this.getAllorderData();
   }
 
-  // get f() { return this.angForm.controls; }
+  get f() { return this.angForm.controls; }
 
   get_all_rest_data() {
     const obj = {
       restId: CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     };
-    this.orderService.get_restaurant_data(obj).subscribe((res) => {
-      if (res.status == 200) {
+    console.log(obj)
+    // this.orderService.get_restaurant_data(obj).subscribe((res) => {
+    //   if (res.status == 200) {
 
-        this.themeView = res.data.theme_view
-        if (this.themeView == "1") {       //1=listview in  and 2= gridmeans
-          this.themeCondition = false
-        } else {
-          this.themeCondition = true
-        }
+    //     this.themeView = res.data.theme_view
+    //     if (this.themeView == "1") {       //1=listview in  and 2= gridmeans
+    //       this.themeCondition = false
+    //     } else {
+    //       this.themeCondition = true
+    //     }
 
-        this.banner = res.data.rest_banner
-        this.logo = res.data.rest_logo
-        this.restName = res.data.rest_name
-        this.restAddress = res.data.rest_full_address
-        this.minimumOrderValue = res.data.minimum_order_value
+    //     this.banner = res.data.rest_banner
+    //     this.logo = res.data.rest_logo
+    //     this.restName = res.data.rest_name
+    //     this.restAddress = res.data.rest_full_address
+    //     this.minimumOrderValue = res.data.minimum_order_value
 
-        // this.minimum_order_value = res.data.end_delevery_time
-        // this.themeColor = res.data.theme_color
+    //     // this.minimum_order_value = res.data.end_delevery_time
+    //     // this.themeColor = res.data.theme_color
 
-      } else {
-        this.router.navigate(['/not-found'])
-      }
-    });
+    //   } else {
+    //     this.router.navigate(['/not-found'])
+    //   }
+    // });
   }
 
   getAllorderData() {
@@ -118,18 +118,39 @@ export class CheckoutComponent implements OnInit {
           for (let step = 0; step < availmodifire.length; step++) {
             // availmodifire[step].modifire.reduce((prev, item) => prev + item.sell_price, 0);
             availmodifire[step].modifire.map(function (el) {
+              // console.log(availmodifire[step].cat_name, el.isChecked)
               if (el.isChecked === true) {
-                // console.log(el.price, 'elllll');
-                total =  total + el.price
+                // console.log(availmodifire[step].cat_name, '00');
+                if(availmodifire[step].cat_name==='size'){
+                  // console.log(availmodifire[step].cat_name, 'kljkljkl');
+                  // console.log(el.price, '99999');
+                  total = total + el.price;
+                  total = total - element.price
+
+                  element.priceNew = el.price;
+                }else{
+                  // console.log(el.price, 'elllll');
+                  total = total + el.price
+                }
               }
             })
           }
         }
+       
+
       });
 
       this.orderTotal = total;
       let sellPrice = this.itemArray.reduce((prev, item) => prev + item.sell_price, 0);
       this.savingCost = sellPrice;
+      const seen = new Set();
+      const filteredArr = data.filter(el => {
+        const duplicate = seen.has(el._id);
+        seen.add(el._id);
+        return !duplicate;
+      });
+      // this.getItemData = filteredArr
+      // console.log(this.getItemData, "OrderData")
     }
   }
 
@@ -137,9 +158,17 @@ export class CheckoutComponent implements OnInit {
 
   onSubmit() {
     
-    // var userName = this.angForm.controls.userName.value;
+    var paymentMethod = this.angForm.controls.paymentMethod.value;
     // var userEmail = this.angForm.controls.email.value;
-    console.log('7767678888888888888');
+    console.log('7767678888888888888', paymentMethod, this.angForm.invalid);
+
+   
+
+    // stop here if form is invalid
+    if (this.angForm.invalid) {
+      return;
+    }
+    
     let orderType;
     let order_instruction='';
     let items;
@@ -159,35 +188,32 @@ export class CheckoutComponent implements OnInit {
     if(localStorage.getItem('rest_id')){
       res_id= CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     }
-   
-   
-   
-    const obj = { restId: res_id, userId: this.userId, orderType: orderType, orderItems: items, orderDescription:order_instruction, totalAmount: this.orderTotal, paymentMethod: 2  , orderReview: 1, isCreditPayment: 1 }
-    console.log('776767888', obj);
 
-    this.orderService.postAll('place_order', obj).subscribe((res) => {
-      if (res.status === 200) {
-        var encrypted_order_type = CryptoJS.AES.encrypt(JSON.stringify(res.data), '').toString();;
-        localStorage.setItem('placedData',encrypted_order_type.toString());
+    if(paymentMethod){
+      this.submitted = true;
+      const obj = { restId: res_id, userId: this.userId, orderType:  Number(orderType), orderItems: items, orderDescription:order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod)  , orderReview: 1, isCreditPayment: 1 }
+      console.log(paymentMethod, '776767888', obj);
+  
+      this.orderService.postAll('place_order', obj).subscribe((res) => {
+        if (res.status === 200) {
+          var encrypted_order_type = CryptoJS.AES.encrypt(JSON.stringify(res.data), '').toString();;
+          localStorage.setItem('placedData',encrypted_order_type.toString());
+      
+          localStorage.removeItem("OrderData")
+          this.display = ''
+          this.displaysuccess = "Succussfully";
+          this.router.navigate(['/order-placed']);
+          setTimeout(function(){ this.displaysuccess='' }, 3000);
+        } else {
+          this.displaysuccess = ''
+          this.display = res.msg;
+        }
+      });
+    }else{
+      this.submitted = false;
+    }
     
-        localStorage.removeItem("OrderData")
-        this.display = ''
-        this.displaysuccess = "Succussfully";
-        this.router.navigate(['/order-placed']);
-        setTimeout(function(){ this.displaysuccess='' }, 3000);
-      } else {
-        this.displaysuccess = ''
-        this.display = res.msg;
-      }
-    });
-    // // stop here if form is invalid
-    
-    // this.submitted = true;
 
-    // // stop here if form is invalid
-    // if (this.angForm.invalid) {
-    //   return;
-    // }
     
     
 

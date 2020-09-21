@@ -47,6 +47,7 @@ export class PersonalDetailsComponent implements OnInit {
     } else {
       this.customer_address = CryptoJS.AES.decrypt(localStorage.getItem('customer_address'), '').toString(CryptoJS.enc.Utf8);
     }
+
     if (localStorage.getItem('userId')) {
       this.userId = CryptoJS.AES.decrypt(localStorage.getItem('userId'), '').toString(CryptoJS.enc.Utf8)
       // const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))
@@ -57,7 +58,7 @@ export class PersonalDetailsComponent implements OnInit {
       this.userName= data.user_name
       this.email= data.user_email
     }
-
+   
     this.angForm = this.fb.group({
       userName: ['', Validators.required, Validators.minLength(4)],
       email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
@@ -69,6 +70,20 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   get f() { return this.angForm.controls; }
+
+  ngAfterContentChecked() {
+    if (localStorage.getItem('userId')) {
+      this.userId = CryptoJS.AES.decrypt(localStorage.getItem('userId'), '').toString(CryptoJS.enc.Utf8)
+      // const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))
+      
+    const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
+    this.UserData=data
+    console.log(data, 'lll')
+      this.userName= data.user_name
+      this.email= data.user_email
+    }
+
+  }
 
   get_all_rest_data() {
     const obj = {
@@ -121,12 +136,10 @@ export class PersonalDetailsComponent implements OnInit {
 
       this.orderService.postAll('update_profile', obj).subscribe((res) => {
         if (res.status === 200) {
-          localStorage.setItem('token', res.data);
-
+          var userOrder = CryptoJS.AES.encrypt(JSON.stringify(res.data), '').toString();
+          localStorage.setItem('UserData', userOrder);
         var encrypted_order_type = CryptoJS.AES.encrypt(userName, '');
         localStorage.setItem('userName',encrypted_order_type.toString());
-          // localStorage.setItem('userId', res.data._id);
-          // localStorage.setItem('token', res.data.token);
           this.display = ''
           this.displaysuccess = "Succussfully";
           this.router.navigate(['/confirm-address']);

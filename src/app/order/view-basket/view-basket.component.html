@@ -5,115 +5,120 @@
             <h2 *ngIf="orderTotal<minimumOrderValue" class="app_heading">Your Basket</h2>
             <h2 *ngIf="orderTotal>=minimumOrderValue" class="app_heading">Review Food</h2>
         </div>
-            <div *ngIf="orderTotal<minimumOrderValue" class="row">
-                <div class="col-12">
-                    <div class="app_your_basket_text_top_border">
-                        <div class="app_your_basket_icons_heading_left">
-                            <h4>Note: Minimum Order Value is {{minimumOrderValue}} AED</h4>
-                        </div>
+        <div *ngIf="orderTotal<minimumOrderValue" class="row">
+            <div class="col-12">
+                <div class="app_your_basket_text_top_border">
+                    <div class="app_your_basket_icons_heading_left">
+                        <h4>Note: Minimum Order Value is {{minimumOrderValue}} AED</h4>
                     </div>
                 </div>
             </div>
-            <div class="app_your_basket_image_left_text_right" *ngFor="let itemData of getItemData">
-                <div class="row app_row">
-                    <div class="col-12" >
-                        <div class="row app_row">
-                            <div class="col-4">
-                                <div class="app_your_basket_image">
-                                    <span *ngIf="itemData.add_lable!=3" class="image_title_sec">{{(itemData.add_lable===1)? 'New':  (itemData.add_lable===2)? 'Signature' : ''}}</span>
-                        <img src="{{img_url}}{{itemData.item_image}}" alt="item Image" class="image_adjust">
-                                </div>
+        </div>
+        <div class="app_your_basket_image_left_text_right" *ngFor="let itemData of getItemData">
+            <div class="row app_row">
+                <div class="col-12">
+                    <div class="row app_row">
+                        <div class="col-4">
+                            <div class="app_your_basket_image">
+                                <span *ngIf="itemData.add_lable!=3"
+                                    class="image_title_sec">{{(itemData.add_lable===1)? 'New':  (itemData.add_lable===2)? 'Signature' : ''}}</span>
+                                <img src="{{img_url}}{{itemData.item_image}}" alt="item Image" class="image_adjust">
                             </div>
-                            <div class="col-8">
-                                <div class="app_your_basket_heading_3_right">
-                                    <h3>{{itemData.item_name}}</h3>
-                                </div>
-                                <div class="app_your_basket_heading_6_right">
-                                    <h6>{{itemData.item_description}}</h6>
-                                </div>
-                                <div class="app_your_basket_text_right">
-                                    {{itemData.price}} AED
-                                    <!-- <span class="app_your_basket_text_right_del">
+                        </div>
+                        <div class="col-8">
+                            <div class="app_your_basket_heading_3_right">
+                                <h3>{{itemData.item_name}}</h3>
+                            </div>
+                            <div class="app_your_basket_heading_6_right">
+                                <h6>{{itemData.item_description}}</h6>
+                            </div>
+                            <div class="app_your_basket_text_right">
+                                {{(itemData.priceNew)? itemData.priceNew: itemData.price}} AED
+                                <!-- <span class="app_your_basket_text_right_del">
                                         <del>{{itemData.price}} AED</del>
                                     </span> -->
-                                    <div class="app_add_baset_icon">
+                                <div class="app_add_baset_icon">
                                     <span *ngIf="countOrder(itemData._id)!=0">
-                                        <span (click)="removeToCart(itemData._id)" class="app_add_minus_icon"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                        <span class="app_your_basket_text_icons_number padRight">{{countOrder(itemData._id)}}</span>
+                                        <span (click)="removeToCart(itemData._id)" class="app_add_minus_icon"><i
+                                                class="fa fa-minus" aria-hidden="true"></i></span>
+                                        <span
+                                            class="app_your_basket_text_icons_number padRight">{{countOrder(itemData._id)}}</span>
                                         <!-- <span class="app_addition_icon app_your_basket_text_icons_number" ><i class="fa fa-minus" aria-hidden="true"></i></span>
                                         <span class="app_basket_quantity">{{countOrder(itemData._id)}}</span> -->
                                     </span>
-                                    
-                                    <span><i class="fa fa-plus app_your_basket_icons cursorCss" aria-hidden="true" (click)="addToCart(itemData)"></i></span>
+
+                                    <span><i class="fa fa-plus app_your_basket_icons cursorCss" aria-hidden="true"
+                                            (click)="addToCart(itemData)"></i></span>
                                 </div>
-                                </div>
-                                <div *ngIf="itemData.is_modifire_status===1" class="app_your_basket_text_right_bottom">
-                                    <h2><a (click)="customiseOrder(itemData)" class="linkColor">Customise this</a></h2>
-                                </div>
+                            </div>
+                            <div *ngIf="itemData.is_modifire_status===1" class="app_your_basket_text_right_bottom">
+                                <h2><a (click)="customiseOrder(itemData)" class="linkColor">Customise this</a></h2>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div *ngIf="orderTotal>=minimumOrderValue" class="row">
-                <div class="col-12">
-                    <form>
-                        <label class="app_review_food_text__left_special">Special Instructions</label>
-                        <textarea name="special_instruction" [(ngModel)]="special_instruction" class="app_review_input_text"  rows="3" placeholder="Add a note or any special instructions"></textarea>
-                    </form>
-                    <!-- <div class="app_review_food_heading_right">
+        <div *ngIf="orderTotal>=minimumOrderValue" class="row">
+            <div class="col-12">
+                <form>
+                    <label class="app_review_food_text__left_special">Special Instructions</label>
+                    <textarea name="special_instruction" [(ngModel)]="special_instruction" class="app_review_input_text"
+                        rows="3" placeholder="Add a note or any special instructions"></textarea>
+                </form>
+                <!-- <div class="app_review_food_heading_right">
                         <h3>Order Summary</h3>
                     </div> -->
-                </div>
             </div>
-            <hr>
+        </div>
+        <hr>
 
+        <div class="row app_row">
+            <div class="col-12">
+                <div class="app_your_basket_text_bottom">
+                    <h4>Order Summary</h4>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="app_your_basket_content_text_bottom">
             <div class="row app_row">
-                <div class="col-12">
-                    <div class="app_your_basket_text_bottom">
-                        <h4>Order Summary</h4>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="app_your_basket_content_text_bottom">
-                <div class="row app_row">
-                    <div class=" col-12">
-                        <div class="row app_row">
-                            <div class="col-8">
-                                <div class="app_your_basket_heading_left_bottom">
-                                    <h3>Order Price</h3>
-                                </div>
+                <div class=" col-12">
+                    <div class="row app_row">
+                        <div class="col-8">
+                            <div class="app_your_basket_heading_left_bottom">
+                                <h3>Order Price</h3>
                             </div>
-                            <div class="col-4">
-                                <div class="app_your_basket_heading_right_bottom">
-                                    <h3>{{orderTotal}} AED</h3>
-                                </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="app_your_basket_heading_right_bottom">
+                                <h3>{{orderTotal}} AED</h3>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="app_your_basket_content_text_bottom">
-                <div class="row app_row">
-                    <div class=" col-12">
-                        <div class="row app_row">
-                            <div class="col-8">
-                                <div class="app_your_basket_heading_left_bottom">
-                                    <h3>Savings</h3>
-                                </div>
+        </div>
+        <div class="app_your_basket_content_text_bottom">
+            <div class="row app_row">
+                <div class=" col-12">
+                    <div class="row app_row">
+                        <div class="col-8">
+                            <div class="app_your_basket_heading_left_bottom">
+                                <h3>Savings</h3>
                             </div>
-                            <div class="col-4">
-                                <div class="app_your_basket_heading_number_text_right_bottom">
-                                    <h3>{{savingCost}} AED</h3>
-                                </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="app_your_basket_heading_number_text_right_bottom">
+                                <h3>{{savingCost}} AED</h3>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- <div class="app_your_basket_content_text_bottom">
+        </div>
+        <!-- <div class="app_your_basket_content_text_bottom">
                 <div class="row app_row">
                     <div class=" col-12">
                         <div class="row app_row">
@@ -131,26 +136,27 @@
                     </div>
                 </div>
             </div> -->
-            <div class="app_your_basket_content_text_bottom">
-                <div class="row app_row">
-                    <div class=" col-12">
-                        <div class="row app_row">
-                            <div class="col-6">
-                                <div class="app_your_basket_heading_left_bottom_last">
-                                    <h3>Total  </h3>
-                                </div>
+        <div class="app_your_basket_content_text_bottom">
+            <div class="row app_row">
+                <div class=" col-12">
+                    <div class="row app_row">
+                        <div class="col-6">
+                            <div class="app_your_basket_heading_left_bottom_last">
+                                <h3>Total </h3>
                             </div>
-                            <div class="col-6">
-                                <div class="app_your_basket_heading_right_bottom_last">
-                                    <h3>{{orderTotal}} AED</h3>
-                                </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="app_your_basket_heading_right_bottom_last">
+                                <h3>{{orderTotal}} AED</h3>
                             </div>
                         </div>
                     </div>
                 </div>
-                <a *ngIf="orderTotal<minimumOrderValue" [routerLink]="['/order']" class="app_full_btn">Add more item</a>
-                <a *ngIf="orderTotal>=minimumOrderValue" [routerLink]="['/phone-verification']" class="app_full_btn" (click)="submit()" >Proceed to order</a>
             </div>
+            <a *ngIf="orderTotal<minimumOrderValue" [routerLink]="['/order']" class="app_full_btn">Add more item</a>
+            <a *ngIf="orderTotal>=minimumOrderValue" [routerLink]="['/phone-verification']" class="app_full_btn"
+                (click)="submit()">Proceed to order</a>
+        </div>
     </div>
 
 </div>

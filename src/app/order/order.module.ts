@@ -89,6 +89,6 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   providers: [OrderService],
-  entryComponents: [CustomiseOrderComponent]
+  entryComponents: [CustomiseOrderComponent, ConfirmAddressComponent]
 })
 export class OrderModule { }

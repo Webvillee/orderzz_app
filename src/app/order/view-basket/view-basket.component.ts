@@ -14,7 +14,7 @@ import * as CryptoJS from 'crypto-js'
   styleUrls: ['./view-basket.component.css']
 })
 export class ViewBasketComponent implements OnInit {
-  
+
   themeCondition
   themeView
   customer_address
@@ -96,13 +96,26 @@ export class ViewBasketComponent implements OnInit {
           for (let step = 0; step < availmodifire.length; step++) {
             // availmodifire[step].modifire.reduce((prev, item) => prev + item.sell_price, 0);
             availmodifire[step].modifire.map(function (el) {
+              // console.log(availmodifire[step].cat_name, el.isChecked)
               if (el.isChecked === true) {
-                console.log(el.price, 'elllll');
-                total =  total + el.price
+                // console.log(availmodifire[step].cat_name, '00');
+                if(availmodifire[step].cat_name==='size'){
+                  // console.log(availmodifire[step].cat_name, 'kljkljkl');
+                  // console.log(el.price, '99999');
+                  total = total + el.price;
+                  total = total - element.price
+
+                  element.priceNew = el.price;
+                }else{
+                  // console.log(el.price, 'elllll');
+                  total = total + el.price
+                }
               }
             })
           }
         }
+       
+
       });
 
       this.orderTotal = total;
@@ -162,14 +175,11 @@ export class ViewBasketComponent implements OnInit {
     });
   }
 
-  submit(){
-    
+  submit() {
+
     var encrypted_order_type = CryptoJS.AES.encrypt(this.special_instruction, '');
-    localStorage.setItem('order_instruction',encrypted_order_type.toString());
-    
-    var userOrderData = CryptoJS.AES.encrypt(JSON.stringify(this.itemArray), '').toString();
-    localStorage.setItem('OrderData', userOrderData);
-    
+    localStorage.setItem('order_instruction', encrypted_order_type.toString());
+
   }
 
   ngOnInit(): void {

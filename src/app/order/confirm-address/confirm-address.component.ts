@@ -129,12 +129,10 @@ export class ConfirmAddressComponent implements OnInit {
 
       this.orderService.postAll('update_profile', obj).subscribe((res) => {
         if (res.status === 200) {
-          localStorage.setItem('token', res.data);
-
+          var userOrder = CryptoJS.AES.encrypt(JSON.stringify(res.data), '').toString();
+          localStorage.setItem('UserData', userOrder);
         var encrypted_order_type = CryptoJS.AES.encrypt(address, '');
         localStorage.setItem('address',encrypted_order_type.toString());
-          // localStorage.setItem('userId', res.data._id);
-          // localStorage.setItem('token', res.data.token);
           this.display = ''
           this.displaysuccess = "Succussfully";
           this.router.navigate(['/checkout']);

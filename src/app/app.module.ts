@@ -14,6 +14,8 @@ import { NotifierModule } from "angular-notifier";
 import { AgmCoreModule } from '@agm/core';            // @agm/core
 import { NgxSpinnerModule } from "ngx-spinner";
 import { UrlSetting } from "./urlSetting";
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 const routes: Routes = [
@@ -43,6 +45,7 @@ const routes: Routes = [
       apiKey: UrlSetting.agm_core_key ,
       libraries: ['places']
     }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [],
   bootstrap: [AppComponent]

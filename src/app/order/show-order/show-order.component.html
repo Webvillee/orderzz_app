@@ -140,11 +140,11 @@
 					<h4>Menu Options</h4>
 					<ul>
 						<li><a routerLink="/order" class="active">Home</a></li>
-						<li><a routerLink="/order">Your Orders</a></li>
-						<li><a routerLink="/order">Profile</a></li>
+						<!-- <li><a routerLink="/order">Your Orders</a></li> -->
+						<!-- <li><a routerLink="/order">Profile</a></li> -->
 					</ul>
 				</div>
-				<a routerLink="/order" class="app_full_btn">Sign Out</a>
+				<!-- <a routerLink="/order" class="app_full_btn">Sign Out</a> -->
 			</div>
 			<!-- sidebar close -->
 
@@ -171,7 +171,7 @@
 							<div class="app_hot_food_restaurant_delivery_details">
 								<ul>
 									<li><a ><img src="assets/img/clock.svg"> 30-45 min</a></li>
-									<li><a ><img src="assets/img/shopping_bag.svg">AED {{minimumOrderValue}} Minimum Value</a></li>
+									<li><a ><img src="assets/img/shopping_bag.svg">AED {{(minimumOrderValue)? minimumOrderValue: 0 }} Minimum Value</a></li>
 								</ul>
 							</div>		
 						</div>
