@@ -747,19 +747,21 @@ Your Basket Section
 .app_your_basket_image_left_text_right{
 	padding-top:15px;
 }
-.app_your_basket_heading_3_right h3{
-	font-weight: 700;
+.app_your_basket_heading_3_right h5{
+font-size: 20px;
+    font-weight: 700;
+    margin-top: 10px;
+}
+.app_your_basket_heading_6_right h6 {
+    line-height: 1.5;
+    color: #ccc;
     font-size: 16px;
+    font-weight: 500;
 }
-.app_your_basket_heading_6_right h6{
-	font-size: 10px;
-	color:#8a8787;
-	line-height:1.5;
-}
-.app_your_basket_text_right{
-	font-weight: 700;
-    font-size: 15px;
-	color:var(--primary-color);
+.app_your_basket_text_right {
+    font-size: 18px;
+    color: var(--primary-color);
+    font-weight: 600;
 }
 .app_your_basket_text_right_del{
 	font-size:9px;
@@ -1507,7 +1509,9 @@ Personal Detail
     display: inline-block;
   
     margin-left: 0px;
-	margin-right: 3px;
+	margin-right: 15px;
+	margin-top: 10px;
+	color: #ccc;
 }
 .app_category_scroll_button ul li a{
 	position: relative;
@@ -1527,6 +1531,7 @@ Personal Detail
     font-size: 16px;
     font-weight: 700;
     text-align: center;
+    padding: 7px 30px;
 }
 .app_scroll_button.active{
     border: 2px solid #03A9F4;
@@ -1549,6 +1554,7 @@ Personal Detail
 .app_hot_food_restaurant_bestsellers h4{
 	font-size: 22px;
     font-weight: 700;
+        margin-top: 20px;
 
 }
 .app_bestsellers_detail{
@@ -1557,23 +1563,24 @@ Personal Detail
 	width:100%;
 	
 }
+
 .app_bestsellers_detail img{
      border-radius: 18px;
     margin-top: 20px;
     width: 100%;
 }
 .app_bestsellers_detail h5{
-	font-size: 15px;
+	font-size: 20px;
     font-weight: 700;
     margin-top: 10px;
 }
 .app_bestsellers_detail h6{
    color: #ccc;
-    font-size: 13px;
+    font-size: 16px;
     font-weight: 500;
 }
 .app_bestseller_foot .app_footer {
-	font-size: 16px;
+	font-size: 18px;
     color:var(--primary-color);
     font-weight: 600;
 	padding-right: 2px;
@@ -1587,12 +1594,12 @@ Personal Detail
     float: right;
 }
 .app_bestseller_foot .app_addition_icon i{
-    width: 18px;
+width: 25px;
     text-align: center;
-    height: 18px;
-    padding-top: 3px;
+    height: 25px;
+    padding-top: 5px;
     border-radius: 50%;
-    font-size: 13px;
+    font-size: 16px;
     color: #fff;
     background-color: var(--primary-color);
 }
@@ -1814,22 +1821,22 @@ Personal Detail
     font-weight: 700;
 }
 .image_title_sec{
-	background: var(--primary-color);
+background: var(--primary-color);
     transform: rotate(-55deg);
     width: 200px;
     display: block;
     position: absolute;
-    top: 47px;
+    top: 27px;
     color: #fff;
     text-align: center;
     font-size: 22px;
-    left: -51px;
+    left: -46px;
     height: 42px;
     line-height: 36px;
-    clip-path: polygon(35% 0%, 72% 0%, 100% 196%, 0% 119%);
+    clip-path: polygon(29% 0%, 72% 0%, 100% 196%, -4% 119%);
     border: 2px solid #fff !important;
-	font-weight: 600;
-	text-transform: lowercase;
+    font-weight: 600;
+    text-transform: lowercase;
 }
 .linkColor{
 	color: #007bff !important;
@@ -1852,19 +1859,9 @@ p.required_btnn {
     border-radius: 5px;
 }
 .container_radio input:checked ~ .checkmark {
-  background-color: var(--primary-color);
+  background-color: var(--primary-color) !important;
 }
 
-.container_radio input:checked ~ .checkmark {
+/*.container_radio input:checked ~ .checkmark {
 	background-color: var(--primary-color);
-}
-.app_bestsellers_detail img {
-	border-radius: 18px;
-	width: 100%;
-	height: 100%;
-	object-fit: contain;
-}
-.whitecolor a:not([href]):hover {
-    text-decoration: none;
-    color: var(--primary-color) !important;
-}
+}*/

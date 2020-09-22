@@ -45,7 +45,8 @@ const routes: Routes = [
       apiKey: UrlSetting.agm_core_key ,
       libraries: ['places']
     }),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    // ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately' })
   ],
   providers: [],
   bootstrap: [AppComponent]

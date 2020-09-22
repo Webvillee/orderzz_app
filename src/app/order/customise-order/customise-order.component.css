@@ -37,6 +37,7 @@ input[type=checkbox] {
 }
 .app_the_food_image_content_text_icons .col-8 {
     max-width: 50%;
+    padding: 0
 }
 
 .app_the_food_image_content_text_icons .col-4 {
@@ -58,7 +59,7 @@ input[type=checkbox] {
 }
 .app_close_review_popup {
     position: absolute;
-    top: -5%;
+    top: -3%;
     left: 48%;
 }
 .requireds .col-12 {
@@ -73,11 +74,11 @@ input[type=checkbox] {
 .add_cart .col-4{
    padding: 0; 
 }
-.add_cart .col-8{
+/*.add_cart .col-8{
    padding: 0; 
-}
-.btn:hover {
-    color: var(--primary-color);
+}*/
+.app_the_food_image_button:hover {
+    color: #fff;
     text-decoration: none;
 }
 
@@ -114,10 +115,6 @@ input[type=checkbox] {
   border-radius: 50%;
 }
 
-/* On mouse-over, add a grey background color */
-.container_radio:hover input ~ .checkmark {
-  background-color: #ccc;
-}
 
 /* When the radio button is checked, add a blue background */
 
@@ -143,3 +140,8 @@ input[type=checkbox] {
     border-radius: 50%;
     background: white;
 }
+.app_the_food_image_content_text_icons {
+    padding-top: 20px;
+    margin-bottom: 10px;
+}
+

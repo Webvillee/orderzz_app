@@ -138,11 +138,12 @@ export class PersonalDetailsComponent implements OnInit {
         if (res.status === 200) {
           var userOrder = CryptoJS.AES.encrypt(JSON.stringify(res.data), '').toString();
           localStorage.setItem('UserData', userOrder);
-        var encrypted_order_type = CryptoJS.AES.encrypt(userName, '');
-        localStorage.setItem('userName',encrypted_order_type.toString());
+          var encrypted_order_type = CryptoJS.AES.encrypt(userName, '');
+          localStorage.setItem('userName',encrypted_order_type.toString());
+          this.router.navigate(['/confirm-address']);
           this.display = ''
           this.displaysuccess = "Succussfully";
-          this.router.navigate(['/confirm-address']);
+          
           setTimeout(function(){ this.displaysuccess='' }, 3000);
         } else {
           this.displaysuccess = ''

@@ -132,7 +132,7 @@ export class ConfirmAddressComponent implements OnInit {
           var userOrder = CryptoJS.AES.encrypt(JSON.stringify(res.data), '').toString();
           localStorage.setItem('UserData', userOrder);
         var encrypted_order_type = CryptoJS.AES.encrypt(address, '');
-        localStorage.setItem('address',encrypted_order_type.toString());
+        localStorage.setItem('customer_address',encrypted_order_type.toString());
           this.display = ''
           this.displaysuccess = "Succussfully";
           this.router.navigate(['/checkout']);

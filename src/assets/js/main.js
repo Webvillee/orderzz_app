@@ -18,16 +18,16 @@ $(window).on('load', function() {
 	
 	//----------Navbar Open Close--------------
 	
-	$(".app_nav_icon").click(function(e){
-		  e.stopPropagation();
-		$(".app_nav_bar").addClass("active");
-	});
-	$('.app_nav_bar').click(function(e){
-		e.stopPropagation();
-	});
-	$('body,html').click(function(e){
-		$(".app_nav_bar").removeClass("active");
-	});	
+	// $(".app_nav_icon").click(function(e){
+	// 	  e.stopPropagation();
+	// 	$(".app_nav_bar").addClass("active");
+	// });
+	// $('.app_nav_bar').click(function(e){
+	// 	e.stopPropagation();
+	// });
+	// $('body,html').click(function(e){
+	// 	$(".app_nav_bar").removeClass("active");
+	// });	
 	
 	//----------Delivery Pickup Button--------------
 

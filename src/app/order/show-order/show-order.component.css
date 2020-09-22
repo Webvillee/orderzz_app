@@ -1,14 +1,18 @@
-.app_bestseller_foot span {
+span.app_basket_quantity {
+    padding-left: 15px;
     padding-right: 15px;
-    cursor: pointer;
 }
 @media only screen and (max-width: 800px) and (min-width: 320px){
+    span.app_basket_quantity {
+    padding-left: 10px;
+    padding-right: 10px;
+}
 	.col-4 {
-    max-width: 60%;
+    max-width: 50%;
     flex: 0%;
 }
 .col-8 {
-    max-width: 40%;
+    max-width: 50%;
     flex: 0%;
 }
 .image_title_sec {
@@ -32,10 +36,9 @@
 }
 .app_basket_btn_submit .app_full_btn.app_add_basket_btn {
     position: fixed;
-    bottom: 15px;
-    width: calc(100% - 70px);
-    left: 38px;
-    right: 15px;
+    bottom: 0px;
+    width: calc(100% - 33px) !important;
+    left: 14px !important;
 }
 /*.app_hot_food_restaurant_delivery_details ul li {
     position: relative;
@@ -88,4 +91,41 @@
 
 .app_bestsellers_detail .row {
     margin-bottom: 35px;
+}
+.app_hot_food_restaurant_image img {
+    max-width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+.app_bestsellers_detail img {
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+/*a.btn.app_scroll_button {
+    color: #ccc;
+}*/
+a.btn.app_scroll_button:hover {
+    border-color: #333;
+    color: #333;
+}
+span.app_basket_quantity {
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.app_hot_food_restaurant_bestsellers h4 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.app_bestseller_foot {
+    margin-top: 25px;
+}
+.app_basket_btn_submit .app_full_btn.app_add_basket_btn {
+    bottom: 0;
+    width: 54%;
+    left: 23%;
+    right: 0;
 }

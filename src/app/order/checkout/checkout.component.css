@@ -32,9 +32,9 @@
 }
 
 /* On mouse-over, add a grey background color */
-.container_radio:hover input ~ .checkmark {
+/*.container_radio:hover input ~ .checkmark {
   background-color: #ccc;
-}
+}*/
 
 /* When the radio button is checked, add a blue background */
 

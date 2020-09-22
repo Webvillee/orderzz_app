@@ -19,7 +19,9 @@ import { OtpVerificationComponent } from './otp-verification/otp-verification.co
 import { PersonalDetailsComponent } from './personal-details/personal-details.component';
 import { ConfirmAddressComponent } from './confirm-address/confirm-address.component';
 import { CheckoutComponent } from './checkout/checkout.component';
-import { OrderPlacedComponent } from './order-placed/order-placed.component';           // @agm/core
+import { OrderPlacedComponent } from './order-placed/order-placed.component';
+import { AddressPopupComponent } from './address-popup/address-popup.component';
+       // @agm/core
 
 // const routes: Routes = [
 //   {
@@ -79,6 +81,7 @@ const routes: Routes = [
     ConfirmAddressComponent,
     CheckoutComponent,
     OrderPlacedComponent,
+    AddressPopupComponent,
   ],
   imports: [
     CommonModule,

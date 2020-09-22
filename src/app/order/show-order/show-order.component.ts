@@ -5,11 +5,13 @@ import { Observable } from 'rxjs';
 import { OrderService } from '../order.service';
 import { UrlSetting } from '../../urlSetting'
 import * as CryptoJS from 'crypto-js'
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AddressPopupComponent } from '../address-popup/address-popup.component'
 
 @Component({
   selector: 'app-show-order',
   templateUrl: './show-order.component.html',
-  styleUrls: ['./show-order.component.css']
+  styleUrls: ['./show-order.component.css'],
 })
 export class ShowOrderComponent implements OnInit {
   public selectedDeliveryType = "1";
@@ -31,8 +33,8 @@ export class ShowOrderComponent implements OnInit {
   itemArray = [];
   getItemData
   catName
-
-  constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService) {
+  private toggle : boolean = false;
+  constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog) {
 
     if (localStorage.getItem('rest_id') == null) {
       this.router.navigate(['/not-found'])
@@ -180,6 +182,25 @@ export class ShowOrderComponent implements OnInit {
     }
   }
 
+  addMap(){
+    // console.log('uhjkhjkhg')
+    this.orderService.sendMessage('popup');
+    const dialogRef = this.dialog.open(AddressPopupComponent, {
+      width: '600px',
+      height: '700px',
+      // padding: '0px',
+      data: {address:'mapicon'}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
+  }
+
+  clickEvent(event){
+    //if you just want to toggle the class; change toggle variable.
+    this.toggle = !this.toggle;       
+ }
 
 
 }
