@@ -6,7 +6,33 @@ span.app_basket_quantity {
     span.app_basket_quantity {
     padding-left: 10px;
     padding-right: 10px;
+    font-size: 20px !important;
 }
+.app_scroll_button.active {
+    border: 2px solid #03A9F4;
+    border-radius: 20px;
+    background-color: #fff;
+    display: inline-block;
+    color: #03A9F4 !important;
+}
+.app_hot_food_restaurant_delivery_details ul li a {
+    font-size: 15px;
+}
+.app_bestseller_foot .app_addition_icon i {
+    width: 28px;
+    text-align: center;
+    height: 28px;
+    padding-top: 5px;
+    border-radius: 50%;
+    font-size: 19px;
+}
+.app_bestseller_foot .app_footer {
+    font-size: 21px;
+    color: var(--primary-color);
+    font-weight: 600;
+    padding-right: 2px;
+}
+
 	.col-4 {
     max-width: 50%;
     flex: 0%;
@@ -14,9 +40,21 @@ span.app_basket_quantity {
 .col-8 {
     max-width: 50%;
     flex: 0%;
+    padding-right: 0;
+    padding-left: 5px;
+}
+.app_hot_food_restaurant_heading h2 {
+    font-size: 37px !important;
+    font-weight: 700;
+}
+.app_hot_food_restaurant_bestsellers h4 {
+    font-size: 29px;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 30px;
 }
 .image_title_sec {
-    background: var(--primary-color);
+/*    background: var(--primary-color);
     transform: rotate(-49deg);
     width: 200px;
     display: block;
@@ -32,7 +70,22 @@ span.app_basket_quantity {
     clip-path: polygon(35% 0%, 72% 0%, 100% 196%, 3% 119%);
     border: 2px solid #fff !important;
     font-weight: 600;
-    text-transform: lowercase;
+    text-transform: lowercase;*/
+        background: var(--primary-color);
+    transform: rotate(-49deg);
+    width: 223px;
+    display: block;
+    position: absolute;
+    top: 24px;
+    color: #fff;
+    text-align: center;
+    font-size: 17px;
+    left: -63px;
+    height: 42px;
+    line-height: 36px;
+    clip-path: polygon(38% 0%, 69% 0%, 100% 196%, 12% 119%);
+    border: 2px solid #fff !important;
+    font-weight: 600;
 }
 .app_basket_btn_submit .app_full_btn.app_add_basket_btn {
     position: fixed;
@@ -58,15 +111,15 @@ span.app_basket_quantity {
     margin-bottom: 40px;
 }
 .app_bestsellers_detail h5 {
-    font-size: 17px;
+    font-size: 27px;
     font-weight: 700;
     margin-top: 10px;
 }
-.app_bestsellers_detail h6 {
+/*.app_bestsellers_detail h6 {
     color: #ccc;
-    font-size: 16px;
+    font-size: 22px;
     font-weight: 500;
-}
+}*/
 .app_restaurant .col-10 {
     max-width: 85%;
     flex: 85%;
@@ -94,7 +147,7 @@ span.app_basket_quantity {
 }
 .app_hot_food_restaurant_image img {
     max-width: 100%;
-    height: 250px;
+    height: 185px;
     object-fit: cover;
 }
 .app_bestsellers_detail img {
@@ -104,13 +157,13 @@ span.app_basket_quantity {
 /*a.btn.app_scroll_button {
     color: #ccc;
 }*/
-a.btn.app_scroll_button:hover {
+/*a.btn.app_scroll_button:hover {
     border-color: #333;
     color: #333;
-}
+}*/
 span.app_basket_quantity {
     color: black;
-    font-size: 16px;
+    font-size: 22px;
     font-weight: 600;
 }
 
@@ -129,3 +182,15 @@ span.app_basket_quantity {
     left: 23%;
     right: 0;
 }
+.app_hot_food_restaurant_heading h2 {
+    font-size: 30px;
+    font-weight: 700;
+}
+.app_delivery_pickup_btn span {
+    font-size: 17px;
+}
+.app_delivery_pickup_btn {
+    padding-left: 14px;
+    padding-right: 14px;
+}
+

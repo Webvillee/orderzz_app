@@ -20,7 +20,7 @@
             <h6 style="color: green">{{ displaysuccess }}</h6>
             <form [formGroup]="angForm" (ngSubmit)="onSubmit()" id="app_contact_form_collapse" class="collapse show">
                 
-                <label class="app_content"><i class="fa fa-home" aria-hidden="true"></i>House/Flat no.<span class="app_require_icon"> *</span></label>
+                <label class="app_content"><i class="fa fa-home" aria-hidden="true"></i>House/Flat no.<span class="app_require_icon">*</span></label>
                 <input  formControlName="address" #search autocorrect="off" autocapitalize="off" spellcheck="off" type="text"  class="mb-3 form-control change_placeholder" [(ngModel)]="address" placeholder="eg., Naruka Home / B-53" >
                 <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
                     <div *ngIf="f.address.errors.required">Address is required</div>
@@ -32,7 +32,7 @@
                 <div *ngIf="submitted && f.landmark.errors" class="invalid-feedback">
                     <div *ngIf="f.landmark.errors.required">Landmark is required</div>
                 </div>
-                <input type="submit" class="app_full_btn"value="Save">
+                <input type="submit" class="app_full_btn"value="Confirm">
             </form>
         </div>
     </div>	

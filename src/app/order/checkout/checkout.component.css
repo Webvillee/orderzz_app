@@ -123,3 +123,57 @@
   border-radius: 50%;
   background: white;
 }
+.app_checkout .app_heading {
+    display: inline-block;
+    padding-left: 20px;
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-left: 35px;
+}
+.app_checkout .app_content {
+    padding: 20px 0 0;
+    font-size: 20px;
+}
+.app_verification_caption .app_checkout_input_pro .app_icon_input_pad {
+    padding-left: 65px;
+    background-color: transparent;
+    border: 1px solid rgb(209 213 218);
+}
+.app_checkout .app_verification_caption .app_checkout_code {
+    position: absolute;
+    top: 18px;
+    right: 25px;
+}
+.app_checkout .app_choose_payment_option p {
+    padding-left: 35px;
+    padding-right: 31px;
+    color: #000;
+    font-weight: 500;
+    font-size: 19px;
+}
+.app_checkout .app_choose_payment_option img {
+    max-width: 28px;
+    padding-top: 15px;
+}
+@media only screen and (max-width: 800px) and (min-width: 320px){
+.app_checkout .app_heading {
+    margin-left: 20px !important;
+}
+}
+.app_checkout .app_order_detail h3 {
+    font-size: 23px;
+    color: #8a8787;
+}
+.app_order_detail_price h3 {
+    font-weight: 500;
+    font-size: 24px;
+}
+
+.app_order_detail_price {
+    text-align: right;
+}
+.app_choose_text h3 {
+    padding-top: 24px;
+    margin-bottom: 24px;
+}

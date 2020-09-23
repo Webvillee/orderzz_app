@@ -12,3 +12,19 @@
     top: 0;
     min-height: calc(100vh - 30px);
 }
+i.fa.fa-long-arrow-right {
+    margin-left: 20px;
+    font-size: 30px;
+    margin-top: 5px;
+    position: absolute;
+}
+.app_welcome .app_full_btn {
+    background-color: #fff;
+    color: var(--primary-color);
+    margin: 40px 34px 70px 34px;
+}
+.app_heading {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}

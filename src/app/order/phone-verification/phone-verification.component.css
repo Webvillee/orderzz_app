@@ -1,0 +1,15 @@
+.app_content {
+    font-size: 20px;
+}
+input[type="submit"] {
+    width: 100%;
+    margin: 40px 0;
+    letter-spacing: 1px;
+}
+p.phone_icon {
+    position: absolute;
+    top: 8px;
+    left: 44px;
+    font-size: 34px;
+    color: rgb(209 213 218);
+}

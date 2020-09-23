@@ -123,7 +123,7 @@ img{
 	color:#fff;
 	max-width: 100%;
 	text-transform:capitalize;
-	font-size:20px;
+	font-size:24px;
 	font-weight:700;
 	text-align:center;
 	padding:14px 0;
@@ -184,8 +184,8 @@ App_verification
 }
 .app_checkout .app_heading,
 .app_verification_caption .app_heading{
-	font-size:30px;
-    line-height: 40px;
+	font-size:40px;
+    line-height: 47px;
 }
 .app_checkout .app_content,
 .app_contact .app_content,
@@ -226,7 +226,7 @@ input[type="submit"]{
 	position:relative;
 }
 .app_verification_caption .app_icon_input_pad{
-	padding-left:50px;
+	padding-left:85px;
 }
 /*************
 App_otp
@@ -291,9 +291,9 @@ App_login
 	width:100%;
 }
 .app_contact_collapse {
-    border: 3px solid rgb(209 213 218);
-    max-width: 50%;
-    background-color: rgb(209 213 218);
+    border: 3px solid #f6f4f4;
+    max-width: 25%;
+    background-color: #f6f4f4;
     margin: 0 auto 15px;
     border-radius: 25px;
 }
@@ -342,7 +342,7 @@ Checkout Page
 }
 .app_checkout .app_checkout_input_pro img {
     top: 15px;
-    left: 5px;
+    left: 25px;
     max-width: 30px;
 }
 .app_verification_caption .app_checkout_input_pro:before {
@@ -388,21 +388,23 @@ Checkout Page
     padding: 10px 0;
 }
 .app_checkout .app_order_detail_price p{
-	color:#000;
+	color:#212529;
 	font-size:16px;
 	padding: 10px 0px;
 	text-align:right;
 }
-.app_checkout .app_order_detail_total p{
-	font-size:18px;
-	color:#000;
-	padding: 15px 0
+.app_checkout .app_order_detail_total p {
+    color: #000;
+    padding: 15px 0;
+    font-size: 27px;
+    font-weight: 700;
 }
 .app_checkout .app_order_detail_total_price p{
 	text-align: right;
-	font-size:24px;
+	font-size:34px;
 	color:var(--primary-color);
     padding: 10px 0;
+    font-weight: 700;
 }
 .app_checkout .app_full_btn{
 	margin-top:50px;
@@ -748,18 +750,18 @@ Your Basket Section
 	padding-top:15px;
 }
 .app_your_basket_heading_3_right h5{
-font-size: 20px;
+font-size: 27px;
     font-weight: 700;
     margin-top: 10px;
 }
 .app_your_basket_heading_6_right h6 {
     line-height: 1.5;
     color: #ccc;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 500;
 }
 .app_your_basket_text_right {
-    font-size: 18px;
+    font-size: 26px;
     color: var(--primary-color);
     font-weight: 600;
 }
@@ -813,12 +815,12 @@ font-size: 20px;
 	padding-left: 19px;
 }
 .app_your_basket_heading_left_bottom_last h3{
-	font-size: 17px;
+	font-size: 27px;
     font-weight: 700;
 }
 .app_your_basket_heading_right_bottom_last h3{
 	font-weight: 700;
-    font-size: 21px;
+    font-size: 34px;
     color: var(--primary-color);
 }
 .app_your_basket_button{
@@ -953,18 +955,20 @@ Review Food Section
 	padding-top:10px;
 }
 .app_review_food_text__left_special{
-	margin-top:25px;
-	font-weight: 700;
-    font-size: 16px;
+    margin-top: 24px;
+    font-weight: bold !important;
+    font-size: 27px;
+    line-height: 34px;
 }
 .app_review_input_text{
-	width:100%;
-	border-radius: 20px;
-    font-size: 12px;
+    width: 100%;
+    border-radius: 20px;
+    font-size: 18px;
     padding: 15px;
-    background-color:#f7f4f4;
-	border:none;
-	margin-bottom: 30px;
+    background-color: #f7f4f4;
+    border: none;
+    margin-bottom: 30px;
+
 }
 .app_review_input_text:focus{
 	outline:none;
@@ -1252,7 +1256,7 @@ Personal Detail
 	padding: 20px 0 0 20px;
 }
 .app_personal_detail .app_full_btn {
-    margin-top: 80px;
+    margin-top: 100px;
 }
 
 /*******
@@ -1304,8 +1308,8 @@ Personal Detail
  .app_nav_bar h4 {
     padding-bottom: 30px;
 	color:#929292;
-	font-weight: 800;
-	font-size: 20px;
+	font-weight: 500;
+	font-size: 24px;
 	}
   .app_nav_bar ul{
 	list-style:none;
@@ -1317,7 +1321,7 @@ Personal Detail
   .app_nav_bar ul li a{
 	color:#000;
     font-weight: 600;
-	font-size: 16px;
+	font-size: 20px;
   } 
    .app_nav_bar ul li a.active{
 	   color:#f55b02;
@@ -1390,7 +1394,7 @@ Personal Detail
     float: left;
     width: 100%;
     display: block;
-    font-size: 14px;
+    font-size: 16px;
     min-height: 42px;
     color: #ccc;
 }
@@ -1485,7 +1489,7 @@ Personal Detail
 
 }
 .app_hot_food_restaurant_category h3{
-	font-size: 14px;
+	font-size: 18px;
     color: #ccc;
     font-weight: 600;
 }
@@ -1570,17 +1574,17 @@ Personal Detail
     width: 100%;
 }
 .app_bestsellers_detail h5{
-	font-size: 20px;
+	font-size: 27px;
     font-weight: 700;
     margin-top: 10px;
 }
 .app_bestsellers_detail h6{
    color: #ccc;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 500;
 }
 .app_bestseller_foot .app_footer {
-	font-size: 18px;
+	font-size: 26px;
     color:var(--primary-color);
     font-weight: 600;
 	padding-right: 2px;
@@ -1594,12 +1598,12 @@ Personal Detail
     float: right;
 }
 .app_bestseller_foot .app_addition_icon i{
-width: 25px;
+    width: 32px;
     text-align: center;
-    height: 25px;
-    padding-top: 5px;
+    height: 32px;
+    padding-top: 7px;
     border-radius: 50%;
-    font-size: 16px;
+    font-size: 19px;
     color: #fff;
     background-color: var(--primary-color);
 }
@@ -1829,14 +1833,13 @@ background: var(--primary-color);
     top: 27px;
     color: #fff;
     text-align: center;
-    font-size: 22px;
+    font-size: 20px;
     left: -46px;
     height: 42px;
     line-height: 36px;
     clip-path: polygon(29% 0%, 72% 0%, 100% 196%, -4% 119%);
     border: 2px solid #fff !important;
     font-weight: 600;
-    text-transform: lowercase;
 }
 .linkColor{
 	color: #007bff !important;
@@ -1862,6 +1865,24 @@ p.required_btnn {
   background-color: var(--primary-color) !important;
 }
 
+.container_checkbox input:checked ~ .checkmark {
+  background-color: var(--primary-color) !important;
+}
+
 /*.container_radio input:checked ~ .checkmark {
 	background-color: var(--primary-color);
 }*/
+.whitecolor a:not([href]):hover {
+    text-decoration: none;
+    color: var(--primary-color) !important;
+}
+.app_bestsellers_detail img {
+    border-radius: 18px;
+    margin-top: 20px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+input.app_full_btn:focus {
+    outline: none;
+}

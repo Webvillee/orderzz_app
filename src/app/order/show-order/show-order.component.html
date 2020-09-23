@@ -54,14 +54,14 @@
 				<div class="app_border_bottom"></div>
 				<div class="app_restaurant">
 					<div class="row">
-						<div class="col-6">
+						<div class="col-6 address_order">
 							<div class="app_hot_food_restaurant_location">
 								<ul>
 									<li (click)="addMap()"><a href="#"><img src="assets/img/position_pin.svg">{{customer_address}}</a></li>
 								</ul>
 							</div>
 						</div>
-						<div class="col-6">
+						<div class="col-6 delivery_order">
 							<div class="app_delivery_button">
 								<div class="btn-group app_delivery_pickup_btn_main"> 
 									<button class="btn btn-sm  app_delivery_pickup_btn app_delivery_btn" (click)="onClick(2)"  [ngClass]="{'active': selectedDeliveryType==='2'}"><span>Delivery</span></button>
@@ -188,14 +188,14 @@
 				<div class="app_border_bottom"></div>
 				<div class="app_restaurant">
 					<div class="row">
-						<div class="col-6">
+						<div class="col-6 address_order">
 							<div class="app_hot_food_restaurant_location">
 								<ul>
 									<li><a ><img (click)="addMap()" src="assets/img/position_pin.svg">{{customer_address}}</a></li>
 								</ul>
 							</div>
 						</div>
-						<div class="col-6">
+						<div class="col-6 delivery_order">
 							<div class="app_delivery_button">
 								<div class="btn-group app_delivery_pickup_btn_main"> 
 									<button class="btn btn-sm  app_delivery_pickup_btn app_delivery_btn" (click)="onClick(2)"  [ngClass]="{'active': selectedDeliveryType==='2'}"><span>Delivery</span></button>
