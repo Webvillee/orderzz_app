@@ -1,4 +1,8 @@
-<div class="app_verification">
+<mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center ;">
+	<mat-progress-spinner color="primary" mode="indeterminate">
+	</mat-progress-spinner>
+</mat-card>
+<div  *ngIf="!isLoading" class="app_verification">
     <div class="app_container">
         <div class="app_verification_image">
             <a [routerLink]="['/view-basket']"><i class="fa fa-angle-left" aria-hidden="true"></i></a>

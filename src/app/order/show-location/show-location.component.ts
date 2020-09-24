@@ -18,9 +18,10 @@ export class ShowLocationComponent implements OnInit {
   public destination: any;
   address: any = "";
   geoCoder
-
+  isLoading =false
   constructor( private router: Router,private mapsAPILoader: MapsAPILoader) { 
-     var rest_id = localStorage.getItem('rest_id')
+     var rest_id = localStorage.getItem('rest_id');
+     this.isLoading =true
      if(rest_id==null ){
        this.router.navigate(['/not-found'])
      }
@@ -29,8 +30,8 @@ export class ShowLocationComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  ngAfterContentChecked() {
-   
+  ngAfterViewInit(){
+    this.isLoading =false
   }
 
   setCurrentLocation() {

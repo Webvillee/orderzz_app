@@ -39,6 +39,7 @@ export class CheckoutComponent implements OnInit {
   itemArray=[]
   orderTotal;
   savingCost
+  isLoading =false
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -70,10 +71,15 @@ export class CheckoutComponent implements OnInit {
     this.get_all_rest_data();
     this.getAllorderData();
   }
+  
+  ngAfterViewInit(){
+    this.isLoading =false
+  }
 
   get f() { return this.angForm.controls; }
 
   get_all_rest_data() {
+    this.isLoading =true
     const obj = {
       restId: CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     };

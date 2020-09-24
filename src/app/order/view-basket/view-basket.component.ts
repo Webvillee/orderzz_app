@@ -36,6 +36,7 @@ export class ViewBasketComponent implements OnInit {
   savingCost;
   shippingCost;
   special_instruction;
+  isLoading =false
   constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -52,7 +53,12 @@ export class ViewBasketComponent implements OnInit {
     this.getAllorderData();
   }
 
+  ngAfterViewInit(){
+    this.isLoading =false
+  }
+
   get_all_rest_data() {
+    this.isLoading =true
     const obj = {
       restId: CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     };
@@ -65,7 +71,7 @@ export class ViewBasketComponent implements OnInit {
         } else {
           this.themeCondition = true
         }
-
+        this.isLoading =false
         this.banner = res.data.rest_banner
         this.logo = res.data.rest_logo
         this.restName = res.data.rest_name

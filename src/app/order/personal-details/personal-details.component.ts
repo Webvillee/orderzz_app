@@ -36,6 +36,7 @@ export class PersonalDetailsComponent implements OnInit {
   UserData;
   userName;
   email;
+  isLoading =false
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -60,7 +61,7 @@ export class PersonalDetailsComponent implements OnInit {
     }
    
     this.angForm = this.fb.group({
-      userName: ['', Validators.required, Validators.minLength(4)],
+      userName: ['', Validators.required, Validators.minLength(3)],
       email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
     });
 
@@ -86,12 +87,13 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   get_all_rest_data() {
+    this.isLoading =true
     const obj = {
       restId: CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     };
     this.orderService.get_restaurant_data(obj).subscribe((res) => {
       if (res.status == 200) {
-
+        this.isLoading =false
         this.themeView = res.data.theme_view
         if (this.themeView == "1") {       //1=listview in  and 2= gridmeans
           this.themeCondition = false
@@ -109,6 +111,7 @@ export class PersonalDetailsComponent implements OnInit {
         // this.themeColor = res.data.theme_color
 
       } else {
+        this.isLoading =false
         this.router.navigate(['/not-found'])
       }
     });
@@ -131,7 +134,7 @@ export class PersonalDetailsComponent implements OnInit {
     if (this.angForm.invalid) {
       return;
     }
-    if (this.submitted === true && (userName || '').trim().length != 0 && userName.length >= 4 && userEmail.match(mailformat)) {
+    if (this.submitted === true && (userName || '').trim().length != 0 && userName.length >= 2 && userEmail.match(mailformat)) {
       console.log(this.angForm.controls.userName, '787678', userName.length);
 
       this.orderService.postAll('update_profile', obj).subscribe((res) => {

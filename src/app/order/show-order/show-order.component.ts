@@ -35,6 +35,7 @@ export class ShowOrderComponent implements OnInit {
   catName
   clicked
   private toggle : boolean = false;
+  isLoading =false
   constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -47,6 +48,10 @@ export class ShowOrderComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
+  ngAfterViewInit(){
+    this.isLoading =false
+  }
 
   ngAfterContentChecked() {
     if (localStorage.getItem('customer_address')) {
@@ -57,11 +62,13 @@ export class ShowOrderComponent implements OnInit {
   }
 
   get_all_rest_data() {
+    this.isLoading =true
     const obj = {
       restId: CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     };
     this.orderService.get_restaurant_data(obj).subscribe((res) => {
       if (res.status == 200) {
+        this.isLoading =false
         console.log(res.data, 'ifff')
         this.themeView = res.data.theme_view
         if (this.themeView == "1") {       //1=listview in  and 2= gridmeans
@@ -89,6 +96,7 @@ export class ShowOrderComponent implements OnInit {
         // this.themeColor = res.data.theme_color
 
       } else {
+        this.isLoading =false
         console.log('ellls')
         // this.router.navigate(['/not-found'])
       }
