@@ -33,6 +33,7 @@ export class ShowOrderComponent implements OnInit {
   itemArray = [];
   getItemData
   catName
+  clicked
   private toggle : boolean = false;
   constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog) {
 
@@ -123,6 +124,7 @@ export class ShowOrderComponent implements OnInit {
     this.menuId = catData.menu_id;
     this.restId = catData.rest_id;
     this.catName = catData.cate_name;
+    this.clicked = catData._id;
     const obj = {
       catId: this.catId,
       menuId: this.menuId,

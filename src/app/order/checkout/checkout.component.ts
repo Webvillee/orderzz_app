@@ -164,6 +164,8 @@ export class CheckoutComponent implements OnInit {
 
    
 
+    this.submitted = true;
+
     // stop here if form is invalid
     if (this.angForm.invalid) {
       return;
@@ -212,15 +214,6 @@ export class CheckoutComponent implements OnInit {
     }else{
       this.submitted = false;
     }
-    
-
-    
-    
-
-
-
-
-
   }
 
   onReset() {

@@ -81,7 +81,7 @@
 								<ng-container *ngIf="getCategoryData">
 									<ul>
 										<li  *ngFor="let catData of getCategoryData">
-											<a [class.active]="clicked === catData._id"  (click)="clicked = (clicked === catData._id ? null : catData._id)" (click)="findItem(catData)" class="btn app_scroll_button">{{catData.cate_name}}</a>
+											<a [class.active]="clicked === catData._id"  (click)="findItem(catData)" class="btn app_scroll_button">{{catData.cate_name}}</a>
 										</li> &nbsp;
 									</ul>
 								</ng-container>
@@ -215,7 +215,7 @@
 								<ng-container *ngIf="getCategoryData">
 									<ul>
 										<li  *ngFor="let catData of getCategoryData">
-											<a [class.active]="clicked === catData._id"  (click)="clicked = (clicked === catData._id ? null : catData._id)" (click)="findItem(catData)" class="btn app_scroll_button">{{catData.cate_name}}</a>
+											<a [class.active]="clicked === catData._id" (click)="findItem(catData)" class="btn app_scroll_button">{{catData.cate_name}}</a>
 										</li> &nbsp;
 									</ul>
 								</ng-container>

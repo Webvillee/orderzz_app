@@ -62,6 +62,9 @@
                         </div>
                     </div>
                 </div>
+                <div *ngIf="submitted && f.paymentMethod.errors" class="invalid-feedback">
+                    <div *ngIf="f.paymentMethod.errors.required">*Payment Method is required</div>
+                 </div>
                 <div class="app_choose_payment">
                     <div class="row">
                         <div class="col-8">
@@ -122,10 +125,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="invalid-feedback">
-                    <div >*Payment Method code is required</div>
-                </div>
-                <input type="submit" [disabled]="angForm.invalid" class="app_full_btn" value="pay">
+                <input type="submit" class="app_full_btn" value="pay">
             </form>
         </div>
     </div>
