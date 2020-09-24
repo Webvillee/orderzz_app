@@ -4,5 +4,27 @@ li.StepProgress-item.current img {
     text-align: left;
     left: -42px;
     z-index: 9999;
-    top: -20px;
+    top: -11px;
+}
+li.StepProgress-item {
+    color: #ffffffad;
+    font-size: 21px;
+}
+li.StepProgress-item_1 {
+    color: #ffffffad;
+    font-size: 21px;
+}
+.StepProgress strong {
+    display: block;
+    color: #fff;
+}
+@media only screen and (max-width: 800px) and (min-width: 320px){
+li.StepProgress-item.current img {
+    width: 10%;
+    position: absolute;
+    text-align: left;
+    left: -42px;
+    z-index: 9999;
+    top: -11px;
+}
 }

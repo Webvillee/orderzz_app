@@ -1,3 +1,18 @@
 body{
     background: lightblue;
 }
+
+.page_not_found {
+    text-align: center;
+    margin-top: 150px;
+}
+
+.page_not_found h2 {
+    font-size: 45px;
+    font-weight: 600;
+}
+
+.page_not_found h3 {
+    margin-top: 15px;
+    font-weight: 500;
+}

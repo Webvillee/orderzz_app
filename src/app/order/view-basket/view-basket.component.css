@@ -204,3 +204,6 @@ i.fa.fa-minus {
     font-size: 24px;
     padding-left: 19px;
 }
+.app_verification .app_verification_image a i {
+    font-size: 48px;
+}

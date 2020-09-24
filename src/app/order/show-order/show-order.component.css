@@ -8,6 +8,29 @@ span.app_basket_quantity {
     padding-right: 10px;
     font-size: 20px !important;
 }
+.app_hot_food_restaurant_location ul li:first-child {
+    width: 181px !important;
+}
+input.app_checkout_input_pad.app_check_input_loc {
+    background-color: transparent;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    min-height: auto !important;
+    width: calc(100% - 20px);
+    font-size: 15px !important;
+    margin-top: 6px !important;
+    padding-left: 7px !important;
+}
+.app_delivery_pickup_btn span {
+    font-size: 13px !important; 
+}
+.app_hot_food_restaurant_location li a img {
+    max-width: 20px;
+    margin-right: 0px;
+}
+.app_hot_food_restaurant_location ul li:first-child {
+    width: 100%;
+}
 .app_scroll_button.active {
     border: 2px solid #03A9F4;
     border-radius: 20px;
@@ -89,7 +112,6 @@ span.app_basket_quantity {
 }
 .app_basket_btn_submit .app_full_btn.app_add_basket_btn {
     position: fixed;
-    bottom: 0px;
     width: calc(100% - 33px) !important;
     left: 14px !important;
 }
@@ -177,8 +199,8 @@ span.app_basket_quantity {
     margin-top: 25px;
 }
 .app_basket_btn_submit .app_full_btn.app_add_basket_btn {
-    bottom: 0;
-    width: 54%;
+/*    bottom: 0;
+*/    width: 54%;
     left: 23%;
     right: 0;
 }
@@ -205,4 +227,38 @@ button.close {
 }
 button.close:focus{
     outline: none;
+}
+
+.app_hot_food_restaurant_logo img {
+    max-width: 100%;
+    border-radius: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+input.app_checkout_input_pad.app_check_input_loc {
+    background-color: transparent;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: auto;
+       width: calc(100% - 20px);
+    font-size: 16px;
+    margin-top: 6px;
+    padding-left: 7px;
+}
+.app_hot_food_restaurant_location li a img {
+    max-width: 20px;
+    margin-right: 0px;
+}
+.app_hot_food_restaurant_location ul li:first-child {
+    width: 100%;
+}
+.app_hot_food_restaurant_logo {
+    text-align: center;
+    width: 120px;
+    height: 120px;
+    padding: 10px;
+    margin-top: -72px;
+    background-color: #fff;
+    border-radius: 100%;
+    margin-left: -10px;
 }

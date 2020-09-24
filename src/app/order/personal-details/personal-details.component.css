@@ -1,3 +1,6 @@
 label.app_content {
     font-size: 20px;
 }
+input.ng-untouched.ng-pristine.ng-invalid {
+    padding-left: 50px;
+}

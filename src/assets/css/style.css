@@ -1691,13 +1691,13 @@ Personal Detail
 	    margin-bottom: 35px;
 }
 .app_order_placed_header h2{
-	font-size: 22px;
+	font-size:30px;
     color: #fff;
     font-weight: 700;
 }
 .app_order_placed_header p{
 	color: #fff;
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 500;
 }
 .app_order_progress_detail{
@@ -1743,7 +1743,7 @@ Personal Detail
   content: '';
     display: inline-block;
     position: absolute;
-    top: 0;
+    top: 6px;
     left: -38px;
     width: 19px;
     height: 18px;
@@ -1764,6 +1764,7 @@ Personal Detail
     width: 19px;
     height: 18px;
     left: -38px;
+    top: 0;
 }
 .StepProgress-item.current{
 	color:#fff;
@@ -1777,7 +1778,7 @@ Personal Detail
     padding-top: 1px;
     width: 19px;
     height: 18px;
-    top: -4px;
+    top: 6px;
     left: -38px;
     font-size: 18px;
     text-align: center;
@@ -1855,11 +1856,12 @@ p.required_btnn {
     float: right;
     background-color: #fff;
     color: var(--primary-color);
-    padding: 3px 9px;
+    padding: 5px 14px;
     font-size: 16px;
     border-color: var(--primary-color);
     border: 1px solid;
     border-radius: 5px;
+    font-weight: 600;
 }
 .container_radio input:checked ~ .checkmark {
   background-color: var(--primary-color) !important;
@@ -1885,4 +1887,8 @@ p.required_btnn {
 }
 input.app_full_btn:focus {
     outline: none;
+}
+.mat-dialog-container {
+    display: block;
+    padding: 0 !important;
 }

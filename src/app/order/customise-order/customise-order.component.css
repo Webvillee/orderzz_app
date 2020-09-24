@@ -2,13 +2,24 @@
     padding-right: 15px;
     cursor: pointer;
 }
-
+.app_the_food_image_content_text_icons.size_test.ng-star-inserted {
+    border-bottom: 1px solid #cccccc6b;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 25px;
+}
+.app_food_popup {
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    width: 100%;
+    padding: 0;
+    background-color: #fff;
+}
 .image_title_sec {
     top: 27px;
 }
 
 .app_add_minus_icon {
-    padding-right: 15px;
     cursor: pointer;
     color: #000;
 }
@@ -25,12 +36,40 @@ input[type=checkbox] {
     width: 22px;
     background-color: #d6d0d0 !important;
 }
-.padRightfive{
+.padRightfive {
     padding-right: 5px;
+    font-size: 20px;
+    font-weight: 500;
 }
 @media only screen and (max-width: 800px) and (min-width: 320px){
 .requireds .col-12 {
     padding: 0;
+}
+.size_test .col-12 {
+    padding: 0;
+}
+.app_the_food_image_content_text_icons.requireds {
+    border-bottom: 1px solid #ccc;
+    padding-left: 50px;
+    padding-right: 39px !important;
+    padding-bottom: 10px;
+}
+.app_the_food_image_button{
+    position: relative;
+    width: 95% !important;
+    height: 55px;
+    border: 1px solid var(--primary-color);
+    border-radius: 20px;
+    background-color: var(--primary-color);
+    display: inline-block;
+    color: #fff;
+    max-width: 100%;
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 100px !important;
+    margin-left: 10px !important;
 }
 .col-5.ng-star-inserted {
     padding: 0;
@@ -118,7 +157,7 @@ input[type=checkbox] {
   left: 0;
   height: 25px;
   width: 25px;
-  background-color: #eee;
+  background-color: #f6f4f4;
   border-radius: 6px;
 }
 
@@ -153,4 +192,86 @@ top: 3px;
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+.app_the_food_image_content_text_icons.requireds {
+    border-bottom: 1px solid #ccc;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 10px;
+}
+.col-12.add_cart {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+.app_the_food_image_heading_left_center h3 {
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 0px !important;
+    margin-top: 8px;
+}
+.app_the_food_image_heading_left h3 {
+    font-size: 27px;
+    font-weight: 700;
+/*    margin-top: 10px;
+*/}
+.app_the_food__image_heading_6_left h6 {
+    border: none;
+    line-height: 1.5;
+    color: #ccc;
+    font-size: 18px;
+    font-weight: 500;
+}
+i.fa.fa-minus {
+    background: #f6f4f4;
+    width: 32px;
+    text-align: center;
+    height: 32px;
+    padding-top: 7px;
+    border-radius: 50%;
+    font-size: 19px;
+}
+.app_your_basket_icons {
+    background-color: var(--primary-color);
+    color: #fff;
+    width: 32px;
+    text-align: center;
+    height: 32px;
+    padding-top: 7px;
+    border-radius: 50%;
+    font-size: 19px !important;
+}
+.app_your_basket_text_icons_number {
+    color: black;
+    font-size: 22px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.app_the_food_image_heading_left_bottom h4 {
+    font-size: 20px;
+    color: #8a8787;
+}
+.app_the_food_image {
+    background-color: #fff;
+    padding-left: 80px;
+    padding-right: 80px;
+}
 
+.app_the_food_image_button {
+    position: relative;
+    width: 88%;
+    height: 55px;
+    border: 1px solid var(--primary-color);
+    border-radius: 20px;
+    background-color: var(--primary-color);
+    display: inline-block;
+    color: #fff;
+    max-width: 100%;
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 80px;
+    margin-left: 38px;
+}
+.size_test .col-7 {
+    padding-left: 0;
+}

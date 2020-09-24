@@ -28,3 +28,16 @@ i.fa.fa-long-arrow-right {
     font-weight: 700;
     letter-spacing: 1px;
 }
+.app_welcome .app_banner_image img {
+    max-width: 100%;
+    padding: 10px;
+    border-radius: 100%;
+}
+.loader {
+    margin-top:20%;
+    position: absolute;
+    margin-left: 45%
+}
+.mat-progress-spinner circle, .mat-spinner circle {
+    stroke: #000000 !important;
+}

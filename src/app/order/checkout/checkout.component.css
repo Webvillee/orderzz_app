@@ -184,6 +184,13 @@
     font-weight: 600;
     font-size:19px;
 }
+.app_checkout .app_verification_caption .app_checkout_input_pad {
+    background-color: transparent;
+    padding-left: 35px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: auto;
+}
 .invalid-feedback{
   display: block !important
 }

@@ -7,3 +7,14 @@ input[type="submit"] {
 p.app_content {
     font-size: 20px;
 }
+.app_verification_caption .app_icon_input_pad {
+    padding-left: 50px;
+}
+.app_otp .app_resend_otp {
+    font-size: 18px;
+    font-weight: 700;
+    color: rgb(42 59 86);
+    padding-top: 20px;
+    text-align: center;
+    text-transform: none;
+}

@@ -31,6 +31,7 @@ export class WelcomeComponent implements OnInit {
   deleveryFee;
   img_url=UrlSetting.image_uri;
   isLoading;
+  color="primary"
   constructor( private route: ActivatedRoute, private router: Router,private orderService: OrderService ) { 
     
     const slugId = this.route.snapshot.paramMap.get('id');
