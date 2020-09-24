@@ -90,7 +90,7 @@ export class PhoneVerificationComponent implements OnInit {
 
 
   onSubmit() {
-    console.log( this.angForm.controls.mobileno.value, 'ioiioiopioiopiop');
+    // console.log( this.angForm.controls.mobileno.value, 'ioiioiopioiopiop');
     var mobileno = this.angForm.controls.mobileno.value;
     const obj = { phoneNo: mobileno }
 
@@ -98,13 +98,13 @@ export class PhoneVerificationComponent implements OnInit {
 
     this.submitted = true;
     if (this.submitted === true && (mobileno || '').trim().length != 0 && mobileno.length > 9) {
-      console.log(this.angForm.controls.mobileno, '787678', mobileno.length);
+      // console.log(this.angForm.controls.mobileno, '787678', mobileno.length);
 
       this.orderService.postAll('phone_verify', obj).subscribe((res) => {
         if (res.status === 200) {
           var encrypted_order_type = CryptoJS.AES.encrypt(res.data._id, '');
           localStorage.setItem('userId',encrypted_order_type.toString());
-          console.log(res.data._id);
+          // console.log(res.data._id);
           // all user details
           var userOrder = CryptoJS.AES.encrypt(JSON.stringify(res.data), '').toString();
           localStorage.setItem('UserData', userOrder);
@@ -118,7 +118,7 @@ export class PhoneVerificationComponent implements OnInit {
         }
       });
     }else{
-      console.log(this.angForm.controls.mobileno, '00000000', mobileno.length);
+      // console.log(this.angForm.controls.mobileno, '00000000', mobileno.length);
       if (this.angForm.invalid) {
         return false;
     }

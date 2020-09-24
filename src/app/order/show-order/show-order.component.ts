@@ -193,8 +193,7 @@ export class ShowOrderComponent implements OnInit {
   }
 
   addMap(){
-    // console.log('uhjkhjkhg')
-    this.orderService.sendMessage('popup');
+    console.log('uhjkhjkhg')
     const dialogRef = this.dialog.open(AddressPopupComponent, {
       width: '600px',
       height: '700px',

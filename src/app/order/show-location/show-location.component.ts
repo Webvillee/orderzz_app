@@ -30,7 +30,7 @@ export class ShowLocationComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  ngAfterViewInit(){
+  ngAfterContentInit(){
     this.isLoading =false
   }
 

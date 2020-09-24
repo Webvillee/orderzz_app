@@ -71,7 +71,7 @@ export class CheckoutComponent implements OnInit {
     this.get_all_rest_data();
     this.getAllorderData();
   }
-  
+
   ngAfterViewInit(){
     this.isLoading =false
   }
@@ -166,7 +166,7 @@ export class CheckoutComponent implements OnInit {
     
     var paymentMethod = this.angForm.controls.paymentMethod.value;
     // var userEmail = this.angForm.controls.email.value;
-    console.log('7767678888888888888', paymentMethod, this.angForm.invalid);
+    // console.log('7767678888888888888', paymentMethod, this.angForm.invalid);
 
    
 
@@ -200,7 +200,7 @@ export class CheckoutComponent implements OnInit {
     if(paymentMethod){
       this.submitted = true;
       const obj = { restId: res_id, userId: this.userId, orderType:  Number(orderType), orderItems: items, orderDescription:order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod)  , orderReview: 1, isCreditPayment: 1 }
-      console.log(paymentMethod, '776767888', obj);
+      // console.log(paymentMethod, '776767888', obj);
   
       this.orderService.postAll('place_order', obj).subscribe((res) => {
         if (res.status === 200) {

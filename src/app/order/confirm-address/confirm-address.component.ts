@@ -81,6 +81,10 @@ export class ConfirmAddressComponent implements OnInit {
     this.findAdress();
   }
 
+  callMyfunc(){
+    this.findAdress();
+  }
+
 
   get f() { return this.angForm.controls; }
 

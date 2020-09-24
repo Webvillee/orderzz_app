@@ -52,10 +52,11 @@ export class PersonalDetailsComponent implements OnInit {
     if (localStorage.getItem('userId')) {
       this.userId = CryptoJS.AES.decrypt(localStorage.getItem('userId'), '').toString(CryptoJS.enc.Utf8)
       // const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))
-      
+    }
+    if (localStorage.getItem('UserData')) {
     const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
-    this.UserData=data
-    console.log(data, 'lll')
+    // this.UserData= data
+    // console.log(data, 'lll')
       this.userName= data.user_name
       this.email= data.user_email
     }
@@ -77,11 +78,11 @@ export class PersonalDetailsComponent implements OnInit {
       this.userId = CryptoJS.AES.decrypt(localStorage.getItem('userId'), '').toString(CryptoJS.enc.Utf8)
       // const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))
       
-    const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
-    this.UserData=data
-    console.log(data, 'lll')
-      this.userName= data.user_name
-      this.email= data.user_email
+    // const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
+    // this.UserData=data
+    // console.log(data, 'lll')
+    //   this.userName= data.user_name
+    //   this.email= data.user_email
     }
 
   }
@@ -120,7 +121,7 @@ export class PersonalDetailsComponent implements OnInit {
 
 
   onSubmit() {
-    console.log(this.angForm.controls.userName.value, '776767888');
+    // console.log(this.angForm.controls.userName.value, '776767888');
     var userName = this.angForm.controls.userName.value;
     var userEmail = this.angForm.controls.email.value;
     const obj = { userId: this.userId, userName: userName, userEmail: userEmail  }
@@ -135,7 +136,7 @@ export class PersonalDetailsComponent implements OnInit {
       return;
     }
     if (this.submitted === true && (userName || '').trim().length != 0 && userName.length >= 2 && userEmail.match(mailformat)) {
-      console.log(this.angForm.controls.userName, '787678', userName.length);
+      // console.log(this.angForm.controls.userName, '787678', userName.length);
 
       this.orderService.postAll('update_profile', obj).subscribe((res) => {
         if (res.status === 200) {
@@ -155,7 +156,7 @@ export class PersonalDetailsComponent implements OnInit {
       });
 
     } else {
-      console.log(this.angForm.controls.userName, '00000000', userName.length);
+      // console.log(this.angForm.controls.userName, '00000000', userName.length);
       if (this.angForm.invalid) {
         return false;
       }

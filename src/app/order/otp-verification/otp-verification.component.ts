@@ -110,9 +110,6 @@ export class OtpVerificationComponent implements OnInit {
 
       this.orderService.postAll('verify_otp', obj).subscribe((res) => {
         if (res.status === 200) {
-          
-          var userOrder = CryptoJS.AES.encrypt(JSON.stringify(res.data), '').toString();
-          localStorage.setItem('UserData', userOrder);
         var encrypted_order_type = CryptoJS.AES.encrypt(otp, '');
         localStorage.setItem('otp',encrypted_order_type.toString());
           this.display = ''
