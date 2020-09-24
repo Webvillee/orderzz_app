@@ -194,3 +194,15 @@ span.app_basket_quantity {
     padding-right: 14px;
 }
 
+button.close {
+    margin-top: -35px;
+    margin-right: 15px;
+    background: #e1e6ea;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 27px;
+}
+button.close:focus{
+    outline: none;
+}

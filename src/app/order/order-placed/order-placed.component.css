@@ -1,0 +1,8 @@
+li.StepProgress-item.current img {
+    width: 4%;
+    position: absolute;
+    text-align: left;
+    left: -42px;
+    z-index: 9999;
+    top: -20px;
+}

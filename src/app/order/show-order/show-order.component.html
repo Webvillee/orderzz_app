@@ -6,6 +6,7 @@
 			<!-- sidebar open -->
 			<div class="app_nav_bar" [ngClass]="{'active': toggle}">
 				<div class="app_nav_bar_content">
+					<button type="button" class="close" (click)="clickEvent($event)">&times;</button>
 					<h4>Menu Options</h4>
 					<ul>
 						<li><a routerLink="/order" class="active">Home</a></li>
@@ -140,6 +141,7 @@
 			<!-- sidebar open -->
 			<div class="app_nav_bar" [ngClass]="{'active': toggle}">
 				<div class="app_nav_bar_content">
+					<button type="button" class="close" (click)="clickEvent($event)">&times;</button>
 					<h4>Menu Options</h4>
 					<ul>
 						<li><a routerLink="/order" class="active">Home</a></li>

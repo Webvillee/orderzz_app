@@ -292,7 +292,7 @@ App_login
 }
 .app_contact_collapse {
     border: 3px solid #f6f4f4;
-    max-width: 25%;
+    max-width: 20%;
     background-color: #f6f4f4;
     margin: 0 auto 15px;
     border-radius: 25px;

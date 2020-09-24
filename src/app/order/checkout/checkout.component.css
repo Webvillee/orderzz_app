@@ -150,7 +150,7 @@
     padding-right: 31px;
     color: #000;
     font-weight: 500;
-    font-size: 19px;
+    font-size: 16px;
 }
 .app_checkout .app_choose_payment_option img {
     max-width: 28px;
@@ -176,4 +176,11 @@
 .app_choose_text h3 {
     padding-top: 24px;
     margin-bottom: 24px;
+}
+.app_checkout .app_verification_caption .app_checkout_input_link {
+    color: var(--primary-color);
+    text-transform: capitalize;
+    text-decoration: none;
+    font-weight: 600;
+    font-size:19px;
 }
