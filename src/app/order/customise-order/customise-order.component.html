@@ -90,10 +90,8 @@
 
                     </div>
                 </div>
+                <div class="choose_options" style="color: red;" *ngIf="modifire.isRequired===true">Choose minimum {{modifire.minimum_modifiers}} option</div>
             </div>
+            <a><button type="button" (click)="save()" class="btn app_the_food_image_button">Done</button></a>
+            
         </div>
-        <div style="color: red;" *ngIf="modifire.isRequired===true">Choose minimum {{modifire.minimum_modifiers}} option
-        </div>
-    </div>
-    <a><button type="button" (click)="save()" class="btn app_the_food_image_button">Done</button></a>
-</div>

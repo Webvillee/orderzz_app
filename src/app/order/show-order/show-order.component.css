@@ -133,9 +133,15 @@ input.app_checkout_input_pad.app_check_input_loc {
     margin-bottom: 40px;
 }
 .app_bestsellers_detail h5 {
-    font-size: 27px;
+    font-size: 24px;
     font-weight: 700;
     margin-top: 10px;
+}
+
+.app_bestsellers_detail h6 {
+    color: #ccc;
+    font-size: 17px;
+    font-weight: 500;
 }
 /*.app_bestsellers_detail h6 {
     color: #ccc;
@@ -145,6 +151,7 @@ input.app_checkout_input_pad.app_check_input_loc {
 .app_restaurant .col-10 {
     max-width: 85%;
     flex: 85%;
+    padding-right: 0;
 }
 .app_restaurant .col-2 {
     max-width: 15%;

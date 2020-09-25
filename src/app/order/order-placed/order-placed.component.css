@@ -27,6 +27,38 @@ li.StepProgress-item.current img {
     z-index: 9999;
     top: -11px;
 }
+img.app_submit_call_image {
+    left: 29% !important;
+}
+input[type="submit"] {
+    width: 100%;
+    margin: 20px 0;
+    letter-spacing: 1px;
+    padding-left: 31px;
+}
+.app_order_placed_content p {
+    color: #8e8f96;
+    font-size: 17px !important;
+    margin-top: 15px;
+}
+img.app_delievery_boy_image{
+    max-width: 55px;
+}
+.order_placed{
+    border-top-left-radius: 22px;
+    border-top-right-radius: 22px;
+    padding: 20px 27px !important;
+    box-shadow: none !important;
+    background: #fff;
+    position: absolute !important;
+    width: 100% !important;
+    top: 82% !important;
+    z-index: 9999999999;
+}
+.delivery_boy_call .col-7{
+    padding-left: 28px !important;
+    padding-right: 0px !important;
+}
 }
 .collapse:not(.show) {
     display: block;
@@ -35,4 +67,82 @@ li.StepProgress-item.current img {
     max-width: 768px;
     margin: auto;
     overflow-x: inherit;
+}
+.order_placed {
+    border-top-left-radius: 22px;
+    border-top-right-radius: 22px;
+    padding: 20px 50px;
+    box-shadow: 0px 0px 20px 0px rgba(165,165,165,0.5);
+    background: #fff;
+    position: absolute;
+    width: 50%;
+    top: 105%;
+}
+.app_order_placed {
+    position: relative;
+    float: left;
+    width: 100%;
+    background-color: var(--primary-color);
+    height: 800px;
+}
+i.fa.fa-angle-right {
+    float: right;
+    color: #333;
+    font-size: 30px;
+}
+.app_order_placed_content img {
+    width: 30px;
+    margin-right: 10px;
+}
+.app_order_placed_content p {
+    color: #8e8f96;
+    font-size: 18px;
+    margin-top: 15px;
+}
+p.arrive_time {
+      color: #8e8f96;
+    font-size: 18px;
+    margin-bottom: 35px;
+}
+.order_placed_content h3 {
+    font-size: 22px;
+}
+.app_delivery_call {
+    float: right;
+    background: #f6f4f4;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    border-radius: 50%;
+}
+.app_delivery_call img {
+    /* background: #f6f4f4; */
+    max-width: 37px;
+    height: 60px;
+    width: 60px;
+}
+.delivery_boy_call .col-3 {
+    padding-right: 0;
+}
+.delivery_boy_call  p{
+         color: #8e8f96;
+    font-size: 18px;
+}
+img.app_delievery_boy_image {
+    max-width: 60px;
+}
+.delivery_boy_call .col-7 {
+    padding-left: 0;
+}
+.delivery_boy_call {
+    margin-top: 50px;
+}
+img.app_submit_call_image {
+position: absolute;
+    right: 0;
+    width: 47px;
+    z-index: 99999;
+    margin-top: 30px;
+    text-align: center;
+    left: 35%;
 }

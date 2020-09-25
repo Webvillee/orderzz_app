@@ -160,6 +160,10 @@
 .app_checkout .app_heading {
     margin-left: 20px !important;
 }
+.app_order_detail_price h3{
+    font-weight: 500;
+    font-size: 22px !important;
+}
 }
 .app_checkout .app_order_detail h3 {
     font-size: 23px;

@@ -64,7 +64,7 @@
 						<div class="col-6 address_order">
 							<div class="app_hot_food_restaurant_location">
 								<ul>
-									<li (click)="addMap()"><a href="#"><img src="assets/img/position_pin.svg"> <input type="text" class="app_checkout_input_pad app_check_input_loc" value="{{customer_address}}"></a></li>
+									<li (click)="addMap()" class="cursorCss"><a href="#"><img src="assets/img/position_pin.svg"> <input type="text" class="app_checkout_input_pad app_check_input_loc" value="{{customer_address}}"></a></li>
 								</ul>
 							</div>
 						</div>
@@ -120,7 +120,7 @@
 													<span class="app_addition_icon app_minus_icon" (click)="removeToCart(itemData._id)"><i class="fa fa-minus" aria-hidden="true"></i></span>
 													<span class="app_basket_quantity">{{countOrder(itemData._id)}}</span>
 												</span>
-												<span class="app_addition_icon" (click)="addToCart(itemData)" ><i class="fa fa-plus" aria-hidden="true"></i></span>
+												<span class="app_addition_icon cursorCss" (click)="addToCart(itemData)" ><i class="fa fa-plus" aria-hidden="true"></i></span>
 											</div>
 											</div>
 										</div>
@@ -199,7 +199,7 @@
 						<div class="col-6 address_order">
 							<div class="app_hot_food_restaurant_location">
 								<ul>
-									<li (click)="addMap()"><a ><img src="assets/img/position_pin.svg"><input type="text" class="app_checkout_input_pad app_check_input_loc" value="{{customer_address}}"></a></li>
+									<li (click)="addMap()" class="cursorCss"><a ><img src="assets/img/position_pin.svg"><input type="text" class="app_checkout_input_pad app_check_input_loc" value="{{customer_address}}"></a></li>
 								</ul>
 							</div>
 						</div>
@@ -254,7 +254,7 @@
 													<span class="app_addition_icon app_minus_icon" (click)="removeToCart(itemData._id)"><i class="fa fa-minus" aria-hidden="true"></i></span>
 													<span class="app_basket_quantity">{{countOrder(itemData._id)}}</span>
 												</span>
-												<span class="app_addition_icon" (click)="addToCart(itemData)" ><i class="fa fa-plus" aria-hidden="true"></i></span>
+												<span class="app_addition_icon cursorCss" (click)="addToCart(itemData)" ><i class="fa fa-plus" aria-hidden="true"></i></span>
 											</div>
 											</div>
 										</div>

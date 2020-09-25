@@ -1,7 +1,9 @@
+<div class="loader">
 <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center ;">
 	<mat-progress-spinner color="primary" mode="indeterminate">
 	</mat-progress-spinner>
 </mat-card>
+</div>
 <div *ngIf="!isLoading" class="app_location">
 	<div class="app_container">
 		<div class="app_row">

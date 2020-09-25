@@ -48,6 +48,20 @@ input[type=checkbox] {
 .size_test .col-12 {
     padding: 0;
 }
+.app_the_food_image_heading_left_center h3 {
+    font-weight: 700;
+    font-size: 17px !important;
+    margin-bottom: 0px !important;
+    margin-top: 8px;
+}
+.app_the_food_image_heading_left_bottom h4 {
+    font-size: 17px !important;
+    color: #8a8787;
+}
+.app_the_food_image_heading_left h3{
+    font-size: 24px !important;
+    font-weight: 700;
+}
 .app_the_food_image_content_text_icons.requireds {
     border-bottom: 1px solid #ccc;
     padding-left: 50px;
@@ -246,7 +260,7 @@ i.fa.fa-minus {
     padding-right: 15px;
 }
 .app_the_food_image_heading_left_bottom h4 {
-    font-size: 20px;
+    font-size: 18px;
     color: #8a8787;
 }
 .app_the_food_image {
@@ -275,3 +289,20 @@ i.fa.fa-minus {
 .size_test .col-7 {
     padding-left: 0;
 }
+.choose_options.ng-star-inserted {
+    padding-left: 34px;
+    padding-right: 34px;
+}
+
+*::-webkit-scrollbar,
+*::-webkit-scrollbar-thumb {
+  width: 26px;
+  border-radius: 13px;
+  background-clip: padding-box;
+  border: 10px solid transparent;
+}
+
+*::-webkit-scrollbar-thumb {        
+  box-shadow: inset 0 0 0 10px;
+}
+
