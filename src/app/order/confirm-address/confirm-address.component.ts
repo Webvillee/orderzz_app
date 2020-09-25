@@ -106,7 +106,8 @@ export class ConfirmAddressComponent implements OnInit {
         }
 
 
-        this.banner = res.data.rest_banner
+        this.banner = res.data
+        .rest_banner
         this.logo = res.data.rest_logo
         this.restName = res.data.rest_name
         this.restAddress = res.data.rest_full_address
@@ -127,7 +128,7 @@ export class ConfirmAddressComponent implements OnInit {
   onSubmit() {
     var address = this.angForm.controls.address.value;
     var landmark = this.angForm.controls.landmark.value;
-    const obj = { userId: this.userId, address: address, landmark: landmark }
+    const obj = { userId: this.userId, address: address, landmark: landmark, lat:this.lat, lng:this.lng }
  
 
     this.submitted = true;
@@ -182,16 +183,16 @@ export class ConfirmAddressComponent implements OnInit {
   }
 
   // Get Current Location Coordinates
-  // private setCurrentLocation() {
-  //   if ('geolocation' in navigator) {
-  //     navigator.geolocation.getCurrentPosition((position) => {
-  //       this.lat = position.coords.latitude;
-  //       this.lng = position.coords.longitude;
-  //       this.zoom = 14;
-  //       this.getAddress(this.lat, this.lng);
-  //     });
-  //   }
-  // }
+  private setCurrentLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.lat = position.coords.latitude;
+        this.lng = position.coords.longitude;
+        this.zoom = 14;
+        this.getAddress(this.lat, this.lng);
+      });
+    }
+  }
 
   findAdress() {
     this.mapsAPILoader.load().then(() => {

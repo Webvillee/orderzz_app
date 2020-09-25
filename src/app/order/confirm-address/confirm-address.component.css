@@ -45,3 +45,8 @@ label.app_content {
     margin-left: 7%;
 }
 }
+.agm-map-container-inner{
+    width: inherit;
+    height: inherit;
+    border-radius: 35px 35px 0px 0px;
+}

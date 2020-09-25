@@ -93,20 +93,20 @@ height: 157px;
     font-weight: 600;
     text-transform: lowercase;*/
         background: var(--primary-color);
-    transform: rotate(-49deg);
-    width: 223px;
-    display: block;
-    position: absolute;
-    top: 24px;
-    color: #fff;
-    text-align: center;
-    font-size: 17px;
-    left: -63px;
-    height: 42px;
-    line-height: 36px;
-    clip-path: polygon(38% 0%, 69% 0%, 100% 196%, 12% 119%);
-    border: 2px solid #fff !important;
-    font-weight: 600;
+        transform: rotate(-49deg);
+        width: 195px;
+        display: block;
+        position: absolute;
+        top: 32px;
+        color: #fff;
+        text-align: center;
+        font-size: 20px;
+        left: -42px;
+        height: 36px;
+        line-height: 30px;
+        clip-path: polygon(29% 0%, 76% 0%, 100% 149%, 3% 119%);
+        border: 2px solid #fff !important;
+        font-weight: 600;
 }
 .app_hot_food_restaurant_delivery_details ul li {
     position: relative;

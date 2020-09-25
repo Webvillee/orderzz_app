@@ -14,7 +14,7 @@ import { AddressPopupComponent } from '../address-popup/address-popup.component'
   styleUrls: ['./show-order.component.css'],
 })
 export class ShowOrderComponent implements OnInit {
-  public selectedDeliveryType = "1";
+  public selectedDeliveryType = "2";
   themeCondition
   themeView
   customer_address
@@ -189,7 +189,7 @@ export class ShowOrderComponent implements OnInit {
 
   addMap(){
     // console.log('uhjkhjkhg')
-    if(!localStorage.getItem('customer_address')){
+    // if(!localStorage.getItem('customer_address')){
     const dialogRef = this.dialog.open(AddressPopupComponent, {
       width: '600px',
       height: '700px',
@@ -200,7 +200,7 @@ export class ShowOrderComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
 
     });
-    }
+    // }
 
   }
 
