@@ -80,8 +80,6 @@ export class ShowOrderComponent implements OnInit {
         this.restAddress = res.data.rest_full_address
         this.minimumOrderValue = res.data.minimum_order_value
 
-
-
         if (localStorage.getItem('order_type')) {
           const orderType = CryptoJS.AES.decrypt(localStorage.getItem('order_type'), '').toString(CryptoJS.enc.Utf8)
           this.selectedDeliveryType = orderType

@@ -87,6 +87,9 @@ export class ViewBasketComponent implements OnInit {
     if (localStorage.getItem("OrderData")) {
       const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))
       this.itemArray = data;
+      if(this.itemArray.length===0){
+        this.router.navigate(['/order'])
+      }
       let total = this.itemArray.reduce((prev, item) => prev + item.price, 0);
       //  console.log(JSON.stringify(this.itemArray))
       const arr_total = this.itemArray

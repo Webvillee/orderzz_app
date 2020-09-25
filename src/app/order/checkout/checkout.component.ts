@@ -112,7 +112,6 @@ export class CheckoutComponent implements OnInit {
       let total = this.itemArray.reduce((prev, item) => prev + item.price, 0);
       //  console.log(JSON.stringify(this.itemArray))
       const arr_total = this.itemArray
-
       this.itemArray.map((element, index) => {
         if (element.is_modifire_status === 1) {
           const availmodifire = JSON.parse(element.available_modifire);
@@ -120,29 +119,17 @@ export class CheckoutComponent implements OnInit {
           for (let step = 0; step < availmodifire.length; step++) {
             // availmodifire[step].modifire.reduce((prev, item) => prev + item.sell_price, 0);
             availmodifire[step].modifire.map(function (el) {
-              // console.log(availmodifire[step].cat_name, el.isChecked)
               if (el.isChecked === true) {
-                // console.log(availmodifire[step].cat_name, '00');
-                if(availmodifire[step].cat_name==='size'){
-                  // console.log(availmodifire[step].cat_name, 'kljkljkl');
-                  // console.log(el.price, '99999');
-                  total = total + el.price;
-                  total = total - element.price
-
-                  element.priceNew = el.price;
-                }else{
-                  // console.log(el.price, 'elllll');
-                  total = total + el.price
-                }
+                console.log(el.price, 'elllll');
+                total =  total + el.price
               }
             })
           }
         }
-       
-
       });
 
       this.orderTotal = total;
+      
       let sellPrice = this.itemArray.reduce((prev, item) => prev + item.sell_price, 0);
       this.savingCost = sellPrice;
       const seen = new Set();
