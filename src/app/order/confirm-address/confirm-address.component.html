@@ -15,6 +15,10 @@
             </div>
         </div>	
         <div class="app_contact_form">
+            <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center ;">
+                <mat-progress-spinner color="primary" mode="indeterminate">
+                </mat-progress-spinner>
+            </mat-card>
             <div class="app_contact_collapse" data-toggle="collapse" data-target="#app_contact_form_collapse"></div>
             <h6 style="color: red">{{ display }}</h6>
             <h6 style="color: green">{{ displaysuccess }}</h6>
@@ -32,7 +36,7 @@
                 <div *ngIf="submitted && f.landmark.errors" class="invalid-feedback">
                     <div *ngIf="f.landmark.errors.required">Landmark is required</div>
                 </div>
-                <input type="submit" class="app_full_btn"value="Confirm">
+                <input *ngIf="!isLoading" type="submit" class="app_full_btn"value="Confirm">
             </form>
         </div>
     </div>	
