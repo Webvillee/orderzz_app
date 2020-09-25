@@ -115,7 +115,7 @@ export class CustomiseOrderComponent implements OnInit {
             // availmodifire[step].modifire.reduce((prev, item) => prev + item.sell_price, 0);
             availmodifire[step].modifire.map(function (el) {
               if (el.isChecked === true) {
-                console.log(el.price, 'elllll');
+                // console.log(el.price, 'elllll');
                 total =  total + el.price
               }
             })
@@ -229,7 +229,8 @@ export class CustomiseOrderComponent implements OnInit {
       var count = (input, arr) => arr.filter(x => x.isChecked === input).length;
       // console.log (count(id, this.itemArray));
       const allCount = count(true, this.available_modifire[step].modifire);
-      if (this.available_modifire[step].minimum_modifiers !== allCount) {
+      console.log(this.available_modifire[step].minimum_modifiers, '!==', allCount)
+      if (this.available_modifire[step].minimum_modifiers > allCount) {
         this.available_modifire[step].isRequired = true;
         testArr.push("1");
         testArr = testArr
