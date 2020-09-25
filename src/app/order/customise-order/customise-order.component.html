@@ -1,93 +1,99 @@
 <div class="app_close_review_popup">
-            <img src="assets\img\close_pickup.svg" class="app_close_popup_img" alt="" (click)="close()">
-        </div>
-        <div class="app_food_popup">	
-            <div class="app_the_food_image_content_text_icons">
+    <img src="assets\img\close_pickup.svg" class="app_close_popup_img" alt="" (click)="close()">
+</div>
+<div class="app_food_popup">
+    <div class="app_the_food_image_content_text_icons">
+        <div class="row ">
+            <div class="col-12">
+                <div class="app_the_food_image">
+                    <!-- <img src="assets\img\biryani.jpg" alt=""> -->
+                    <img src="{{img_url}}{{itemData.item_image}}">
+                </div>
+            </div>
+            <div class=" col-12 add_cart">
                 <div class="row ">
-                            <div class="col-12">
-                        <div class="app_the_food_image">
-                            <!-- <img src="assets\img\biryani.jpg" alt=""> -->
-                            <img src="{{img_url}}{{itemData.item_image}}">
+                    <div class="col-8">
+                        <div class="app_the_food_image_heading_left">
+                            <h3>{{itemData.item_name}}</h3>
+                        </div>
+                        <div class="app_the_food__image_heading_6_left">
+                            <h6>{{itemData.item_description}}</h6>
                         </div>
                     </div>
-                    <div class=" col-12 add_cart">
-                        <div class="row ">
-                            <div class="col-8">
-                                <div class="app_the_food_image_heading_left">
-                                    <h3>{{itemData.item_name}}</h3>
-                                </div>
-                                <div class="app_the_food__image_heading_6_left">
-                                    <h6>{{itemData.item_description}}</h6>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="app_review_counter">
-                                    <span *ngIf="countOrder(itemData._id)!=0">
-                                        <span (click)="removeToCart(itemData._id)" class="app_add_minus_icon"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                        <span class="app_your_basket_text_icons_number padRight">{{countOrder(itemData._id)}}</span>
-                                        <!-- <span class="app_addition_icon app_your_basket_text_icons_number" ><i class="fa fa-minus" aria-hidden="true"></i></span>
+                    <div class="col-4">
+                        <div class="app_review_counter">
+                            <span *ngIf="countOrder(itemData._id)!=0">
+                                <span (click)="removeToCart(itemData._id)" class="app_add_minus_icon"><i
+                                        class="fa fa-minus" aria-hidden="true"></i></span>
+                                <span
+                                    class="app_your_basket_text_icons_number padRight">{{countOrder(itemData._id)}}</span>
+                                <!-- <span class="app_addition_icon app_your_basket_text_icons_number" ><i class="fa fa-minus" aria-hidden="true"></i></span>
                                         <span class="app_basket_quantity">{{countOrder(itemData._id)}}</span> -->
-                                    </span>
-                                    
-                                    <span><i class="fa fa-plus app_your_basket_icons cursorCss" aria-hidden="true" (click)="addToCart(itemData)"></i></span>
-                                </div>
-                            </div>
+                            </span>
+
+                            <span><i class="fa fa-plus app_your_basket_icons cursorCss" aria-hidden="true"
+                                    (click)="addToCart(itemData)"></i></span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div *ngFor="let modifire of available_modifire ">
-                <div class="app_the_food_image_content_text_icons requireds">
+        </div>
+    </div>
+    <div *ngFor="let modifire of available_modifire ">
+        <div class="app_the_food_image_content_text_icons requireds">
+            <div class="row ">
+                <div class=" col-12">
                     <div class="row ">
-                        <div class=" col-12">
-                            <div class="row ">
-                                <div class="col-7">
-                                    <div class="app_the_food_image_heading_left_center">
-                                        <h3>Choose the {{modifire.cat_name}}*</h3>
-                                    </div>
-                                </div>
-                                <div class="col-5" *ngIf="modifire.minimum_modifiers!=0">
-                                   <!--  <button type="button" class="btn app_the_food_image_button_center">Required</button> -->
-                                    <p class="required_btnn">Required</p>
-                                </div>
+                        <div class="col-7">
+                            <div class="app_the_food_image_heading_left_center">
+                                <h3>Choose the {{modifire.cat_name}}*</h3>
                             </div>
+                        </div>
+                        <div class="col-5" *ngIf="modifire.minimum_modifiers!=0">
+                            <!--  <button type="button" class="btn app_the_food_image_button_center">Required</button> -->
+                            <p class="required_btnn">Required</p>
                         </div>
                     </div>
                 </div>
-                <div class="app_the_food_image_content_text_icons size_test" *ngFor="let modifiersVal of modifire.modifire; let i = index">
+            </div>
+        </div>
+        <div class="app_the_food_image_content_text_icons size_test"
+            *ngFor="let modifiersVal of modifire.modifire; let i = index">
+            <div class="row ">
+                <div class=" col-12">
                     <div class="row ">
-                        <div class=" col-12">
-                            <div class="row ">
-                                <div class="col-7">
-                                    <div class="app_the_food_image_heading_left_bottom">
-                                        <h4>{{modifiersVal.modifire_name}}</h4>
-                                        
-                                    </div>
-                                </div>
-                                <div class="col-5">
-                                    <div class="aap_the_food_image_heading_number_icons">
-                                        <span class="padRightfive">{{modifiersVal.price}} AED</span>
-                                       <!--  <input type="checkbox" [checked]="modifiersVal.isChecked == true" name="myval{{i}}" value="i" (change)="changeSelection($event, modifiersVal, modifire)"> -->
-                                       <!--  <label class="container_checkboxes">
+                        <div class="col-7">
+                            <div class="app_the_food_image_heading_left_bottom">
+                                <h4>{{modifiersVal.modifire_name}}</h4>
+
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <div class="aap_the_food_image_heading_number_icons">
+                                <span class="padRightfive">{{modifiersVal.price}} AED</span>
+                                <!--  <input type="checkbox" [checked]="modifiersVal.isChecked == true" name="myval{{i}}" value="i" (change)="changeSelection($event, modifiersVal, modifire)"> -->
+                                <!--  <label class="container_checkboxes">
                                           <input type="checkbox" [checked]="modifiersVal.isChecked == true" name="myval{{i}}" value="i" (change)="changeSelection($event, modifiersVal, modifire)">
                                           <span class="checkmark"></span>
                                         </label> -->
-                                        <!-- <input type="checkbox" class="myinput large" (change)="onChangemodifire(modifiersVal)"> -->
-                                        <!-- <span class="app_the_food_image_check_icons">
+                                <!-- <input type="checkbox" class="myinput large" (change)="onChangemodifire(modifiersVal)"> -->
+                                <!-- <span class="app_the_food_image_check_icons">
                                             <i class="fa fa-check app_the_food_image_icons_right" aria-hidden="true"></i>
                                         </span> -->
-                                        <label class="container_checkbox">
-                                  <input type="checkbox" name={{modifire._id}} [checked]="modifiersVal.isChecked == true" (change)="changeSelection($event, modifiersVal, modifire)">
-                                  <span class="checkmark"></span>
+                                <label class="container_checkbox">
+                                    <input type="checkbox" name="myval{{i}}" [checked]="modifiersVal.isChecked == true"
+                                        (change)="changeSelection($event, modifiersVal, modifire)">
+                                    <span class="checkmark"></span>
                                 </label>
-                                    </div>
-                                </div>
-                                
                             </div>
                         </div>
+
                     </div>
                 </div>
-                <div style="color: red;" *ngIf="modifire.isRequired===true">Choose minimum {{modifire.minimum_modifiers}} option</div>
             </div>
-            <a><button type="button" (click)="save()" class="btn app_the_food_image_button">Done</button></a>
         </div>
+        <div style="color: red;" *ngIf="modifire.isRequired===true">Choose minimum {{modifire.minimum_modifiers}} option
+        </div>
+    </div>
+    <a><button type="button" (click)="save()" class="btn app_the_food_image_button">Done</button></a>
+</div>

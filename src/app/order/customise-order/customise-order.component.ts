@@ -114,26 +114,16 @@ export class CustomiseOrderComponent implements OnInit {
           for (let step = 0; step < availmodifire.length; step++) {
             // availmodifire[step].modifire.reduce((prev, item) => prev + item.sell_price, 0);
             availmodifire[step].modifire.map(function (el) {
-              console.log(availmodifire[step].cat_name, el.isChecked)
               if (el.isChecked === true) {
-                // console.log(availmodifire[step].cat_name, '00');
-                if(availmodifire[step].cat_name==='size'){
-                  // console.log(availmodifire[step].cat_name, 'kljkljkl');
-                  // console.log(el.price, '99999');
-                  total = total + el.price;
-                  total = total - element.price
-
-                  element.priceNew = el.price;
-                }else{
-                  // console.log(el.price, 'elllll');
-                  total = total + el.price
-                }
+                console.log(el.price, 'elllll');
+                total =  total + el.price
               }
             })
           }
         }
       });
-      
+
+      this.orderTotal = total;
       let sellPrice = this.itemArray.reduce((prev, item) => prev + item.sell_price, 0);
       this.savingCost = sellPrice;
       const seen = new Set();
@@ -180,32 +170,56 @@ export class CustomiseOrderComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  // changeSelection(event, modifiersVal, modifire) {
+  //   // console.log('7666666666',event.target.checked);
+  //   this.itemArray.map((element, index) => {
+  //     if (element._id === this.itemData._id) {
+  //       const availmodifire = JSON.parse(element.available_modifire);
+  //       const modifiersIndex = availmodifire.findIndex(z => z._id === modifire._id)
+       
+  //       const modifiersValIndex = availmodifire[modifiersIndex].modifire.findIndex(y => y._id == modifiersVal._id);
+
+  //       availmodifire[modifiersIndex].modifire.map(function (el, index) {
+  //         if (modifiersValIndex === index) {
+  //           if (event.target.checked === true) {
+  //             el.isChecked = true;
+  //           }
+  //           console.log(el, 'yessss', modifiersValIndex);
+  //         } else {
+  //           el.isChecked = false;
+  //           console.log(el, 'no', modifiersValIndex);
+  //         }
+  //         return el;
+  //       });
+  //       element.available_modifire = JSON.stringify(availmodifire)
+  //       this.itemData = element
+  //     }
+  //   });
+  // }
+
   changeSelection(event, modifiersVal, modifire) {
     // console.log('7666666666',event.target.checked);
-    this.itemArray.map((element, index) => {
-      if (element._id === this.itemData._id) {
-        const availmodifire = JSON.parse(element.available_modifire);
-        const modifiersIndex = availmodifire.findIndex(z => z._id === modifire._id)
-       
-        const modifiersValIndex = availmodifire[modifiersIndex].modifire.findIndex(y => y._id == modifiersVal._id);
-
-        availmodifire[modifiersIndex].modifire.map(function (el, index) {
-          if (modifiersValIndex === index) {
-            if (event.target.checked === true) {
-              el.isChecked = true;
-            }
-            console.log(el, 'yessss', modifiersValIndex);
-          } else {
-            el.isChecked = false;
-            console.log(el, 'no', modifiersValIndex);
+     this.itemArray.map((element, index) => {
+        if (element._id === this.itemData._id) {
+          const availmodifire = JSON.parse(element.available_modifire);
+          const modifiersIndex = availmodifire.findIndex(z => z._id === modifire._id)
+          // console.log(modifiersIndex, 'ppppp',  availmodifire[modifiersIndex].modifire);
+          const modifiersValIndex = availmodifire[modifiersIndex].modifire.findIndex(y => y._id == modifiersVal._id);
+          let updatedModifire= availmodifire[modifiersIndex].modifire[modifiersValIndex];
+        
+         
+          if(event.target.checked===true){
+            updatedModifire.isChecked = true
+          }else if(event.target.checked===false){
+            updatedModifire.isChecked = false
           }
-          return el;
-        });
-        element.available_modifire = JSON.stringify(availmodifire)
-        this.itemData = element
-      }
-    });
-  }
+          console.log(updatedModifire.isChecked);
+          element.available_modifire = JSON.stringify(availmodifire)
+          this.itemData = element
+        }
+      });
+
+    }
 
   save() {
     // console.log('8888', this.itemData);

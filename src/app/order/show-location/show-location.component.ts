@@ -42,13 +42,13 @@ export class ShowLocationComponent implements OnInit {
     this.orderService.get_restaurant_data(obj).subscribe((res) => {
       if (res.status == 200) {
         this.isLoading =false
-        console.log(res.data, 'ifff')
+        // console.log(res.data, 'ifff')
         // this.minimum_order_value = res.data.end_delevery_time
         // this.themeColor = res.data.theme_color
 
       } else {
         this.isLoading =false
-        console.log('ellls')
+        // console.log('ellls')
         // this.router.navigate(['/not-found'])
       }
     });

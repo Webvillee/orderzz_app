@@ -74,7 +74,11 @@ export class ConfirmAddressComponent implements OnInit {
     }
 
     this.get_all_rest_data();
-    this.setCurrentLocation();
+    // this.setCurrentLocation();
+  }
+
+  findAddressMap(){
+    this.findAdress();
   }
 
   @ViewChild('search', { static: false }) searchElementRef: ElementRef;
@@ -178,16 +182,16 @@ export class ConfirmAddressComponent implements OnInit {
   }
 
   // Get Current Location Coordinates
-  private setCurrentLocation() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.lat = position.coords.latitude;
-        this.lng = position.coords.longitude;
-        this.zoom = 14;
-        this.getAddress(this.lat, this.lng);
-      });
-    }
-  }
+  // private setCurrentLocation() {
+  //   if ('geolocation' in navigator) {
+  //     navigator.geolocation.getCurrentPosition((position) => {
+  //       this.lat = position.coords.latitude;
+  //       this.lng = position.coords.longitude;
+  //       this.zoom = 14;
+  //       this.getAddress(this.lat, this.lng);
+  //     });
+  //   }
+  // }
 
   findAdress() {
     this.mapsAPILoader.load().then(() => {
