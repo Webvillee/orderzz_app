@@ -1892,3 +1892,8 @@ input.app_full_btn:focus {
     display: block;
     padding: 0 !important;
 }
+.loader {
+    margin-top:20%;
+    position: absolute;
+    margin-left: 45%
+}

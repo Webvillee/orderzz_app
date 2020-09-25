@@ -1,7 +1,9 @@
+<div class="loader">
 <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center ;">
 	<mat-progress-spinner color="primary" mode="indeterminate">
 	</mat-progress-spinner>
 </mat-card>
+</div>
 	
 	<div *ngIf="themeCondition; else elseBlock">
 
@@ -197,7 +199,7 @@
 						<div class="col-6 address_order">
 							<div class="app_hot_food_restaurant_location">
 								<ul>
-									<li (click)="addMap()"><a ><img src="assets/img/position_pin.svg">{{customer_address}}</a></li>
+									<li (click)="addMap()"><a ><img src="assets/img/position_pin.svg"><input type="text" class="app_checkout_input_pad app_check_input_loc" value="{{customer_address}}"></a></li>
 								</ul>
 							</div>
 						</div>
