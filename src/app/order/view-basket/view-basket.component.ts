@@ -53,10 +53,6 @@ export class ViewBasketComponent implements OnInit {
     this.getAllorderData();
   }
 
-  ngAfterViewInit(){
-    this.isLoading =false
-  }
-
   get_all_rest_data() {
     this.isLoading =true
     const obj = {
@@ -64,7 +60,6 @@ export class ViewBasketComponent implements OnInit {
     };
     this.orderService.get_restaurant_data(obj).subscribe((res) => {
       if (res.status == 200) {
-
         this.themeView = res.data.theme_view
         if (this.themeView == "1") {       //1=listview in  and 2= gridmeans
           this.themeCondition = false
@@ -82,6 +77,7 @@ export class ViewBasketComponent implements OnInit {
         // this.themeColor = res.data.theme_color
 
       } else {
+        this.isLoading =false
         this.router.navigate(['/not-found'])
       }
     });

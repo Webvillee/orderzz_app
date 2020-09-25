@@ -7,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderPlacedComponent implements OnInit {
 
-  constructor() { }
+  constructor() { 
+    localStorage.removeItem("OrderData");
+    localStorage.removeItem("order_instruction");
+    localStorage.removeItem("mytime");
+    localStorage.removeItem("mytime");
+    
+  }
 
   ngOnInit(): void {
   }

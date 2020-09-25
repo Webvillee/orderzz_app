@@ -48,10 +48,7 @@ export class ShowOrderComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  
-  ngAfterViewInit(){
-    this.isLoading =false
-  }
+
 
   ngAfterContentChecked() {
     if (localStorage.getItem('customer_address')) {
@@ -193,7 +190,8 @@ export class ShowOrderComponent implements OnInit {
   }
 
   addMap(){
-    console.log('uhjkhjkhg')
+    // console.log('uhjkhjkhg')
+    if(!localStorage.getItem('customer_address')){
     const dialogRef = this.dialog.open(AddressPopupComponent, {
       width: '600px',
       height: '700px',
@@ -204,6 +202,8 @@ export class ShowOrderComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
 
     });
+    }
+
   }
 
   clickEvent(event){

@@ -3,6 +3,7 @@ import { MapsAPILoader } from '@agm/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as CryptoJS from 'crypto-js'
+import { OrderService } from '../order.service';
 
 @Component({
   selector: 'app-show-location',
@@ -19,19 +20,38 @@ export class ShowLocationComponent implements OnInit {
   address: any = "";
   geoCoder
   isLoading =false
-  constructor( private router: Router,private mapsAPILoader: MapsAPILoader) { 
+  constructor( private router: Router,private mapsAPILoader: MapsAPILoader, private orderService: OrderService) { 
      var rest_id = localStorage.getItem('rest_id');
-     this.isLoading =true
+
      if(rest_id==null ){
        this.router.navigate(['/not-found'])
      }
+
+     this.get_all_rest_data()
+     
   }
 
   ngOnInit(): void {
   }
 
-  ngAfterContentInit(){
-    this.isLoading =false
+  get_all_rest_data() {
+    this.isLoading =true
+    const obj = {
+      restId: CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
+    };
+    this.orderService.get_restaurant_data(obj).subscribe((res) => {
+      if (res.status == 200) {
+        this.isLoading =false
+        console.log(res.data, 'ifff')
+        // this.minimum_order_value = res.data.end_delevery_time
+        // this.themeColor = res.data.theme_color
+
+      } else {
+        this.isLoading =false
+        console.log('ellls')
+        // this.router.navigate(['/not-found'])
+      }
+    });
   }
 
   setCurrentLocation() {

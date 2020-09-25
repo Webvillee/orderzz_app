@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { OrderService } from '../order.service';
 import { UrlSetting } from '../../urlSetting'
 import * as CryptoJS from 'crypto-js'
+
 @Component({
   selector: 'app-confirm-address',
   templateUrl: './confirm-address.component.html',
@@ -41,7 +42,7 @@ export class ConfirmAddressComponent implements OnInit {
   public geoCoder;
   landmark
   submitted = false;
-  userId;
+  userId
   isLoading =false
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private mapsAPILoader: MapsAPILoader, private _ngZone: NgZone) {
 
@@ -66,6 +67,8 @@ export class ConfirmAddressComponent implements OnInit {
       const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
 
       // console.log(data, 'lll')
+
+
         this.address= data.address
         this.landmark= data.landmark
     }
@@ -80,11 +83,6 @@ export class ConfirmAddressComponent implements OnInit {
     //this.setCurrentLocation();
     this.findAdress();
   }
-
-  callMyfunc(){
-    this.findAdress();
-  }
-
 
   get f() { return this.angForm.controls; }
 
@@ -102,6 +100,7 @@ export class ConfirmAddressComponent implements OnInit {
         } else {
           this.themeCondition = true
         }
+
 
         this.banner = res.data.rest_banner
         this.logo = res.data.rest_logo
@@ -129,6 +128,7 @@ export class ConfirmAddressComponent implements OnInit {
 
     this.submitted = true;
 
+
     // stop here if form is invalid
     if (this.angForm.invalid) {
       return;
@@ -139,7 +139,7 @@ export class ConfirmAddressComponent implements OnInit {
         if (res.status === 200) {
           var userOrder = CryptoJS.AES.encrypt(JSON.stringify(res.data), '').toString();
           localStorage.setItem('UserData', userOrder);
-        var encrypted_order_type = CryptoJS.AES.encrypt(address, '');
+        var encrypted_order_type = CryptoJS.AES.encrypt(res.data.address, '');
         localStorage.setItem('customer_address',encrypted_order_type.toString());
           this.display = ''
           this.displaysuccess = "Succussfully";

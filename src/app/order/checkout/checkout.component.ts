@@ -72,10 +72,6 @@ export class CheckoutComponent implements OnInit {
     this.getAllorderData();
   }
 
-  ngAfterViewInit(){
-    this.isLoading =false
-  }
-
   get f() { return this.angForm.controls; }
 
   get_all_rest_data() {
@@ -84,29 +80,29 @@ export class CheckoutComponent implements OnInit {
       restId: CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     };
     console.log(obj)
-    // this.orderService.get_restaurant_data(obj).subscribe((res) => {
-    //   if (res.status == 200) {
+    this.orderService.get_restaurant_data(obj).subscribe((res) => {
+      if (res.status == 200) {
+        this.isLoading =false
+        this.themeView = res.data.theme_view
+        if (this.themeView == "1") {       //1=listview in  and 2= gridmeans
+          this.themeCondition = false
+        } else {
+          this.themeCondition = true
+        }
 
-    //     this.themeView = res.data.theme_view
-    //     if (this.themeView == "1") {       //1=listview in  and 2= gridmeans
-    //       this.themeCondition = false
-    //     } else {
-    //       this.themeCondition = true
-    //     }
+        this.banner = res.data.rest_banner
+        this.logo = res.data.rest_logo
+        this.restName = res.data.rest_name
+        this.restAddress = res.data.rest_full_address
+        this.minimumOrderValue = res.data.minimum_order_value
 
-    //     this.banner = res.data.rest_banner
-    //     this.logo = res.data.rest_logo
-    //     this.restName = res.data.rest_name
-    //     this.restAddress = res.data.rest_full_address
-    //     this.minimumOrderValue = res.data.minimum_order_value
+        // this.minimum_order_value = res.data.end_delevery_time
+        // this.themeColor = res.data.theme_color
 
-    //     // this.minimum_order_value = res.data.end_delevery_time
-    //     // this.themeColor = res.data.theme_color
-
-    //   } else {
-    //     this.router.navigate(['/not-found'])
-    //   }
-    // });
+      } else {
+        this.router.navigate(['/not-found'])
+      }
+    });
   }
 
   getAllorderData() {
