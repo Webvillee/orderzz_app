@@ -13,4 +13,16 @@ p.app_content {
     font-weight: 500;
     margin-bottom: 55px;
 }
+.app_location_image svg {
+    width: 25%;
+}
+.app_location .app_location_image {
+    margin: -5px 0 -50px;
+    text-align: center;
+}
+@media only screen and (max-width: 800px) and (min-width: 320px){
+.app_location_image svg {
+    width: 60%;
+}
+}
 

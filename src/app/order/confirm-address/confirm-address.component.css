@@ -1,16 +1,16 @@
 agm-map {
     height: 300px;
 }
-.app_contact_map {
+/*.app_contact_map {
     width: 85%;
     margin-left: 4%;
-}
-.app_contact_form {
+}*/
+/*.app_contact_form {
     background: #fff;
     position: absolute;
     width: 50%;
     margin-top: -38px;
-}
+}*/
 input[type="submit"] {
     width: 100%;
     letter-spacing: 1px;
@@ -45,8 +45,15 @@ label.app_content {
     margin-left: 7%;
 }
 }
+.app_contact .app_contact_form {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    padding: 20px;
+    box-shadow: 0px 0px 20px 0px rgba(165,165,165,0.5);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
 .agm-map-container-inner{
-    width: inherit;
-    height: inherit;
-    border-radius: 35px 35px 0px 0px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
