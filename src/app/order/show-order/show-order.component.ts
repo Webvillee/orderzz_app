@@ -36,10 +36,16 @@ export class ShowOrderComponent implements OnInit {
   clicked
   private toggle : boolean = false;
   isLoading =false
+  userId
   constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog) {
 
     if (localStorage.getItem('rest_id') == null) {
       this.router.navigate(['/not-found'])
+    }
+
+    if (localStorage.getItem('userId')) {
+      this.userId = CryptoJS.AES.decrypt(localStorage.getItem('userId'), '').toString(CryptoJS.enc.Utf8)
+      // const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))
     }
 
     this.get_all_rest_data()

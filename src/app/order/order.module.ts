@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AuthguardGuard } from './authguard.guard';
 import { Routes, RouterModule } from '@angular/router';
 import { OrderComponent } from './order.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
@@ -21,6 +22,8 @@ import { ConfirmAddressComponent } from './confirm-address/confirm-address.compo
 import { CheckoutComponent } from './checkout/checkout.component';
 import { OrderPlacedComponent } from './order-placed/order-placed.component';
 import { AddressPopupComponent } from './address-popup/address-popup.component';
+import { ViewOrdersHistoryComponent } from './view-orders-history/view-orders-history.component';
+import { UpdateProfileComponent } from './update-profile/update-profile.component';
        // @agm/core
 
 // const routes: Routes = [
@@ -54,12 +57,17 @@ const routes: Routes = [
       {path: 'otp', component:OtpVerificationComponent},
       {path: 'personal-details', component:PersonalDetailsComponent},
       {path: 'confirm-address', component:ConfirmAddressComponent},
-      {path: 'checkout', component:CheckoutComponent},
-      {path: 'order-placed', component:OrderPlacedComponent},
+
+      {path: 'checkout', component:CheckoutComponent, canActivate: [AuthguardGuard]},
+      {path: 'order-placed', component:OrderPlacedComponent, canActivate: [AuthguardGuard]},
+      
+      {path: 'order-history',component:ViewOrdersHistoryComponent, canActivate: [AuthguardGuard]},
+      {path: 'update-profile',component:UpdateProfileComponent, canActivate: [AuthguardGuard]},
 
       {path: 'not-found',component:PagenotfoundComponent},
       {path: ':id',component:WelcomeComponent},
       {path: '**', component:PagenotfoundComponent},
+      
 
     ]
   }
@@ -82,6 +90,8 @@ const routes: Routes = [
     CheckoutComponent,
     OrderPlacedComponent,
     AddressPopupComponent,
+    ViewOrdersHistoryComponent,
+    UpdateProfileComponent,
   ],
   imports: [
     CommonModule,
@@ -91,7 +101,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
-  providers: [OrderService],
+  providers: [OrderService, AuthguardGuard],
   entryComponents: [CustomiseOrderComponent, ConfirmAddressComponent]
 })
 export class OrderModule { }

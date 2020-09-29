@@ -47,5 +47,9 @@ export class OrderService {
     return this.subject.asObservable();
   }
 
+  getToken(): boolean {
+    return !!localStorage.getItem('userId');
+  }
+
   
 }

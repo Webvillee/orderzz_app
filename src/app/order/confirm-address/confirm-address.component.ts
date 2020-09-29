@@ -67,14 +67,12 @@ export class ConfirmAddressComponent implements OnInit {
       const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
 
       // console.log(data, 'lll')
-
-
         this.address= data.address
         this.landmark= data.landmark
     }
 
     this.get_all_rest_data();
-    // this.setCurrentLocation();
+    this.setCurrentLocation();
   }
 
   findAddressMap(){
@@ -84,9 +82,23 @@ export class ConfirmAddressComponent implements OnInit {
   @ViewChild('search', { static: false }) searchElementRef: ElementRef;
 
   ngOnInit() {
-    //this.setCurrentLocation();
+    // this.setCurrentLocation();
     this.findAdress();
   }
+
+  ngAfterViewInit(){
+    if (localStorage.getItem('userId')) {
+      this.userId = CryptoJS.AES.decrypt(localStorage.getItem('userId'), '').toString(CryptoJS.enc.Utf8)
+      // const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))
+      const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
+
+      // console.log(data, 'lll')
+
+        this.address= data.address
+        this.landmark= data.landmark
+    }
+  }
+
 
   get f() { return this.angForm.controls; }
 
@@ -128,20 +140,26 @@ export class ConfirmAddressComponent implements OnInit {
   onSubmit() {
     var address = this.angForm.controls.address.value;
     var landmark = this.angForm.controls.landmark.value;
-    const obj = { userId: this.userId, address: address, landmark: landmark, lat:this.lat, lng:this.lng }
+    const obj = { userId: this.userId, address: this.address, landmark: landmark, lat:this.lat, lng:this.lng }
  
 
     this.submitted = true;
 
-
     // stop here if form is invalid
-    if (this.angForm.invalid) {
-      return;
-    }
-    if (this.submitted === true && (address || '').trim().length != 0 && address.length >= 4 && landmark!='') {
+    // if (this.angForm.invalid) {
+    //   return;
+    // }
+    if (this.submitted === true && (this.address || '').trim().length != 0 && this.address.length >= 4 && landmark!='') {
 
       this.orderService.postAll('update_profile', obj).subscribe((res) => {
         if (res.status === 200) {
+
+          var latitude = CryptoJS.AES.encrypt(String(this.lat), '');
+          localStorage.setItem('lat',latitude.toString());
+    
+          var longitude = CryptoJS.AES.encrypt(String(this.lng), '');
+          localStorage.setItem('lng',longitude.toString());
+
           var userOrder = CryptoJS.AES.encrypt(JSON.stringify(res.data), '').toString();
           localStorage.setItem('UserData', userOrder);
         var encrypted_order_type = CryptoJS.AES.encrypt(res.data.address, '');
@@ -157,7 +175,7 @@ export class ConfirmAddressComponent implements OnInit {
       });
 
     } else {
-      console.log(this.angForm.controls.address, '00000000', address.length);
+      // console.log(this.angForm.controls.address, '00000000', address.length);
       if (this.angForm.invalid) {
         return false;
       }
@@ -184,14 +202,27 @@ export class ConfirmAddressComponent implements OnInit {
 
   // Get Current Location Coordinates
   private setCurrentLocation() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.lat = position.coords.latitude;
-        this.lng = position.coords.longitude;
+    if (localStorage.getItem('lat') && localStorage.getItem('lng')) {
+      const latitude =  CryptoJS.AES.decrypt(localStorage.getItem('lat'), '').toString(CryptoJS.enc.Utf8);
+      const longitude =  CryptoJS.AES.decrypt(localStorage.getItem('lng'), '').toString(CryptoJS.enc.Utf8);
+     
+      // this.UserData= data
+      console.log(Number(latitude), Number(longitude))
+        // this.userName= data.user_name
+        // this.email= data.user_email
+        this.lat = Number(latitude);
+        this.lng = Number(longitude);
         this.zoom = 14;
-        this.getAddress(this.lat, this.lng);
-      });
+        this.getAddress(Number(latitude), Number(longitude));
     }
+    // if ('geolocation' in navigator) {
+    //   navigator.geolocation.getCurrentPosition((position) => {
+    //     this.lat = position.coords.latitude;
+    //     this.lng = position.coords.longitude;
+    //     this.zoom = 14;
+    //     this.getAddress(this.lat, this.lng);
+    //   });
+    // }
   }
 
   findAdress() {
@@ -200,7 +231,7 @@ export class ConfirmAddressComponent implements OnInit {
       autocomplete.addListener("place_changed", () => {
         this._ngZone.run(() => {
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-          // console.log(place, "*");
+          // console.log(place, "*99999999999999");
           var loop = place.address_components;
           loop.forEach(element => {
             if (element.types[0] == 'locality') {
