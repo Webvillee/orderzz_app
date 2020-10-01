@@ -29,6 +29,7 @@ export class YourOrdersComponent implements OnInit {
   order_status//(1=Order_Place, 2=Accept,3=Preparing, 4=Delivered ,5-collected(in case of delevery),6=reject_by_rest,7=canceled_by_user )
   orderItems
   orderHistory = [];
+  orderCount
   img_url = UrlSetting.image_uri
   constructor(private router: Router, private mapsAPILoader: MapsAPILoader, private orderService: OrderService) {
     var rest_id = localStorage.getItem('rest_id');
@@ -79,7 +80,8 @@ export class YourOrdersComponent implements OnInit {
      this.orderService.postAll('my_order_list', obj).subscribe((res) => {
         if (res.status === 200) {
           console.log(res.data);
-          this.orderHistory = res.data;
+          this.orderHistory = res.data.menu;
+          this.orderCount = res.data.count;
           this.isLoading = false
           // this.order_number= res.data.order_number
           // this.total_amount=res.data.total_amount
@@ -102,6 +104,31 @@ export class YourOrdersComponent implements OnInit {
         }
       });
   }
+
+
+  onScroll() {
+    // this.page++;
+    const obj = {userId: this.userId, restId: this.restId  }
+    this.orderService.postAll('my_order_list', obj).subscribe((res) => {
+      this.isLoading = true;
+      // console.log(res.data, 'ghfhg');
+      if (res.status === 200) {
+        // console.log(res.data, 'ghfhg');
+        // this.upcomingContest = res.data
+        if(res.data.menu.length>=10 && this.orderHistory.length<this.orderCount){
+          res.data.menu.forEach(childObj => {
+            this.orderHistory.push(childObj);
+          });
+        }
+        this.isLoading = false;
+        // this.display = res.message;
+      } else if(res.status === 201){
+        this.isLoading = false;
+        this.orderHistory = [];
+      }
+    });
+  }
+ 
 
   orderDetails(OrderDetails, heading){
     const alData = JSON.parse(OrderDetails);

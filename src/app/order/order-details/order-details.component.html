@@ -15,7 +15,7 @@
                 <div class="app_order_details_content_text">
                     <div class="app_order_details_heading_4_left">
                         <h4>{{rest_name}}</h4>
-                        <h4>Pizza Lover Company Food Order</h4>
+                        <h4>{{rest_description}}</h4>
                     </div>
                     <div class="app_order_details_heading_6_left">
                         <h6>Order Code: {{this.orderHistory.order_number}}</h6>
@@ -27,10 +27,22 @@
             <div class=" col-12">
                 <div class="app_order_details_content_text">
                     <div class="app_order_details_heading_6_left">
+                        <h6>Track Order</h6>
+                    </div>
+                    <div class="app_order_details_heading_left_icons_maps">
+                        <h4><a [routerLink]="['/order-tracking', this.orderHistory._id]">Track to click here</a></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class=" col-12">
+                <div class="app_order_details_content_text">
+                    <div class="app_order_details_heading_6_left">
                         <h6>Ship to</h6>
                     </div>
                     <div class="app_order_details_heading_left_icons_maps">
-                        <h4>9 West 46th Street, New York City</h4>
+                        <h4>{{(this.orderHistory===1)? this.orderHistory.pickup_address : this.orderHistory.delevery_address }}</h4>
                     </div>
                 </div>
             </div>

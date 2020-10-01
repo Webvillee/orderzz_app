@@ -29,6 +29,8 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
 import { PickupLocationComponent } from './pickup-location/pickup-location.component';
 import { SigninComponent } from './signin/signin.component';
 import { SigninOtpComponent } from './signin-otp/signin-otp.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
        // @agm/core
 
 // const routes: Routes = [
@@ -64,7 +66,7 @@ const routes: Routes = [
       {path: 'confirm-address', component:ConfirmAddressComponent},
 
       {path: 'checkout', component:CheckoutComponent, canActivate: [AuthguardGuard]},
-      {path: 'order-tracking', component:OrderPlacedComponent, canActivate: [AuthguardGuard]},
+      {path: 'order-tracking/:id', component:OrderPlacedComponent, canActivate: [AuthguardGuard]},
       
       {path: 'your-orders', component:YourOrdersComponent, canActivate: [AuthguardGuard]},
       {path: 'update-profile',component:UpdateProfileComponent, canActivate: [AuthguardGuard]},
@@ -112,6 +114,7 @@ const routes: Routes = [
     FormsModule,
     AgmCoreModule,
     SharedModule,
+    InfiniteScrollModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],

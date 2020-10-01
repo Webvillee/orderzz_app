@@ -44,7 +44,7 @@ input[type="submit"] {
 img.app_delievery_boy_image{
     max-width: 55px;
 }
-.order_placed{
+.order_address{
     border-top-left-radius: 22px;
     border-top-right-radius: 22px;
     padding: 20px 27px !important;
@@ -68,7 +68,7 @@ img.app_delievery_boy_image{
     margin: auto;
     overflow-x: inherit;
 }
-.order_placed {
+.order_address {
     border-top-left-radius: 22px;
     border-top-right-radius: 22px;
     padding: 20px 50px;
@@ -76,7 +76,7 @@ img.app_delievery_boy_image{
     background: #fff;
     position: absolute;
     width: 50%;
-    top: 105%;
+    top: 84%;
 }
 .app_order_placed {
     position: relative;
@@ -116,7 +116,6 @@ p.arrive_time {
     border-radius: 50%;
 }
 .app_delivery_call img {
-    /* background: #f6f4f4; */
     max-width: 37px;
     height: 60px;
     width: 60px;
@@ -131,9 +130,9 @@ p.arrive_time {
 img.app_delievery_boy_image {
     max-width: 60px;
 }
-.delivery_boy_call .col-7 {
+/*.delivery_boy_call .col-7 {
     padding-left: 0;
-}
+}*/
 .delivery_boy_call {
     margin-top: 50px;
 }
@@ -144,5 +143,5 @@ position: absolute;
     z-index: 99999;
     margin-top: 30px;
     text-align: center;
-    left: 35%;
+    left: 33%;
 }

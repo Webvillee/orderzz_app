@@ -88,18 +88,66 @@ export class OrderPlacedComponent implements OnInit {
   }
 
   myOrderlist(){
+    this.isLoading = true
     const obj = {orderId: this.order_id, userId: this.userId, restId: this.restId  }
 
      this.orderService.postAll('get_my_order_status', obj).subscribe((res) => {
         if (res.status === 200) {
-          // console.log(res.data);
-          this.orderHistory = res.data;
-          this.orderItems=res.data.order_items;
+          this.isLoading = false
+          console.log(res.data);
+          this.orderHistory = res.data
+          this.orderItems=res.data.order_items
+          if(this.orderItems){
+            const data = JSON.parse(this.orderItems)
+            this.itemArray = data;
+            if(this.itemArray.length===0){
+              this.router.navigate(['/order'])
+            }
+            let total = this.itemArray.reduce((prev, item) => prev + item.price, 0);
+            //  console.log(JSON.stringify(this.itemArray))
+            const arr_total = this.itemArray
+      
+            this.itemArray.map((element, index) => {
+              if (element.is_modifire_status === 1) {
+                const availmodifire = JSON.parse(element.available_modifire);
+                // console.log(availmodifire, 'pppppp');
+                for (let step = 0; step < availmodifire.length; step++) {
+                  // availmodifire[step].modifire.reduce((prev, item) => prev + item.sell_price, 0);
+                  availmodifire[step].modifire.map(function (el) {
+                    if (el.isChecked === true) {
+                      console.log(el.price, 'elllll');
+                      total =  total + el.price
+                    }
+                  })
+                }
+              }
+            });
+      
+            // this.orderTotal = total;
+            let sellPrice = this.itemArray.reduce((prev, item) => prev + item.sell_price, 0);
+            // this.savingCost = sellPrice;
+            const seen = new Set();
+            const filteredArr = data.filter(el => {
+              const duplicate = seen.has(el._id);
+              seen.add(el._id);
+              return !duplicate;
+            });
+            this.getItemData = filteredArr
+          
+          }
+          
+          setTimeout(function(){ this.displaysuccess='' }, 3000);
         } else {
+          this.isLoading = false
           // this.displaysuccess = ''
           // this.display = res.msg;
         }
       });
+  }
+
+  countOrder(id) {
+    var count = (input, arr) => arr.filter(x => x._id === input).length;
+    return count(id, this.itemArray);
   }
 
 

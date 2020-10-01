@@ -13,6 +13,13 @@
         <div class="app_your_orders_content_text">
             <div class="row">
                 <div class=" col-12">
+                    <div
+                    class="search-results"
+                    infiniteScroll
+                    [infiniteScrollDistance]="2"
+                    [infiniteScrollThrottle]="50"
+                    (scrolled)="onScroll()"
+                  >
                     <div class="row" *ngFor="let orderData of orderHistory">
                         <div class="col-4">
                             <div class="app_your_orders_image">
@@ -53,6 +60,7 @@
                                             src="assets/img/repeat.svg" alt="">Repeat Order</span></a>
                             </div>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>

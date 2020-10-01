@@ -187,7 +187,7 @@ export class ViewBasketComponent implements OnInit {
     const dialogRef = this.dialog.open(CustomiseOrderComponent, {
       width: '600px',
       height: '700px',
-      // padding: '0px',
+      panelClass: 'my-class',
       data: itemData
     });
 

@@ -200,7 +200,7 @@ export class ShowOrderComponent implements OnInit {
     const dialogRef = this.dialog.open(AddressPopupComponent, {
       width: '600px',
       height: '700px',
-      // padding: '0px',
+      panelClass: 'address-class',
       data: { address: 'mapicon' }
     });
 

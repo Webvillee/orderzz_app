@@ -179,10 +179,9 @@ export class CheckoutComponent implements OnInit {
     if(localStorage.getItem('rest_id')){
       res_id= CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     }
-
     if(paymentMethod){
       this.submitted = true;
-      const obj = { restId: res_id, userId: this.userId, orderType:  Number(orderType), orderItems: items, orderDescription:order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod)  , orderReview: 1, isCreditPayment: 1 }
+      const obj = { restId: res_id, userId: this.userId, orderType:  Number(orderType), orderItems: items, orderDescription:order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod)  , orderReview: 1, isCreditPayment: 1, deleveryAddress: '', deleveryLandmark: '', deleveryLat: '', deleveryLng:'', pickupAddress: '', pickupLat:'', pickupLng:'' }
       // console.log(paymentMethod, '776767888', obj);
   
       this.orderService.postAll('place_order', obj).subscribe((res) => {
@@ -193,7 +192,7 @@ export class CheckoutComponent implements OnInit {
           localStorage.removeItem("OrderData")
           this.display = ''
           this.displaysuccess = "Succussfully";
-          this.router.navigate(['/order-tracking']);
+          this.router.navigate([`/order-tracking/${res.data._id}`]);
           setTimeout(function(){ this.displaysuccess='' }, 3000);
         } else {
           this.displaysuccess = ''

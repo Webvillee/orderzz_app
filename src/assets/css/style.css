@@ -1499,9 +1499,9 @@ Personal Detail
 	width:1000px;
 	
 }
-.app_scroll{
+/* .app_scroll{
 	overflow-x:scroll;
-}
+} */
 .app_category_scroll_button ul{
 	position: relative;
     padding-left:0;
@@ -1773,18 +1773,18 @@ Personal Detail
     border-left: 2px solid #4e526a;
 }
 .StepProgress-item.current::after {
-   content: url(.\assets/img/down-arrow.png);
-   font-family:FontAwesome;
-    padding-top: 1px;
-    width: 19px;
-    height: 18px;
-    top: 6px;
-    left: -38px;
-    font-size: 18px;
-    text-align: center;
-    /* color: green; */
-   border: 2px solid #f55b02;
-    background-color: #f55b02;
+    /* content: url('./assets/img/staus_progress.svg'); */
+    font-family:FontAwesome;
+        padding-top: 1px;
+        width: 19px;
+        height: 18px;
+        top: 6px;
+        left: -38px;
+        font-size: 18px;
+        text-align: center;
+        /* color: green; */
+    border: 2px solid #f55b02;
+        background-color: #f55b02;
 }
 .StepProgress strong {
   display: block;
@@ -1842,6 +1842,7 @@ Personal Detail
     border: 2px solid #fff !important;
     font-weight: 600;
 }
+
 .linkColor{
 	color: #007bff !important;
     cursor: pointer;
@@ -1891,10 +1892,6 @@ p.required_btnn {
 }
 input.app_full_btn:focus {
     outline: none;
-}
-.mat-dialog-container {
-    display: block;
-    padding: 0 !important;
 }
 .loader {
     margin-top:20%;

@@ -29,7 +29,7 @@
     "crypto-js": "^4.0.0",
     "hammerjs": "^2.0.8",
     "jquery": "^3.5.1",
-    "ngx-infinite-scroll": "^9.0.0",
+    "ngx-infinite-scroll": "^9.1.0",
     "ngx-spinner": "^10.0.1",
     "primeng": "^10.0.0-rc.4",
     "rxjs": "~6.5.5",

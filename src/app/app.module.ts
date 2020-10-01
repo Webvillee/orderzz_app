@@ -16,7 +16,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { UrlSetting } from "./urlSetting";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 const routes: Routes = [
   { path: '', loadChildren: () => import('./order/order.module').then(m => m.OrderModule), pathMatch: 'full' },
@@ -41,6 +41,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     NgxSpinnerModule,
+    InfiniteScrollModule,
     AgmCoreModule.forRoot({ // @agm/core
       apiKey: UrlSetting.agm_core_key ,
       libraries: ['places']

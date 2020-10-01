@@ -31,6 +31,7 @@ export class OrderDetailsComponent implements OnInit {
   img_url = UrlSetting.image_uri;
   order_id
   rest_name
+  rest_description
   constructor(private router: Router, private route: ActivatedRoute , private mapsAPILoader: MapsAPILoader, private orderService: OrderService) {
     var rest_id = localStorage.getItem('rest_id');
 
@@ -65,6 +66,7 @@ export class OrderDetailsComponent implements OnInit {
         // this.isLoading = false
         console.log(res.data, 'ifff');
         this.rest_name= res.data.rest_name;
+        this.rest_description= res.data.rest_description
         // this.minimum_order_value = res.data.end_delevery_time
         // this.themeColor = res.data.theme_color
 
