@@ -2,18 +2,20 @@ import { Component, OnInit } from '@angular/core';
 
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { OrderService } from '../order.service';
 import { UrlSetting } from '../../urlSetting'
 import * as CryptoJS from 'crypto-js'
 
 @Component({
-  selector: 'app-view-orders-history',
-  templateUrl: './view-orders-history.component.html',
-  styleUrls: ['./view-orders-history.component.css']
+  selector: 'app-signin',
+  templateUrl: './signin.component.html',
+  styleUrls: ['./signin.component.css']
 })
-export class ViewOrdersHistoryComponent implements OnInit {
+export class SigninComponent implements OnInit {
+
   angForm: FormGroup;
-  display: String;
+  display: string;
   displaysuccess: String;
   themeCondition
   themeView
@@ -30,11 +32,8 @@ export class ViewOrdersHistoryComponent implements OnInit {
   menuId
   restId;
   orderCount;
+  isRequired = false
   submitted = false;
-  userId;
-  UserData;
-  userName;
-  email;
   isLoading =false
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService) {
 
@@ -48,43 +47,15 @@ export class ViewOrdersHistoryComponent implements OnInit {
       this.customer_address = CryptoJS.AES.decrypt(localStorage.getItem('customer_address'), '').toString(CryptoJS.enc.Utf8);
     }
 
-    if (localStorage.getItem('userId')) {
-      this.userId = CryptoJS.AES.decrypt(localStorage.getItem('userId'), '').toString(CryptoJS.enc.Utf8)
-      // const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))
-    }
-    if (localStorage.getItem('UserData')) {
-    const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
-    // this.UserData= data
-    // console.log(data, 'lll')
-      this.userName= data.user_name
-      this.email= data.user_email
-    }
-   
     this.angForm = this.fb.group({
-      userName: ['', Validators.required, Validators.minLength(3)],
-      email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
-    });
+      mobileno: ['', Validators.required, Validators.minLength(10)],
+    })
 
-    
 
     this.get_all_rest_data();
   }
 
   get f() { return this.angForm.controls; }
-
-  ngAfterContentChecked() {
-    if (localStorage.getItem('userId')) {
-      this.userId = CryptoJS.AES.decrypt(localStorage.getItem('userId'), '').toString(CryptoJS.enc.Utf8)
-      // const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))
-      
-    // const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
-    // this.UserData=data
-    // console.log(data, 'lll')
-    //   this.userName= data.user_name
-    //   this.email= data.user_email
-    }
-
-  }
 
   get_all_rest_data() {
     this.isLoading =true
@@ -118,54 +89,43 @@ export class ViewOrdersHistoryComponent implements OnInit {
   }
 
 
-
   onSubmit() {
-    // console.log(this.angForm.controls.userName.value, '776767888');
-    var userName = this.angForm.controls.userName.value;
-    var userEmail = this.angForm.controls.email.value;
-    const obj = { userId: this.userId, userName: userName, userEmail: userEmail  }
-    // var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    var mailformat = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+    // console.log( this.angForm.controls.mobileno.value, 'ioiioiopioiopiop');
+    var mobileno = this.angForm.controls.mobileno.value;
+    const obj = { phoneNo: mobileno }
+
     // // stop here if form is invalid
-    
+
     this.submitted = true;
+    if (this.submitted === true && (mobileno || '').trim().length != 0 && mobileno.length > 9) {
+      // console.log(this.angForm.controls.mobileno, '787678', mobileno.length);
 
-    // stop here if form is invalid
-    if (this.angForm.invalid) {
-      return;
-    }
-    if (this.submitted === true && (userName || '').trim().length != 0 && userName.length >= 2 && userEmail.match(mailformat)) {
-      // console.log(this.angForm.controls.userName, '787678', userName.length);
-
-      this.orderService.postAll('update_profile', obj).subscribe((res) => {
+      this.orderService.postAll('sign_in', obj).subscribe((res) => {
         if (res.status === 200) {
+          var encrypted_order_type = CryptoJS.AES.encrypt(res.data._id, '');
+          localStorage.setItem('userId',encrypted_order_type.toString());
+          // console.log(res.data._id);
+          // all user details
           var userOrder = CryptoJS.AES.encrypt(JSON.stringify(res.data), '').toString();
           localStorage.setItem('UserData', userOrder);
-          var encrypted_order_type = CryptoJS.AES.encrypt(userName, '');
-          localStorage.setItem('userName',encrypted_order_type.toString());
-          this.router.navigate(['/confirm-address']);
+
+          this.router.navigate(['/signin-otp']);
           this.display = ''
-          this.displaysuccess = "Succussfully";
-          
-          setTimeout(function(){ this.displaysuccess='' }, 3000);
+          this.displaysuccess = res.msg
         } else {
           this.displaysuccess = ''
           this.display = res.msg;
         }
       });
-
-    } else {
-      // console.log(this.angForm.controls.userName, '00000000', userName.length);
+    }else{
+      // console.log(this.angForm.controls.mobileno, '00000000', mobileno.length);
       if (this.angForm.invalid) {
         return false;
-      }
-      this.submitted = false;
+    }
     }
 
-
+   
   }
-
-
 
   onKeypressEvent(event: any): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;

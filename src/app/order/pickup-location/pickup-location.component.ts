@@ -8,11 +8,11 @@ import * as CryptoJS from 'crypto-js';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-update-profile',
-  templateUrl: './update-profile.component.html',
-  styleUrls: ['./update-profile.component.css']
+  selector: 'app-pickup-location',
+  templateUrl: './pickup-location.component.html',
+  styleUrls: ['./pickup-location.component.css']
 })
-export class UpdateProfileComponent implements OnInit {
+export class PickupLocationComponent implements OnInit {
   angForm: FormGroup;
   display: String;
   displaysuccess: String;
@@ -57,7 +57,7 @@ export class UpdateProfileComponent implements OnInit {
     if (localStorage.getItem('UserData')) {
       const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
       // this.UserData= data
-      console.log(data, 'lll')
+      console.log(data, 'lll');
       this.userName = data.user_name;
       this.email = data.user_email;
       this.mobileno = data.user_contact_no;
@@ -148,14 +148,14 @@ export class UpdateProfileComponent implements OnInit {
 
           const dialogDatasuccess = new SuccessDialogModel("Success", "Succesfully Updated");
 
-          let dialogReff = this.dialog.open(SuccessDialogComponent, {
-            maxWidth: "700px",
-            data: dialogDatasuccess
-          });
-          dialogReff.afterClosed()
-            .subscribe(result => {
-              this.router.navigate(['/order']);
-            });
+          // let dialogReff = this.dialog.open(SuccessDialogComponent, {
+          //   maxWidth: "700px",
+          //   data: dialogDatasuccess
+          // });
+          // dialogReff.afterClosed()
+          //   .subscribe(result => {
+              this.router.navigate(['/checkout']);
+            // });
           this.isLoading = false;
           // this.display = ''
           // this.displaysuccess = "Succussfully";
@@ -179,8 +179,6 @@ export class UpdateProfileComponent implements OnInit {
 
   }
 
-
-
   onKeypressEvent(event: any): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -198,4 +196,3 @@ export class UpdateProfileComponent implements OnInit {
   }
 
 }
-

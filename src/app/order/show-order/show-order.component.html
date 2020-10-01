@@ -16,11 +16,12 @@
 					<h4>Menu Options</h4>
 					<ul>
 						<li><a routerLink="/order" class="active">Home</a></li>
-						<li *ngIf="userId"><a routerLink="/order-history">Your Orders</a></li>
+						<li *ngIf="userId"><a routerLink="/your-orders">Your Orders</a></li>
 						<li *ngIf="userId"><a routerLink="/update-profile">Profile</a></li>
 					</ul>
 				</div>
-				<!-- <a routerLink="/order" class="app_full_btn">Sign Out</a> -->
+				<a *ngIf="userId" (click)='logout()' class="app_full_btn">Sign Out</a>
+				<a *ngIf="!userId" routerLink="/signin" class="app_full_btn">Sign In</a>
 			</div>
 			<!-- sidebar close -->
 
@@ -153,11 +154,12 @@
 					<h4>Menu Options</h4>
 					<ul>
 						<li><a routerLink="/order" class="active">Home</a></li>
-						<li *ngIf="userId"><a routerLink="/order-history">Your Orders</a></li>
+						<li *ngIf="userId"><a routerLink="/your-orders">Your Orders</a></li>
 						<li *ngIf="userId"><a routerLink="/update-profile">Profile</a></li>
 					</ul>
 				</div>
-				<!-- <a routerLink="/order" class="app_full_btn">Sign Out</a> -->
+				<a *ngIf="userId" (click)='logout()' class="app_full_btn">Sign Out</a>
+				<a *ngIf="!userId" routerLink="/signin" class="app_full_btn">Sign In</a>
 			</div>
 			<!-- sidebar close -->
 

@@ -26,7 +26,6 @@ export class OrderService {
     return this.http.post<any>(`${this.uri}/get_all_Item`, data);
   }
 
-
   postAll(link, obj){
     return this.http.post<any>(`${this.uri}/${link}`, obj);
   }
@@ -40,7 +39,7 @@ export class OrderService {
   }
 
   sendMessage(message: string) {
-    this.subject.next({ text: message });
+    this.subject.next({ data: message });
   }
 
   getMessage() {

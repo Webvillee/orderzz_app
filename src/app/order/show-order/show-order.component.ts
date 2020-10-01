@@ -4,9 +4,10 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 import { OrderService } from '../order.service';
 import { UrlSetting } from '../../urlSetting'
-import * as CryptoJS from 'crypto-js'
+import * as CryptoJS from 'crypto-js';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AddressPopupComponent } from '../address-popup/address-popup.component'
+import { SuccessDialogComponent, SuccessDialogModel } from '../../shared/dialogs/success-dialog/success-dialog.component';
 
 @Component({
   selector: 'app-show-order',
@@ -34,8 +35,8 @@ export class ShowOrderComponent implements OnInit {
   getItemData
   catName
   clicked
-  private toggle : boolean = false;
-  isLoading =false
+  private toggle: boolean = false;
+  isLoading = false
   userId
   constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog) {
 
@@ -65,13 +66,13 @@ export class ShowOrderComponent implements OnInit {
   }
 
   get_all_rest_data() {
-    this.isLoading =true
+    this.isLoading = true
     const obj = {
       restId: CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     };
     this.orderService.get_restaurant_data(obj).subscribe((res) => {
       if (res.status == 200) {
-        this.isLoading =false
+        this.isLoading = false
         console.log(res.data, 'ifff')
         this.themeView = res.data.theme_view
         if (this.themeView == "1") {       //1=listview in  and 2= gridmeans
@@ -97,7 +98,7 @@ export class ShowOrderComponent implements OnInit {
         // this.themeColor = res.data.theme_color
 
       } else {
-        this.isLoading =false
+        this.isLoading = false
         console.log('ellls')
         // this.router.navigate(['/not-found'])
       }
@@ -116,7 +117,7 @@ export class ShowOrderComponent implements OnInit {
     };
 
     this.orderService.get_all_category(obj).subscribe((res) => {
-      console.log(res)
+      // console.log(res)
       if (res.status == 200) {
         this.getCategoryData = res.data;
         this.findItem(res.data[0]);
@@ -193,14 +194,14 @@ export class ShowOrderComponent implements OnInit {
     }
   }
 
-  addMap(){
+  addMap() {
     // console.log('uhjkhjkhg')
     // if(!localStorage.getItem('customer_address')){
     const dialogRef = this.dialog.open(AddressPopupComponent, {
       width: '600px',
       height: '700px',
       // padding: '0px',
-      data: {address:'mapicon'}
+      data: { address: 'mapicon' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -210,10 +211,27 @@ export class ShowOrderComponent implements OnInit {
 
   }
 
-  clickEvent(event){
+  clickEvent(event) {
     //if you just want to toggle the class; change toggle variable.
-    this.toggle = !this.toggle;       
- }
+    this.toggle = !this.toggle;
+  }
 
+  public logout() {
+    localStorage.removeItem('UserData');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('otp');
+    localStorage.removeItem('order_instruction');
+    localStorage.removeItem('userName');
+    const dialogDatasuccess = new SuccessDialogModel("Success", "Succesfully Logout");
+    let dialogReff = this.dialog.open(SuccessDialogComponent, {
+      maxWidth: "700px",
+      data: dialogDatasuccess
+    });
+    dialogReff.afterClosed()
+      .subscribe(result => {
+        this.userId=''
+        this.router.navigate(['/order']);
+    });
 
+  }
 }

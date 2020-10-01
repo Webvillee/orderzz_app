@@ -62,6 +62,11 @@ export class ShowLocationComponent implements OnInit {
       navigator.geolocation.getCurrentPosition((position) => {
         this.lat = position.coords.latitude;
         this.lng = position.coords.longitude;
+        var latitude = CryptoJS.AES.encrypt(String(this.lat), '');
+        localStorage.setItem('lat', latitude.toString());
+
+        var longitude = CryptoJS.AES.encrypt(String(this.lng), '');
+        localStorage.setItem('lng', longitude.toString());
         this.getAddress(this.lat, this.lng);
         this.router.navigate(['/order']);
       });

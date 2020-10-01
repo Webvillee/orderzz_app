@@ -43,7 +43,8 @@ export class ConfirmAddressComponent implements OnInit {
   landmark
   submitted = false;
   userId
-  isLoading =false
+  isLoading = false
+  selectedDeliveryType
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private mapsAPILoader: MapsAPILoader, private _ngZone: NgZone) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -67,15 +68,20 @@ export class ConfirmAddressComponent implements OnInit {
       const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
 
       // console.log(data, 'lll')
-        this.address= data.address
-        this.landmark= data.landmark
+      this.address = data.address
+      this.landmark = data.landmark
+    }
+
+    if (localStorage.getItem('order_type')) {
+      const orderType = CryptoJS.AES.decrypt(localStorage.getItem('order_type'), '').toString(CryptoJS.enc.Utf8)
+      this.selectedDeliveryType = orderType
     }
 
     this.get_all_rest_data();
     this.setCurrentLocation();
   }
 
-  findAddressMap(){
+  findAddressMap() {
     this.findAdress();
   }
 
@@ -86,7 +92,7 @@ export class ConfirmAddressComponent implements OnInit {
     this.findAdress();
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     if (localStorage.getItem('userId')) {
       this.userId = CryptoJS.AES.decrypt(localStorage.getItem('userId'), '').toString(CryptoJS.enc.Utf8)
       // const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))
@@ -94,8 +100,8 @@ export class ConfirmAddressComponent implements OnInit {
 
       // console.log(data, 'lll')
 
-        this.address= data.address
-        this.landmark= data.landmark
+      this.address = data.address
+      this.landmark = data.landmark
     }
   }
 
@@ -103,13 +109,13 @@ export class ConfirmAddressComponent implements OnInit {
   get f() { return this.angForm.controls; }
 
   get_all_rest_data() {
-    this.isLoading =true
+    this.isLoading = true
     const obj = {
       restId: CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     };
     this.orderService.get_restaurant_data(obj).subscribe((res) => {
       if (res.status == 200) {
-        this.isLoading =false
+        this.isLoading = false
         this.themeView = res.data.theme_view
         if (this.themeView == "1") {       //1=listview in  and 2= gridmeans
           this.themeCondition = false
@@ -119,7 +125,7 @@ export class ConfirmAddressComponent implements OnInit {
 
 
         this.banner = res.data
-        .rest_banner
+          .rest_banner
         this.logo = res.data.rest_logo
         this.restName = res.data.rest_name
         this.restAddress = res.data.rest_full_address
@@ -129,7 +135,7 @@ export class ConfirmAddressComponent implements OnInit {
         // this.themeColor = res.data.theme_color
 
       } else {
-        this.isLoading =false
+        this.isLoading = false
         this.router.navigate(['/not-found'])
       }
     });
@@ -140,8 +146,8 @@ export class ConfirmAddressComponent implements OnInit {
   onSubmit() {
     var address = this.angForm.controls.address.value;
     var landmark = this.angForm.controls.landmark.value;
-    const obj = { userId: this.userId, address: this.address, landmark: landmark, lat:this.lat, lng:this.lng }
- 
+    const obj = { userId: this.userId, address: this.address, landmark: landmark, lat: this.lat, lng: this.lng }
+
 
     this.submitted = true;
 
@@ -149,26 +155,36 @@ export class ConfirmAddressComponent implements OnInit {
     // if (this.angForm.invalid) {
     //   return;
     // }
-    if (this.submitted === true && (this.address || '').trim().length != 0 && this.address.length >= 4 && landmark!='') {
-
+    
+    if (this.submitted === true && (this.address || '').trim().length != 0 && this.address.length >= 4 && landmark != '') {
+      console.log(address, 'address');
+      this.isLoading = true
       this.orderService.postAll('update_profile', obj).subscribe((res) => {
         if (res.status === 200) {
 
           var latitude = CryptoJS.AES.encrypt(String(this.lat), '');
-          localStorage.setItem('lat',latitude.toString());
-    
+          localStorage.setItem('lat', latitude.toString());
+
           var longitude = CryptoJS.AES.encrypt(String(this.lng), '');
-          localStorage.setItem('lng',longitude.toString());
+          localStorage.setItem('lng', longitude.toString());
 
           var userOrder = CryptoJS.AES.encrypt(JSON.stringify(res.data), '').toString();
           localStorage.setItem('UserData', userOrder);
-        var encrypted_order_type = CryptoJS.AES.encrypt(res.data.address, '');
-        localStorage.setItem('customer_address',encrypted_order_type.toString());
+          var encrypted_order_type = CryptoJS.AES.encrypt(this.address, '');
+          localStorage.setItem('customer_address', encrypted_order_type.toString());
           this.display = ''
           this.displaysuccess = "Succussfully";
+          // if(this.selectedDeliveryType ==='1'){
+          //   this.router.navigate(['/pickup-location']);
+          // }else{
           this.router.navigate(['/checkout']);
-          setTimeout(function(){ this.displaysuccess='' }, 3000);
+          // }
+
+          this.isLoading = false
+
+          setTimeout(function () { this.displaysuccess = '' }, 3000);
         } else {
+          this.isLoading = false
           this.displaysuccess = ''
           this.display = res.msg;
         }
@@ -203,17 +219,22 @@ export class ConfirmAddressComponent implements OnInit {
   // Get Current Location Coordinates
   private setCurrentLocation() {
     if (localStorage.getItem('lat') && localStorage.getItem('lng')) {
-      const latitude =  CryptoJS.AES.decrypt(localStorage.getItem('lat'), '').toString(CryptoJS.enc.Utf8);
-      const longitude =  CryptoJS.AES.decrypt(localStorage.getItem('lng'), '').toString(CryptoJS.enc.Utf8);
-     
+      const latitude = CryptoJS.AES.decrypt(localStorage.getItem('lat'), '').toString(CryptoJS.enc.Utf8);
+      const longitude = CryptoJS.AES.decrypt(localStorage.getItem('lng'), '').toString(CryptoJS.enc.Utf8);
+
       // this.UserData= data
       console.log(Number(latitude), Number(longitude))
-        // this.userName= data.user_name
-        // this.email= data.user_email
-        this.lat = Number(latitude);
-        this.lng = Number(longitude);
-        this.zoom = 14;
-        this.getAddress(Number(latitude), Number(longitude));
+      // this.userName= data.user_name
+      // this.email= data.user_email
+      this.lat = Number(latitude);
+      this.lng = Number(longitude);
+      this.zoom = 14;
+      this.getAddress(Number(latitude), Number(longitude));
+    }else{
+      this.lat = Number(25.276987);
+      this.lng = Number(55.296249);
+      this.zoom = 14;
+      this.getAddress(25.276987, 55.296249);
     }
     // if ('geolocation' in navigator) {
     //   navigator.geolocation.getCurrentPosition((position) => {

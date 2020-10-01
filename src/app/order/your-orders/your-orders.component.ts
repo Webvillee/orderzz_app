@@ -1,18 +1,18 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import * as CryptoJS from 'crypto-js';
+import { Router } from '@angular/router';
+import * as CryptoJS from 'crypto-js'
 import { OrderService } from '../order.service';
 import { UrlSetting } from '../../urlSetting'
 
-
 @Component({
-  selector: 'app-order-placed',
-  templateUrl: './order-placed.component.html',
-  styleUrls: ['./order-placed.component.css']
+  selector: 'app-your-orders',
+  templateUrl: './your-orders.component.html',
+  styleUrls: ['./your-orders.component.css']
 })
-export class OrderPlacedComponent implements OnInit {
+export class YourOrdersComponent implements OnInit {
+
   public lat;
   public lng;
   public zoom = 4;
@@ -23,23 +23,15 @@ export class OrderPlacedComponent implements OnInit {
   isLoading = false;
   userId
   restId
+  order_number
+  total_amount
   created_on;
   order_status//(1=Order_Place, 2=Accept,3=Preparing, 4=Delivered ,5-collected(in case of delevery),6=reject_by_rest,7=canceled_by_user )
   orderItems
-  orderHistory;
-  itemArray = [];
-  getItemData =[]
-  img_url = UrlSetting.image_uri;
-  order_id
-  rest_name;
-  placedData
-  constructor(private router: Router, private route: ActivatedRoute , private mapsAPILoader: MapsAPILoader, private orderService: OrderService) {
+  orderHistory = [];
+  img_url = UrlSetting.image_uri
+  constructor(private router: Router, private mapsAPILoader: MapsAPILoader, private orderService: OrderService) {
     var rest_id = localStorage.getItem('rest_id');
-    localStorage.removeItem("OrderData");
-    localStorage.removeItem("order_instruction");
-    localStorage.removeItem("mytime");
-
-    this.order_id = this.route.snapshot.params.id;
 
     if (rest_id == null) {
       this.router.navigate(['/not-found'])
@@ -51,12 +43,6 @@ export class OrderPlacedComponent implements OnInit {
     if(localStorage.getItem('rest_id')){
      this.restId = CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     }
-
-    if (localStorage.getItem('placedData')) {
-      this.placedData = CryptoJS.AES.decrypt(localStorage.getItem('placedData'), '').toString(CryptoJS.enc.Utf8)
-      // const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))
-    }
-    
 
     this.get_all_rest_data();
     this.myOrderlist()
@@ -73,14 +59,13 @@ export class OrderPlacedComponent implements OnInit {
     };
     this.orderService.get_restaurant_data(obj).subscribe((res) => {
       if (res.status == 200) {
-        this.isLoading = false
-        console.log(res.data, 'ifff');
-        this.rest_name= res.data.rest_name;
+        // this.isLoading = false
+        // console.log(res.data, 'ifff')
         // this.minimum_order_value = res.data.end_delevery_time
         // this.themeColor = res.data.theme_color
 
       } else {
-        this.isLoading = false
+        // this.isLoading = false
         // console.log('ellls')
         // this.router.navigate(['/not-found'])
       }
@@ -88,20 +73,47 @@ export class OrderPlacedComponent implements OnInit {
   }
 
   myOrderlist(){
-    const obj = {orderId: this.order_id, userId: this.userId, restId: this.restId  }
+    this.isLoading = true
+    const obj = {userId: this.userId, restId: this.restId  }
 
-     this.orderService.postAll('get_my_order_status', obj).subscribe((res) => {
+     this.orderService.postAll('my_order_list', obj).subscribe((res) => {
         if (res.status === 200) {
-          // console.log(res.data);
+          console.log(res.data);
           this.orderHistory = res.data;
-          this.orderItems=res.data.order_items;
+          this.isLoading = false
+          // this.order_number= res.data.order_number
+          // this.total_amount=res.data.total_amount
+          // this.created_on=res.data.created_on
+          // this.order_status=res.data.order_status
+          // this.orderItems=res.data.order_items
+          // var userOrder = CryptoJS.AES.encrypt(JSON.stringify(res.data), '').toString();
+          // localStorage.setItem('UserData', userOrder);
+          // var encrypted_order_type = CryptoJS.AES.encrypt(userName, '');
+          // localStorage.setItem('userName',encrypted_order_type.toString());
+          // this.router.navigate(['/confirm-address']);
+          // this.display = ''
+          // this.displaysuccess = "Succussfully";
+          
+          setTimeout(function(){ this.displaysuccess='' }, 3000);
         } else {
+          this.isLoading = false
           // this.displaysuccess = ''
           // this.display = res.msg;
         }
       });
   }
 
+  orderDetails(OrderDetails, heading){
+    const alData = JSON.parse(OrderDetails);
+    console.log(alData, 'OrderDetails', heading);
+    if(heading ==='title'){
+      return alData[0].item_name;
+    }else if(heading ==='image'){
+      return alData[0].item_image;
+    }else{
+      return alData.length;
+    }
+  }
+
 
 }
-

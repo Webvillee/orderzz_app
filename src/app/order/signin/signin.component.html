@@ -1,0 +1,34 @@
+<div class="loader">
+    <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center ;">
+        <mat-progress-spinner color="primary" mode="indeterminate">
+        </mat-progress-spinner>
+    </mat-card>
+    </div>
+    <div  *ngIf="!isLoading" class="app_verification">
+        <div class="app_container">
+            <div class="app_verification_image">
+                <a [routerLink]="['/view-basket']"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+            </div>
+            <div class="app_verification_caption">
+                <h2 class="app_heading">Phone Verification</h2>
+                <p class="app_content">We'll send you on this number a message with the one time password.</p>
+                <form [formGroup]="angForm" (ngSubmit)="onSubmit()">
+                    <div class="app_icon_input">
+                        <h6 style="color: red">{{ display }}</h6>
+                        <h6 style="color: green">{{ displaysuccess }}</h6>
+                        <!-- <p class="phone_icon"><i class="fa fa-phone"></i></p> -->
+                        <input type="text" (keypress)="onKeypressEvent($event)" minlength="10" maxlength="12"
+                            placeholder="Enter Phone Number" formControlName="mobileno" class="app_icon_input_pad"
+                            placeholder="Phone number"
+                            [ngClass]="{ 'is-invalid': submitted && f.mobileno.errors }" />
+                        <div *ngIf="submitted && f.mobileno.errors" class="invalid-feedback">
+                            <div *ngIf="f.mobileno.errors.required">*Phone Number is required</div>
+                            <div *ngIf="f.mobileno.errors.minlength">*Phone Number minimum length 10 is required</div>
+                        </div>
+                    </div>
+                    <input type="submit" class="app_full_btn"
+                        value="Send OTP">
+                </form>
+            </div>
+        </div>
+    </div>

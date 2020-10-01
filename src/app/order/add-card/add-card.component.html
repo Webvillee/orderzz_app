@@ -1,0 +1,42 @@
+<div class="app_verification app_checkout app_add_card">
+    <div class="app_container">
+        <div class="app_verification_image">
+            <a [routerLink]="['/checkout']"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+            <h2 class="app_heading">Add Card</h2>
+        </div>
+        <form [formGroup]="angForm" (ngSubmit)="onSubmit()" class="app_add_card_form">
+            <div class="row ">
+                <div class="col-12">
+                    <label class="app_content">Card Number</label>
+                    <input type="text" (keypress)="onKeypressEvent($event)" minlength="12" maxlength="15"
+                        formControlName="card_number" placeholder="xxxx-xxxx-xxxx-xxxx" class="app_icon_input_pad"
+                        [ngClass]="{ 'is-invalid': submitted && f.card_number.errors }" />
+                    <div *ngIf="submitted && f.card_number.errors" class="invalid-feedback">
+                        <div *ngIf="f.card_number.errors.required">*Card Number is required</div>
+                        <div *ngIf="f.card_number.errors.minlength">*Card Number minimum length 12 is required</div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label class="app_content">Expiry</label>
+                    <input type="text" formControlName="expiry" placeholder="MM/YY" formControlName="expiry"
+                        class="app_icon_input_pad" [ngClass]="{ 'is-invalid': submitted && f.expiry.errors }" />
+                    <div *ngIf="submitted && f.expiry.errors" class="invalid-feedback">
+                        <div *ngIf="f.expiry.errors.required">*Expiry date is required</div>
+                    </div>
+
+                </div>
+                <div class="col-6">
+                    <label class="app_content">CVV</label>
+                    <input type="text" (keypress)="onKeypressEvent($event)" minlength="3" maxlength="3"
+                        formControlName="cvv" placeholder="Eg: 123" class="app_icon_input_pad"
+                        [ngClass]="{ 'is-invalid': submitted && f.cvv.errors }" />
+                    <div *ngIf="submitted && f.cvv.errors" class="invalid-feedback">
+                        <div *ngIf="f.cvv.errors.required">*CVV Number is required</div>
+                        <div *ngIf="f.cvv.errors.minlength">*CVV Number minimum length 3 is required</div>
+                    </div>
+                </div>
+            </div>
+            <input type="submit" class="app_full_btn" value="Next">
+        </form>
+    </div>
+</div>

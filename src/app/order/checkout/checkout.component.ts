@@ -193,7 +193,7 @@ export class CheckoutComponent implements OnInit {
           localStorage.removeItem("OrderData")
           this.display = ''
           this.displaysuccess = "Succussfully";
-          this.router.navigate(['/order-placed']);
+          this.router.navigate(['/order-tracking']);
           setTimeout(function(){ this.displaysuccess='' }, 3000);
         } else {
           this.displaysuccess = ''

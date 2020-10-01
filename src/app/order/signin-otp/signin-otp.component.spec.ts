@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewOrdersHistoryComponent } from './view-orders-history.component';
+import { SigninOtpComponent } from './signin-otp.component';
 
-describe('ViewOrdersHistoryComponent', () => {
-  let component: ViewOrdersHistoryComponent;
-  let fixture: ComponentFixture<ViewOrdersHistoryComponent>;
+describe('SigninOtpComponent', () => {
+  let component: SigninOtpComponent;
+  let fixture: ComponentFixture<SigninOtpComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViewOrdersHistoryComponent ]
+      declarations: [ SigninOtpComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ViewOrdersHistoryComponent);
+    fixture = TestBed.createComponent(SigninOtpComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

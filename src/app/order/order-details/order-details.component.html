@@ -1,0 +1,138 @@
+<div class="loader">
+    <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center ;">
+        <mat-progress-spinner color="primary" mode="indeterminate">
+        </mat-progress-spinner>
+    </mat-card>
+</div>
+<div *ngIf="!isLoading" class="app_verification app_checkout app_order_details">
+    <div class="app_container">
+        <div class="app_verification_image">
+            <a [routerLink]="['/your-orders']"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+            <h2 class="app_heading">Order Details</h2>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="app_order_details_content_text">
+                    <div class="app_order_details_heading_4_left">
+                        <h4>{{rest_name}}</h4>
+                        <h4>Pizza Lover Company Food Order</h4>
+                    </div>
+                    <div class="app_order_details_heading_6_left">
+                        <h6>Order Code: {{this.orderHistory.order_number}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class=" col-12">
+                <div class="app_order_details_content_text">
+                    <div class="app_order_details_heading_6_left">
+                        <h6>Ship to</h6>
+                    </div>
+                    <div class="app_order_details_heading_left_icons_maps">
+                        <h4>9 West 46th Street, New York City</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row app_row">
+            <div class=" col-12">
+                <div class="app_order_details_content_text">
+                    <div class="app_order_details_heading_6_left">
+                        <h6>Ship at</h6>
+                    </div>
+                    <div class="app_order_details_heading_left_icons_clock">
+                        <h4>{{this.orderHistory.created_on |  date:'medium'}}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row app_row">
+            <div class=" col-12">
+                <div class="app_order_details_content_text">
+                    <div class="app_order_deatils_heading_6_left">
+                        <h6>Order</h6>
+                    </div>
+                    <div class="row aap_row marginbottom" *ngFor="let itemData of getItemData">
+                        <div class="col-5">
+                            <div class="app_order_details_image">
+                                <img src="{{img_url}}{{itemData.item_image}}">
+                            </div>
+                        </div>
+                        <div class="col-7">
+                            <div class="app_order_details_heading_3_right">
+                                <h3>{{itemData.item_name}}</h3>
+                            </div>
+                            <div class="app_order_details_heading_6_right">
+                                <h6>{{itemData.item_description}}</h6>
+                            </div>
+                            <div class="app_order_details_heading_5_right">
+                                <h5>{{countOrder(itemData._id)}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+        <div class="app_order_details_content_text_bottom">
+            <div class="row app_row">
+                <div class=" col-12">
+                    <div class="row app_row">
+                        <div class="col-5">
+                            <div class="app_order_details_heading_left_bottom">
+                                <h3>Order Price</h3>
+                            </div>
+                        </div>
+                        <div class="col-7">
+                            <div class="app_order_details_heading_right_bottom">
+                                <!-- <span><del>102.98 AED</del></span> -->
+                                <span class="app_order_details_text_right_bottom">{{this.orderHistory.total_amount}} AED</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="app_order_details_content_text_bottom">
+            <div class="row app_row">
+                <div class=" col-12">
+                    <div class="row app_row">
+                        <div class="col-8">
+                            <div class="app_order_details_heading_left_bottom">
+                                <h3>Shipping Cost (1.5km)</h3>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="app_order_details_heading_text_right_bottom">
+                                <h4>0.99 AED</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="app_order_details_content_text_bottom">
+            <div class="row">
+                <div class=" col-12">
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="app_order_details_heading_text_left_bottom">
+                                <h3>Total</h3>
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="app_order_details_total">
+                                <button type="button" class=" btn app_btn_details"> Paid </button>
+                                <div class="app_order_deatils_heading_text_right_bottom">
+                                    <h4>{{this.orderHistory.total_amount}} AED</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="app_full_btn">Order Again</a>
+    </div>
+</div>

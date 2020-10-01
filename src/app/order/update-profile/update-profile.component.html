@@ -1,7 +1,7 @@
 <div class="app_verification app_checkout app_my_profile">
     <div class="app_container">
         <div class="app_verification_image">
-            <a href="#"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+            <a [routerLink]="['/order']"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
             <h2 class="app_heading">My Profile</h2>
         </div>
         <h6 style="color: red">{{ display }}</h6>
@@ -23,7 +23,7 @@
                     <div class="row ">
                         <div class="col-12">
                             <label class="app_content"for="number"> Phone Number </label>
-                            <input class="app_my_profile_input" id="number" type="text" (keypress)="onKeypressEvent($event)" minlength="10" maxlength="12"
+                            <input class="app_my_profile_input" id="number" [(ngModel)]="mobileno" type="text" (keypress)="onKeypressEvent($event)" minlength="10" maxlength="12"
                             placeholder="Enter Phone Number" formControlName="mobileno" class="app_icon_input_pad"
                             placeholder="Phone number"
                             [ngClass]="{ 'is-invalid': submitted && f.mobileno.errors }" />
@@ -63,7 +63,7 @@
                             </div></a>
                         </div>
                         <div class="col-4">
-                            <a [routerLink]="['/order-history']"><div class="app_my_profile_icons_bottom">
+                            <a [routerLink]="['/your-orders']"><div class="app_my_profile_icons_bottom">
                                 <img src="assets/img/receipt_list.svg">
                             </div>
                             <div class="app_my_profile_icons_text_bottom">

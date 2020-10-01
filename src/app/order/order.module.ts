@@ -22,8 +22,13 @@ import { ConfirmAddressComponent } from './confirm-address/confirm-address.compo
 import { CheckoutComponent } from './checkout/checkout.component';
 import { OrderPlacedComponent } from './order-placed/order-placed.component';
 import { AddressPopupComponent } from './address-popup/address-popup.component';
-import { ViewOrdersHistoryComponent } from './view-orders-history/view-orders-history.component';
 import { UpdateProfileComponent } from './update-profile/update-profile.component';
+import { AddCardComponent } from './add-card/add-card.component';
+import { YourOrdersComponent } from './your-orders/your-orders.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
+import { PickupLocationComponent } from './pickup-location/pickup-location.component';
+import { SigninComponent } from './signin/signin.component';
+import { SigninOtpComponent } from './signin-otp/signin-otp.component';
        // @agm/core
 
 // const routes: Routes = [
@@ -59,16 +64,20 @@ const routes: Routes = [
       {path: 'confirm-address', component:ConfirmAddressComponent},
 
       {path: 'checkout', component:CheckoutComponent, canActivate: [AuthguardGuard]},
-      {path: 'order-placed', component:OrderPlacedComponent, canActivate: [AuthguardGuard]},
+      {path: 'order-tracking', component:OrderPlacedComponent, canActivate: [AuthguardGuard]},
       
-      {path: 'order-history',component:ViewOrdersHistoryComponent, canActivate: [AuthguardGuard]},
+      {path: 'your-orders', component:YourOrdersComponent, canActivate: [AuthguardGuard]},
       {path: 'update-profile',component:UpdateProfileComponent, canActivate: [AuthguardGuard]},
+      {path: 'order-details/:id',component:OrderDetailsComponent, canActivate: [AuthguardGuard]},
+      {path: 'add-card', component:AddCardComponent, canActivate: [AuthguardGuard]},
+      {path: 'pickup-location',component:PickupLocationComponent, canActivate: [AuthguardGuard]},
+
+      {path: 'signin',component:SigninComponent},
+      {path: 'signin-otp',component:SigninOtpComponent},
 
       {path: 'not-found',component:PagenotfoundComponent},
       {path: ':id',component:WelcomeComponent},
       {path: '**', component:PagenotfoundComponent},
-      
-
     ]
   }
 ];
@@ -90,8 +99,13 @@ const routes: Routes = [
     CheckoutComponent,
     OrderPlacedComponent,
     AddressPopupComponent,
-    ViewOrdersHistoryComponent,
     UpdateProfileComponent,
+    AddCardComponent,
+    YourOrdersComponent,
+    OrderDetailsComponent,
+    PickupLocationComponent,
+    SigninComponent,
+    SigninOtpComponent,
   ],
   imports: [
     CommonModule,

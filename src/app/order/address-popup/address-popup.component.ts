@@ -45,17 +45,10 @@ export class AddressPopupComponent implements OnInit {
   landmark
   submitted = false;
   userId;
-  popupdata
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private mapsAPILoader: MapsAPILoader, private _ngZone: NgZone,private dialog: MatDialog,
-    public dialogRef: MatDialogRef<AddressPopupComponent>,) {
+  popupdata;
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private mapsAPILoader: MapsAPILoader, private _ngZone: NgZone, private dialog: MatDialog,
+    public dialogRef: MatDialogRef<AddressPopupComponent>) {
 
-    this.popupdata = this.orderService.getMessage().subscribe(message => {
-      if (message) {
-        console.log('i m pop')
-      } else {
-        console.log('i m not pop')
-      }
-    });
     if (localStorage.getItem('rest_id') == null) {
       this.router.navigate(['/not-found'])
     }
@@ -76,7 +69,7 @@ export class AddressPopupComponent implements OnInit {
       const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
 
       // console.log(data, 'lll')
-        this.address= data.address
+      this.address = data.address
     }
 
     this.get_all_rest_data();
@@ -87,6 +80,7 @@ export class AddressPopupComponent implements OnInit {
 
   ngOnInit() {
     //this.setCurrentLocation();
+
     this.findAdress();
   }
 
@@ -124,12 +118,15 @@ export class AddressPopupComponent implements OnInit {
 
 
   onSubmit() {
-
- 
-    if ((this.address || '').trim().length != 0 ) {
+    if ((this.address || '').trim().length != 0) {
       var encrypted_order_type = CryptoJS.AES.encrypt(this.address, '');
-      localStorage.setItem('customer_address',encrypted_order_type.toString());
+      localStorage.setItem('customer_address', encrypted_order_type.toString());
       this.dialogRef.close();
+      var latitude = CryptoJS.AES.encrypt(String(this.lat), '');
+      localStorage.setItem('lat', latitude.toString());
+
+      var longitude = CryptoJS.AES.encrypt(String(this.lng), '');
+      localStorage.setItem('lng', longitude.toString());
     } else {
       // console.log(this.angForm.controls.address, '00000000', address.length);
       if (this.angForm.invalid) {
@@ -157,14 +154,25 @@ export class AddressPopupComponent implements OnInit {
 
   // Get Current Location Coordinates
   private setCurrentLocation() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.lat = position.coords.latitude;
-        this.lng = position.coords.longitude;
-        this.zoom = 14;
-        this.getAddress(this.lat, this.lng);
-      });
+    if (localStorage.getItem('lat') && localStorage.getItem('lng')) {
+      const latitude = CryptoJS.AES.decrypt(localStorage.getItem('lat'), '').toString(CryptoJS.enc.Utf8);
+      const longitude = CryptoJS.AES.decrypt(localStorage.getItem('lng'), '').toString(CryptoJS.enc.Utf8);
+
+      // this.UserData= data
+      console.log(Number(latitude), Number(longitude))
+      // this.userName= data.user_name
+      // this.email= data.user_email
+      this.lat = Number(latitude);
+      this.lng = Number(longitude);
+      this.zoom = 14;
+      this.getAddress(Number(latitude), Number(longitude));
+    }else{
+      this.lat = Number(25.276987);
+      this.lng = Number(55.296249);
+      this.zoom = 14;
+      this.getAddress(25.276987, 55.296249);
     }
+
   }
 
   findAdress() {
@@ -224,6 +232,11 @@ export class AddressPopupComponent implements OnInit {
               }
 
             });
+            var latitude = CryptoJS.AES.encrypt(String(this.lat), '');
+            localStorage.setItem('lat', latitude.toString());
+
+            var longitude = CryptoJS.AES.encrypt(String(this.lng), '');
+            localStorage.setItem('lng', longitude.toString());
             (results[0].formatted_address != undefined) ? this.address = results[0].formatted_address : this.address = '';
             (results[0].formatted_phone_number != undefined) ? this.contactNumber = results[0].formatted_phone_number : this.contactNumber = '';
             (results[0].website != undefined) ? this.web_site = results[0].website : this.web_site = '';
