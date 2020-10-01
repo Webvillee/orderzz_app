@@ -6,8 +6,6 @@
 </div>
 	
 	<div *ngIf="themeCondition; else elseBlock">
-
-		
 		<div *ngIf="!isLoading" class="app_hot_food_restaurant">
 			<!-- sidebar open -->
 			<div class="app_nav_bar" [ngClass]="{'active': toggle}">
@@ -72,8 +70,8 @@
 						<div class="col-6 delivery_order">
 							<div class="app_delivery_button">
 								<div class="btn-group app_delivery_pickup_btn_main"> 
-									<button class="btn btn-sm  app_delivery_pickup_btn app_delivery_btn" (click)="onClick(2)"  [ngClass]="{'active': selectedDeliveryType==='2'}"><span>Delivery</span></button>
-									<button class="btn btn-sm btn-default app_delivery_pickup_btn app_pickup_btn" [ngClass]="{'active': selectedDeliveryType==='1'}" (click)="onClick(1)" ><span>Pickup</span></button>
+									<button class="btn btn-sm  app_delivery_pickup_btn app_delivery_btn" (click)="onClick(1)"  [ngClass]="{'active': selectedDeliveryType==='1'}"><span>Delivery</span></button>
+									<button class="btn btn-sm btn-default app_delivery_pickup_btn app_pickup_btn" [ngClass]="{'active': selectedDeliveryType==='2'}" (click)="onClick(2)" ><span>Pickup</span></button>
 								</div>
 							</div>
 						</div>
@@ -135,9 +133,29 @@
 							
 						</ng-container>
 						</div>
-						<div *ngIf="getCategoryData==0">
-							<h2>Currentlly restaurant is closed</h2>
-						</div>
+
+						<ng-container *ngIf="getCategoryData==0">
+							<div class="app_close">
+								<div class="app_container">
+									<div class="app_close_image">
+										<div class="app_close_image_rest">
+											<img src="assets/img/shop.svg" alt="">
+											<div class="app_closed_restaurant">
+												<p class="app_content">Closed</p>
+											</div>
+										</div>
+									</div>
+									<div class="app_close_content">
+										<h3>Sorry , restaurant will open </h3>
+										<h3>at 12:00 pm</h3>
+										<h2 class="app_heading">Still want to browse?</h2>
+										<p class="app_content">Note: you can't order but you can see menu<br> list to order once it opens.</p>
+										<a href="#" class="app_full_btn">Browse</a>
+									</div>
+								</div>	
+							</div>
+						</ng-container>
+						
 					</div>
 				</div>
 			</div>
@@ -210,8 +228,8 @@
 						<div class="col-6 delivery_order">
 							<div class="app_delivery_button">
 								<div class="btn-group app_delivery_pickup_btn_main"> 
-									<button class="btn btn-sm  app_delivery_pickup_btn app_delivery_btn" (click)="onClick(2)"  [ngClass]="{'active': selectedDeliveryType==='2'}"><span>Delivery</span></button>
-									<button class="btn btn-sm btn-default app_delivery_pickup_btn app_pickup_btn" [ngClass]="{'active': selectedDeliveryType==='1'}" (click)="onClick(1)" ><span>Pickup</span></button>
+									<button class="btn btn-sm  app_delivery_pickup_btn app_delivery_btn" (click)="onClick(1)"  [ngClass]="{'active': selectedDeliveryType==='1'}"><span>Delivery</span></button>
+									<button class="btn btn-sm btn-default app_delivery_pickup_btn app_pickup_btn" [ngClass]="{'active': selectedDeliveryType==='2'}" (click)="onClick(2)" ><span>Pickup</span></button>
 								</div>
 							</div>
 						</div>
@@ -271,9 +289,27 @@
 								
 						</ng-container>
 						
-						<div *ngIf="getCategoryData==0">
-							<h2>Currentlly restaurant is closed</h2>
-						</div>
+						<ng-container *ngIf="getCategoryData==0">
+							<div class="app_close">
+								<div class="app_container">
+									<div class="app_close_image">
+										<div class="app_close_image_rest">
+											<img src="assets/img/shop.svg" alt="">
+											<div class="app_closed_restaurant">
+												<p class="app_content">Closed</p>
+											</div>
+										</div>
+									</div>
+									<div class="app_close_content">
+										<h3>Sorry , restaurant will open </h3>
+										<h3>at 12:00 pm</h3>
+										<h2 class="app_heading">Still want to browse?</h2>
+										<p class="app_content">Note: you can't order but you can see menu<br> list to order once it opens.</p>
+										<a href="#" class="app_full_btn">Browse</a>
+									</div>
+								</div>	
+							</div>
+						</ng-container>
 						<!-- <div class="col-12">
 							<div class="app_bestsellers_detail">
 								<div class="row">

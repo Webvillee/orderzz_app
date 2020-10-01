@@ -663,7 +663,7 @@ Order Details Section
 }
 .app_order_details .app_order_details_heading_5_right h5{
 	font-weight: 700;
-    font-size: 17px;
+    font-size: 20px;
 }
 .app_order_details .app_order_details_content_text_bottom{
 	padding-top:25px;
@@ -864,7 +864,7 @@ Your Orders Section
 }
 .app_your_orders_heading_right h3{
 	font-weight: 700;
-    font-size: 16px;
+    font-size: 21px;
 }
 .app_your_orders_heading_right_icons .your_order_full_detail{
     position: absolute;
@@ -874,18 +874,18 @@ Your Orders Section
     top: -2px;
 }
 .app_your_orders_heading_right h5{
-	font-size: 12px;
+	font-size: 15px;
     color: #8a8787;
     margin: 12px 0 0;	
 }
 .app_your_orders_heading_right_text_bold h4{
 	font-weight: 700;
-	font-size:13px;
+	font-size:15px;
 	display:inline-block;
 }
 .app_your_orders_right_try_icons{
 	padding-left: 15px;
-    font-size: 14px;
+    font-size: 15px;
 }
 .app_your_orders_right_try_icons img{
 	max-width:15px;

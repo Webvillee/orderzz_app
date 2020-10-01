@@ -115,7 +115,7 @@ export class AddCardComponent implements OnInit {
     var card_number = this.angForm.controls.card_number.value;
     var userexpiry = this.angForm.controls.expiry.value;
     var cvv = this.angForm.controls.cvv.value;
-    const obj = { userId: this.userId, card_number: card_number, userexpiry: userexpiry  }
+    const obj = { userId: this.userId, cardNumber: card_number, cardExpiry: userexpiry }
     // var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     var mailformat = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
     // // stop here if form is invalid

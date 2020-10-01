@@ -16,6 +16,7 @@
                         <div *ngIf="f.card_number.errors.minlength">*Card Number minimum length 12 is required</div>
                     </div>
                 </div>
+                
                 <div class="col-6">
                     <label class="app_content">Expiry</label>
                     <input type="text" formControlName="expiry" placeholder="MM/YY" formControlName="expiry"
@@ -23,8 +24,8 @@
                     <div *ngIf="submitted && f.expiry.errors" class="invalid-feedback">
                         <div *ngIf="f.expiry.errors.required">*Expiry date is required</div>
                     </div>
-
                 </div>
+
                 <div class="col-6">
                     <label class="app_content">CVV</label>
                     <input type="text" (keypress)="onKeypressEvent($event)" minlength="3" maxlength="3"

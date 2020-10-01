@@ -39,7 +39,12 @@ export class CheckoutComponent implements OnInit {
   itemArray=[]
   orderTotal;
   savingCost
-  isLoading =false
+  isLoading =false;
+  themeData:any;
+  latitude
+  longitude
+  address
+  landmark
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -57,9 +62,13 @@ export class CheckoutComponent implements OnInit {
       
     const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
     this.UserData=data
-    // console.log(data, 'lll')
+    console.log(data, 'lll')
       this.userName= data.user_name
       this.email= data.user_email
+      this.latitude = data.lat
+      this.longitude = data.lng
+      this.address =data.address
+      this.landmark =data.landmark
     }
 
     this.angForm = this.fb.group({
@@ -83,6 +92,7 @@ export class CheckoutComponent implements OnInit {
     this.orderService.get_restaurant_data(obj).subscribe((res) => {
       if (res.status == 200) {
         this.isLoading =false
+        this.themeData = res.data;
         this.themeView = res.data.theme_view
         if (this.themeView == "1") {       //1=listview in  and 2= gridmeans
           this.themeCondition = false
@@ -98,7 +108,10 @@ export class CheckoutComponent implements OnInit {
 
         // this.minimum_order_value = res.data.end_delevery_time
         // this.themeColor = res.data.theme_color
-
+        // const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))
+        if (!localStorage.getItem("OrderData")) {
+          this.router.navigate(['/order'])
+        }
       } else {
         this.router.navigate(['/not-found'])
       }
@@ -181,8 +194,8 @@ export class CheckoutComponent implements OnInit {
     }
     if(paymentMethod){
       this.submitted = true;
-      const obj = { restId: res_id, userId: this.userId, orderType:  Number(orderType), orderItems: items, orderDescription:order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod)  , orderReview: 1, isCreditPayment: 1, deleveryAddress: '', deleveryLandmark: '', deleveryLat: '', deleveryLng:'', pickupAddress: '', pickupLat:'', pickupLng:'' }
-      // console.log(paymentMethod, '776767888', obj);
+      const obj = { restId: res_id, userId: this.userId, orderType:  Number(orderType), orderItems: items, orderDescription:order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod)  , orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat:Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: '', pickupLat:'', pickupLng:'' }
+      console.log(paymentMethod, '776767888', obj);
   
       this.orderService.postAll('place_order', obj).subscribe((res) => {
         if (res.status === 200) {

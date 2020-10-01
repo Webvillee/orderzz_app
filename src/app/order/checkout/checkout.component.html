@@ -32,7 +32,7 @@
                     <a  class="app_checkout_code">apply</a>
                 </div>
                 <label class="app_content">Choose Payment</label>					
-                <div class="app_choose_payment">
+                <div class="app_choose_payment" *ngIf="themeData.is_card_payment===1">
                     <div class="row">
                         <div class="col-3">
                             <div class="app_choose_payment_option">
@@ -50,7 +50,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="app_choose_payment">
+                <div class="app_choose_payment" *ngIf="themeData.is_cash_payment===1">
                     <div class="row">
                         <div class="col-3">
                             <div class="app_choose_payment_option">

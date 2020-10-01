@@ -1,0 +1,32 @@
+.app_your_orders_content_text .row {
+    margin-bottom: 30px;
+}
+.app_checkout .app_heading {
+    display: inline-block;
+    padding-left: 20px;
+    margin-left: 35px;
+}
+.app_your_orders_image img {
+    width: 100%;
+    border-radius: 15px;
+    height: 205px;
+    object-fit: cover;
+}
+@media only screen and (max-width: 800px) and (min-width: 320px){
+.app_your_orders_image img {
+    width: 100%;
+    border-radius: 15px;
+    height: 150px !important;
+    object-fit: cover;
+}
+.app_your_orders_content_text .col-4 {
+    max-width: 50% !important;
+     flex:0% !important; 
+}
+
+.app_your_orders_content_text .col-8 {
+    max-width: 50% !important;
+    padding-right: 0;
+    padding-left: 5px;
+}
+}

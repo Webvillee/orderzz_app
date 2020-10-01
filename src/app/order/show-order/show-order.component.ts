@@ -15,7 +15,7 @@ import { SuccessDialogComponent, SuccessDialogModel } from '../../shared/dialogs
   styleUrls: ['./show-order.component.css'],
 })
 export class ShowOrderComponent implements OnInit {
-  public selectedDeliveryType = "2";
+  public selectedDeliveryType = "1";
   themeCondition
   themeView
   customer_address
