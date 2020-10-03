@@ -19,10 +19,19 @@
                 
                 <div class="col-6">
                     <label class="app_content">Expiry</label>
-                    <input type="text" formControlName="expiry" placeholder="MM/YY" formControlName="expiry"
+                    <input type="month" formControlName="expiry" placeholder="MM/YY" formControlName="expiry"
                         class="app_icon_input_pad" [ngClass]="{ 'is-invalid': submitted && f.expiry.errors }" />
                     <div *ngIf="submitted && f.expiry.errors" class="invalid-feedback">
                         <div *ngIf="f.expiry.errors.required">*Expiry date is required</div>
+                    </div>
+                </div>
+
+                <!-- <div class="col-6">
+                    <label class="app_content">Expiry Year</label>
+                    <input type="text" formControlName="expiry_year" placeholder="MM/YY" formControlName="expiry_year"
+                        class="app_icon_input_pad" [ngClass]="{ 'is-invalid': submitted && f.expiry_year.errors }" />
+                    <div *ngIf="submitted && f.expiry_year.errors" class="invalid-feedback">
+                        <div *ngIf="f.expiry_year.errors.required">*Expiry Year is required</div>
                     </div>
                 </div>
 
@@ -35,7 +44,7 @@
                         <div *ngIf="f.cvv.errors.required">*CVV Number is required</div>
                         <div *ngIf="f.cvv.errors.minlength">*CVV Number minimum length 3 is required</div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <input type="submit" class="app_full_btn" value="Next">
         </form>

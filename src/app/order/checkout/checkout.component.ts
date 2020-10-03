@@ -79,6 +79,7 @@ export class CheckoutComponent implements OnInit {
 
     this.get_all_rest_data();
     this.getAllorderData();
+    this.getCardDetails();
   }
 
   get f() { return this.angForm.controls; }
@@ -116,6 +117,20 @@ export class CheckoutComponent implements OnInit {
         this.router.navigate(['/not-found'])
       }
     });
+  }
+
+
+  getCardDetails(){
+    const obj = {
+      // cardId userId: userId
+        };
+        console.log(obj)
+        this.orderService.postAll('get_card_data', obj).subscribe((res) => {
+          if (res.status == 200) {
+           
+          } else {
+          }
+        });
   }
 
   getAllorderData() {
@@ -172,7 +187,7 @@ export class CheckoutComponent implements OnInit {
     if (this.angForm.invalid) {
       return;
     }
-    
+    this.isLoading =true
     let orderType;
     let order_instruction='';
     let items;
@@ -207,14 +222,18 @@ export class CheckoutComponent implements OnInit {
           this.displaysuccess = "Succussfully";
           this.router.navigate([`/order-tracking/${res.data._id}`]);
           setTimeout(function(){ this.displaysuccess='' }, 3000);
+          this.isLoading =false
         } else {
+          this.isLoading =false
           this.displaysuccess = ''
           this.display = res.msg;
         }
       });
     }else{
       this.submitted = false;
+      this.isLoading =false
     }
+    this.isLoading =false
   }
 
   onReset() {

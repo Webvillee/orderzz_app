@@ -21,15 +21,15 @@
                                 <img *ngIf="this.orderHistory.order_status===1"
                                     src="assets/img/staus_progress.svg" alt=""> Order Placed </li>
                             <li class="StepProgress-item"
-                                [ngClass]="this.orderHistory.order_status===2 ? 'current': this.orderHistory.order_status>2 ? 'is-done' : ''">
-                                <img *ngIf="this.orderHistory.order_status===2"
-                                    src="assets/img/staus_progress.svg" alt=""><strong>Preparing your order</strong></li>
-                            <li class="StepProgress-item"
                                 [ngClass]="this.orderHistory.order_status===3 ? 'current': this.orderHistory.order_status>3 ? 'is-done' : ''">
                                 <img *ngIf="this.orderHistory.order_status===3"
+                                    src="assets/img/staus_progress.svg" alt=""><strong>Preparing your order</strong></li>
+                            <li class="StepProgress-item"
+                                [ngClass]="this.orderHistory.order_status===4 ? 'current': this.orderHistory.order_status>4 ? 'is-done' : ''">
+                                <img *ngIf="this.orderHistory.order_status===4"
                                     src="assets/img/staus_progress.svg" alt="">Out of deliver </li>
                             <li class="StepProgress-item"
-                                [ngClass]="this.orderHistory.order_status===4 ? 'current' : ''"> <img *ngIf="this.orderHistory.order_status===4"
+                                [ngClass]="this.orderHistory.order_status===5 ? 'current' : ''"> <img *ngIf="this.orderHistory.order_status===5"
                                     src="assets/img/staus_progress.svg" alt="">Delivered </li>
                         </ul>
                     </div>

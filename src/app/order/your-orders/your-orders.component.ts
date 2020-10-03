@@ -31,6 +31,8 @@ export class YourOrdersComponent implements OnInit {
   orderHistory = [];
   orderCount
   img_url = UrlSetting.image_uri
+  page_no=1
+  perPage=10
   constructor(private router: Router, private mapsAPILoader: MapsAPILoader, private orderService: OrderService) {
     var rest_id = localStorage.getItem('rest_id');
 
@@ -75,7 +77,7 @@ export class YourOrdersComponent implements OnInit {
 
   myOrderlist(){
     this.isLoading = true
-    const obj = {userId: this.userId, restId: this.restId  }
+    const obj = {userId: this.userId, restId: this.restId, page_no:this.page_no , perPage:this.perPage  }
 
      this.orderService.postAll('my_order_list', obj).subscribe((res) => {
         if (res.status === 200) {
@@ -107,15 +109,15 @@ export class YourOrdersComponent implements OnInit {
 
 
   onScroll() {
-    // this.page++;
-    const obj = {userId: this.userId, restId: this.restId  }
+    this.page_no++;
+    const obj = {userId: this.userId, restId: this.restId, page_no:this.page_no , perPage:this.perPage  }
     this.orderService.postAll('my_order_list', obj).subscribe((res) => {
       this.isLoading = true;
       // console.log(res.data, 'ghfhg');
       if (res.status === 200) {
         // console.log(res.data, 'ghfhg');
         // this.upcomingContest = res.data
-        if(res.data.menu.length>=10 && this.orderHistory.length<this.orderCount){
+        if(res.data!=0 && this.orderHistory.length<this.orderCount){
           res.data.menu.forEach(childObj => {
             this.orderHistory.push(childObj);
           });
@@ -124,7 +126,7 @@ export class YourOrdersComponent implements OnInit {
         // this.display = res.message;
       } else if(res.status === 201){
         this.isLoading = false;
-        this.orderHistory = [];
+        // this.orderHistory = [];
       }
     });
   }

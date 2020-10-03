@@ -64,7 +64,7 @@ export class OrderDetailsComponent implements OnInit {
     this.orderService.get_restaurant_data(obj).subscribe((res) => {
       if (res.status == 200) {
         // this.isLoading = false
-        console.log(res.data, 'ifff');
+        // console.log(res.data, 'ifff');
         this.rest_name= res.data.rest_name;
         this.rest_description= res.data.rest_description
         // this.minimum_order_value = res.data.end_delevery_time
