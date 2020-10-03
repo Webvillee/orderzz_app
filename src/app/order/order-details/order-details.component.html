@@ -23,38 +23,48 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+       <!--  <div class="row">
             <div class=" col-12">
                 <div class="app_order_details_content_text">
                     <div class="app_order_details_heading_6_left">
                         <h6>Track Order</h6>
                     </div>
-                    <div class="app_order_details_heading_left_icons_maps">
+                    <div class="map_icons"> <img src="assets/img/position_pin.svg" alt="">
                         <h4><a [routerLink]="['/order-tracking', this.orderHistory._id]">Track to click here</a></h4>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="row">
             <div class=" col-12">
                 <div class="app_order_details_content_text">
                     <div class="app_order_details_heading_6_left">
                         <h6>Ship to</h6>
                     </div>
-                    <div class="app_order_details_heading_left_icons_maps">
+                    <div class="map_icons"> <img src="assets/img/position_pin.svg" alt="">
                         <h4>{{(this.orderHistory===1)? this.orderHistory.pickup_address : this.orderHistory.delevery_address }}</h4>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row app_row">
-            <div class=" col-12">
+            <div class=" col-6">
                 <div class="app_order_details_content_text">
                     <div class="app_order_details_heading_6_left">
                         <h6>Ship at</h6>
                     </div>
-                    <div class="app_order_details_heading_left_icons_clock">
+                    <div class="map_icons"><img src="assets/img/Asset 3.svg" alt="">
                         <h4>{{this.orderHistory.created_on |  date:'medium'}}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class=" col-6">
+                <div class="app_order_details_content_text">
+                    <div class="app_order_details_heading_6_left">
+                        <h6>Track Order</h6>
+                    </div>
+                    <div class="map_icons"> <img src="assets/img/position_pin.svg" alt="">
+                        <h4><a [routerLink]="['/order-tracking', this.orderHistory._id]">Track to click here</a></h4>
                     </div>
                 </div>
             </div>
@@ -145,6 +155,6 @@
                 </div>
             </div>
         </div>
-        <a class="app_full_btn">Order Again</a>
+        <a class="app_full_btn order_againn">Order Again</a>
     </div>
 </div>

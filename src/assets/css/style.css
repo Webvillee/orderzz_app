@@ -1399,9 +1399,9 @@ Personal Detail
     color: #ccc;
 }
 .app_hot_food_restaurant_delivery_details ul li a img {
-   max-width: 15px;
+   max-width: 20px;
    margin-bottom: 5px;
-   margin-right:2px;
+   margin-right:8px;
 }
 .app_hot_food_restaurant_delivery_details .app_clock{
 	   

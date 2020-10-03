@@ -23,9 +23,13 @@ li.StepProgress-item.current img {
     width: 10%;
     position: absolute;
     text-align: left;
-    left: -42px;
+    left: -44px;
     z-index: 9999;
     top: -11px;
+}
+
+.app_verification_image {
+    padding: 20px;
 }
 img.app_submit_call_image {
     left: 29% !important;
@@ -52,12 +56,15 @@ img.app_delievery_boy_image{
     background: #fff;
     position: absolute !important;
     width: 100% !important;
-    top: 82% !important;
+    top: 88% !important;
     z-index: 9999999999;
 }
 .delivery_boy_call .col-7{
     padding-left: 28px !important;
     padding-right: 0px !important;
+}
+.app_heading{
+    margin-left: 20px !important;
 }
 }
 .collapse:not(.show) {

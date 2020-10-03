@@ -11,7 +11,8 @@ a.btn.app_full_btn.app_location_btn {
 p.app_content {
     font-size: 22px;
     font-weight: 500;
-    margin-bottom: 55px;
+        margin-bottom: 80px;
+    margin-top: 50px;
 }
 .app_location_image svg {
     width: 25%;

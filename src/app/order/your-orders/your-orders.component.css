@@ -19,6 +19,9 @@
     height: 150px !important;
     object-fit: cover;
 }
+.app_heading{
+    margin-left: 20px !important;
+}
 .app_your_orders_content_text .col-4 {
     max-width: 50% !important;
      flex:0% !important; 
@@ -28,5 +31,8 @@
     max-width: 50% !important;
     padding-right: 0;
     padding-left: 5px;
+}
+i.fa.fa-angle-right {
+    font-size: 27px;
 }
 }

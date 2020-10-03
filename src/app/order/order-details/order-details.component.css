@@ -46,7 +46,7 @@ a.app_full_btn.order_againn {
     padding-top: 3px;
 }
 .map_icons img{
-	position: absolute;
+    position: absolute;
     max-width: 22px;
 }
 .app_order_deatils_heading_6_left h6 {
@@ -83,6 +83,9 @@ a.app_full_btn.order_againn {
     border-radius: 15px;
     height: 130px !important;
     object-fit: cover;
+}
+.app_heading{
+    margin-left: 20px !important;
 }
 .app_order_details_content_text .col-4 {
     max-width: 50% !important;

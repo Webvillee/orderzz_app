@@ -1,0 +1,14 @@
+.app_checkout .app_heading {
+    display: inline-block;
+    padding-left: 20px;
+    margin-left: 35px;
+}
+.app_add_card .app_content {
+    color: rgb(209 213 218);
+    font-size: 17px;
+}
+@media only screen and (max-width: 800px) and (min-width: 320px){
+.app_heading{
+    margin-left: 20px !important;
+}
+}

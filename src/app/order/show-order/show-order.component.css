@@ -226,7 +226,9 @@ input.app_checkout_input_pad.app_check_input_loc {
 .app_bestsellers_detail img {
     margin-top: 0px;
     margin-bottom: 5px;
+    height: 162px;
 }
+
 /*a.btn.app_scroll_button {
     color: #ccc;
 }*/
