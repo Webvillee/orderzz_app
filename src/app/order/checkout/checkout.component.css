@@ -198,3 +198,11 @@
 .invalid-feedback{
   display: block !important
 }
+.app_choose_payment_option .checkmark::after{
+  background-image: url('src/assets/img/check.svg');
+  width: 14px;
+  height: 11px;
+  background-color: transparent;
+  left: 6px;
+  top: 6px;
+}
