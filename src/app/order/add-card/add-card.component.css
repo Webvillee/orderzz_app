@@ -23,4 +23,7 @@ input[type="month"]{
     background-color: rgb(246 244 244);
     font-weight: 600;
 }
+input.app_icon_input_pad.ng-pristine.ng-invalid.ng-touched:focus{
+    outline: none;
+}
 

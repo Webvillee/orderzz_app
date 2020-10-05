@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { OrderService } from '../order.service';
 import { UrlSetting } from '../../urlSetting'
 import * as CryptoJS from 'crypto-js'
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-view-basket',
@@ -36,8 +37,8 @@ export class ViewBasketComponent implements OnInit {
   savingCost;
   shippingCost;
   special_instruction;
-  isLoading =false
-  constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog) {
+  isLoading;
+  constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog, private spinner: NgxSpinnerService) {
 
     if (localStorage.getItem('rest_id') == null) {
       this.router.navigate(['/not-found'])
@@ -54,7 +55,8 @@ export class ViewBasketComponent implements OnInit {
   }
 
   get_all_rest_data() {
-    this.isLoading =true
+    // this.isLoading =true
+    this.spinner.show();
     const obj = {
       restId: CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     };
@@ -66,7 +68,8 @@ export class ViewBasketComponent implements OnInit {
         } else {
           this.themeCondition = true
         }
-        this.isLoading =false
+        // this.isLoading =false
+        this.spinner.hide();
         this.banner = res.data.rest_banner
         this.logo = res.data.rest_logo
         this.restName = res.data.rest_name
@@ -77,7 +80,8 @@ export class ViewBasketComponent implements OnInit {
         // this.themeColor = res.data.theme_color
 
       } else {
-        this.isLoading =false
+        // this.isLoading =false
+        this.spinner.hide();
         this.router.navigate(['/not-found'])
       }
     });

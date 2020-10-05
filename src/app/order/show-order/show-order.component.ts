@@ -8,6 +8,7 @@ import * as CryptoJS from 'crypto-js';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AddressPopupComponent } from '../address-popup/address-popup.component'
 import { SuccessDialogComponent, SuccessDialogModel } from '../../shared/dialogs/success-dialog/success-dialog.component';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-show-order',
@@ -36,9 +37,9 @@ export class ShowOrderComponent implements OnInit {
   catName
   clicked
   private toggle: boolean = false;
-  isLoading = false
+  isLoading;
   userId
-  constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog) {
+  constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog, private spinner: NgxSpinnerService) {
 
     if (localStorage.getItem('rest_id') == null) {
       this.router.navigate(['/not-found'])
@@ -66,13 +67,15 @@ export class ShowOrderComponent implements OnInit {
   }
 
   get_all_rest_data() {
-    this.isLoading = true
+    // this.isLoading = true
+    this.spinner.show();
     const obj = {
       restId: CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     };
     this.orderService.get_restaurant_data(obj).subscribe((res) => {
       if (res.status == 200) {
-        this.isLoading = false
+        // this.isLoading = false
+        this.spinner.hide();
         console.log(res.data, 'ifff')
         this.themeView = res.data.theme_view
         if (this.themeView == "1") {       //1=listview in  and 2= gridmeans
@@ -98,7 +101,8 @@ export class ShowOrderComponent implements OnInit {
         // this.themeColor = res.data.theme_color
 
       } else {
-        this.isLoading = false
+        // this.isLoading = false
+        this.spinner.hide();
         console.log('ellls')
         // this.router.navigate(['/not-found'])
       }

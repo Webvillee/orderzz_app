@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import * as CryptoJS from 'crypto-js'
 import { OrderService } from '../order.service';
 import { UrlSetting } from '../../urlSetting'
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-your-orders',
@@ -20,7 +21,7 @@ export class YourOrdersComponent implements OnInit {
   public destination: any;
   address: any = "";
   geoCoder
-  isLoading = false;
+  isLoading;
   userId
   restId
   order_number
@@ -33,7 +34,7 @@ export class YourOrdersComponent implements OnInit {
   img_url = UrlSetting.image_uri
   page_no=1
   perPage=10
-  constructor(private router: Router, private mapsAPILoader: MapsAPILoader, private orderService: OrderService) {
+  constructor(private router: Router, private mapsAPILoader: MapsAPILoader, private orderService: OrderService, private spinner: NgxSpinnerService) {
     var rest_id = localStorage.getItem('rest_id');
 
     if (rest_id == null) {
@@ -56,7 +57,8 @@ export class YourOrdersComponent implements OnInit {
   }
 
   get_all_rest_data() {
-    this.isLoading = true
+    // this.isLoading = true
+    this.spinner.show();
     const obj = {
       restId: CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     };
@@ -76,7 +78,8 @@ export class YourOrdersComponent implements OnInit {
   }
 
   myOrderlist(){
-    this.isLoading = true
+    // this.isLoading = true
+    this.spinner.show();
     const obj = {userId: this.userId, restId: this.restId, page_no:this.page_no , perPage:this.perPage  }
 
      this.orderService.postAll('my_order_list', obj).subscribe((res) => {
@@ -84,7 +87,8 @@ export class YourOrdersComponent implements OnInit {
           console.log(res.data);
           this.orderHistory = res.data.menu;
           this.orderCount = res.data.count;
-          this.isLoading = false
+          // this.isLoading = false
+          this.spinner.hide();
           // this.order_number= res.data.order_number
           // this.total_amount=res.data.total_amount
           // this.created_on=res.data.created_on
@@ -100,7 +104,8 @@ export class YourOrdersComponent implements OnInit {
           
           setTimeout(function(){ this.displaysuccess='' }, 3000);
         } else {
-          this.isLoading = false
+          // this.isLoading = false
+          this.spinner.hide();
           // this.displaysuccess = ''
           // this.display = res.msg;
         }
@@ -112,7 +117,8 @@ export class YourOrdersComponent implements OnInit {
     this.page_no++;
     const obj = {userId: this.userId, restId: this.restId, page_no:this.page_no , perPage:this.perPage  }
     this.orderService.postAll('my_order_list', obj).subscribe((res) => {
-      this.isLoading = true;
+      // this.isLoading = true;
+      this.spinner.show();
       // console.log(res.data, 'ghfhg');
       if (res.status === 200) {
         // console.log(res.data, 'ghfhg');
@@ -122,10 +128,12 @@ export class YourOrdersComponent implements OnInit {
             this.orderHistory.push(childObj);
           });
         }
-        this.isLoading = false;
+        // this.isLoading = false;
+        this.spinner.hide();
         // this.display = res.message;
       } else if(res.status === 201){
-        this.isLoading = false;
+        // this.isLoading = false;
+        this.spinner.hide();
         // this.orderHistory = [];
       }
     });

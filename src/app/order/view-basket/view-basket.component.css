@@ -25,7 +25,7 @@ height: 157px;
     color: black;
   padding-left: 10px;
     padding-right: 10px;
-    font-size: 20px !important;
+    font-size: 18px !important;
 }
 .app_heading {
     font-weight: 700;
@@ -45,17 +45,17 @@ height: 157px;
     padding-left: 5px;
 }
 .app_your_basket_text_right {
-    font-size: 21px;
+    font-size: 20px;
     color: var(--primary-color);
     font-weight: 600;
 }
 .app_add_baset_icon i {
-    width: 28px !important;
+    width: 23px !important;
     text-align: center;
-    height: 28px !important;
+    height: 23px !important;
     padding-top: 5px !important;
     border-radius: 50%;
-    font-size: 19px !important;
+    font-size: 14px !important;
 }
 .app_your_basket_image img{
     width: 100%;
@@ -65,7 +65,7 @@ height: 157px;
     object-fit: cover;
 }
 .app_your_basket_heading_3_right h5 {
-    font-size: 24px !important;
+    font-size: 22px !important;
     font-weight: 700;
     margin-top: 0px;
 }
@@ -160,7 +160,7 @@ i.fa.fa-plus.app_your_basket_icons.cursorCss {
     font-size: 19px;
 }
 i.fa.fa-minus {
-       background: #f6f4f4;
+    background: #f6f4f4;
     width: 32px;
     text-align: center;
     height: 32px;

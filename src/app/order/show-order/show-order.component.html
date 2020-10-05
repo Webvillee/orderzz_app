@@ -1,12 +1,12 @@
-<div class="loader">
+<!-- <div class="loader">
 <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center ;">
 	<mat-progress-spinner color="primary" mode="indeterminate">
 	</mat-progress-spinner>
 </mat-card>
-</div>
+</div> -->
 	
 	<div *ngIf="themeCondition; else elseBlock">
-		<div *ngIf="!isLoading" class="app_hot_food_restaurant">
+		<div class="app_hot_food_restaurant">
 			<!-- sidebar open -->
 			<div class="app_nav_bar" [ngClass]="{'active': toggle}">
 				<div class="app_nav_bar_content">
@@ -164,7 +164,7 @@
 	</div>
 	<ng-template #elseBlock>
 
-		<div *ngIf="!isLoading" class="app_hot_food_restaurant app_food_grid">
+		<div class="app_hot_food_restaurant app_food_grid">
 			<!-- sidebar open -->
 			<div class="app_nav_bar" [ngClass]="{'active': toggle}">
 				<div class="app_nav_bar_content">

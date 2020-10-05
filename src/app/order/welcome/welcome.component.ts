@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { OrderService } from '../order.service';
 import { UrlSetting } from '../../urlSetting'
 import * as CryptoJS from 'crypto-js'
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-welcome',
@@ -32,17 +33,18 @@ export class WelcomeComponent implements OnInit {
   img_url=UrlSetting.image_uri;
   isLoading;
   color="primary"
-  constructor( private route: ActivatedRoute, private router: Router,private orderService: OrderService ) { 
+  constructor( private route: ActivatedRoute, private router: Router,private orderService: OrderService ,private spinner: NgxSpinnerService) { 
     
     const slugId = this.route.snapshot.paramMap.get('id');
     this.isLoading =true
     const obj = {
       slugId:slugId,
     };
-
+    this.spinner.show();
     this.orderService.get_restaurant_data(obj).subscribe((res) => {
       if (res.status == 200) {
         // console.log(res.data, 'jkhjk');
+        this.spinner.hide();
         this.logo = res.data.rest_logo
         this.instaId = res.data.rest_instagram_id
         this.linkeinId = res.data.rest_linkedin_id
@@ -55,12 +57,16 @@ export class WelcomeComponent implements OnInit {
         localStorage.setItem('rest_id',encrypted_restid.toString());
         var theme_color = res.data.theme_color;
         document.documentElement.style.setProperty('--primary-color', theme_color);
-        this.isLoading =false
+        // this.isLoading =false 
+        // this.spinner.hide();
+
         // // for decrypted the encripted code
         // //var decrypted =  CryptoJS.AES.decrypt(encrypted_token,'');
         // // console.log(decrypted.toString(CryptoJS.enc.Utf8))
       } else {
-        this.isLoading =false
+        // this.isLoading =false
+       
+          this.spinner.hide();
         this.router.navigate(['/not-found'])
         this.getRestData = [];
       }
