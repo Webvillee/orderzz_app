@@ -11,7 +11,7 @@ a.app_full_btn.order_againn {
 }
 .app_order_details .app_order_details_heading_6_right h6 {
     line-height: 1.5;
-    color: #ccc;
+    color: #8a8787;;
     font-size: 18px;
     font-weight: 500;
 }
@@ -25,13 +25,14 @@ a.app_full_btn.order_againn {
     color: #8a8787;
 }
 .app_order_details .app_order_details_text_right_bottom {
-    color: black;
+    color: #2a3b56;
     font-size: 25px;
     font-weight: 500;
 }
 .app_order_details .app_order_details_heading_text_left_bottom h3 {
     font-weight: 700;
     font-size: 27px;
+    color: #2a3b56;
 }
 .app_order_details .app_order_deatils_heading_text_right_bottom h4 {
     font-weight: 800;
@@ -44,14 +45,16 @@ a.app_full_btn.order_againn {
     font-weight: 700;
     padding-left: 33px;
     padding-top: 3px;
+    color: rgb(42 59 86);
 }
 .map_icons img{
     position: absolute;
     max-width: 22px;
 }
 .app_order_deatils_heading_6_left h6 {
-    font-size: 24px;
+    font-size: 22px;
     margin-bottom: 25px;
+    color: rgb(138 148 163);
 }
 .app_order_details .app_order_details_heading_6_left h6 {
     font-size: 16px;
@@ -84,6 +87,18 @@ a.app_full_btn.order_againn {
     height: 130px !important;
     object-fit: cover;
 }
+.app_order_details .app_order_details_heading_left_bottom h3 {
+    font-size: 20px !important;
+    color: #8a8787;
+}
+.map_icons h4 {
+    font-size: 14px !important;
+    font-weight: 700;
+    padding-left: 33px;
+    padding-top: 3px;
+    line-height: 22px;
+    color: rgb(42 59 86);
+}
 .app_heading{
     margin-left: 20px !important;
 }
@@ -91,7 +106,12 @@ a.app_full_btn.order_againn {
     max-width: 50% !important;
      flex:0% !important; 
 }
-
+.app_order_details .app_order_deatils_heading_text_right_bottom h4 {
+    font-weight: 800;
+    font-size: 30px !important;
+    color: var(--primary-color);
+    padding-left: 12px;
+}
 .app_order_details_content_text .col-8 {
     max-width: 50% !important;
     padding-right: 0;

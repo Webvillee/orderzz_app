@@ -4,7 +4,8 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import * as CryptoJS from 'crypto-js';
 import { OrderService } from '../order.service';
-import { UrlSetting } from '../../urlSetting'
+import { UrlSetting } from '../../urlSetting';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-order-details',
@@ -19,7 +20,7 @@ export class OrderDetailsComponent implements OnInit {
   public destination: any;
   address: any = "";
   geoCoder
-  isLoading = false;
+  isLoading;
   userId
   restId
   created_on;
@@ -32,7 +33,7 @@ export class OrderDetailsComponent implements OnInit {
   order_id
   rest_name
   rest_description
-  constructor(private router: Router, private route: ActivatedRoute , private mapsAPILoader: MapsAPILoader, private orderService: OrderService) {
+  constructor(private router: Router, private route: ActivatedRoute , private mapsAPILoader: MapsAPILoader, private orderService: OrderService,  private spinner: NgxSpinnerService) {
     var rest_id = localStorage.getItem('rest_id');
 
     this.order_id = this.route.snapshot.params.id;
@@ -58,6 +59,7 @@ export class OrderDetailsComponent implements OnInit {
 
   get_all_rest_data() {
     // this.isLoading = true
+    this.spinner.show();
     const obj = {
       restId: CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     };
@@ -65,12 +67,14 @@ export class OrderDetailsComponent implements OnInit {
       if (res.status == 200) {
         // this.isLoading = false
         // console.log(res.data, 'ifff');
+        this.spinner.hide();
         this.rest_name= res.data.rest_name;
         this.rest_description= res.data.rest_description
         // this.minimum_order_value = res.data.end_delevery_time
         // this.themeColor = res.data.theme_color
 
       } else {
+        this.spinner.hide();
         // this.isLoading = false
         // console.log('ellls')
         // this.router.navigate(['/not-found'])
@@ -79,12 +83,14 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   myOrderlist(){
-    this.isLoading = true
+    // this.isLoading = true
+    this.spinner.show();
     const obj = {orderId: this.order_id, userId: this.userId, restId: this.restId  }
 
      this.orderService.postAll('get_my_order_status', obj).subscribe((res) => {
         if (res.status === 200) {
-          this.isLoading = false
+          // this.isLoading = false
+          this.spinner.hide();
           console.log(res.data);
           this.orderHistory = res.data
           this.orderItems=res.data.order_items
@@ -129,7 +135,8 @@ export class OrderDetailsComponent implements OnInit {
           
           setTimeout(function(){ this.displaysuccess='' }, 3000);
         } else {
-          this.isLoading = false
+          // this.isLoading = false
+          this.spinner.hide();
           // this.displaysuccess = ''
           // this.display = res.msg;
         }

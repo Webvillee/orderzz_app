@@ -30,7 +30,7 @@ import { PickupLocationComponent } from './pickup-location/pickup-location.compo
 import { SigninComponent } from './signin/signin.component';
 import { SigninOtpComponent } from './signin-otp/signin-otp.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-
+import { NgxSpinnerModule } from "ngx-spinner";
        // @agm/core
 
 // const routes: Routes = [
@@ -110,6 +110,7 @@ const routes: Routes = [
     SigninOtpComponent,
   ],
   imports: [
+    NgxSpinnerModule,
     CommonModule,
     FormsModule,
     AgmCoreModule,

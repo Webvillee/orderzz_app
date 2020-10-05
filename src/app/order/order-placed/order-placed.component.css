@@ -41,7 +41,7 @@ input[type="submit"] {
     padding-left: 31px;
 }
 .app_order_placed_content p {
-    color: #8e8f96;
+    color: rgb(138 148 163);
     font-size: 17px !important;
     margin-top: 15px;
 }
@@ -107,12 +107,13 @@ i.fa.fa-angle-right {
     margin-top: 15px;
 }
 p.arrive_time {
-      color: #8e8f96;
+      color: rgb(138 148 163);
     font-size: 18px;
     margin-bottom: 35px;
 }
 .order_placed_content h3 {
     font-size: 22px;
+    color: rgb(42 59 86);
 }
 .app_delivery_call {
     float: right;

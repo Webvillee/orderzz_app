@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { OrderService } from '../order.service';
 import { UrlSetting } from '../../urlSetting'
 import * as CryptoJS from 'crypto-js'
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-signin-otp',
@@ -34,8 +35,8 @@ export class SigninOtpComponent implements OnInit {
   orderCount;
   submitted = false;
   userId;
-  isLoading =false
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService) {
+  isLoading;
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService) {
 
     if (localStorage.getItem('rest_id') == null) {
       this.router.navigate(['/not-found'])
@@ -64,13 +65,15 @@ export class SigninOtpComponent implements OnInit {
   get f() { return this.angForm.controls; }
 
   get_all_rest_data() {
-    this.isLoading =true
+    // this.isLoading =true
+    this.spinner.show();
     const obj = {
       restId: CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     };
     this.orderService.get_restaurant_data(obj).subscribe((res) => {
       if (res.status == 200) {
-        this.isLoading =false
+        // this.isLoading =false
+        this.spinner.hide();
         this.themeView = res.data.theme_view
         if (this.themeView == "1") {       //1=listview in  and 2= gridmeans
           this.themeCondition = false
@@ -88,7 +91,8 @@ export class SigninOtpComponent implements OnInit {
         // this.themeColor = res.data.theme_color
 
       } else {
-        this.isLoading =false
+        // this.isLoading =false
+        this.spinner.hide();
         this.router.navigate(['/not-found'])
       }
     });

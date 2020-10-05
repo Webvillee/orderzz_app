@@ -133,7 +133,8 @@
 }
 .app_checkout .app_content {
     padding: 20px 0 0;
-    font-size: 20px;
+    font-size: 18px;
+    color: #8a94a3;
 }
 .app_verification_caption .app_checkout_input_pro .app_icon_input_pad {
     padding-left: 65px;
@@ -148,7 +149,7 @@
 .app_checkout .app_choose_payment_option p {
     padding-left: 35px;
     padding-right: 31px;
-    color: #000;
+    color:  #2a3b56;
     font-weight: 500;
     font-size: 16px;
 }
@@ -161,25 +162,36 @@
     margin-left: 20px !important;
 }
 .app_order_detail_price h3{
-    font-weight: 500;
-    font-size: 22px !important;
+    font-weight: 400 !important;
+    font-size: 20px !important;
+}
+.app_checkout .app_order_detail h3 {
+  font-size: 20px !important;
+  color: #8a94a3 !important;
+}
+.app_checkout .app_order_detail_total_price p {
+  text-align: right;
+  font-size: 30px !important;
 }
 }
 .app_checkout .app_order_detail h3 {
     font-size: 23px;
-    color: #8a8787;
+    color: #8a94a3 !important;
 }
 .app_order_detail_price h3 {
     font-weight: 500;
     font-size: 24px;
 }
-
+/* label.app_review_food_text__left_special {
+    color: #2a3b56;
+} */
 .app_order_detail_price {
     text-align: right;
 }
 .app_choose_text h3 {
     padding-top: 24px;
     margin-bottom: 24px;
+    color: #2a3b56;
 }
 .app_checkout .app_verification_caption .app_checkout_input_link {
     color: var(--primary-color);

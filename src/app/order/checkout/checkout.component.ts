@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { OrderService } from '../order.service';
 import { UrlSetting } from '../../urlSetting'
 import * as CryptoJS from 'crypto-js'
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-checkout',
@@ -39,13 +40,13 @@ export class CheckoutComponent implements OnInit {
   itemArray=[]
   orderTotal;
   savingCost
-  isLoading =false;
+  isLoading;
   themeData:any;
   latitude
   longitude
   address
   landmark
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService) {
 
     if (localStorage.getItem('rest_id') == null) {
       this.router.navigate(['/not-found'])
@@ -85,14 +86,16 @@ export class CheckoutComponent implements OnInit {
   get f() { return this.angForm.controls; }
 
   get_all_rest_data() {
-    this.isLoading =true
+    // this.isLoading =true
+    this.spinner.show();
     const obj = {
       restId: CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     };
     console.log(obj)
     this.orderService.get_restaurant_data(obj).subscribe((res) => {
       if (res.status == 200) {
-        this.isLoading =false
+        this.spinner.hide();
+        // this.isLoading =false
         this.themeData = res.data;
         this.themeView = res.data.theme_view
         if (this.themeView == "1") {       //1=listview in  and 2= gridmeans
@@ -187,7 +190,8 @@ export class CheckoutComponent implements OnInit {
     if (this.angForm.invalid) {
       return;
     }
-    this.isLoading =true
+    // this.isLoading =true
+    this.spinner.show();
     let orderType;
     let order_instruction='';
     let items;
@@ -222,18 +226,24 @@ export class CheckoutComponent implements OnInit {
           this.displaysuccess = "Succussfully";
           this.router.navigate([`/order-tracking/${res.data._id}`]);
           setTimeout(function(){ this.displaysuccess='' }, 3000);
-          this.isLoading =false
+          // this.isLoading =false
+          this.spinner.hide();
         } else {
-          this.isLoading =false
+          // this.isLoading =false
+          this.spinner.hide();
           this.displaysuccess = ''
           this.display = res.msg;
         }
       });
     }else{
       this.submitted = false;
-      this.isLoading =false
+      // this.isLoading =false
+      this.spinner.hide();
+
     }
-    this.isLoading =false
+    // this.isLoading =false
+    this.spinner.hide();
+
   }
 
   onReset() {

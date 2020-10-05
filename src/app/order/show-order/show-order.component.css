@@ -6,7 +6,7 @@ span.app_basket_quantity {
     span.app_basket_quantity {
     padding-left: 10px;
     padding-right: 10px;
-    font-size: 20px !important;
+    font-size: 18px !important;
 }
 .box-view .app_bestsellers_detail img {
     border-radius: 18px;
@@ -23,15 +23,15 @@ span.app_basket_quantity {
 .box-view span.app_basket_quantity {
     padding-left: 8px;
     padding-right: 8px;
-    font-size: 20px !important;
+    font-size: 18px !important;
 }
 .box-view .app_bestseller_foot .app_addition_icon i {
-    width: 25px;
+   width: 23px;
     text-align: center;
-    height: 25px;
+    height: 23px;
     padding-top: 5px;
     border-radius: 50%;
-    font-size: 16px;
+    font-size: 14px;
 }
 .box-view .image_title_sec{
     background: var(--primary-color);
@@ -46,7 +46,7 @@ span.app_basket_quantity {
     left: -52px !important;
     height: 36px;
     line-height: 30px;
-    : polygon(29% 0%, 76% 0%, 100% 149%, 3% 119%);
+    /* clip-path: polygon(29% 0%, 76% 0%, 100% 149%, 3% 119%); */
     clip-path: polygon(29% 0%, 76% 0%, 100% 149%, 3% 119%);
     border: 2px solid #fff !important;
     font-weight: 600;
@@ -85,15 +85,15 @@ input.app_checkout_input_pad.app_check_input_loc {
     font-size: 15px;
 }
 .app_bestseller_foot .app_addition_icon i {
-    width: 28px;
+    width: 23px;
     text-align: center;
-    height: 28px;
+    height: 23px;
     padding-top: 5px;
     border-radius: 50%;
-    font-size: 19px;
+    font-size: 14px;
 }
 .app_bestseller_foot .app_footer {
-    font-size: 21px;
+    font-size: 20px;
     color: var(--primary-color);
     font-weight: 600;
     padding-right: 2px;
@@ -110,7 +110,7 @@ input.app_checkout_input_pad.app_check_input_loc {
     padding-left: 5px;
 }
 .app_hot_food_restaurant_heading h2 {
-    font-size: 37px !important;
+    font-size: 30px !important;
     font-weight: 700;
 }
 .app_hot_food_restaurant_bestsellers h4 {
@@ -176,7 +176,7 @@ input.app_checkout_input_pad.app_check_input_loc {
     margin-bottom: 40px;
 }
 .app_bestsellers_detail h5 {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 700;
     margin-top: 10px;
 }

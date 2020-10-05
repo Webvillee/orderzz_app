@@ -66,9 +66,9 @@ img{
 	padding:22px;
 }
 .app_heading{
-	font-size:21px;
-	font-weight:700;
-	letter-spacing: 1px;	
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #2a3b56;
 }
 .app_welcome .app_heading{
 	color:#fff;
@@ -191,7 +191,7 @@ App_verification
 .app_contact .app_content,
 .app_verification_caption .app_content{
 	font-weight:500;
-	color:rgb(209 213 218);
+	color:rgb(138 148 163);
 	padding-bottom: 30px;
 }
 input[type="email"],
@@ -242,10 +242,11 @@ App_otp
 	font-weight:700;
 	color:rgb(42 59 86);
 	padding-top:20px;
-	text-align:center;
+    text-align:center;
+    text-transform:inherit;
 }
 .app_otp .app_resend_otp a{
-	text-transform:capitalize;
+	text-transform:inherit;
 	color:var(--primary-color);
 } 
 
@@ -358,14 +359,16 @@ Checkout Page
     border: 1px solid rgb(209 213 218);
 }
 .app_checkout .app_verification_caption .app_check_input_loc{
-	width: calc(100% - 70px);
+    width: calc(100% - 70px);
+    color: #2a3b56;
 } 
 .app_checkout .app_verification_caption .app_checkout_input_pad {
     background-color: transparent;
     padding-left: 25px;
 	overflow: hidden;
     text-overflow: ellipsis;
-	min-height:auto;
+    min-height:auto;
+    color: #2a3b56;
 }	
 .app_checkout .app_verification_caption .app_checkout_code,
 .app_checkout .app_verification_caption .app_checkout_input_link{
@@ -394,7 +397,7 @@ Checkout Page
 	text-align:right;
 }
 .app_checkout .app_order_detail_total p {
-    color: #000;
+    color: #2a3b56;
     padding: 15px 0;
     font-size: 27px;
     font-weight: 700;
@@ -618,7 +621,8 @@ Order Details Section
 	}
 .app_order_details  .app_order_details_heading_4_left h4{
 	font-size: 16px;
-    font-weight: 700;
+    font-weight: 600;
+    color: #2a3b56;
 }
 .app_order_details  .app_order_details_heading_6_left h6{
 	font-size: 14px;
@@ -655,6 +659,7 @@ Order Details Section
 .app_order_details .app_order_details_heading_3_right h3{
 	font-weight: 700;
     font-size: 17px;
+    color: #2a3b56;
 }
 .app_order_details .app_order_details_heading_6_right h6{
 	font-size: 11px;
@@ -753,10 +758,11 @@ Your Basket Section
 font-size: 25px;
     font-weight: 700;
     margin-top: 10px;
+    color: #2a3b56;
 }
 .app_your_basket_heading_6_right h6 {
     line-height: 1.5;
-    color: #ccc;
+    color: #929292;
     font-size: 18px;
     font-weight: 500;
 }
@@ -795,28 +801,32 @@ font-size: 25px;
 .app_your_basket_text_bottom h4{
 	font-size: 15px;
     font-weight: 500;
-	padding-top:25px;
+    padding-top:25px;
+    color: #2a3b56;
 }
 .app_your_basket_content_text_bottom{
 	padding-top:20px;
 }
 .app_your_basket_heading_left_bottom h3{
 	font-size: 16px;
-    color: #8a8787;
+    color:#8a94a3 !important;
 }
 .app_your_basket_heading_right_bottom h3{
 	font-weight:700;
-	font-size:17px;
+    font-size:17px;
+    color: #2a3b56;
 	
 }
 .app_your_basket_heading_number_text_right_bottom h3{
 	font-weight:700;
 	font-size:17px;
-	padding-left: 19px;
+    padding-left: 19px;
+    color: #2a3b56;
 }
 .app_your_basket_heading_left_bottom_last h3{
 	font-size: 27px;
     font-weight: 700;
+    color: #2a3b56;
 }
 .app_your_basket_heading_right_bottom_last h3{
 	font-weight: 700;
@@ -865,6 +875,7 @@ Your Orders Section
 .app_your_orders_heading_right h3{
 	font-weight: 700;
     font-size: 21px;
+    color: #2a3b56;
 }
 .app_your_orders_heading_right_icons .your_order_full_detail{
     position: absolute;
@@ -881,11 +892,14 @@ Your Orders Section
 .app_your_orders_heading_right_text_bold h4{
 	font-weight: 700;
 	font-size:15px;
-	display:inline-block;
+    display:inline-block;
+    color: #2a3b56;
 }
 .app_your_orders_right_try_icons{
 	padding-left: 15px;
     font-size: 15px;
+    color: #008cff;
+    font-weight: 400;
 }
 .app_your_orders_right_try_icons img{
 	max-width:15px;
@@ -959,6 +973,7 @@ Review Food Section
     font-weight: bold !important;
     font-size: 27px;
     line-height: 34px;
+    color: #2a3b56;
 }
 .app_review_input_text{
     width: 100%;
@@ -1063,6 +1078,7 @@ Review Food Section
 .app_the_food_image_heading_left h3{
 	font-weight: 700;
     font-size: 16px;
+    color: #2a3b56;
 }
 .app_the_food_image_icons{
     border-radius: 50%;
@@ -1080,7 +1096,7 @@ Review Food Section
 }
 .app_the_food__image_heading_6_left h6{
 	font-size: 10px;
-	color:#8a8787;
+	color:#929292;
 	border:none;
 }
 .app_the_food_image_heading_left_choose h3{
@@ -1124,6 +1140,7 @@ Review Food Section
 .app_the_food_image_heading_left_center h3{
 	font-weight: 700;
     font-size: 16px;
+    color: #2a3b56;
 }
 .app_the_food_image_button_center{
 	float:right;
@@ -1350,11 +1367,12 @@ Personal Detail
 }
 .app_hot_food_restaurant_heading h2{
 	font-size: 22px;
-    font-weight: 700;    
+    font-weight: 700;   
+    color: #2a3b56; 
 }
 .app_hot_food_restaurant_heading h3{
 	font-size: 14px;    
-    color: #ccc;
+    color: #8a94a3;
 	
 }
  .app_bar_icon{
@@ -1396,7 +1414,7 @@ Personal Detail
     display: block;
     font-size: 16px;
     min-height: 42px;
-    color: #ccc;
+    color: #8a94a3;
 }
 .app_hot_food_restaurant_delivery_details ul li a img {
    max-width: 20px;
@@ -1559,6 +1577,7 @@ Personal Detail
 	font-size: 22px;
     font-weight: 700;
         margin-top: 20px;
+        color:#2a3b56;
 
 }
 .app_bestsellers_detail{
@@ -1575,11 +1594,12 @@ Personal Detail
 }
 .app_bestsellers_detail h5{
 	font-size: 25px;
-    font-weight: 700;
+    font-weight: 600;
     margin-top: 10px;
+    color: #2a3b56;
 }
 .app_bestsellers_detail h6{
-   color: #ccc;
+   color: #929292;
     font-size: 18px;
     font-weight: 500;
 }
@@ -1904,6 +1924,58 @@ input.app_full_btn:focus {
     position: absolute;
     margin-left: 33% !important;
 }
+.app_your_basket_heading_right_bottom_last h3 {
+    font-weight: 700;
+    font-size: 30px !important;
+    color: var(--primary-color);
+}
+.app_review_food_text__left_special {
+    margin-top: 24px;
+    font-weight: bold !important;
+    font-size: 24px !important;
+    line-height: 34px;
+    color: #2a3b56;
+}
+.app_your_basket_text_bottom h4 {
+    font-weight: bold !important;
+    font-size: 24px !important;
+    line-height: 34px;
+    padding-top: 5px;
+    margin-bottom: 0;
+    padding-bottom: 5px;
+}
+.app_your_basket_heading_left_bottom h3 {
+    font-size: 20px !important;
+    color: #8a8787;
+}
+.app_your_basket_heading_right_bottom h3 {
+    font-weight: 500;
+    font-size: 20px !important;
+}
+.app_your_basket_heading_number_text_right_bottom h3{
+    font-weight: 500;
+    font-size: 20px !important;
+    padding-left: 19px;
+}
+.app_checkout .app_heading, .app_verification_caption .app_heading {
+    font-size: 35px !important;
+    line-height: 47px;
+}
+.app_order_details .app_order_details_heading_6_right h6 {
+    line-height: 1.5;
+    color: #8a8787;
+    font-size: 16px !important;
+    font-weight: 500;
+}
+.app_order_details .app_order_details_heading_3_right h3 {
+    font-size: 22px !important;
+    font-weight: 700;
+    margin-top: 10px;
+}
+.app_order_details .app_order_details_text_right_bottom{
+    font-size: 20px !important;
+    font-weight: 500;
+}
 }
 .mat-dialog-container:hover {
   color: rgba(0, 0, 0, 0.3);
@@ -1921,4 +1993,14 @@ input.app_full_btn:focus {
   text-shadow: 0 0 black;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
   transition: color .3s ease;
+}
+.la-line-spin-clockwise-fade.la-2x > div {
+    height: 10px !important;
+    margin-left: -2px;
+    margin-top: -10px;
+    width: 4px !important;
+}
+.la-line-spin-clockwise-fade.la-2x{
+    height: 55px !important;
+    width: 55px !important;
 }
