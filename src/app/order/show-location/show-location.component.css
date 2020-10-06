@@ -25,5 +25,15 @@ p.app_content {
 .app_location_image svg {
     width: 60%;
 }
+p.app_content {
+    font-size:18px;
+    font-weight: 500;
+    margin-bottom: 35px !important;
+    margin-top: 15px !important;
+}
+
+.app_full_btn {
+    font-size: 20px !important;
+}
 }
 

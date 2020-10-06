@@ -23,16 +23,21 @@ li.StepProgress-item.current img {
     width: 10%;
     position: absolute;
     text-align: left;
-    left: -44px;
+    left: -42px;
     z-index: 9999;
     top: -11px;
 }
-
+.app_heading {
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-left: 15px !important;
+    padding-left: 12px !important;
+}
 .app_verification_image {
     padding: 20px;
 }
 img.app_submit_call_image {
-    left: 29% !important;
+    left: 26% !important;
 }
 input[type="submit"] {
     width: 100%;
@@ -56,12 +61,16 @@ img.app_delievery_boy_image{
     background: #fff;
     position: absolute !important;
     width: 100% !important;
-    top: 88% !important;
+    top: 100% !important;
     z-index: 9999999999;
 }
 .delivery_boy_call .col-7{
     padding-left: 28px !important;
     padding-right: 0px !important;
+}
+.order_placed_content h3 {
+    font-size: 21px !important;
+    color: rgb(42 59 86);
 }
 .app_heading{
     margin-left: 20px !important;

@@ -31,4 +31,7 @@ label.app_content {
         width: 85%;
         margin-left: 7%;
     }
+    .app_contact .app_container {
+    padding: 0 !important;
+}
     }

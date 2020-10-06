@@ -27,14 +27,17 @@ height: 157px;
     padding-right: 10px;
     font-size: 18px !important;
 }
-.app_heading {
+/*.app_heading {
     font-weight: 700;
     letter-spacing: 1px;
     margin-left: 20px !important;
-}
+}*/
 	.col-4 {
     max-width: 50%;
     flex: 0%;
+}
+.app_full_btn {
+    font-size: 20px !important;
 }
 .app_your_basket_content_text_bottom .col-8 {
     padding-left: 15px;
@@ -92,22 +95,28 @@ height: 157px;
     border: 2px solid #fff !important;
     font-weight: 600;
     text-transform: lowercase;*/
-        background: var(--primary-color);
-        transform: rotate(-49deg);
-        width: 195px;
-        display: block;
-        position: absolute;
-        top: 32px;
-        color: #fff;
-        text-align: center;
-        font-size: 20px;
-        left: -42px;
-        height: 36px;
-        line-height: 30px;
-        clip-path: polygon(29% 0%, 76% 0%, 100% 149%, 3% 119%);
-        border: 2px solid #fff !important;
-        font-weight: 600;
+    background: var(--primary-color);
+    transform: rotate(-49deg);
+    width: 168px;
+    display: block;
+    position: absolute;
+    top: 28px;
+    color: #fff;
+    text-align: center;
+    font-size: 16px;
+    left: -34px;
+    height: 31px;
+    line-height: 27px;
+    -webkit-clip-path: polygon(29% 0%, 76% 0%, 100% 149%, 3% 119%);
+    clip-path: polygon(29% 0%, 76% 0%, 100% 149%, 3% 119%);
+    border: 2px solid #fff !important;
+    font-weight: 600;
 }
+.app_review_input_text {
+    width: 100%;
+    border-radius: 20px;
+    font-size: 15px !important;
+    }
 .app_hot_food_restaurant_delivery_details ul li {
     position: relative;
     display: inline-block;

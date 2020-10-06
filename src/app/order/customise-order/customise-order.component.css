@@ -46,6 +46,10 @@ input[type=checkbox] {
 .requireds .col-12 {
     padding: 0;
 }
+.choose_options.ng-star-inserted{
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+}
 i.fa.fa-minus{
     background: #f6f4f4;
     width: 23px !important;

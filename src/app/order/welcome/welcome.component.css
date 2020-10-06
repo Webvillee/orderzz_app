@@ -41,3 +41,13 @@ i.fa.fa-long-arrow-right {
 .mat-progress-spinner circle, .mat-spinner circle {
     stroke: #000000 !important;
 }
+@media only screen and (max-width: 800px) and (min-width: 320px){
+.app_welcome .app_full_btn {
+    background-color: #fff;
+    color: var(--primary-color);
+    margin: -32px 34px 72px 34px !important;
+}
+.app_welcome .app_banner_image {
+    margin-bottom: 50px !important;
+}
+}
