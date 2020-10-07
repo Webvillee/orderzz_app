@@ -1,4 +1,3 @@
-
 export class UrlSetting {
     // public static uri = 'http://3.21.151.41:7000/api'; 
     // public static image_uri = 'http://3.21.151.41:7000/';
