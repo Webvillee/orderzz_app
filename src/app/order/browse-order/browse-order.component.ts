@@ -1,3 +1,6 @@
+
+
+
 import { Component, OnInit } from '@angular/core';
 
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
@@ -11,11 +14,11 @@ import { SuccessDialogComponent, SuccessDialogModel } from '../../shared/dialogs
 import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
-  selector: 'app-show-order',
-  templateUrl: './show-order.component.html',
-  styleUrls: ['./show-order.component.css'],
+  selector: 'app-browse-order',
+  templateUrl: './browse-order.component.html',
+  styleUrls: ['./browse-order.component.css']
 })
-export class ShowOrderComponent implements OnInit {
+export class BrowseOrderComponent implements OnInit {
   public selectedDeliveryType = "1";
   themeCondition
   themeView
@@ -78,7 +81,7 @@ export class ShowOrderComponent implements OnInit {
       if (res.status == 200) {
         // this.isLoading = false
         this.spinner.hide();
-        // console.log(res.data, 'ifff')
+        console.log(res.data, 'ifff')
         this.themeView = res.data.theme_view
         if (this.themeView == "1") {       //1=listview in  and 2= gridmeans
           this.themeCondition = false
@@ -105,7 +108,7 @@ export class ShowOrderComponent implements OnInit {
       } else {
         // this.isLoading = false
         this.spinner.hide();
-        // console.log('ellls');
+        console.log('ellls')
         // this.router.navigate(['/not-found'])
       }
     });
@@ -147,7 +150,7 @@ export class ShowOrderComponent implements OnInit {
       restId: this.restId,
     };
     this.orderService.get_all_item(obj).subscribe((res) => {
-      // console.log(res)
+      console.log(res)
       if (res.status == 200) {
         this.getItemData = res.data.item
       } else if (res.status == 201) {
@@ -159,34 +162,6 @@ export class ShowOrderComponent implements OnInit {
   }
 
 
-  addToCart(itemData) {
-    // console.log(itemData, 'itemDatakkkkk');
-    var index = this.itemArray.findIndex(x => x._id === itemData._id);
-    if (index > -1) {
-      this.itemArray.splice(index, 0, itemData);
-    } else {
-      this.itemArray.push(itemData);
-    }
-    // console.log(this.itemArray);
-    var userOrderData = CryptoJS.AES.encrypt(JSON.stringify(this.itemArray), '').toString();
-    localStorage.setItem('OrderData', userOrderData)
-  }
-
-  countOrder(id) {
-    var count = (input, arr) => arr.filter(x => x._id === input).length;
-    // console.log (count(id, this.itemArray));
-    return count(id, this.itemArray);
-  }
-
-  removeToCart(value) {
-    var index = this.itemArray.findIndex(x => x._id === value);
-    if (index > -1) {
-      this.itemArray.splice(index, 1);
-    }
-    var userOrderData = CryptoJS.AES.encrypt(JSON.stringify(this.itemArray), '').toString();
-    localStorage.setItem('OrderData', userOrderData)
-    return this.itemArray;
-  }
 
   onClick(check) {
     if (check === 1) {
@@ -202,7 +177,6 @@ export class ShowOrderComponent implements OnInit {
 
   addMap() {
     // console.log('uhjkhjkhg')
-    // if(!localStorage.getItem('customer_address')){
     const dialogRef = this.dialog.open(AddressPopupComponent, {
       width: '600px',
       height: '700px',
@@ -213,7 +187,6 @@ export class ShowOrderComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
 
     });
-    // }
 
   }
 
@@ -238,6 +211,5 @@ export class ShowOrderComponent implements OnInit {
         this.userId=''
         this.router.navigate(['/order']);
     });
-
   }
 }

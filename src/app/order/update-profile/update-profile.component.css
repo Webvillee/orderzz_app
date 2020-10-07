@@ -11,3 +11,16 @@
     margin-left: 20px !important;
 }
 }
+
+.mat-form-field{
+    padding-right: 2%;
+}
+.uploadbtn{
+    color: #fff;
+    background-color: #1c2a39 !important;
+    margin-bottom: 10px;
+}
+
+.raised-button.mat-primary {
+    background-color: var(--primary-color) !important;
+}

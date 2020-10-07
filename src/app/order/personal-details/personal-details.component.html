@@ -14,6 +14,27 @@
             <h6 style="color: red">{{ display }}</h6>
             <h6 style="color: green">{{ displaysuccess }}</h6>
             <form [formGroup]="angForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col-12">
+                        <img width="100"  height="100" mat-card-image src="{{img_url}}{{user_image}}" alt="Photo of a Shiba Inu">
+                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <button type="button" mat-raised-button (click)="fileInput.click()">
+                            <mat-icon>file_upload</mat-icon>Upload Profile
+                        </button>
+                        <input formControlName="file" hidden id="file" type="file" class="form-control" #fileInput
+                            (change)="onFileSelected($event)">
+
+                        <!-- <div class="image-preview mb-3" *ngIf="previewUrl">
+                            <img [src]="previewUrl" height="50" />
+                        </div> -->
+                        <div *ngIf="fileUploadProgress">
+                            Upload progress: {{ fileUploadProgress }}
+                        </div>
+                    </div>
+                </div>
                 <label class="app_content">Name</label>
                 <input type="text"  minlength="3" [(ngModel)]="userName" formControlName="userName" placeholder="eg:- John Doe" [ngClass]="{ 'is-invalid': submitted && f.userName.errors }" />
                     <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
