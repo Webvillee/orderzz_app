@@ -16,7 +16,10 @@ span.app_basket_quantity {
 }
 .box-view .app_basket_btn_submit .app_full_btn.app_add_basket_btn {
     position: fixed;
-    bottom: 14px !important;
+    bottom: 7px !important;
+}
+.app_restaurant {
+    padding: 20px 20px 77px 20px;
 }
 .box-view .app_bestseller_foot .app_footer {
     font-size: 18px;
@@ -170,6 +173,7 @@ input.app_checkout_input_pad.app_check_input_loc {
     position: fixed;
     width: calc(100% - 33px) !important;
     left: 14px !important;
+    bottom: 5px !important;
 }
 /*.app_hot_food_restaurant_delivery_details ul li {
     position: relative;
@@ -213,6 +217,7 @@ input.app_checkout_input_pad.app_check_input_loc {
     max-width: 10%;
     flex: 10%;
     padding-left: 0;
+    margin-left: -5px;
 }
 .minutess{
 	width: 40%;

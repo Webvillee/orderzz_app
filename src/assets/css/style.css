@@ -1962,7 +1962,7 @@ input.app_full_btn:focus {
     padding-left: 19px;
 }
 .app_checkout .app_heading, .app_verification_caption .app_heading {
-    font-size: 35px !important;
+    font-size: 30px !important;
     line-height: 47px;
 }
 .app_order_details .app_order_details_heading_6_right h6 {
