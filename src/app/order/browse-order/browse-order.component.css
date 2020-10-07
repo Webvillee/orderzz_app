@@ -1,0 +1,371 @@
+span.app_basket_quantity {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+@media only screen and (max-width: 800px) and (min-width: 320px){
+    span.app_basket_quantity {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 18px !important;
+}
+.box-view .app_bestsellers_detail img {
+    border-radius: 18px;
+    width: 100%;
+    height: 150px !important;
+    object-fit: cover;
+}
+.box-view .app_basket_btn_submit .app_full_btn.app_add_basket_btn {
+    position: fixed;
+    bottom: 14px !important;
+}
+.box-view .app_bestseller_foot .app_footer {
+    font-size: 18px;
+    color: var(--primary-color);
+    font-weight: 600;
+    padding-right: 2px;
+}
+.box-view span.app_basket_quantity {
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: 18px !important;
+}
+.box-view .app_bestseller_foot .app_addition_icon i {
+   width: 23px;
+    text-align: center;
+    height: 23px;
+    padding-top: 5px;
+    border-radius: 50%;
+    font-size: 14px;
+}
+.box-view .image_title_sec{
+background: var(--primary-color);
+    transform: rotate(-49deg);
+    width: 152px !important;
+    display: block;
+    position: absolute;
+    top: 22px !important;
+    color: #fff;
+    text-align: center;
+    font-size: 16px !important;
+    left: -45px !important;
+    height: 31px !important;
+    line-height: 27px !important;
+    -webkit-clip-path: polygon(29% 0%, 76% 0%, 100% 149%, 3% 119%);
+    clip-path: polygon(29% 0%, 76% 0%, 100% 149%, 3% 119%);
+    border: 2px solid #fff !important;
+    font-weight: 600;
+}
+.app_hot_food_restaurant_location ul li:first-child {
+    width: 181px !important;
+}
+input.app_checkout_input_pad.app_check_input_loc {
+    background-color: transparent;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    min-height: auto !important;
+    width: calc(100% - 20px);
+    font-size: 15px !important;
+    margin-top: 6px !important;
+    padding-left: 7px !important;
+}
+.app_delivery_pickup_btn span {
+    font-size: 13px !important; 
+}
+.app_hot_food_restaurant_location li a img {
+    max-width: 20px;
+    margin-right: 0px;
+}
+.app_hot_food_restaurant_location ul li:first-child {
+    width: 100%;
+}
+.app_scroll_button.active {
+    border: 2px solid #03A9F4;
+    border-radius: 20px;
+    background-color: #fff;
+    display: inline-block;
+    color: #03A9F4 !important;
+}
+.app_hot_food_restaurant_delivery_details ul li a {
+    font-size: 15px;
+}
+.app_bestseller_foot .app_addition_icon i {
+    width: 23px;
+    text-align: center;
+    height: 23px;
+    padding-top: 5px;
+    border-radius: 50%;
+    font-size: 14px;
+}
+.app_bestseller_foot .app_footer {
+    font-size: 20px;
+    color: var(--primary-color);
+    font-weight: 600;
+    padding-right: 2px;
+}
+
+	.col-4 {
+    max-width: 50%;
+    flex: 0%;
+}
+.col-8 {
+    max-width: 50%;
+    flex: 0%;
+    /*padding-right: 0;*/
+    padding-left: 5px;
+}
+.app_hot_food_restaurant_heading h2 {
+    font-size: 30px !important;
+    font-weight: 700;
+}
+.app_hot_food_restaurant_bestsellers h4 {
+    font-size: 29px;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+.image_title_sec {
+/*    background: var(--primary-color);
+    transform: rotate(-49deg);
+    width: 200px;
+    display: block;
+    position: absolute;
+    top: 22px;
+    color: #fff;
+    text-align: center;
+    font-size: 19px;
+    left: -49px;
+    height: 42px;
+    line-height: 36px;
+    -webkit-clip-path: polygon(35% 0%, 72% 0%, 100% 196%, 0% 119%);
+    clip-path: polygon(35% 0%, 72% 0%, 100% 196%, 3% 119%);
+    border: 2px solid #fff !important;
+    font-weight: 600;
+    text-transform: lowercase;*/
+    background: var(--primary-color);
+    transform: rotate(-49deg);
+    width: 168px;
+    display: block;
+    position: absolute;
+    top: 28px;
+    color: #fff;
+    text-align: center;
+    font-size: 16px;
+    left: -34px;
+    height: 31px;
+    line-height: 27px;
+    -webkit-clip-path: polygon(29% 0%, 76% 0%, 100% 149%, 3% 119%);
+    clip-path: polygon(29% 0%, 76% 0%, 100% 149%, 3% 119%);
+    border: 2px solid #fff !important;
+    font-weight: 600;
+}
+.app_delivery_pickup_btn {
+    padding-left: 7px !important;
+    padding-right: 7px !important;
+}
+.col-6.delivery_order {
+    padding-right: 0;
+}
+
+.app_basket_btn_submit .app_full_btn.app_add_basket_btn {
+    position: fixed;
+    width: calc(100% - 33px) !important;
+    left: 14px !important;
+}
+/*.app_hot_food_restaurant_delivery_details ul li {
+    position: relative;
+    display: inline-block;
+    width: 61%;
+    margin-left: 0px;
+    margin-right: 0px;
+}*/
+.app_bestsellers_detail img {
+    border-radius: 18px;
+    margin-top: 0;
+    width: 100%;
+    height: 100% !important;
+    object-fit: cover;
+}
+.app_bestsellers_detail .row {
+    margin-bottom: 40px;
+}
+.app_bestsellers_detail h5 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+.app_bestsellers_detail h6 {
+    color: #ccc;
+    font-size: 17px;
+    font-weight: 500;
+}
+/*.app_bestsellers_detail h6 {
+    color: #ccc;
+    font-size: 22px;
+    font-weight: 500;
+}*/
+.app_restaurant .col-10 {
+    max-width: 90%;
+    flex: 90%;
+    padding-right: 0;
+}
+.app_restaurant .col-2 {
+    max-width: 10%;
+    flex: 10%;
+    padding-left: 0;
+}
+.minutess{
+	width: 40%;
+}
+.valuess{
+	width: 60%;
+}
+.app_hot_food_restaurant_delivery_details ul li a img {
+    max-width: 20px;
+    margin-bottom: 5px;
+    margin-right: 1px !important;
+}
+}
+.app_hot_food_restaurant_delivery_details a {
+    pointer-events: none;
+}
+.app_hot_food_restaurant_location a{
+	pointer-events: none;
+}
+
+.app_bestsellers_detail .row {
+    margin-bottom: 35px;
+}
+.app_hot_food_restaurant_image img {
+    max-width: 100%;
+    height: 185px;
+    object-fit: cover;
+    width: 100%;
+}
+.app_bestsellers_detail img {
+    margin-top: 0px;
+    margin-bottom: 5px;
+    height: 162px;
+}
+
+/*a.btn.app_scroll_button {
+    color: #ccc;
+}*/
+/*a.btn.app_scroll_button:hover {
+    border-color: #333;
+    color: #333;
+}*/
+span.app_basket_quantity {
+    color: black;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.app_hot_food_restaurant_bestsellers h4 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.app_bestseller_foot {
+    margin-top: 25px;
+}
+.app_basket_btn_submit .app_full_btn.app_add_basket_btn {
+/*    bottom: 0;
+*/    width: 54%;
+    left: 23%;
+    right: 0;
+}
+.app_hot_food_restaurant_heading h2 {
+    font-size: 30px;
+    font-weight: 700;
+}
+.app_delivery_pickup_btn span {
+    font-size: 17px;
+}
+.app_delivery_pickup_btn {
+    padding-left: 14px;
+    padding-right: 14px;
+}
+
+button.close {
+    margin-top: -35px;
+    margin-right: 15px;
+    background: #e1e6ea;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 27px;
+}
+button.close:focus{
+    outline: none;
+}
+
+.app_hot_food_restaurant_logo img {
+    max-width: 100%;
+    border-radius: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+input.app_checkout_input_pad.app_check_input_loc {
+    background-color: transparent;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: auto;
+       width: calc(100% - 20px);
+    font-size: 16px;
+    margin-top: 6px;
+    padding-left: 7px;
+}
+.app_hot_food_restaurant_location li a img {
+    max-width: 20px;
+    margin-right: 0px;
+}
+.app_hot_food_restaurant_location ul li:first-child {
+    width: 100%;
+}
+.app_hot_food_restaurant_logo {
+    text-align: center;
+    width: 120px;
+    height: 120px;
+    padding: 10px;
+    margin-top: -72px;
+    background-color: #fff;
+    border-radius: 100%;
+    margin-left: -10px;
+}
+.loader {
+    margin-top:20%;
+    position: absolute;
+    margin-left: 45%
+}
+.box-view .app_bestsellers_detail img {
+    border-radius: 18px;
+    width: 100%;
+    height: 234px;
+    object-fit: cover;
+}
+.box-view .image_title_sec {
+    background: var(--primary-color);
+    transform: rotate(-49deg);
+    width: 200px;
+    display: block;
+    position: absolute;
+    top: 33px;
+    color: #fff;
+    text-align: center;
+    font-size: 20px;
+    left: -59px;
+    height: 36px;
+    line-height: 30px;
+    clip-path: polygon(29% 0%, 76% 0%, 100% 149%, 3% 119%);
+    border: 2px solid #fff !important;
+    font-weight: 600;
+}
+.box-view .app_bestseller_foot{
+    margin-top: 13px;
+}
+.box-view  .app_basket_btn_submit .app_full_btn.app_add_basket_btn {
+    position: fixed;
+    bottom: -14px;
+}

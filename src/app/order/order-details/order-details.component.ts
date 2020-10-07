@@ -83,13 +83,14 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   myOrderlist(){
-    // this.isLoading = true
+    
     this.spinner.show();
     const obj = {orderId: this.order_id, userId: this.userId, restId: this.restId  }
 
      this.orderService.postAll('get_my_order_status', obj).subscribe((res) => {
+       this.isLoading = true
         if (res.status === 200) {
-          // this.isLoading = false
+          this.isLoading = false
           this.spinner.hide();
           console.log(res.data);
           this.orderHistory = res.data
@@ -135,7 +136,7 @@ export class OrderDetailsComponent implements OnInit {
           
           setTimeout(function(){ this.displaysuccess='' }, 3000);
         } else {
-          // this.isLoading = false
+          this.isLoading = false
           this.spinner.hide();
           // this.displaysuccess = ''
           // this.display = res.msg;
