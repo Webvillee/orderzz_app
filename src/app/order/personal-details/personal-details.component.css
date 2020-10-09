@@ -4,3 +4,11 @@ label.app_content {
 input.ng-untouched.ng-pristine.ng-invalid {
     padding-left: 50px;
 }
+.mat-form-field{
+    padding-right: 2%;
+}
+.uploadbtn{
+    color: #fff;
+    background-color: #1c2a39 !important;
+    margin-bottom: 10px;
+}

@@ -78,16 +78,17 @@ export class YourOrdersComponent implements OnInit {
   }
 
   myOrderlist(){
-    // this.isLoading = true
+   
     this.spinner.show();
     const obj = {userId: this.userId, restId: this.restId, page_no:this.page_no , perPage:this.perPage  }
 
      this.orderService.postAll('my_order_list', obj).subscribe((res) => {
+        this.isLoading = true
         if (res.status === 200) {
           console.log(res.data);
           this.orderHistory = res.data.menu;
           this.orderCount = res.data.count;
-          // this.isLoading = false
+          this.isLoading = false
           this.spinner.hide();
           // this.order_number= res.data.order_number
           // this.total_amount=res.data.total_amount
@@ -104,7 +105,7 @@ export class YourOrdersComponent implements OnInit {
           
           setTimeout(function(){ this.displaysuccess='' }, 3000);
         } else {
-          // this.isLoading = false
+          this.isLoading = false
           this.spinner.hide();
           // this.displaysuccess = ''
           // this.display = res.msg;

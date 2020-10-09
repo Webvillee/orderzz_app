@@ -75,7 +75,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-12">
+						<div class="col-12" *ngIf="is_online_status===1">
 							   <div class="app_hot_food_restaurant_category">
 								  <h3>Categories</h3>
 							   </div>
@@ -83,7 +83,7 @@
 
 						<div class="col-12 app_scroll">
 							<div class="app_category_scroll_button">
-								<ng-container *ngIf="getCategoryData">
+								<ng-container *ngIf="getCategoryData  && is_online_status===1">
 									<ul>
 										<li  *ngFor="let catData of getCategoryData">
 											<a [class.active]="clicked === catData._id"  (click)="findItem(catData)" class="btn app_scroll_button">{{catData.cate_name}}</a>
@@ -92,13 +92,13 @@
 								</ng-container>
 							</div>
 						</div>
-						<div class="col-12">
+						<div class="col-12" *ngIf="is_online_status===1">
 							<div class="app_hot_food_restaurant_bestsellers">
 							   <h4>{{catName}}</h4>
 							</div>
 						</div>
 						<div class="col-6 box-view" *ngFor="let itemData of getItemData" >
-						<ng-container *ngIf="getItemData">
+						<ng-container *ngIf="getItemData  && is_online_status===1">
 							<!-- <div class="col-12"> -->
 								<div class="app_bestsellers_detail">
 									<!-- <div class="row" >  -->
@@ -134,7 +134,7 @@
 						</ng-container>
 						</div>
 
-						<ng-container *ngIf="getCategoryData==0">
+						<ng-container *ngIf="getCategoryData==0 || is_online_status===2">
 							<div class="app_close">
 								<div class="app_container">
 									<div class="app_close_image">
@@ -146,11 +146,11 @@
 										</div>
 									</div>
 									<div class="app_close_content">
-										<h3>Sorry , restaurant will open </h3>
-										<h3>at 12:00 pm</h3>
+										<h3>{{(allData.online_status_type===1)? 'Sorry , restaurant is busy': (allData.online_status_type===2)? 'Sorry , restaurant Shortage': (allData.online_status_type===3)? 'Sorry , We will be late' : (allData.online_status_type===4)? 'Sorry , offline for a while' : 'Sorry , restaurant will open soon'}}</h3>
+										<h3>{{allData.custom_message_for_customer}}</h3>
 										<h2 class="app_heading">Still want to browse?</h2>
 										<p class="app_content">Note: you can't order but you can see menu<br> list to order once it opens.</p>
-										<a  class="app_full_btn">Browse</a>
+										<a [routerLink]="['/browse-order']" class="app_full_btn">Browse</a>
 									</div>
 								</div>	
 							</div>
@@ -233,14 +233,14 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-12">
+						<div class="col-12" *ngIf="is_online_status===1">
 							   <div class="app_hot_food_restaurant_category">
 								  <h3>Categories</h3>
 							   </div>
 						</div>
-						<div class="col-12 app_scroll">
+						<div class="col-12 app_scroll" >
 							<div class="app_category_scroll_button">
-								<ng-container *ngIf="getCategoryData">
+								<ng-container *ngIf="getCategoryData && is_online_status===1">
 									<ul>
 										<li  *ngFor="let catData of getCategoryData">
 											<a [class.active]="clicked === catData._id" (click)="findItem(catData)" class="btn app_scroll_button">{{catData.cate_name}}</a>
@@ -249,12 +249,12 @@
 								</ng-container>
 							</div>
 						</div>
-						<div class="col-12">
+						<div class="col-12" *ngIf="is_online_status===1">
 							<div class="app_hot_food_restaurant_bestsellers">
 							   <h4>{{catName}}</h4>
 							</div>
 						</div>
-						<ng-container *ngIf="getItemData">
+						<ng-container *ngIf="getItemData && is_online_status===1" >
 							<div class="col-12">
 								<div class="app_bestsellers_detail">
 									<div class="row" *ngFor="let itemData of getItemData"> 
@@ -289,7 +289,7 @@
 								
 						</ng-container>
 						
-						<ng-container *ngIf="getCategoryData==0">
+						<ng-container *ngIf="getCategoryData==0 || is_online_status===2">
 							<div class="app_close">
 								<div class="app_container">
 									<div class="app_close_image">
@@ -301,80 +301,16 @@
 										</div>
 									</div>
 									<div class="app_close_content">
-										<h3>Sorry , restaurant will open </h3>
-										<h3>at 12:00 pm</h3>
+										<!-- <h3>Sorry , restaurant will open </h3> -->
+										<h3>{{(allData.online_status_type===1)? 'Sorry , restaurant is busy': (allData.online_status_type===2)? 'Sorry , restaurant Shortage': (allData.online_status_type===3)? 'Sorry , We will be late' : (allData.online_status_type===4)? 'Sorry , offline for a while' : 'Sorry , restaurant will open soon'}}</h3>
+										<h3>{{allData.custom_message_for_customer}}</h3>
 										<h2 class="app_heading">Still want to browse?</h2>
 										<p class="app_content">Note: you can't order but you can see menu<br> list to order once it opens.</p>
-										<a  class="app_full_btn">Browse</a>
+										<a [routerLink]="['/browse-order']" class="app_full_btn">Browse</a>
 									</div>
 								</div>	
 							</div>
 						</ng-container>
-						<!-- <div class="col-12">
-							<div class="app_bestsellers_detail">
-								<div class="row">
-									<div class="col-4">
-										<img src="assets/img/biryani.jpg">
-									</div>
-									<div class="col-8">
-										<h5>Hamburger Lover</h5>
-										<h6>Freshly chopped veg noodles Japanese</h6>
-										<div class="app_bestseller_foot">
-										  <span class="app_footer">24 AED</span>
-										  <span><del>30 AED</del></span>
-										  <div class="app_add_baset_icon">
-											  <span class="app_addition_icon"><i class="fa fa-plus" aria-hidden="true"></i></span>
-										  </div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-12">
-								<div class="app_hot_food_restaurant_bestsellers">
-								   <h4>Starters</h4>
-								</div>
-						</div>
-						<div class="col-12">
-							<div class="app_bestsellers_detail">
-								<div class="row">
-									<div class="col-4">
-										<img src="assets/img/biryani.jpg">
-									</div>
-									<div class="col-8">
-										<h5>Hamburger Lover</h5>
-										<h6>Freshly chopped veg noodles Japanese</h6>
-										<div class="app_bestseller_foot">
-										  <span class="app_footer">24 AED</span>
-										  <span><del>30 AED</del></span>
-										  <div class="app_add_baset_icon">
-											<span class="app_addition_icon"><i class="fa fa-plus" aria-hidden="true"></i></span>
-										  </div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-12">
-							<div class="app_bestsellers_detail">
-								<div class="row">
-									<div class="col-4">
-										<img src="assets/img/biryani.jpg">
-									</div>
-									<div class="col-8">
-										<h5>Hamburger Lover</h5>
-										<h6>Freshly chopped veg noodles Japanese</h6>
-										<div class="app_bestseller_foot">
-										  <span class="app_footer">24 AED</span>
-										  <span><del>30 AED</del></span>
-										  <div class="app_add_baset_icon">
-											<span class="app_addition_icon"><i class="fa fa-plus" aria-hidden="true"></i></span>
-										  </div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div> -->
 					</div>
 				</div>
 			</div>

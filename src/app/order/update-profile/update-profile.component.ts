@@ -6,7 +6,7 @@ import { OrderService } from '../order.service';
 import { UrlSetting } from '../../urlSetting'
 import * as CryptoJS from 'crypto-js';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 @Component({
   selector: 'app-update-profile',
   templateUrl: './update-profile.component.html',
@@ -36,8 +36,15 @@ export class UpdateProfileComponent implements OnInit {
   UserData;
   userName;
   email;
+
   isLoading = false;
   mobileno
+  fileToUpload: File = null;
+  previewUrl: any = null;
+  fileUploadProgress: any
+  public myMediaGallery: any
+  user_image;
+  
   constructor(private fb: FormBuilder, public dialog: MatDialog, private route: ActivatedRoute, private router: Router, private orderService: OrderService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -58,6 +65,7 @@ export class UpdateProfileComponent implements OnInit {
       const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
       // this.UserData= data
       console.log(data, 'lll')
+      this.user_image = data.user_image_url
       this.userName = data.user_name;
       this.email = data.user_email;
       this.mobileno = data.user_contact_no;
@@ -67,6 +75,7 @@ export class UpdateProfileComponent implements OnInit {
       userName: ['', Validators.required, Validators.minLength(3)],
       email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
       mobileno: ['', Validators.required, Validators.minLength(10)],
+        file: ['', Validators.required],
     });
 
 
@@ -124,12 +133,52 @@ export class UpdateProfileComponent implements OnInit {
     return this.angForm.controls[control].hasError(error);
   }
 
+
+  onFileSelected(event) {
+    this.fileToUpload = event.target.files.item(0)
+// console.log(this.fileToUpload.type,'ggggthis.fileToUpload.type')
+    if (this.fileToUpload.type == 'image/jpeg' || this.fileToUpload.type == 'image/png' || this.fileToUpload.type == 'image/gif' || this.fileToUpload.type == 'image/apng' || this.fileToUpload.type == 'image/svg+xml') {
+
+      if (event.target.files && event.target.files[0]) {
+        let reader = new FileReader();
+
+
+        reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+        reader.onload = (event) => { // called once readAsDataURL is completed  
+
+          // this.uploadingFile.push(event.target.result);
+          // this.uploadingFile.push({type: 'image', url: event.target.result});
+        }
+      }
+      this.fileUploadProgress = '0%';
+      // this.myMediaGallery = "document/1590582983195.png";
+      this.orderService.uploadFile(event.target.files[0]).subscribe(events => {
+
+        if (events.type === HttpEventType.UploadProgress) {
+          this.fileUploadProgress = Math.round(events.loaded / events.total * 100) + '%';
+        } else if (events.type === HttpEventType.Response) {
+          this.fileUploadProgress = '';
+          this.myMediaGallery = events.body.data.filepath;
+          this.user_image= events.body.data.filepath;
+          // alert('SUCCESS !!');
+        }
+        // console.log(this.myMediaGallery);
+      }, error => {
+        console.log(error);
+      });
+    } else {
+      alert("Please Upload an image (JPEG, PNG, GIF)")
+    }
+  }
+
+
   onSubmit() {
     // console.log(this.angForm.controls.userName.value, '776767888');
     var userName = this.angForm.controls.userName.value;
     var userEmail = this.angForm.controls.email.value;
     var mobileno = this.angForm.controls.mobileno.value;
-    const obj = { userId: this.userId, userName: userName, userEmail: userEmail, phoneNo: mobileno }
+    const obj = { userId: this.userId, userName: userName, userEmail: userEmail, phoneNo: mobileno, userImageUrl: this.user_image }
     // var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     var mailformat = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
     // // stop here if form is invalid
@@ -146,11 +195,13 @@ export class UpdateProfileComponent implements OnInit {
           var encrypted_order_type = CryptoJS.AES.encrypt(userName, '');
           localStorage.setItem('userName', encrypted_order_type.toString());
 
-          const dialogDatasuccess = new SuccessDialogModel("Success", "Succesfully Updated");
+          const dialogDatasuccess = new SuccessDialogModel("Success", "Profile updated succesfully");
 
           let dialogReff = this.dialog.open(SuccessDialogComponent, {
             maxWidth: "700px",
+            panelClass: 'sucess-messages',
             data: dialogDatasuccess
+            
           });
           dialogReff.afterClosed()
             .subscribe(result => {

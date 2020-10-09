@@ -31,6 +31,7 @@ import { SigninComponent } from './signin/signin.component';
 import { SigninOtpComponent } from './signin-otp/signin-otp.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { BrowseOrderComponent } from './browse-order/browse-order.component';
        // @agm/core
 
 // const routes: Routes = [
@@ -59,6 +60,7 @@ const routes: Routes = [
       {path: 'location', component:ShowLocationComponent},
       {path: 'order', component:ShowOrderComponent},
       {path: 'view-basket', component:ViewBasketComponent},
+      {path: 'browse-order',component:BrowseOrderComponent},
 
       {path: 'phone-verification', component:PhoneVerificationComponent},
       {path: 'otp', component:OtpVerificationComponent},
@@ -108,6 +110,7 @@ const routes: Routes = [
     PickupLocationComponent,
     SigninComponent,
     SigninOtpComponent,
+    BrowseOrderComponent,
   ],
   imports: [
     NgxSpinnerModule,

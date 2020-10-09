@@ -33,6 +33,13 @@ li.StepProgress-item.current img {
     margin-left: 15px !important;
     padding-left: 12px !important;
 }
+.app_order_placed{
+    position: relative;
+    float: left;
+    width: 100%;
+    background-color: var(--primary-color);
+    height: 1000px !important;
+}
 .app_verification_image {
     padding: 20px;
 }
@@ -54,14 +61,14 @@ img.app_delievery_boy_image{
     max-width: 55px;
 }
 .order_address{
-    border-top-left-radius: 22px;
-    border-top-right-radius: 22px;
+    border-top-left-radius: 22px !important;
+    border-top-right-radius: 22px !important;
     padding: 20px 27px !important;
     box-shadow: none !important;
     background: #fff;
     position: absolute !important;
     width: 100% !important;
-    top: 100% !important;
+    top: 95% !important;
     z-index: 9999999999;
 }
 .delivery_boy_call .col-7{
