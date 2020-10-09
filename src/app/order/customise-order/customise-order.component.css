@@ -41,6 +41,7 @@ input[type=checkbox] {
     font-size: 20px;
     font-weight: 500;
     color: #2a3b56;
+    text-shadow: none;
 }
 @media only screen and (max-width: 800px) and (min-width: 320px){
 .requireds .col-12 {
@@ -62,9 +63,10 @@ i.fa.fa-minus{
 .app_the_food__image_heading_6_left h6{
     border: none;
     line-height: 1.5;
-    color: #ccc;
-    font-size: 16px !important;
+    color: #929292;
+    font-size: 18px;
     font-weight: 500;
+    text-shadow: none;
 }
 .size_test .col-12 {
     padding: 0;
@@ -76,8 +78,9 @@ i.fa.fa-minus{
     margin-top: 8px;
 }
 .app_the_food_image_heading_left_bottom h4 {
-    font-size: 17px !important;
-    color: #8a94a3;
+  font-size: 18px;
+    color: #8a8787;
+
 }
 .app_the_food_image_heading_left h3{
     font-size: 22px !important;
@@ -258,6 +261,7 @@ top: 3px;
     font-size: 20px;
     margin-bottom: 0px !important;
     margin-top: 8px;
+    text-shadow: none;
 }
 .app_the_food_image_heading_left h3 {
     font-size: 27px;
@@ -267,9 +271,10 @@ top: 3px;
 .app_the_food__image_heading_6_left h6 {
     border: none;
     line-height: 1.5;
-    color: #ccc;
+    color: #929292;
     font-size: 18px;
     font-weight: 500;
+    text-shadow: none;
 }
 i.fa.fa-minus {
     background: #f6f4f4;
@@ -289,6 +294,7 @@ i.fa.fa-minus {
     padding-top: 7px;
     border-radius: 50%;
     font-size: 19px;
+    text-shadow: none;
 }
 .app_your_basket_text_icons_number {
     color: black;
@@ -299,6 +305,8 @@ i.fa.fa-minus {
 .app_the_food_image_heading_left_bottom h4 {
     font-size: 18px;
     color: #8a8787;
+        text-shadow: none;
+    font-weight: 600;
 }
 .app_the_food_image {
     background-color: #fff;

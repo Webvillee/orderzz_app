@@ -8,6 +8,10 @@ span.app_basket_quantity {
     padding-right: 10px;
     font-size: 18px !important;
 }
+.col-6.address_order {
+    padding-right: 0;
+    padding-left: 8px;
+}
 .box-view .app_bestsellers_detail img {
     border-radius: 18px;
     width: 100%;

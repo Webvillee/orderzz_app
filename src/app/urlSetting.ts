@@ -8,5 +8,6 @@ export class UrlSetting {
     public static uri = 'https://api.orderrzz.com/api'; 
     public static image_uri = 'https://api.orderrzz.com/';
 
+
     public static agm_core_key ='AIzaSyCFR9hzxNNeMLv8TY_kfKgHBEFiBrG5dXE';
 }

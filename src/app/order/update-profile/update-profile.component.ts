@@ -75,6 +75,7 @@ export class UpdateProfileComponent implements OnInit {
       userName: ['', Validators.required, Validators.minLength(3)],
       email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
       mobileno: ['', Validators.required, Validators.minLength(10)],
+        file: ['', Validators.required],
     });
 
 
@@ -198,7 +199,9 @@ export class UpdateProfileComponent implements OnInit {
 
           let dialogReff = this.dialog.open(SuccessDialogComponent, {
             maxWidth: "700px",
+            panelClass: 'sucess-messages',
             data: dialogDatasuccess
+            
           });
           dialogReff.afterClosed()
             .subscribe(result => {

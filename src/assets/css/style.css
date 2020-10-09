@@ -1341,7 +1341,7 @@ Personal Detail
 	font-size: 20px;
   } 
    .app_nav_bar ul li a.active{
-	   color:#f55b02;
+	   color:var(--primary-color);;
    }
    .app_bar_icon .app_nav_icon {
     background-color: transparent;
@@ -1883,6 +1883,7 @@ p.required_btnn {
     border: 1px solid;
     border-radius: 5px;
     font-weight: 600;
+    text-shadow: none;
 }
 .container_radio input:checked ~ .checkmark {
   background-color: var(--primary-color) !important;
@@ -1924,7 +1925,9 @@ input.app_full_btn:focus {
     position: absolute;
     margin-left: 33% !important;
 }
-
+.address-class .mat-dialog-container {
+   padding-bottom: 70px !important;
+}
 .app_full_btn {
     font-size: 20px !important;
 }
@@ -2007,4 +2010,22 @@ input.app_full_btn:focus {
 .la-line-spin-clockwise-fade.la-2x{
     height: 55px !important;
     width: 55px !important;
+}
+.sucess-messages .mat-dialog-actions {
+    padding: 8px 0;
+    display: block;
+}
+.sucess-messages button.mat-raised-button {
+    background: var(--primary-color) !important;
+    padding: 2px 32px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+}
+.sucess-messages .mat-dialog-container{
+	text-align: center;
+	padding: 30px 30px 45px;
+}
+.sucess-messages button.mat-raised-button:focus{
+	outline: none;
 }
