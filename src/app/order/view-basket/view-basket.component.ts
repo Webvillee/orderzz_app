@@ -91,41 +91,12 @@ export class ViewBasketComponent implements OnInit {
     if (localStorage.getItem("OrderData")) {
       const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))
       this.itemArray = data;
-      if(this.itemArray.length===0){
+      if (this.itemArray.length === 0) {
         this.router.navigate(['/order'])
       }
       let total = this.itemArray.reduce((prev, item) => prev + item.price, 0);
       //  console.log(JSON.stringify(this.itemArray))
       const arr_total = this.itemArray
-
-      // this.itemArray.map((element, index) => {
-      //   if (element.is_modifire_status === 1) {
-      //     const availmodifire = JSON.parse(element.available_modifire);
-      //     // console.log(availmodifire, 'pppppp');
-      //     for (let step = 0; step < availmodifire.length; step++) {
-      //       // availmodifire[step].modifire.reduce((prev, item) => prev + item.sell_price, 0);
-      //       availmodifire[step].modifire.map(function (el) {
-      //         // console.log(availmodifire[step].cat_name, el.isChecked)
-      //         if (el.isChecked === true) {
-      //           // console.log(availmodifire[step].cat_name, '00');
-      //           if(availmodifire[step].cat_name==='size'){
-      //             // console.log(availmodifire[step].cat_name, 'kljkljkl');
-      //             // console.log(el.price, '99999');
-      //             total = total + el.price;
-      //             total = total - element.price
-
-      //             element.priceNew = el.price;
-      //           }else{
-      //             // console.log(el.price, 'elllll');
-      //             total = total + el.price
-      //           }
-      //         }
-      //       })
-      //     }
-      //   }
-       
-
-      // });
 
       this.itemArray.map((element, index) => {
         if (element.is_modifire_status === 1) {
@@ -135,8 +106,8 @@ export class ViewBasketComponent implements OnInit {
             // availmodifire[step].modifire.reduce((prev, item) => prev + item.sell_price, 0);
             availmodifire[step].modifire.map(function (el) {
               if (el.isChecked === true) {
-                console.log(el.price, 'elllll');
-                total =  total + el.price
+                // console.log(el.price, 'elllll');
+                total = total + el.price
               }
             })
           }
@@ -200,10 +171,31 @@ export class ViewBasketComponent implements OnInit {
     });
   }
 
-  submit() {
+  customiseFun(itemData) {
+    let itemdt = false
+    const availmodifire = JSON.parse(itemData.available_modifire);
+    for (let step = 0; step < availmodifire.length; step++) {
+      availmodifire[step].modifire.map(function (el) {
+        if (el.isChecked === true) {
+          console.log(el.price, 'iooooo');
+          itemdt = true
+        }
+      })
+    }
+    return itemdt
+  }
 
+  submit() {
     var encrypted_order_type = CryptoJS.AES.encrypt(this.special_instruction, '');
     localStorage.setItem('order_instruction', encrypted_order_type.toString());
+
+    if (localStorage.getItem('userId')) {
+      const userId = CryptoJS.AES.decrypt(localStorage.getItem('userId'), '').toString(CryptoJS.enc.Utf8)
+      // const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))
+      this.router.navigate(['/personal-details']);
+    } else {
+      this.router.navigate(['/phone-verification']);
+    }
 
   }
 

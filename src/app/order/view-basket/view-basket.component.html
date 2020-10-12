@@ -58,7 +58,7 @@
                                 </div>
                             </div>
                             <div *ngIf="itemData.is_modifire_status===1" class="app_your_basket_text_right_bottom">
-                                <h2><a (click)="customiseOrder(itemData)" class="linkColor">Customise this</a></h2>
+                                <h2><a (click)="customiseOrder(itemData)" class="linkColor">{{((customiseFun(itemData))===true? 'Edit Customise': 'Customise this')}}</a></h2>
                             </div>
                         </div>
                     </div>
@@ -160,7 +160,7 @@
                 </div>
             </div>
             <a *ngIf="orderTotal<minimumOrderValue" [routerLink]="['/order']" class="app_full_btn">Add more item</a>
-            <a *ngIf="orderTotal>=minimumOrderValue" [routerLink]="['/phone-verification']" class="app_full_btn"
+            <a *ngIf="orderTotal>=minimumOrderValue" class="app_full_btn proceed-order"
                 (click)="submit()">Proceed to order</a>
         </div>
     </div>

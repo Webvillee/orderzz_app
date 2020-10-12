@@ -58,6 +58,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin-top: 10%;
      border-radius: 60px !important;
      padding: 0px !important;
+     overflow: scroll;
 }
 .address-class .mat-dialog-container {
     border-radius: 60px;

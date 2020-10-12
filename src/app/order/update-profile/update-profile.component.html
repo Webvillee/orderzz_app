@@ -8,7 +8,7 @@
         <h6 style="color: green">{{ displaysuccess }}</h6>
         <form [formGroup]="angForm" (ngSubmit)="onSubmit()" class="app_my_profile_form">
             <div class="form-group">
-                <div class="row">
+                <div class="row" *ngIf="user_image">
                     <div class="col-12">
                         <img width="100"  height="100" mat-card-image src="{{img_url}}{{user_image}}" alt="Photo of a Shiba Inu">
                         </div>

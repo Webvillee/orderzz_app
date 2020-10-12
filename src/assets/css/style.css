@@ -117,7 +117,7 @@ img{
 	width:80%;
 	min-height:60px;
 	border:1px solid var(--primary-color);
-	border-radius:30px;
+	border-radius:25px;
 	background-color:var(--primary-color);
 	display:inline-block;
 	color:#fff;
@@ -1341,7 +1341,7 @@ Personal Detail
 	font-size: 20px;
   } 
    .app_nav_bar ul li a.active{
-	   color:#f55b02;
+	   color:var(--primary-color);;
    }
    .app_bar_icon .app_nav_icon {
     background-color: transparent;
@@ -1883,6 +1883,7 @@ p.required_btnn {
     border: 1px solid;
     border-radius: 5px;
     font-weight: 600;
+    text-shadow: none;
 }
 .container_radio input:checked ~ .checkmark {
   background-color: var(--primary-color) !important;
@@ -1924,7 +1925,9 @@ input.app_full_btn:focus {
     position: absolute;
     margin-left: 33% !important;
 }
-
+.address-class .mat-dialog-container {
+   padding-bottom: 70px !important;
+}
 .app_full_btn {
     font-size: 20px !important;
 }
@@ -1962,7 +1965,7 @@ input.app_full_btn:focus {
     padding-left: 19px;
 }
 .app_checkout .app_heading, .app_verification_caption .app_heading {
-    font-size: 35px !important;
+    font-size: 30px !important;
     line-height: 47px;
 }
 .app_order_details .app_order_details_heading_6_right h6 {
@@ -1972,7 +1975,7 @@ input.app_full_btn:focus {
     font-weight: 500;
 }
 .app_order_details .app_order_details_heading_3_right h3 {
-    font-size: 22px !important;
+    font-size: 19px !important;
     font-weight: 700;
     margin-top: 10px;
 }
@@ -1985,7 +1988,7 @@ input.app_full_btn:focus {
   color: rgba(0, 0, 0, 0.3);
 }
 
-.mat-dialog-container{
+/* .mat-dialog-container{
   background: white;
   padding: 20px;
   width: 200px;
@@ -1997,7 +2000,7 @@ input.app_full_btn:focus {
   text-shadow: 0 0 black;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
   transition: color .3s ease;
-}
+} */
 .la-line-spin-clockwise-fade.la-2x > div {
     height: 10px !important;
     margin-left: -2px;
@@ -2007,4 +2010,22 @@ input.app_full_btn:focus {
 .la-line-spin-clockwise-fade.la-2x{
     height: 55px !important;
     width: 55px !important;
+}
+.sucess-messages .mat-dialog-actions {
+    padding: 8px 0;
+    display: block;
+}
+.sucess-messages button.mat-raised-button {
+    background: var(--primary-color) !important;
+    padding: 2px 32px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+}
+.sucess-messages .mat-dialog-container{
+	text-align: center;
+	padding: 30px 30px 45px;
+}
+.sucess-messages button.mat-raised-button:focus{
+	outline: none;
 }

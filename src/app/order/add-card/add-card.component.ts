@@ -124,7 +124,7 @@ export class AddCardComponent implements OnInit {
       return;
     }
     if (this.submitted === true && (card_number || '').trim().length != 0 && card_number.length >= 12 && (cardexpiry || '').trim().length != 0) {
-      console.log(obj, '787678', card_number.length);
+      // console.log(obj, '787678', card_number.length);
 
       this.orderService.postAll('add_card_data', obj).subscribe((res) => {
         if (res.status === 200) {
