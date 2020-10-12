@@ -181,9 +181,6 @@ export class CheckoutComponent implements OnInit {
     var paymentMethod = this.angForm.controls.paymentMethod.value;
     // var userEmail = this.angForm.controls.email.value;
     // console.log('7767678888888888888', paymentMethod, this.angForm.invalid);
-
-   
-
     this.submitted = true;
 
     // stop here if form is invalid

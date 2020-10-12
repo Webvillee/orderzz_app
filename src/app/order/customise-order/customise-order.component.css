@@ -70,6 +70,7 @@ i.fa.fa-minus{
 }
 .size_test .col-12 {
     padding: 0;
+    padding-right: 10px;
 }
 .app_the_food_image_heading_left_center h3 {
     font-weight: 700;
@@ -83,7 +84,7 @@ i.fa.fa-minus{
 
 }
 .app_the_food_image_heading_left h3{
-    font-size: 22px !important;
+    font-size: 19px !important;
     font-weight: 700;
 }
 .app_the_food_image_content_text_icons.requireds {
@@ -111,6 +112,7 @@ i.fa.fa-minus{
 }
 .col-5.ng-star-inserted {
     padding: 0;
+    padding-right: 10px !important;
 }
 .app_the_food_image_content_text_icons .col-8 {
     max-width: 50%;

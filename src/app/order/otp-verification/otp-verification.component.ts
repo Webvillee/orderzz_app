@@ -51,10 +51,13 @@ export class OtpVerificationComponent implements OnInit {
     this.angForm = this.fb.group({
       otp: ['', Validators.required, Validators.minLength(4)],
     });
+    if (localStorage.getItem('UserData')) {
+      const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
+      // this.UserData= data
+      console.log(data, 'llloo')
+      this.userId= data._id;
+      }
 
-    // if (localStorage.getItem('userId')) {
-      this.userId = CryptoJS.AES.decrypt(localStorage.getItem('userId'), '').toString(CryptoJS.enc.Utf8)
-    // }
 
 
 
@@ -116,6 +119,13 @@ export class OtpVerificationComponent implements OnInit {
         if (res.status === 200) {
         var encrypted_order_type = CryptoJS.AES.encrypt(otp, '');
         localStorage.setItem('otp',encrypted_order_type.toString());
+        if (localStorage.getItem('UserData')) {
+          const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
+          // this.UserData= data
+          // console.log(data, 'lll')
+          var encrypted_order_type = CryptoJS.AES.encrypt(data._id, '');
+          localStorage.setItem('userId',encrypted_order_type.toString());
+          }
           this.display = ''
           this.displaysuccess = "Succussfully";
           this.router.navigate(['/personal-details']);

@@ -22,6 +22,7 @@ input[type="month"]{
     font-size: 18px;
     background-color: rgb(246 244 244);
     font-weight: 600;
+    padding-right: 20px;
 }
 input.app_icon_input_pad.ng-pristine.ng-invalid.ng-touched:focus{
     outline: none;

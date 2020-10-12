@@ -104,7 +104,7 @@ input.app_checkout_input_pad.app_check_input_loc {
     font-size: 14px;
 }
 .app_bestseller_foot .app_footer {
-    font-size: 20px;
+    font-size: 18px;
     color: var(--primary-color);
     font-weight: 600;
     padding-right: 2px;
@@ -170,7 +170,7 @@ input.app_checkout_input_pad.app_check_input_loc {
     padding-right: 7px !important;
 }
 .col-6.delivery_order {
-    padding-right: 0;
+    padding-right: 6px;
 }
 
 .app_basket_btn_submit .app_full_btn.app_add_basket_btn {
@@ -197,14 +197,14 @@ input.app_checkout_input_pad.app_check_input_loc {
     margin-bottom: 40px;
 }
 .app_bestsellers_detail h5 {
-    font-size: 22px;
+    font-size: 19px;
     font-weight: 700;
     margin-top: 10px;
 }
 
 .app_bestsellers_detail h6 {
     color: #ccc;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 500;
 }
 /*.app_bestsellers_detail h6 {

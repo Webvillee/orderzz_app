@@ -7,11 +7,12 @@
     <div  class="app_verification app_otp">
         <div class="app_container">
             <div class="app_verification_image">
-                <a [routerLink]="['/phone-verification']"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                <a [routerLink]="['/signin']"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
             </div>
             <div class="app_verification_caption">
                 <h2 class="app_heading">Enter OTP</h2>
                 <p class="app_content">An OTP code sent to your phone. Enter it here:</p>
+                <!-- <p>{{timeLeft}} Seconds Left....</p> -->
                 <h6 style="color: red">{{ display }}</h6>
                 <h6 style="color: green">{{ displaysuccess }}</h6>
                 <form [formGroup]="angForm" (ngSubmit)="onSubmit()">

@@ -170,33 +170,6 @@ export class CustomiseOrderComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  // changeSelection(event, modifiersVal, modifire) {
-  //   // console.log('7666666666',event.target.checked);
-  //   this.itemArray.map((element, index) => {
-  //     if (element._id === this.itemData._id) {
-  //       const availmodifire = JSON.parse(element.available_modifire);
-  //       const modifiersIndex = availmodifire.findIndex(z => z._id === modifire._id)
-       
-  //       const modifiersValIndex = availmodifire[modifiersIndex].modifire.findIndex(y => y._id == modifiersVal._id);
-
-  //       availmodifire[modifiersIndex].modifire.map(function (el, index) {
-  //         if (modifiersValIndex === index) {
-  //           if (event.target.checked === true) {
-  //             el.isChecked = true;
-  //           }
-  //           console.log(el, 'yessss', modifiersValIndex);
-  //         } else {
-  //           el.isChecked = false;
-  //           console.log(el, 'no', modifiersValIndex);
-  //         }
-  //         return el;
-  //       });
-  //       element.available_modifire = JSON.stringify(availmodifire)
-  //       this.itemData = element
-  //     }
-  //   });
-  // }
-
   changeSelection(event, modifiersVal, modifire) {
     // console.log('7666666666',event.target.checked);
      this.itemArray.map((element, index) => {
@@ -229,7 +202,7 @@ export class CustomiseOrderComponent implements OnInit {
       var count = (input, arr) => arr.filter(x => x.isChecked === input).length;
       // console.log (count(id, this.itemArray));
       const allCount = count(true, this.available_modifire[step].modifire);
-      console.log(this.available_modifire[step].minimum_modifiers, '!==', allCount)
+      // console.log(this.available_modifire[step].minimum_modifiers, '!==', allCount)
       if (this.available_modifire[step].minimum_modifiers > allCount) {
         this.available_modifire[step].isRequired = true;
         testArr.push("1");
@@ -239,7 +212,7 @@ export class CustomiseOrderComponent implements OnInit {
         testArr = testArr
       }
 
-      console.log(this.available_modifire[step].minimum_modifiers, 'ooo', allCount);
+      // console.log(this.available_modifire[step].minimum_modifiers, 'ooo', allCount);
 
     }
     let n = testArr.includes("1");

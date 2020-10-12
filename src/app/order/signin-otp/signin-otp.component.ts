@@ -36,6 +36,8 @@ export class SigninOtpComponent implements OnInit {
   submitted = false;
   userId;
   isLoading;
+  timeLeft: number = 60;
+  interval;
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -47,14 +49,18 @@ export class SigninOtpComponent implements OnInit {
     } else {
       this.customer_address = CryptoJS.AES.decrypt(localStorage.getItem('customer_address'), '').toString(CryptoJS.enc.Utf8);
     }
-
+    this.startTimer()
     this.angForm = this.fb.group({
       otp: ['', Validators.required, Validators.minLength(4)],
     });
 
-    // if (localStorage.getItem('userId')) {
-      this.userId = CryptoJS.AES.decrypt(localStorage.getItem('userId'), '').toString(CryptoJS.enc.Utf8)
-    // }
+    if (localStorage.getItem('UserData')) {
+      const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
+      // this.UserData= data
+      // console.log(data, 'lll')
+      this.userId= data._id;
+      }
+
 
 
 
@@ -112,12 +118,22 @@ export class SigninOtpComponent implements OnInit {
     if (this.submitted === true && (otp || '').trim().length != 0 && otp.length >= 4) {
       // console.log(this.angForm.controls.otp, '787678', otp.length);
       this.orderService.postAll('verify_otp', obj).subscribe((res) => {
+        this.spinner.show();
         if (res.status === 200) {
+          this.spinner.hide();
+          if (localStorage.getItem('UserData')) {
+            const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
+            // this.UserData= data
+            // console.log(data, 'lll')
+            var encrypted_order_type = CryptoJS.AES.encrypt(data._id, '');
+            localStorage.setItem('userId',encrypted_order_type.toString());
+            }
           this.display = ''
           this.displaysuccess = "Succussfully";
           this.router.navigate(['/order']);
           setTimeout(function(){ this.displaysuccess='' }, 3000);
         } else {
+          this.spinner.hide();
           this.displaysuccess = ''
           this.display = res.msg;
         }
@@ -147,7 +163,6 @@ export class SigninOtpComponent implements OnInit {
           this.display = res.msg;
         }
       });
-
     }
 
   }
@@ -166,6 +181,14 @@ export class SigninOtpComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  startTimer() {
+    this.interval = setInterval(() => {
+      if(this.timeLeft > 0) {
+        this.timeLeft--;
+      }
+    },1000)
   }
 
 }

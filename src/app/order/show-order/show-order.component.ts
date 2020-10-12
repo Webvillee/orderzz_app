@@ -238,6 +238,5 @@ export class ShowOrderComponent implements OnInit {
         this.userId=''
         this.router.navigate(['/order']);
     });
-
   }
 }

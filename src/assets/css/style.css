@@ -117,7 +117,7 @@ img{
 	width:80%;
 	min-height:60px;
 	border:1px solid var(--primary-color);
-	border-radius:30px;
+	border-radius:25px;
 	background-color:var(--primary-color);
 	display:inline-block;
 	color:#fff;
@@ -1975,7 +1975,7 @@ input.app_full_btn:focus {
     font-weight: 500;
 }
 .app_order_details .app_order_details_heading_3_right h3 {
-    font-size: 22px !important;
+    font-size: 19px !important;
     font-weight: 700;
     margin-top: 10px;
 }
@@ -1988,7 +1988,7 @@ input.app_full_btn:focus {
   color: rgba(0, 0, 0, 0.3);
 }
 
-.mat-dialog-container{
+/* .mat-dialog-container{
   background: white;
   padding: 20px;
   width: 200px;
@@ -2000,7 +2000,7 @@ input.app_full_btn:focus {
   text-shadow: 0 0 black;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
   transition: color .3s ease;
-}
+} */
 .la-line-spin-clockwise-fade.la-2x > div {
     height: 10px !important;
     margin-left: -2px;
