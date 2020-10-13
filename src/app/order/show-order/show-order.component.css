@@ -8,6 +8,9 @@ span.app_basket_quantity {
     padding-right: 10px;
     font-size: 18px !important;
 }
+.box-view .app_bestsellers_detail h5{
+    min-height: 50px;
+}
 .col-6.address_order {
     padding-right: 0;
     padding-left: 8px;

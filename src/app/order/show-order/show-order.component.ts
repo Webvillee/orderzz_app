@@ -231,6 +231,7 @@ export class ShowOrderComponent implements OnInit {
     const dialogDatasuccess = new SuccessDialogModel("Success", "Succesfully Logout");
     let dialogReff = this.dialog.open(SuccessDialogComponent, {
       maxWidth: "700px",
+      panelClass: 'logout-message',
       data: dialogDatasuccess
     });
     dialogReff.afterClosed()

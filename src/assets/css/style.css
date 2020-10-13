@@ -1925,6 +1925,22 @@ input.app_full_btn:focus {
     position: absolute;
     margin-left: 33% !important;
 }
+.sucess-messages .mat-dialog-container {
+    text-align: center;
+    padding: 28px 58px 40px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 0px !important;
+    border-radius: 5px !important;
+}
+.logout-message  .mat-dialog-container {
+    text-align: center;
+    padding: 28px 58px 40px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 0px !important;
+    border-radius: 5px !important;
+}
 .address-class .mat-dialog-container {
    padding-bottom: 70px !important;
 }
@@ -2027,5 +2043,23 @@ input.app_full_btn:focus {
 	padding: 30px 30px 45px;
 }
 .sucess-messages button.mat-raised-button:focus{
+	outline: none;
+}
+.logout-message .mat-dialog-actions {
+    padding: 8px 0;
+    display: block;
+}
+.logout-message button.mat-raised-button {
+    background: var(--primary-color) !important;
+    padding: 2px 32px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+}
+.logout-message .mat-dialog-container{
+	text-align: center;
+	padding: 30px 40px 45px;
+}
+.logout-message button.mat-raised-button:focus{
 	outline: none;
 }
