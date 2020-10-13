@@ -379,5 +379,9 @@ input.app_checkout_input_pad.app_check_input_loc {
 }
 .box-view  .app_basket_btn_submit .app_full_btn.app_add_basket_btn {
     position: fixed;
-    bottom: -14px;
+    bottom: 10px;
+    }
+    .app_restaurant {
+        padding: 20px;
+        margin-bottom: 50px;
     }
