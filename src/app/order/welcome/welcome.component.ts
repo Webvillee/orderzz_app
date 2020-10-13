@@ -44,7 +44,7 @@ export class WelcomeComponent implements OnInit {
     this.orderService.get_restaurant_data(obj).subscribe((res) => {
       if (res.status == 200) {
         // console.log(res.data, 'jkhjk');
-        this.spinner.hide();
+       
         this.logo = res.data.rest_logo
         this.instaId = res.data.rest_instagram_id
         this.linkeinId = res.data.rest_linkedin_id
@@ -59,7 +59,7 @@ export class WelcomeComponent implements OnInit {
         document.documentElement.style.setProperty('--primary-color', theme_color);
         // this.isLoading =false 
         // this.spinner.hide();
-
+        this.spinner.hide();
         // // for decrypted the encripted code
         // //var decrypted =  CryptoJS.AES.decrypt(encrypted_token,'');
         // // console.log(decrypted.toString(CryptoJS.enc.Utf8))
