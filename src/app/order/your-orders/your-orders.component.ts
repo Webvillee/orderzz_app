@@ -85,7 +85,7 @@ export class YourOrdersComponent implements OnInit {
      this.orderService.postAll('my_order_list', obj).subscribe((res) => {
         this.isLoading = true
         if (res.status === 200) {
-          console.log(res.data);
+          // console.log(res.data);
           this.orderHistory = res.data.menu;
           this.orderCount = res.data.count;
           this.isLoading = false
@@ -143,7 +143,7 @@ export class YourOrdersComponent implements OnInit {
 
   orderDetails(OrderDetails, heading){
     const alData = JSON.parse(OrderDetails);
-    console.log(alData, 'OrderDetails', heading);
+    // console.log(alData, 'OrderDetails', heading);
     if(heading ==='title'){
       return alData[0].item_name;
     }else if(heading ==='image'){
@@ -151,6 +151,12 @@ export class YourOrdersComponent implements OnInit {
     }else{
       return alData.length;
     }
+  }
+  repeatOrder(orderData){
+    const orderDetail = JSON.parse(orderData.order_items)
+    // console.log(orderDetail, 'orderData');
+    let uniqueIds = Array.from(new Set(orderDetail.map((item: any) => item._id)))
+    // console.log(uniqueIds, 'uniqueIds');
   }
 
 

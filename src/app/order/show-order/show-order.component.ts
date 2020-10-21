@@ -9,6 +9,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { AddressPopupComponent } from '../address-popup/address-popup.component'
 import { SuccessDialogComponent, SuccessDialogModel } from '../../shared/dialogs/success-dialog/success-dialog.component';
 import { NgxSpinnerService } from "ngx-spinner";
+import { ConfirmDialogModel, ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-show-order',
@@ -85,13 +86,13 @@ export class ShowOrderComponent implements OnInit {
         } else {
           this.themeCondition = true
         }
-        this.allData= res.data
+        this.allData = res.data
         this.banner = res.data.rest_banner
         this.logo = res.data.rest_logo
         this.restName = res.data.rest_name
         this.restAddress = res.data.rest_full_address
         this.minimumOrderValue = res.data.minimum_order_value
-        this.is_online_status= res.data.is_online_status
+        this.is_online_status = res.data.is_online_status
         if (localStorage.getItem('order_type')) {
           const orderType = CryptoJS.AES.decrypt(localStorage.getItem('order_type'), '').toString(CryptoJS.enc.Utf8)
           this.selectedDeliveryType = orderType
@@ -223,21 +224,37 @@ export class ShowOrderComponent implements OnInit {
   }
 
   public logout() {
-    localStorage.removeItem('UserData');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('otp');
-    localStorage.removeItem('order_instruction');
-    localStorage.removeItem('userName');
-    const dialogDatasuccess = new SuccessDialogModel("Success", "Succesfully Logout");
-    let dialogReff = this.dialog.open(SuccessDialogComponent, {
+    const message = `Are you sure you want to Logout this session?`;
+    const dialogData = new ConfirmDialogModel("Confirm Action", message);
+    // const dialogDatasuccess = new SuccessDialogModel("Success", "Succesfully Logout");
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       maxWidth: "700px",
       panelClass: 'logout-message',
-      data: dialogDatasuccess
+      data: dialogData
     });
-    dialogReff.afterClosed()
-      .subscribe(result => {
-        this.userId=''
-        this.router.navigate(['/order']);
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      const result = dialogResult;
+      if (result) {
+        localStorage.removeItem('UserData');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('otp');
+        localStorage.removeItem('order_instruction');
+        localStorage.removeItem('userName');
+        const dialogDatasuccess = new SuccessDialogModel("Success", "Succesfully Logout");
+        let dialogReff = this.dialog.open(SuccessDialogComponent, {
+          maxWidth: "700px",
+          panelClass: 'logout-message',
+          data: dialogDatasuccess
+        });
+        dialogReff.afterClosed()
+          .subscribe(result => {
+            this.userId = ''
+            this.router.navigate(['/order']);
+          });
+      }
     });
   }
+
 }

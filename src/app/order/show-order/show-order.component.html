@@ -75,7 +75,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-12" *ngIf="is_online_status===1">
+						<div class="col-12" *ngIf="getCategoryData  &&  is_online_status===1">
 							   <div class="app_hot_food_restaurant_category">
 								  <h3>Categories</h3>
 							   </div>
@@ -233,7 +233,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-12" *ngIf="is_online_status===1">
+						<div class="col-12" *ngIf="getCategoryData && is_online_status===1">
 							   <div class="app_hot_food_restaurant_category">
 								  <h3>Categories</h3>
 							   </div>
@@ -257,7 +257,7 @@
 						<ng-container *ngIf="getItemData && is_online_status===1" >
 							<div class="col-12">
 								<div class="app_bestsellers_detail">
-									<div class="row" *ngFor="let itemData of getItemData"> 
+									<div class="row" *ngFor="let itemData of getItemData">
 										<div class="col-4">
 											<!-- <img src="{{img_url}}{{itemData.item_image}}"> -->
 											<!-- <img *ngIf="!banner" src="assets/img/biryani.jpg"> -->
