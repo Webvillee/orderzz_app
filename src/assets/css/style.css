@@ -1999,6 +1999,14 @@ input.app_full_btn:focus {
     font-size: 20px !important;
     font-weight: 500;
 }
+.sucess-messages .mat-dialog-container {
+    text-align: center;
+    padding: 28px 58px 40px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 0px !important;
+    border-radius: 5px !important;
+}
 }
 .mat-dialog-container:hover {
   color: rgba(0, 0, 0, 0.3);

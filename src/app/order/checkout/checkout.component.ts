@@ -37,15 +37,17 @@ export class CheckoutComponent implements OnInit {
   UserData;
   userName;
   email;
-  itemArray=[]
+  itemArray = []
   orderTotal;
   savingCost
   isLoading;
-  themeData:any;
+  themeData: any;
   latitude
   longitude
   address
-  landmark
+  landmark;
+  card_details;
+  cardCvv
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -59,24 +61,23 @@ export class CheckoutComponent implements OnInit {
     }
     if (localStorage.getItem('userId')) {
       this.userId = CryptoJS.AES.decrypt(localStorage.getItem('userId'), '').toString(CryptoJS.enc.Utf8)
-      // const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))
-      
-    const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
-    this.UserData=data
-    console.log(data, 'lll')
-      this.userName= data.user_name
-      this.email= data.user_email
+      // const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))  
+      const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
+      this.UserData = data
+      console.log(data, 'lll')
+      this.userName = data.user_name
+      this.email = data.user_email
       this.latitude = data.lat
       this.longitude = data.lng
-      this.address =data.address
-      this.landmark =data.landmark
+      this.address = data.address
+      this.landmark = data.landmark
     }
 
     this.angForm = this.fb.group({
       paymentMethod: ['', Validators.required],
     });
 
-    
+
 
     this.get_all_rest_data();
     this.getAllorderData();
@@ -123,17 +124,22 @@ export class CheckoutComponent implements OnInit {
   }
 
 
-  getCardDetails(){
+  getCardDetails() {
     const obj = {
-      // cardId userId: userId
-        };
-        console.log(obj)
-        this.orderService.postAll('get_card_data', obj).subscribe((res) => {
-          if (res.status == 200) {
-           
-          } else {
-          }
-        });
+      userId: this.userId
+    };
+    console.log(obj)
+    this.orderService.postAll('get_card_data', obj).subscribe((res) => {
+      if (res.status == 200) {
+        console.log(res.data);
+        this.card_details = res.data[0]
+      } else {
+      }
+    });
+  }
+
+  changeNumber(str) {
+    return str.replace(/.(?=\d{4})/g, "*")
   }
 
   getAllorderData() {
@@ -152,7 +158,7 @@ export class CheckoutComponent implements OnInit {
             availmodifire[step].modifire.map(function (el) {
               if (el.isChecked === true) {
                 console.log(el.price, 'elllll');
-                total =  total + el.price
+                total = total + el.price
               }
             })
           }
@@ -160,7 +166,7 @@ export class CheckoutComponent implements OnInit {
       });
 
       this.orderTotal = total;
-      
+
       let sellPrice = this.itemArray.reduce((prev, item) => prev + item.sell_price, 0);
       this.savingCost = sellPrice;
       const seen = new Set();
@@ -177,11 +183,18 @@ export class CheckoutComponent implements OnInit {
 
 
   onSubmit() {
-    
+    var is_submit = true
     var paymentMethod = this.angForm.controls.paymentMethod.value;
     // var userEmail = this.angForm.controls.email.value;
     // console.log('7767678888888888888', paymentMethod, this.angForm.invalid);
+    // console.log(this.cardCvv)
     this.submitted = true;
+    if(paymentMethod==1){
+      if (this.cardCvv === '' || this.cardCvv.trim() === '') {
+        is_submit = false
+        this.submitted = false;
+      }
+    }
 
     // stop here if form is invalid
     if (this.angForm.invalid) {
@@ -190,39 +203,39 @@ export class CheckoutComponent implements OnInit {
     // this.isLoading =true
     this.spinner.show();
     let orderType;
-    let order_instruction='';
+    let order_instruction = '';
     let items;
     let res_id;
-    if(localStorage.getItem('order_type')){
-       orderType = CryptoJS.AES.decrypt(localStorage.getItem('order_type'), '').toString(CryptoJS.enc.Utf8);
+    if (localStorage.getItem('order_type')) {
+      orderType = CryptoJS.AES.decrypt(localStorage.getItem('order_type'), '').toString(CryptoJS.enc.Utf8);
     }
 
-    if(localStorage.getItem('order_instruction')){
-       order_instruction =CryptoJS.AES.decrypt(localStorage.getItem('order_instruction'), '').toString(CryptoJS.enc.Utf8)
+    if (localStorage.getItem('order_instruction')) {
+      order_instruction = CryptoJS.AES.decrypt(localStorage.getItem('order_instruction'), '').toString(CryptoJS.enc.Utf8)
     }
 
-    if(this.itemArray){
-       items = JSON.stringify(this.itemArray)
+    if (this.itemArray) {
+      items = JSON.stringify(this.itemArray)
     }
 
-    if(localStorage.getItem('rest_id')){
-      res_id= CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
+    if (localStorage.getItem('rest_id')) {
+      res_id = CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     }
-    if(paymentMethod){
-      this.submitted = true;
-      const obj = { restId: res_id, userId: this.userId, orderType:  Number(orderType), orderItems: items, orderDescription:order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod)  , orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat:Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: '', pickupLat:'', pickupLng:'' }
-      console.log(paymentMethod, '776767888', obj);
-  
+
+    if (paymentMethod && this.submitted === true) {
+      const obj = { restId: res_id, userId: this.userId, orderType: Number(orderType), orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: '', pickupLat: '', pickupLng: '' }
+      // console.log(paymentMethod, '776767888', obj);
+
       this.orderService.postAll('place_order', obj).subscribe((res) => {
         if (res.status === 200) {
           var encrypted_order_type = CryptoJS.AES.encrypt(JSON.stringify(res.data), '').toString();;
-          localStorage.setItem('placedData',encrypted_order_type.toString());
-      
+          localStorage.setItem('placedData', encrypted_order_type.toString());
+
           localStorage.removeItem("OrderData")
           this.display = ''
           this.displaysuccess = "Succussfully";
           this.router.navigate([`/order-tracking/${res.data._id}`]);
-          setTimeout(function(){ this.displaysuccess='' }, 3000);
+          setTimeout(function () { this.displaysuccess = '' }, 3000);
           // this.isLoading =false
           this.spinner.hide();
         } else {
@@ -232,7 +245,7 @@ export class CheckoutComponent implements OnInit {
           this.display = res.msg;
         }
       });
-    }else{
+    } else {
       this.submitted = false;
       // this.isLoading =false
       this.spinner.hide();
@@ -246,6 +259,14 @@ export class CheckoutComponent implements OnInit {
   onReset() {
     this.submitted = false;
     this.angForm.reset();
+  }
+
+  onKeypressEvent(event: any): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
   }
 
   ngOnInit(): void {

@@ -56,8 +56,8 @@
                             </div>
                             <div class="app_your_orders_heading_right_text_bold">
                                 <h4>{{orderData.total_amount}} AED</h4>
-                                <a ><span class="app_your_orders_right_try_icons"><img
-                                            src="assets/img/repeat.svg" alt="">Repeat Order</span></a>
+                                <a class="cursorCss" (click)="repeatOrder(orderData)"><span class="app_your_orders_right_try_icons"><img
+                                            src="assets/img/repeat.svg" alt=""  >Repeat Order</span></a>
                             </div>
                         </div>
                     </div>

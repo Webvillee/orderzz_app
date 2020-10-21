@@ -32,6 +32,7 @@ import { SigninOtpComponent } from './signin-otp/signin-otp.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { BrowseOrderComponent } from './browse-order/browse-order.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
        // @agm/core
 
 // const routes: Routes = [
@@ -111,6 +112,7 @@ const routes: Routes = [
     SigninComponent,
     SigninOtpComponent,
     BrowseOrderComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     NgxSpinnerModule,
@@ -123,6 +125,6 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   providers: [OrderService, AuthguardGuard],
-  entryComponents: [CustomiseOrderComponent, ConfirmAddressComponent]
+  entryComponents: [CustomiseOrderComponent, ConfirmAddressComponent, ConfirmDialogComponent]
 })
 export class OrderModule { }

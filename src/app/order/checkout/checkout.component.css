@@ -226,3 +226,9 @@
   left: 6px;
   top: 6px;
 }
+.cvvclass{
+  width: 20%;
+    float: right;
+    min-height: 29px;
+    margin-top: 10px;
+}
