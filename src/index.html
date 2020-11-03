@@ -25,19 +25,20 @@
 
 
 	<link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
 
 
-    <!-- <link rel="manifest" href="assets/icons/site.webmanifest"> -->
-   
-	
+	<!-- <link rel="manifest" href="assets/icons/site.webmanifest"> -->
+
+
 	<link rel="manifest" href="manifest.webmanifest">
 	<meta name="theme-color" content="#1976d2">
 </head>
@@ -51,6 +52,39 @@
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/main.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+	<script>
+		$(document).ready(function () {
+			var base_url = "http://3.21.151.41:7000";
+			var socket = io.connect(base_url);
+			var user_id = localStorage.getItem('usersid');
+			if (user_id) {
+
+				setInterval(function () { socket.emit("join_chat", user_id); }, 3000);
+
+				socket.on("join_chat_ack", function (data) {
+					console.log("join chat :- " + data);
+					// toastr.info(data);
+				})
+
+
+				socket.on("join_chat_ack1", function (data) {
+					console.log("join oooooooooo chat recieve:- " + data);
+				})
+
+
+				socket.on("push_notification", function (data) {
+					toastr.options.timeOut = 30000; // 1.5s
+					toastr.info(data.description, data.title);
+					// console.log('push notifyyyyyy')
+					console.log(data);
+				})
+			}
+
+
+		});
+	</script>
 	<noscript>Please enable JavaScript to continue using this application.</noscript>
 </body>
 

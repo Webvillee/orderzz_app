@@ -56,12 +56,8 @@ export class WelcomeComponent implements OnInit {
         localStorage.setItem('rest_id',encrypted_restid.toString());
         var theme_color = res.data.theme_color;
         document.documentElement.style.setProperty('--primary-color', theme_color);
-        // this.isLoading =false 
         // this.spinner.hide();
         this.spinner.hide();
-        // for decrypted the encripted code
-        // var decrypted =  CryptoJS.AES.decrypt(encrypted_token,'');
-        // console.log(decrypted.toString(CryptoJS.enc.Utf8))
       } else {
         // this.isLoading =false
         this.spinner.hide();

@@ -107,9 +107,6 @@ export class PhoneVerificationComponent implements OnInit {
 
       this.orderService.postAll('phone_verify', obj).subscribe((res) => {
         if (res.status === 200) {
-          // var encrypted_order_type = CryptoJS.AES.encrypt(res.data._id, '');
-          // localStorage.setItem('userId',encrypted_order_type.toString());
-          // console.log(res.data._id);
           // all user details
           var userOrder = CryptoJS.AES.encrypt(JSON.stringify(res.data), '').toString();
           localStorage.setItem('UserData', userOrder);

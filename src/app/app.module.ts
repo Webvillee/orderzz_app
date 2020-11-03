@@ -17,6 +17,8 @@ import { UrlSetting } from "./urlSetting";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ToastrModule } from 'ngx-toastr';
+
 const routes: Routes = [
   { path: '', loadChildren: () => import('./order/order.module').then(m => m.OrderModule), pathMatch: 'full' },
   { path: 'control-panel/dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
@@ -46,6 +48,7 @@ const routes: Routes = [
       apiKey: UrlSetting.agm_core_key ,
       libraries: ['places']
     }),
+    ToastrModule.forRoot(),
     // ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production, registrationStrategy: 'registerImmediately' })
   ],
