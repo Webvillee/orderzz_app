@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { OrderComponent } from './order.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { OrderService  } from './order.service';
+import { SocketioService  } from './socketio.service';
 import { SharedModule } from '../shared/shared.module';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ShowLocationComponent } from './show-location/show-location.component';
@@ -33,6 +34,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { BrowseOrderComponent } from './browse-order/browse-order.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+
        // @agm/core
 
 // const routes: Routes = [
@@ -124,7 +126,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
-  providers: [OrderService, AuthguardGuard],
+  providers: [OrderService, AuthguardGuard, SocketioService],
   entryComponents: [CustomiseOrderComponent, ConfirmAddressComponent, ConfirmDialogComponent]
 })
 export class OrderModule { }

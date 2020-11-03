@@ -7,7 +7,7 @@ import { OrderService } from '../order.service';
 import { UrlSetting } from '../../urlSetting'
 import * as CryptoJS from 'crypto-js'
 import { NgxSpinnerService } from "ngx-spinner";
-
+import { SocketioService } from '../socketio.service'
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
@@ -48,7 +48,7 @@ export class CheckoutComponent implements OnInit {
   landmark;
   card_details;
   cardCvv
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService, private socketService: SocketioService) {
 
     if (localStorage.getItem('rest_id') == null) {
       this.router.navigate(['/not-found'])
@@ -76,8 +76,6 @@ export class CheckoutComponent implements OnInit {
     this.angForm = this.fb.group({
       paymentMethod: ['', Validators.required],
     });
-
-
 
     this.get_all_rest_data();
     this.getAllorderData();
@@ -180,6 +178,12 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
+  ngOnInit() {
+    this.socketService.setupSocketConnection();
+    // this.socketService.orderPlace().subscribe((message) => {
+    //     console.log(message)
+    //   });
+  }
 
 
   onSubmit() {
@@ -223,11 +227,12 @@ export class CheckoutComponent implements OnInit {
     }
 
     if (paymentMethod && this.submitted === true) {
-      const obj = { restId: res_id, userId: this.userId, orderType: Number(orderType), orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: '', pickupLat: '', pickupLng: '' }
+      const obj = { restId: res_id, userId: this.userId, orderType: Number(orderType), orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: '', pickupLat: '', pickupLng: '', totalItemCount: this.itemArray.length }
       // console.log(paymentMethod, '776767888', obj);
-
+      this.socketService.setupSocketConnection();
       this.orderService.postAll('place_order', obj).subscribe((res) => {
         if (res.status === 200) {
+          this.socketService.orderPlace(res.data);
           var encrypted_order_type = CryptoJS.AES.encrypt(JSON.stringify(res.data), '').toString();;
           localStorage.setItem('placedData', encrypted_order_type.toString());
 
@@ -269,7 +274,5 @@ export class CheckoutComponent implements OnInit {
     return true;
   }
 
-  ngOnInit(): void {
-  }
 
 }

@@ -58,8 +58,8 @@ export class SigninOtpComponent implements OnInit {
       const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
       // this.UserData= data
       // console.log(data, 'lll')
-      this.userId= data._id;
-      }
+      this.userId = data._id;
+    }
 
 
 
@@ -124,14 +124,15 @@ export class SigninOtpComponent implements OnInit {
           if (localStorage.getItem('UserData')) {
             const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
             // this.UserData= data
-            // console.log(data, 'lll')
+            // console.log(data, 'lll');
             var encrypted_order_type = CryptoJS.AES.encrypt(data._id, '');
-            localStorage.setItem('userId',encrypted_order_type.toString());
-            }
+            localStorage.setItem('userId', encrypted_order_type.toString());
+            localStorage.setItem('usersid', data._id);
+          }
           this.display = ''
           this.displaysuccess = "Succussfully";
           this.router.navigate(['/order']);
-          setTimeout(function(){ this.displaysuccess='' }, 3000);
+          setTimeout(function () { this.displaysuccess = '' }, 3000);
         } else {
           this.spinner.hide();
           this.displaysuccess = ''
@@ -157,7 +158,7 @@ export class SigninOtpComponent implements OnInit {
         if (res.status === 200) {
           this.display = ''
           this.displaysuccess = "OTP resend Succussfully";
-          setTimeout(function(){ this.displaysuccess='' }, 3000);
+          setTimeout(function () { this.displaysuccess = '' }, 3000);
         } else {
           this.displaysuccess = ''
           this.display = res.msg;
@@ -185,10 +186,10 @@ export class SigninOtpComponent implements OnInit {
 
   startTimer() {
     this.interval = setInterval(() => {
-      if(this.timeLeft > 0) {
+      if (this.timeLeft > 0) {
         this.timeLeft--;
       }
-    },1000)
+    }, 1000)
   }
 
 }

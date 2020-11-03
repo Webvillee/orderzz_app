@@ -10,6 +10,8 @@ import { AddressPopupComponent } from '../address-popup/address-popup.component'
 import { SuccessDialogComponent, SuccessDialogModel } from '../../shared/dialogs/success-dialog/success-dialog.component';
 import { NgxSpinnerService } from "ngx-spinner";
 import { ConfirmDialogModel, ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { SocketioService } from '../socketio.service'
+import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-show-order',
@@ -41,8 +43,10 @@ export class ShowOrderComponent implements OnInit {
   isLoading;
   userId
   is_online_status;
+  opening_hours
+  opening_hours_status: boolean = false;
   allData
-  constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog, private spinner: NgxSpinnerService) {
+  constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog, private spinner: NgxSpinnerService, private socketService: SocketioService) {
 
     if (localStorage.getItem('rest_id') == null) {
       this.router.navigate(['/not-found'])
@@ -57,11 +61,16 @@ export class ShowOrderComponent implements OnInit {
     this.get_all_category()
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.socketService.setupSocketConnection();
+    // this.socketService.orderPlace().subscribe((message) => {
+    //     console.log(message)
+    //   });
   }
 
 
   ngAfterContentChecked() {
+    // this.socketService.orderPlace();
     if (localStorage.getItem('customer_address')) {
       this.customer_address = CryptoJS.AES.decrypt(localStorage.getItem('customer_address'), '').toString(CryptoJS.enc.Utf8);
     } else {
@@ -93,6 +102,33 @@ export class ShowOrderComponent implements OnInit {
         this.restAddress = res.data.rest_full_address
         this.minimumOrderValue = res.data.minimum_order_value
         this.is_online_status = res.data.is_online_status
+        this.opening_hours = JSON.parse(res.data.opening_hours);
+        
+       
+        // const cValue = formatDate(currentDate, 'yyyy-MM-dd', 'en-US');
+        // console.log(this.opening_hours, 'this.opening_hours');
+        const d = new Date();
+        let weekday = ['Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday'][d.getDay()]
+        
+        console.log(formatDate(new Date(), 'yyyy/MM/dd HH:mm', 'en')
+        , weekday, );
+
+        this.opening_hours.map((element, index) => {
+          console.log(element.name, 'element.name', element);
+          if (element.name == weekday && element.openstatus===true){
+            if(element.startTime > d.getHours()+':'+ d.getMinutes() && element.endTime < d.getHours()+':'+ d.getMinutes()){
+              console.log("kjkljlkjlk")
+            }
+          }
+        });
+
+
         if (localStorage.getItem('order_type')) {
           const orderType = CryptoJS.AES.decrypt(localStorage.getItem('order_type'), '').toString(CryptoJS.enc.Utf8)
           this.selectedDeliveryType = orderType

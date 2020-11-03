@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { OrderService } from './order.service';
 import { UrlSetting } from '../urlSetting'
 import * as CryptoJS from 'crypto-js'
-
+import { SocketioService } from './socketio.service'
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
@@ -27,7 +27,7 @@ export class OrderComponent implements OnInit {
   menuId
   restId
 
-  constructor( private route: ActivatedRoute, private router: Router,private orderService: OrderService ) { 
+  constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, private socketService: SocketioService) {
     // if( localStorage.getItem('rest_id')==null ){
     //   this.router.navigate(['/not-found'])
     // }
@@ -41,12 +41,26 @@ export class OrderComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.socketService.setupSocketConnection()
+
+    // this.socketService.orderPlace()
+    // this.socketService.orderPlace().subscribe((message) => {
+    //     console.log("hhiiiiiiiiiiiiiiiiii", message)
+    // });
   }
 
-  get_all_rest_data(){
-    if(localStorage.getItem('rest_id')){
+  // ngAfterContentChecked() {
+  //   this.socketService
+  //     .orderPlace()
+  //     .subscribe((message: string) => {
+  //       console.log(message)
+  //     });
+  // }
+
+  get_all_rest_data() {
+    if (localStorage.getItem('rest_id')) {
       const obj = {
-        restId:CryptoJS.AES.decrypt(localStorage.getItem('rest_id'),'').toString(CryptoJS.enc.Utf8)
+        restId: CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
       };
       this.orderService.get_restaurant_data(obj).subscribe((res) => {
         if (res.status == 200) {
@@ -66,10 +80,10 @@ export class OrderComponent implements OnInit {
           this.minimumOrderValue = res.data.minimum_order_value
           // this.minimum_order_value = res.data.end_delevery_time
           // this.themeColor = res.data.theme_color
-          
+
         }
       });
     }
-}
+  }
 
 }

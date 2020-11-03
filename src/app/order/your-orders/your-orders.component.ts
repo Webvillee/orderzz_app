@@ -32,8 +32,8 @@ export class YourOrdersComponent implements OnInit {
   orderHistory = [];
   orderCount
   img_url = UrlSetting.image_uri
-  page_no=1
-  perPage=10
+  page_no = 1
+  perPage = 10
   constructor(private router: Router, private mapsAPILoader: MapsAPILoader, private orderService: OrderService, private spinner: NgxSpinnerService) {
     var rest_id = localStorage.getItem('rest_id');
 
@@ -44,8 +44,8 @@ export class YourOrdersComponent implements OnInit {
       this.userId = CryptoJS.AES.decrypt(localStorage.getItem('userId'), '').toString(CryptoJS.enc.Utf8)
       // const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))
     }
-    if(localStorage.getItem('rest_id')){
-     this.restId = CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
+    if (localStorage.getItem('rest_id')) {
+      this.restId = CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     }
 
     this.get_all_rest_data();
@@ -77,46 +77,46 @@ export class YourOrdersComponent implements OnInit {
     });
   }
 
-  myOrderlist(){
-   
-    this.spinner.show();
-    const obj = {userId: this.userId, restId: this.restId, page_no:this.page_no , perPage:this.perPage  }
+  myOrderlist() {
 
-     this.orderService.postAll('my_order_list', obj).subscribe((res) => {
-        this.isLoading = true
-        if (res.status === 200) {
-          // console.log(res.data);
-          this.orderHistory = res.data.menu;
-          this.orderCount = res.data.count;
-          this.isLoading = false
-          this.spinner.hide();
-          // this.order_number= res.data.order_number
-          // this.total_amount=res.data.total_amount
-          // this.created_on=res.data.created_on
-          // this.order_status=res.data.order_status
-          // this.orderItems=res.data.order_items
-          // var userOrder = CryptoJS.AES.encrypt(JSON.stringify(res.data), '').toString();
-          // localStorage.setItem('UserData', userOrder);
-          // var encrypted_order_type = CryptoJS.AES.encrypt(userName, '');
-          // localStorage.setItem('userName',encrypted_order_type.toString());
-          // this.router.navigate(['/confirm-address']);
-          // this.display = ''
-          // this.displaysuccess = "Succussfully";
-          
-          setTimeout(function(){ this.displaysuccess='' }, 3000);
-        } else {
-          this.isLoading = false
-          this.spinner.hide();
-          // this.displaysuccess = ''
-          // this.display = res.msg;
-        }
-      });
+    this.spinner.show();
+    const obj = { userId: this.userId, restId: this.restId, page_no: this.page_no, perPage: this.perPage }
+
+    this.orderService.postAll('my_order_list', obj).subscribe((res) => {
+      this.isLoading = true
+      if (res.status === 200) {
+        // console.log(res.data);
+        this.orderHistory = res.data.menu;
+        this.orderCount = res.data.count;
+        this.isLoading = false
+        this.spinner.hide();
+        // this.order_number= res.data.order_number
+        // this.total_amount=res.data.total_amount
+        // this.created_on=res.data.created_on
+        // this.order_status=res.data.order_status
+        // this.orderItems=res.data.order_items
+        // var userOrder = CryptoJS.AES.encrypt(JSON.stringify(res.data), '').toString();
+        // localStorage.setItem('UserData', userOrder);
+        // var encrypted_order_type = CryptoJS.AES.encrypt(userName, '');
+        // localStorage.setItem('userName',encrypted_order_type.toString());
+        // this.router.navigate(['/confirm-address']);
+        // this.display = ''
+        // this.displaysuccess = "Succussfully";
+
+        setTimeout(function () { this.displaysuccess = '' }, 3000);
+      } else {
+        this.isLoading = false
+        this.spinner.hide();
+        // this.displaysuccess = ''
+        // this.display = res.msg;
+      }
+    });
   }
 
 
   onScroll() {
     this.page_no++;
-    const obj = {userId: this.userId, restId: this.restId, page_no:this.page_no , perPage:this.perPage  }
+    const obj = { userId: this.userId, restId: this.restId, page_no: this.page_no, perPage: this.perPage }
     this.orderService.postAll('my_order_list', obj).subscribe((res) => {
       // this.isLoading = true;
       this.spinner.show();
@@ -124,7 +124,7 @@ export class YourOrdersComponent implements OnInit {
       if (res.status === 200) {
         // console.log(res.data, 'ghfhg');
         // this.upcomingContest = res.data
-        if(res.data!=0 && this.orderHistory.length<this.orderCount){
+        if (res.data != 0 && this.orderHistory.length < this.orderCount) {
           res.data.menu.forEach(childObj => {
             this.orderHistory.push(childObj);
           });
@@ -132,31 +132,56 @@ export class YourOrdersComponent implements OnInit {
         // this.isLoading = false;
         this.spinner.hide();
         // this.display = res.message;
-      } else if(res.status === 201){
+      } else if (res.status === 201) {
         // this.isLoading = false;
         this.spinner.hide();
         // this.orderHistory = [];
       }
     });
   }
- 
 
-  orderDetails(OrderDetails, heading){
+
+  orderDetails(OrderDetails, heading) {
     const alData = JSON.parse(OrderDetails);
     // console.log(alData, 'OrderDetails', heading);
-    if(heading ==='title'){
+    if (heading === 'title') {
       return alData[0].item_name;
-    }else if(heading ==='image'){
+    } else if (heading === 'image') {
       return alData[0].item_image;
-    }else{
+    } else {
       return alData.length;
     }
   }
-  repeatOrder(orderData){
+
+  repeatOrder(orderData) {
     const orderDetail = JSON.parse(orderData.order_items)
-    // console.log(orderDetail, 'orderData');
+    console.log(orderDetail, 'orderData');
     let uniqueIds = Array.from(new Set(orderDetail.map((item: any) => item._id)))
-    // console.log(uniqueIds, 'uniqueIds');
+    console.log(uniqueIds, 'uniqueIds');
+
+    // this.spinner.show();
+    const obj = {
+      itemIdArr: JSON.stringify(uniqueIds)
+    };
+    this.orderService.postAll('get_repeat_order', obj).subscribe((res) => {
+      if (res.status == 200) {
+        console.log(res.data.item, 'ifff');
+        const allItems =res.data.item
+        var userOrderData = CryptoJS.AES.encrypt(JSON.stringify(allItems), '').toString();
+        localStorage.setItem('OrderData', userOrderData)
+        // this.router.navigate(['/view-basket'])
+        // allItems.map((element, index) => {
+        //   if(element.cat_status===1 && element.menu_status===1 && element.is_online_status===1 &&  element.rest_status===1 &&  element.status===1){
+        //     console.log(element)
+        //   }
+        //   console.log(element, 'lllll')
+        // });
+      } else {
+        // this.isLoading = false
+        // console.log('ellls')
+        // this.router.navigate(['/not-found'])
+      }
+    });
   }
 
 

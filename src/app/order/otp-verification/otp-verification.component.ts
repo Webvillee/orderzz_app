@@ -14,7 +14,6 @@ import { NgxSpinnerService } from "ngx-spinner";
   styleUrls: ['./otp-verification.component.css']
 })
 export class OtpVerificationComponent implements OnInit {
-
   angForm: FormGroup;
   display: String;
   displaysuccess: String;
@@ -125,6 +124,7 @@ export class OtpVerificationComponent implements OnInit {
           // console.log(data, 'lll')
           var encrypted_order_type = CryptoJS.AES.encrypt(data._id, '');
           localStorage.setItem('userId',encrypted_order_type.toString());
+          localStorage.setItem('usersid', data._id)
           }
           this.display = ''
           this.displaysuccess = "Succussfully";
