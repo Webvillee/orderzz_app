@@ -104,7 +104,7 @@ export class ShowOrderComponent implements OnInit {
         this.is_online_status = res.data.is_online_status
         this.opening_hours = JSON.parse(res.data.opening_hours);
         
-       
+      
         // const cValue = formatDate(currentDate, 'yyyy-MM-dd', 'en-US');
         // console.log(this.opening_hours, 'this.opening_hours');
         const d = new Date();
@@ -117,7 +117,7 @@ export class ShowOrderComponent implements OnInit {
         'Saturday'][d.getDay()]
         
         console.log(formatDate(new Date(), 'yyyy/MM/dd HH:mm', 'en')
-        , weekday, );
+        , weekday, d.getHours()+':'+ d.getMinutes());
 
         this.opening_hours.map((element, index) => {
           console.log(element.name, 'element.name', element);
