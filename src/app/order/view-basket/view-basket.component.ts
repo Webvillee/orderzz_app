@@ -74,7 +74,8 @@ export class ViewBasketComponent implements OnInit {
         this.logo = res.data.rest_logo
         this.restName = res.data.rest_name
         this.restAddress = res.data.rest_full_address
-        this.minimumOrderValue = res.data.minimum_order_value
+        this.minimumOrderValue = 0
+        // this.minimumOrderValue = res.data.minimum_order_value
 
         // this.minimum_order_value = res.data.end_delevery_time
         // this.themeColor = res.data.theme_color
