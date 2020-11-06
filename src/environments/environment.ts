@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  //SOCKET_ENDPOINT: 'https://api.orderrzz.com'
-  SOCKET_ENDPOINT: 'http://3.21.151.41:7000/'
+  SOCKET_ENDPOINT: 'https://api.orderrzz.com'
+  // SOCKET_ENDPOINT: 'http://3.21.151.41:7000/'
 
 };
 
