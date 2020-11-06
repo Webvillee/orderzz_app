@@ -48,6 +48,8 @@ export class CheckoutComponent implements OnInit {
   landmark;
   card_details;
   cardCvv
+  promocode
+  promosubmit = false;
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService, private socketService: SocketioService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -227,7 +229,7 @@ export class CheckoutComponent implements OnInit {
     }
 
     if (paymentMethod && this.submitted === true) {
-      const obj = { restId: res_id, userId: this.userId, orderType: Number(orderType), orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: '', pickupLat: '', pickupLng: '', totalItemCount: this.itemArray.length }
+      const obj = { restId: res_id, userId: this.userId, orderType: Number(orderType), orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: '', pickupLat: '', pickupLng: '', totalItemCount: this.itemArray.length, isPromoCodeApply:2, promoCode: ''  }
       // console.log(paymentMethod, '776767888', obj);
       this.socketService.setupSocketConnection();
       this.orderService.postAll('place_order', obj).subscribe((res) => {
@@ -272,6 +274,62 @@ export class CheckoutComponent implements OnInit {
       return false;
     }
     return true;
+  }
+  applyCode(){
+    let res_id;
+    if (localStorage.getItem('rest_id')) {
+      res_id = CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
+    }
+    const obj = { restId: res_id, userId: this.userId, couponCode: this.promocode.trim()}
+    // console.log(paymentMethod, '776767888', obj);
+    this.socketService.setupSocketConnection();
+    if(this.promocode && (this.promocode || '').trim().length != 0){
+      this.promosubmit=false
+      this.orderService.postAll('apply_promo_code', obj).subscribe((res) => {
+        if (res.status === 200) {
+          console.log(res.data);
+          if (res.data.is_minimum_price_type === 1) {
+            if(this.orderTotal>=res.data.minimum_price_value){
+              if (res.data.discount_type === 1) {
+                let promoAmount = this.orderTotal * res.data.discount_type_value / 100
+                this.orderTotal = promoAmount
+              }else if (res.data.discount_type === 2) {
+                if(this.orderTotal<=res.data.discount_type_value){
+                  this.displaysuccess = "add more items";
+                }else{
+                  this.orderTotal = this.orderTotal - res.data.discount_type_value
+                }
+              }
+            }
+          }else{
+              if (res.data.discount_type === 1) {
+                let promoAmount = this.orderTotal * res.data.discount_type_value / 100
+                this.orderTotal = promoAmount
+              }else if (res.data.discount_type === 2) {
+                if(this.orderTotal<=res.data.discount_type_value){
+                  this.displaysuccess = "add more items";
+                }else{
+                  this.orderTotal = this.orderTotal - res.data.discount_type_value;
+                }
+              }
+          }
+          this.display = ''
+          this.displaysuccess = res.msg;
+          setTimeout(function () { this.displaysuccess = '' }, 3000);
+          // this.isLoading =false
+          this.spinner.hide();
+        } else {
+          // this.isLoading =false
+          this.spinner.hide();
+          this.displaysuccess = ''
+          this.display = res.msg;
+        }
+      });
+    }else{
+      this.promosubmit=true
+    }
+    
+
   }
 
 

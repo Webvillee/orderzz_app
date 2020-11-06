@@ -7,31 +7,35 @@
 <div class="app_verification app_checkout">
     <div class="app_container">
         <div class="app_verification_image">
-            <a [routerLink]="['/confirm-address']" ><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+            <a [routerLink]="['/confirm-address']"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
             <h2 class="app_heading">checkout</h2>
-        </div>			
+        </div>
         <div class="app_verification_caption app_checkout_content">
             <h6 style="color: red">{{ display }}</h6>
             <h6 style="color: green">{{ displaysuccess }}</h6>
+
+            <label class="app_content">Deliver to</label>
+            <div class="app_checkout_input">
+                <img src="assets/img/position_pin.svg" alt="">
+                <input type="text" class="app_checkout_input_pad app_check_input_loc" value="{{customer_address}}">
+                <a [routerLink]="['/confirm-address']" class="app_checkout_input_link">Change</a>
+            </div>
+            <label class="app_content">Deliver in</label>
+            <div class="app_checkout_input app_checkout_input_deliver">
+                <img src="assets/img/Asset 3.svg" alt="">
+                <input type="text" class="app_checkout_input_pad" value="30 - 45 minutes">
+            </div>
+            <label class="app_content">Add Promo</label>
+            <div class="app_checkout_input app_checkout_input_pro">
+                <img src="assets/img/apply_code.svg" alt="">
+                <input type="text" class="app_icon_input_pad" [(ngModel)]="promocode" placeholder="Paste Code Here">
+                <div *ngIf="promosubmit" class="invalid-feedback">
+                    <div>*Promocode is required</div>
+                </div>
+                <a (click)="applyCode()" class="app_checkout_code">apply</a>
+            </div>
             <form [formGroup]="angForm" (ngSubmit)="onSubmit()">
-                <label class="app_content">Deliver to</label>
-                <div class="app_checkout_input">
-                    <img src="assets/img/position_pin.svg" alt="">
-                    <input type="text" class="app_checkout_input_pad app_check_input_loc" value="{{customer_address}}">
-                    <a [routerLink]="['/confirm-address']" class="app_checkout_input_link">Change</a>
-                </div>
-                <label class="app_content">Deliver in</label>
-                <div class="app_checkout_input app_checkout_input_deliver">
-                    <img src="assets/img/Asset 3.svg" alt="">
-                    <input type="text" class="app_checkout_input_pad" value="30 - 45 minutes">
-                </div>
-                <label  class="app_content">Add Promo</label>
-                <div class="app_checkout_input app_checkout_input_pro">
-                    <img src="assets/img/apply_code.svg" alt="">
-                    <input type="text" class="app_icon_input_pad" value="" placeholder="Paste Code Here">
-                    <a  class="app_checkout_code">apply</a>
-                </div>
-                <label class="app_content">Choose Payment {{angForm.controls.paymentMethod.value}}</label>					
+                <label class="app_content">Choose Payment </label>
                 <div class="app_choose_payment" *ngIf="themeData.is_card_payment===1">
                     <div class="row" *ngIf="card_details">
                         <div class="col-3">
@@ -42,14 +46,18 @@
                         </div>
                         <div class="col-9">
                             <div class="app_choose_payment_option">
-                                <p  class="app_checkout_text_right">{{changeNumber(card_details.card_number)}}<label class="container_radio">
-                                  <input type="radio" formControlName="paymentMethod" value="1"  name="paymentMethod">
-                                  <span class="checkmark"></span>
-                                </label></p>
-                                <input *ngIf="angForm.controls.paymentMethod.value==1" type="text" [(ngModel)]="cardCvv" (keypress)="onKeypressEvent($event)" maxlength="3" class="cvvclass" placeholder="Eg: 123">
+                                <p class="app_checkout_text_right">{{changeNumber(card_details.card_number)}}<label
+                                        class="container_radio">
+                                        <input type="radio" formControlName="paymentMethod" value="1"
+                                            name="paymentMethod">
+                                        <span class="checkmark"></span>
+                                    </label></p>
+                                <input *ngIf="angForm.controls.paymentMethod.value==1" type="text" [(ngModel)]="cardCvv"
+                                    (keypress)="onKeypressEvent($event)" maxlength="3" class="cvvclass"
+                                    placeholder="Eg: 123">
                                 <div *ngIf="is_submit==false" class="invalid-feedback">
-                                    <div >*Payment Method is required</div>
-                                 </div>
+                                    <div>*Payment Method is required</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -65,16 +73,17 @@
                         <div class="col-9">
                             <div class="app_choose_payment_option">
                                 <p class="app_checkout_text_right">Pay when receive order<label class="container_radio">
-                                  <input type="radio" value="3" formControlName="paymentMethod" name="paymentMethod">
-                                  <span class="checkmark"></span>
-                                </label></p>
+                                        <input type="radio" value="3" formControlName="paymentMethod"
+                                            name="paymentMethod">
+                                        <span class="checkmark"></span>
+                                    </label></p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div *ngIf="submitted && f.paymentMethod.errors" class="invalid-feedback">
                     <div *ngIf="f.paymentMethod.errors.required">*Payment Method is required</div>
-                 </div>
+                </div>
                 <div class="app_choose_payment" *ngIf="themeData.is_card_payment===1">
                     <div class="row">
                         <div class="col-8">
@@ -85,11 +94,12 @@
                         </div>
                         <div class="col-4">
                             <div class="app_choose_payment_option app_choose_payment_add_card">
-                                <p class="app_checkout_text_right"><a [routerLink]="['/add-card']"><i class="fa fa-plus app_pickup_location_icons" aria-hidden="true"></i></a></p>
+                                <p class="app_checkout_text_right"><a [routerLink]="['/add-card']"><i
+                                            class="fa fa-plus app_pickup_location_icons" aria-hidden="true"></i></a></p>
                             </div>
                         </div>
                     </div>
-                </div>	
+                </div>
                 <div class="app_choose_text">
                     <div class="row">
                         <div class="col-8">
@@ -122,7 +132,7 @@
                                 <p>0.99 AED</p>
                             </div>
                         </div> -->
-                        
+
                         <div class="col-6">
                             <div class="app_order_detail_total">
                                 <p>Total</p>
