@@ -97,7 +97,7 @@ export class ShowOrderComponent implements OnInit {
       if (res.status == 200) {
         // this.isLoading = false
         this.spinner.hide();
-        console.log(res.data, 'ifff')
+        // console.log(res.data, 'ifff')
         this.themeView = res.data.theme_view
         if (this.themeView == "1") {       //1=listview in  and 2= gridmeans
           this.themeCondition = false
@@ -118,6 +118,39 @@ export class ShowOrderComponent implements OnInit {
         this.endDeleveryTime = res.data.end_delevery_time
         this.startPickupTime = res.data.start_pickup_time
         this.endPickupTime = res.data.end_pickup_time
+        console.log(CryptoJS.AES.decrypt(localStorage.getItem('lat'), '').toString(CryptoJS.enc.Utf8), CryptoJS.AES.decrypt(localStorage.getItem('lng'), '').toString(CryptoJS.enc.Utf8), 'okkkkkkkkkk')
+        const lat1 = res.data.rest_lat;
+        const lon1 = res.data.rest_lng;
+        const lat2 = CryptoJS.AES.decrypt(localStorage.getItem('lat'), '').toString(CryptoJS.enc.Utf8);
+        const lon2 = CryptoJS.AES.decrypt(localStorage.getItem('lng'), '').toString(CryptoJS.enc.Utf8)
+        var rad = function(x) {
+          return x * Math.PI / 180;
+        };
+        var R = 6378137; // Earth’s mean radius in meter
+        var dLat = rad(lat2 - lat1);
+        var dLong = rad(lon2 - lon1);
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+          Math.cos(rad(lat1)) * Math.cos(rad(lat2)) *
+          Math.sin(dLong / 2) * Math.sin(dLong / 2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        console.log(R * c)
+        // var d = R * c;
+
+  // returns the distance in meter
+        // const R = 6371e3; // metres
+        // const φ1 = lat1 * Math.PI/180; // φ, λ in radians
+        // const φ2 = lat2 * Math.PI/180;
+        // const Δφ = (lat2-lat1) * Math.PI/180;
+        // const Δλ = (lon2-lon1) * Math.PI/180;
+
+        // const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+        //           Math.cos(φ1) * Math.cos(φ2) *
+        //           Math.sin(Δλ/2) * Math.sin(Δλ/2);
+        // const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        // console.log((R * c)/1000, 'pppp');
+
+        // const d = R * c; // in metres
+       
         // const cValue = formatDate(currentDate, 'yyyy-MM-dd', 'en-US');
         console.log(this.startDeleveryTime, this.endDeleveryTime, this.startPickupTime, this.endPickupTime, 'time');
 
@@ -132,6 +165,7 @@ export class ShowOrderComponent implements OnInit {
           var encrypted_order_type = CryptoJS.AES.encrypt('2', '');
           localStorage.setItem('order_type', encrypted_order_type.toString());
         }
+        
 
         const d = new Date();
         let weekday = ['Sunday',
@@ -147,11 +181,14 @@ export class ShowOrderComponent implements OnInit {
 
         // for restaurent time checking
         this.opening_hours.map((element, index) => {
-          console.log(element.name, 'element.name', element, element.name == weekday && element.openstatus === true);
+          // console.log(element.name, 'element.name', element, element.name == weekday && element.openstatus === true);
           if (element.name == weekday && element.openstatus === true) {
             if (element.startTime <= d.getHours() + ':' + d.getMinutes() && element.endTime >= d.getHours() + ':' + d.getMinutes()) {
               this.restaurantClose = true
+              console.log("pikopipo");
             }
+          }else if (element.name == weekday && element.openstatus === false) {
+              this.restaurantClose = true
           }
         });
         console.log("restaurantClose", this.restaurantClose)
