@@ -11,7 +11,7 @@ import { SuccessDialogComponent, SuccessDialogModel } from '../../shared/dialogs
 import { NgxSpinnerService } from "ngx-spinner";
 import { ConfirmDialogModel, ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { SocketioService } from '../socketio.service'
-import {formatDate} from '@angular/common';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-show-order',
@@ -46,6 +46,15 @@ export class ShowOrderComponent implements OnInit {
   opening_hours
   opening_hours_status: boolean = false;
   allData
+  isOrderTypeDeliver: boolean;
+  isOrderTypePickup: boolean;
+  startDeleveryTime: any;
+  endDeleveryTime: any;
+  startPickupTime: any;
+  endPickupTime: any;
+  restaurantClose: boolean = false;
+  restaurantClosePickup: boolean = false;
+  restaurantCloseDelivery: boolean = false;
   constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog, private spinner: NgxSpinnerService, private socketService: SocketioService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -88,7 +97,7 @@ export class ShowOrderComponent implements OnInit {
       if (res.status == 200) {
         // this.isLoading = false
         this.spinner.hide();
-        // console.log(res.data, 'ifff')
+        console.log(res.data, 'ifff')
         this.themeView = res.data.theme_view
         if (this.themeView == "1") {       //1=listview in  and 2= gridmeans
           this.themeCondition = false
@@ -103,32 +112,66 @@ export class ShowOrderComponent implements OnInit {
         this.minimumOrderValue = res.data.minimum_order_value
         this.is_online_status = res.data.is_online_status
         this.opening_hours = JSON.parse(res.data.opening_hours);
-        
-      
+        this.isOrderTypeDeliver = (res.data.is_order_type_deliver == 1) ? true : false
+        this.isOrderTypePickup = (res.data.is_order_type_pickup == 1) ? true : false
+        this.startDeleveryTime = res.data.start_delevery_time
+        this.endDeleveryTime = res.data.end_delevery_time
+        this.startPickupTime = res.data.start_pickup_time
+        this.endPickupTime = res.data.end_pickup_time
         // const cValue = formatDate(currentDate, 'yyyy-MM-dd', 'en-US');
-        // console.log(this.opening_hours, 'this.opening_hours');
+        console.log(this.startDeleveryTime, this.endDeleveryTime, this.startPickupTime, this.endPickupTime, 'time');
+
+        // For adding active class dynamically
+        if (this.isOrderTypeDeliver === true) {
+          this.selectedDeliveryType = "1";
+          var encrypted_order_type = CryptoJS.AES.encrypt('1', '');
+          localStorage.setItem('order_type', encrypted_order_type.toString());
+        }
+        if (this.isOrderTypePickup === true) {
+          this.selectedDeliveryType = "2";
+          var encrypted_order_type = CryptoJS.AES.encrypt('2', '');
+          localStorage.setItem('order_type', encrypted_order_type.toString());
+        }
+
         const d = new Date();
         let weekday = ['Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday'][d.getDay()]
-        
-        console.log(formatDate(new Date(), 'yyyy/MM/dd HH:mm', 'en')
-        , weekday, d.getHours()+':'+ d.getMinutes());
+          'Monday',
+          'Tuesday',
+          'Wednesday',
+          'Thursday',
+          'Friday',
+          'Saturday'][d.getDay()]
 
+        console.log(formatDate(new Date(), 'yyyy/MM/dd HH:mm', 'en')
+          , weekday, d.getHours() + ':' + d.getMinutes());
+
+        // for restaurent time checking
         this.opening_hours.map((element, index) => {
-          console.log(element.name, 'element.name', element);
-          if (element.name == weekday && element.openstatus===true){
-            if(element.startTime > d.getHours()+':'+ d.getMinutes() && element.endTime < d.getHours()+':'+ d.getMinutes()){
-              console.log("kjkljlkjlk")
+          console.log(element.name, 'element.name', element, element.name == weekday && element.openstatus === true);
+          if (element.name == weekday && element.openstatus === true) {
+            if (element.startTime <= d.getHours() + ':' + d.getMinutes() && element.endTime >= d.getHours() + ':' + d.getMinutes()) {
+              this.restaurantClose = true
             }
           }
         });
+        console.log("restaurantClose", this.restaurantClose)
+
+        // available for restaurent pickup time 
+        if (this.isOrderTypePickup) {
+          if (this.startPickupTime <= d.getHours() + ':' + d.getMinutes() && this.endPickupTime >= d.getHours() + ':' + d.getMinutes()) {
+            this.restaurantClosePickup = true
+          }
+        }
+        console.log("pickup", this.restaurantClosePickup)
 
 
+        // available for restaurent delivery time 
+        if (this.isOrderTypeDeliver) {
+          if (this.startDeleveryTime <= d.getHours() + ':' + d.getMinutes() && this.endDeleveryTime >= d.getHours() + ':' + d.getMinutes()) {
+            this.restaurantCloseDelivery = true
+          }
+        }
+        console.log("delivery", this.restaurantCloseDelivery)
         if (localStorage.getItem('order_type')) {
           const orderType = CryptoJS.AES.decrypt(localStorage.getItem('order_type'), '').toString(CryptoJS.enc.Utf8)
           this.selectedDeliveryType = orderType
