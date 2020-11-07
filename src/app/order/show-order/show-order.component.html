@@ -70,12 +70,12 @@
 						<div class="col-6 delivery_order">
 							<div class="app_delivery_button">
 								<div class="btn-group app_delivery_pickup_btn_main"> 
-									<button class="btn btn-sm  app_delivery_pickup_btn app_delivery_btn" (click)="onClick(1)"  [ngClass]="{'active': selectedDeliveryType==='1'}"><span>Delivery</span></button>
-									<button class="btn btn-sm btn-default app_delivery_pickup_btn app_pickup_btn" [ngClass]="{'active': selectedDeliveryType==='2'}" (click)="onClick(2)" ><span>Pickup</span></button>
+									<button title="{{(isOrderTypeDeliver ===false)?'disabled':''}}" class="btn btn-sm  app_delivery_pickup_btn app_delivery_btn" [disabled]="(isOrderTypeDeliver ===false)?true:false" (click)="onClick(1)"  [ngClass]="{'active': selectedDeliveryType==='1'}"><span>Delivery</span></button>
+									<button title="{{(isOrderTypePickup ===false)?'disabled':''}}" class="btn btn-sm btn-default app_delivery_pickup_btn app_pickup_btn" [disabled]="(isOrderTypePickup ===false)?true:false" [ngClass]="{'active': selectedDeliveryType==='2'}" (click)="onClick(2)" ><span>Pickup</span></button>
 								</div>
 							</div>
 						</div>
-						<div class="col-12" *ngIf="getCategoryData  &&  is_online_status===1">
+						<div class="col-12" *ngIf="getCategoryData  &&  is_online_status===1 && restaurantClose">
 							   <div class="app_hot_food_restaurant_category">
 								  <h3>Categories</h3>
 							   </div>
@@ -83,7 +83,7 @@
 
 						<div class="col-12 app_scroll">
 							<div class="app_category_scroll_button">
-								<ng-container *ngIf="getCategoryData  && is_online_status===1">
+								<ng-container *ngIf="getCategoryData  && is_online_status===1 && restaurantClose">
 									<ul>
 										<li  *ngFor="let catData of getCategoryData">
 											<a [class.active]="clicked === catData._id"  (click)="findItem(catData)" class="btn app_scroll_button">{{catData.cate_name}}</a>
@@ -92,13 +92,13 @@
 								</ng-container>
 							</div>
 						</div>
-						<div class="col-12" *ngIf="is_online_status===1">
+						<div class="col-12" *ngIf="is_online_status===1 && restaurantClose">
 							<div class="app_hot_food_restaurant_bestsellers">
 							   <h4>{{catName}}</h4>
 							</div>
 						</div>
 						<div class="col-6 box-view" *ngFor="let itemData of getItemData" >
-						<ng-container *ngIf="getItemData  && is_online_status===1">
+						<ng-container *ngIf="getItemData  && is_online_status===1  && restaurantClose">
 							<!-- <div class="col-12"> -->
 								<div class="app_bestsellers_detail">
 									<!-- <div class="row" >  -->
@@ -134,7 +134,7 @@
 						</ng-container>
 						</div>
 
-						<ng-container *ngIf="getCategoryData==0 || is_online_status===2">
+						<ng-container *ngIf="getCategoryData==0 || is_online_status===2 || restaurantClose===false">
 							<div class="app_close">
 								<div class="app_container">
 									<div class="app_close_image">
@@ -228,19 +228,19 @@
 						<div class="col-6 delivery_order">
 							<div class="app_delivery_button">
 								<div class="btn-group app_delivery_pickup_btn_main"> 
-									<button class="btn btn-sm  app_delivery_pickup_btn app_delivery_btn" (click)="onClick(1)"  [ngClass]="{'active': selectedDeliveryType==='1'}"><span>Delivery</span></button>
-									<button class="btn btn-sm btn-default app_delivery_pickup_btn app_pickup_btn" [ngClass]="{'active': selectedDeliveryType==='2'}" (click)="onClick(2)" ><span>Pickup</span></button>
+									<button title="{{(isOrderTypeDeliver ===false)?'disabled':''}}" class="btn btn-sm  app_delivery_pickup_btn app_delivery_btn" [disabled]="(isOrderTypeDeliver ===false)?true:false" (click)="onClick(1)"  [ngClass]="{'active': selectedDeliveryType==='1'}"><span>Delivery</span></button>
+									<button title="{{(isOrderTypePickup ===false)?'disabled':''}}" class="btn btn-sm btn-default app_delivery_pickup_btn app_pickup_btn" [disabled]="(isOrderTypePickup ===false)?true:false" [ngClass]="{'active': selectedDeliveryType==='2'}" (click)="onClick(2)" ><span>Pickup</span></button>
 								</div>
 							</div>
 						</div>
-						<div class="col-12" *ngIf="getCategoryData && is_online_status===1">
+						<div class="col-12" *ngIf="getCategoryData && is_online_status===1 && restaurantClose">
 							   <div class="app_hot_food_restaurant_category">
 								  <h3>Categories</h3>
 							   </div>
 						</div>
 						<div class="col-12 app_scroll" >
 							<div class="app_category_scroll_button">
-								<ng-container *ngIf="getCategoryData && is_online_status===1">
+								<ng-container *ngIf="getCategoryData && is_online_status===1  && restaurantClose">
 									<ul>
 										<li  *ngFor="let catData of getCategoryData">
 											<a [class.active]="clicked === catData._id" (click)="findItem(catData)" class="btn app_scroll_button">{{catData.cate_name}}</a>
@@ -249,12 +249,12 @@
 								</ng-container>
 							</div>
 						</div>
-						<div class="col-12" *ngIf="is_online_status===1">
+						<div class="col-12" *ngIf="is_online_status===1 && restaurantCloses">
 							<div class="app_hot_food_restaurant_bestsellers">
 							   <h4>{{catName}}</h4>
 							</div>
 						</div>
-						<ng-container *ngIf="getItemData && is_online_status===1" >
+						<ng-container *ngIf="getItemData && is_online_status===1  && restaurantClose" >
 							<div class="col-12">
 								<div class="app_bestsellers_detail">
 									<div class="row" *ngFor="let itemData of getItemData">
@@ -289,7 +289,7 @@
 								
 						</ng-container>
 						
-						<ng-container *ngIf="getCategoryData==0 || is_online_status===2">
+						<ng-container *ngIf="getCategoryData==0 || is_online_status===2  || restaurantClose===false">
 							<div class="app_close">
 								<div class="app_container">
 									<div class="app_close_image">
