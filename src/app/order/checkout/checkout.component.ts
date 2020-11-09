@@ -50,6 +50,7 @@ export class CheckoutComponent implements OnInit {
   cardCvv
   promocode
   promosubmit = false;
+  isPromoCodeApply=2
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService, private socketService: SocketioService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -66,7 +67,7 @@ export class CheckoutComponent implements OnInit {
       // const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))  
       const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
       this.UserData = data
-      console.log(data, 'lll')
+      // console.log(data, 'lll');
       this.userName = data.user_name
       this.email = data.user_email
       this.latitude = data.lat
@@ -229,7 +230,7 @@ export class CheckoutComponent implements OnInit {
     }
 
     if (paymentMethod && this.submitted === true) {
-      const obj = { restId: res_id, userId: this.userId, orderType: Number(orderType), orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: '', pickupLat: '', pickupLng: '', totalItemCount: this.itemArray.length, isPromoCodeApply:2, promoCode: ''  }
+      const obj = { restId: res_id, userId: this.userId, orderType: Number(orderType), orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: '', pickupLat: '', pickupLng: '', totalItemCount: this.itemArray.length, isPromoCodeApply:this.isPromoCodeApply, promoCode: this.promocode  }
       // console.log(paymentMethod, '776767888', obj);
       this.socketService.setupSocketConnection();
       this.orderService.postAll('place_order', obj).subscribe((res) => {
@@ -293,11 +294,13 @@ export class CheckoutComponent implements OnInit {
               if (res.data.discount_type === 1) {
                 let promoAmount = this.orderTotal * res.data.discount_type_value / 100
                 this.orderTotal = promoAmount
+                this.isPromoCodeApply=1
               }else if (res.data.discount_type === 2) {
                 if(this.orderTotal<=res.data.discount_type_value){
-                  this.displaysuccess = "add more items";
+                  this.displaysuccess = `add more items ${this.orderTotal-res.data.discount_type_value}`;
                 }else{
                   this.orderTotal = this.orderTotal - res.data.discount_type_value
+                  this.isPromoCodeApply=1
                 }
               }
             }
@@ -305,10 +308,12 @@ export class CheckoutComponent implements OnInit {
               if (res.data.discount_type === 1) {
                 let promoAmount = this.orderTotal * res.data.discount_type_value / 100
                 this.orderTotal = promoAmount
+                this.isPromoCodeApply=1
               }else if (res.data.discount_type === 2) {
                 if(this.orderTotal<=res.data.discount_type_value){
-                  this.displaysuccess = "add more items";
+                  this.displaysuccess = `add more items ${this.orderTotal-res.data.discount_type_value}`;
                 }else{
+                  this.isPromoCodeApply=1
                   this.orderTotal = this.orderTotal - res.data.discount_type_value;
                 }
               }
