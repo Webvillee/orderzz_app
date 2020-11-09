@@ -32,7 +32,7 @@
                 <div *ngIf="promosubmit" class="invalid-feedback">
                     <div>*Promocode is required</div>
                 </div>
-                <a (click)="applyCode()" class="app_checkout_code">apply</a>
+                <a (click)="applyCode()" class="app_checkout_code cursorCss">apply</a>
             </div>
             <form [formGroup]="angForm" (ngSubmit)="onSubmit()">
                 <label class="app_content">Choose Payment </label>

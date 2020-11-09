@@ -41,12 +41,18 @@ export class OrderComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.socketService.setupSocketConnection()
-
+    this.socketService.setupSocketConnection()
     // this.socketService.orderPlace()
-    // this.socketService.orderPlace().subscribe((message) => {
-    //     console.log("hhiiiiiiiiiiiiiiiiii", message)
+    // this.socketService.pushNotification().subscribe((message) => {
+    //   console.log("hhiiiiiiiiiiiiiiiiii", message)
     // });
+  }
+
+  ngDoCheck() {
+    this.socketService.pushNotification().subscribe((message) => {
+      console.log("hhiiiiiiiiiiiiiiiiii", message)
+    });
+    // this.socketService.pushNotification();
   }
 
   // ngAfterContentChecked() {
