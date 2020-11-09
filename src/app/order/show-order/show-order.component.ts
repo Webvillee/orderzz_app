@@ -118,14 +118,17 @@ export class ShowOrderComponent implements OnInit {
         this.endDeleveryTime = res.data.end_delevery_time
         this.startPickupTime = res.data.start_pickup_time
         this.endPickupTime = res.data.end_pickup_time
-        console.log(CryptoJS.AES.decrypt(localStorage.getItem('lat'), '').toString(CryptoJS.enc.Utf8), CryptoJS.AES.decrypt(localStorage.getItem('lng'), '').toString(CryptoJS.enc.Utf8), 'okkkkkkkkkk')
+        // console.log(CryptoJS.AES.decrypt(localStorage.getItem('lat'), '').toString(CryptoJS.enc.Utf8), CryptoJS.AES.decrypt(localStorage.getItem('lng'), '').toString(CryptoJS.enc.Utf8), 'okkkkkkkkkk')
         const lat1 = res.data.rest_lat;
         const lon1 = res.data.rest_lng;
         const lat2 = CryptoJS.AES.decrypt(localStorage.getItem('lat'), '').toString(CryptoJS.enc.Utf8);
-        const lon2 = CryptoJS.AES.decrypt(localStorage.getItem('lng'), '').toString(CryptoJS.enc.Utf8)
+        const lon2 = CryptoJS.AES.decrypt(localStorage.getItem('lng'), '').toString(CryptoJS.enc.Utf8);
+
+        console.log('lat1=>', lat1, 'lon1=>',lon1, 'lat2=>', lat2, 'lon2=>',lon2);
         var rad = function(x) {
           return x * Math.PI / 180;
         };
+        
         var R = 6378137; // Earth’s mean radius in meter
         var dLat = rad(lat2 - lat1);
         var dLong = rad(lon2 - lon1);
@@ -133,7 +136,7 @@ export class ShowOrderComponent implements OnInit {
           Math.cos(rad(lat1)) * Math.cos(rad(lat2)) *
           Math.sin(dLong / 2) * Math.sin(dLong / 2);
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        console.log(R * c)
+        // console.log(R * c, 'In metres llllllll');
         // var d = R * c;
 
   // returns the distance in meter
@@ -185,13 +188,9 @@ export class ShowOrderComponent implements OnInit {
           if (element.name == weekday && element.openstatus === true) {
             if (element.startTime <= d.getHours() + ':' + d.getMinutes() && element.endTime >= d.getHours() + ':' + d.getMinutes()) {
               this.restaurantClose = true
-              console.log("pikopipo");
             }
-          }else if (element.name == weekday && element.openstatus === false) {
-              this.restaurantClose = true
           }
         });
-        console.log("restaurantClose", this.restaurantClose)
 
         // available for restaurent pickup time 
         if (this.isOrderTypePickup) {
@@ -199,7 +198,6 @@ export class ShowOrderComponent implements OnInit {
             this.restaurantClosePickup = true
           }
         }
-        console.log("pickup", this.restaurantClosePickup)
 
 
         // available for restaurent delivery time 
@@ -208,7 +206,6 @@ export class ShowOrderComponent implements OnInit {
             this.restaurantCloseDelivery = true
           }
         }
-        console.log("delivery", this.restaurantCloseDelivery)
         if (localStorage.getItem('order_type')) {
           const orderType = CryptoJS.AES.decrypt(localStorage.getItem('order_type'), '').toString(CryptoJS.enc.Utf8)
           this.selectedDeliveryType = orderType
