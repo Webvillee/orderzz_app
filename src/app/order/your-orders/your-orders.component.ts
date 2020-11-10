@@ -164,27 +164,26 @@ export class YourOrdersComponent implements OnInit {
     };
     this.orderService.postAll('get_repeat_order', obj).subscribe((res) => {
       if (res.status == 200) {
-        // console.log(res.data.item, 'ifff');
-        const allItems =res.data.item
-        const itemsArr = res.data.item
-        res.data.item.map((e, i) => {
-          // if (e._id === orderDetail[i]._id) {
-            var count = (input, arr) => arr.filter(x => x._id === input).length;
-            const allCount = count(e._id, orderDetail);
-            if(allCount>1){
-              itemsArr.push(e)
-            }
-            
+        console.log(res.data.item, 'ifff');
+        const allItems = res.data.item
+        orderDetail.map((e, i) => {
+          if (e._id === allItems[i]._id) {
+            // var count = orderDetail.filter(x => x._id === e._id).length;
+            console.log(allItems[i], 'oooooooooo', e)
+            // // const allCount = count(e._id, orderDetail);
+            // if(count>1){
+              allItems.push(allItems[i])
+            // }
             // return <div>Match</div>
-          // } else {
-          //   // return <div>No Match</div>
-          // }
+            // } else {
+            //   // return <div>No Match</div>
+          }
         })
 
         // var count = (input, arr) => arr.filter(x => x._id === input).length;
         // const allCount = count(id, this.itemArray);
         var userOrderData = CryptoJS.AES.encrypt(JSON.stringify(allItems), '').toString();
-        console.log(orderDetail, 'orderData', res.data.item, 'pppp', itemsArr);
+        console.log(orderDetail, 'orderData', res.data.item, 'pppp', allItems);
 
         // localStorage.setItem('OrderData', userOrderData)
         // this.router.navigate(['/view-basket'])
