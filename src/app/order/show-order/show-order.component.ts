@@ -124,22 +124,28 @@ export class ShowOrderComponent implements OnInit {
         const lat2 = CryptoJS.AES.decrypt(localStorage.getItem('lat'), '').toString(CryptoJS.enc.Utf8);
         const lon2 = CryptoJS.AES.decrypt(localStorage.getItem('lng'), '').toString(CryptoJS.enc.Utf8);
 
-        console.log('lat1=>', lat1, 'lon1=>',lon1, 'lat2=>', lat2, 'lon2=>',lon2);
-        var rad = function(x) {
-          return x * Math.PI / 180;
-        };
-        
-        var R = 6378137; // Earth’s mean radius in meter
-        var dLat = rad(lat2 - lat1);
-        var dLong = rad(lon2 - lon1);
-        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-          Math.cos(rad(lat1)) * Math.cos(rad(lat2)) *
-          Math.sin(dLong / 2) * Math.sin(dLong / 2);
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        // console.log(R * c, 'In metres llllllll');
+        console.log('lat1=>', lat1, 'lon1=>', lon1, 'lat2=>', lat2, 'lon2=>', lon2);
+
+        if (lat1 && lon1 && lat2 && lon2) {
+          var rad = function (x) {
+            return x * Math.PI / 180;
+          };
+
+          var R = 6378137; // Earth’s mean radius in meter
+          var dLat = rad(lat2 - lat1);
+          var dLong = rad(lon2 - lon1);
+          var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(rad(lat1)) * Math.cos(rad(lat2)) *
+            Math.sin(dLong / 2) * Math.sin(dLong / 2);
+          var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+          console.log((R * c) / 1000, 'In km llllllll');
+          const distance = (R * c) / 1000
+          console.log(distance/30, 'timmmmmeeeeeeeeee')
+        }
+
         // var d = R * c;
 
-  // returns the distance in meter
+        // returns the distance in meter
         // const R = 6371e3; // metres
         // const φ1 = lat1 * Math.PI/180; // φ, λ in radians
         // const φ2 = lat2 * Math.PI/180;
@@ -153,7 +159,7 @@ export class ShowOrderComponent implements OnInit {
         // console.log((R * c)/1000, 'pppp');
 
         // const d = R * c; // in metres
-       
+
         // const cValue = formatDate(currentDate, 'yyyy-MM-dd', 'en-US');
         console.log(this.startDeleveryTime, this.endDeleveryTime, this.startPickupTime, this.endPickupTime, 'time');
 
@@ -168,7 +174,7 @@ export class ShowOrderComponent implements OnInit {
           var encrypted_order_type = CryptoJS.AES.encrypt('2', '');
           localStorage.setItem('order_type', encrypted_order_type.toString());
         }
-        
+
 
         const d = new Date();
         let weekday = ['Sunday',
@@ -179,8 +185,6 @@ export class ShowOrderComponent implements OnInit {
           'Friday',
           'Saturday'][d.getDay()]
 
-        console.log(formatDate(new Date(), 'yyyy/MM/dd HH:mm', 'en')
-          , weekday, d.getHours() + ':' + d.getMinutes());
 
         // for restaurent time checking
         this.opening_hours.map((element, index) => {

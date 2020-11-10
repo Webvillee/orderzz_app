@@ -54,15 +54,15 @@
 	<script src="assets/js/main.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
-	<!-- <script>
+	<script>
 		$(document).ready(function () {
 			var base_url = "https://api.orderrzz.com"; // server uri
-			var base_url = "http://3.21.151.41:7000"; // local server uri
+			// var base_url = "http://3.21.151.41:7000"; // local server uri
 			var socket = io.connect(base_url);
 			var user_id = localStorage.getItem('usersid');
 			if (user_id) {
 
-				setInterval(function () { socket.emit("join_chat", user_id); }, 3000);
+				setInterval(function () { socket.emit("join_chat", user_id); }, 4000);
 
 				socket.on("join_chat_ack", function (data) {
 					console.log("join chat :- " + data);
@@ -85,7 +85,7 @@
 
 
 		});
-	</script> -->
+	</script>
 	<noscript>Please enable JavaScript to continue using this application.</noscript>
 </body>
 
