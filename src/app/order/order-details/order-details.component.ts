@@ -149,5 +149,36 @@ export class OrderDetailsComponent implements OnInit {
     return count(id, this.itemArray);
   }
 
+  repeatOrder(orderData) {
+    const orderDetail = JSON.parse(orderData.order_items)
+    console.log(orderDetail, 'orderData');
+    let uniqueIds = Array.from(new Set(orderDetail.map((item: any) => item._id)))
+    console.log(uniqueIds, 'uniqueIds');
+
+    // this.spinner.show();
+    const obj = {
+      itemIdArr: JSON.stringify(uniqueIds)
+    };
+    this.orderService.postAll('get_repeat_order', obj).subscribe((res) => {
+      if (res.status == 200) {
+        console.log(res.data.item, 'ifff');
+        const allItems = res.data.item
+        var userOrderData = CryptoJS.AES.encrypt(JSON.stringify(allItems), '').toString();
+        localStorage.setItem('OrderData', userOrderData)
+        this.router.navigate(['/view-basket']);
+        // allItems.map((element, index) => {
+        //   if(element.cat_status===1 && element.menu_status===1 && element.is_online_status===1 &&  element.rest_status===1 &&  element.status===1){
+        //     console.log(element)
+        //   }
+        //   console.log(element, 'lllll')
+        // });
+      } else {
+        // this.isLoading = false
+        // console.log('ellls')
+        // this.router.navigate(['/not-found'])
+      }
+    });
+  }
+
 
 }

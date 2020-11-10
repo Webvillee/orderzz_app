@@ -155,20 +155,38 @@ export class YourOrdersComponent implements OnInit {
 
   repeatOrder(orderData) {
     const orderDetail = JSON.parse(orderData.order_items)
-    console.log(orderDetail, 'orderData');
+    // console.log(orderDetail, 'orderData');
     let uniqueIds = Array.from(new Set(orderDetail.map((item: any) => item._id)))
-    console.log(uniqueIds, 'uniqueIds');
-
+    // console.log(uniqueIds, 'uniqueIds');
     // this.spinner.show();
     const obj = {
       itemIdArr: JSON.stringify(uniqueIds)
     };
     this.orderService.postAll('get_repeat_order', obj).subscribe((res) => {
       if (res.status == 200) {
-        console.log(res.data.item, 'ifff');
+        // console.log(res.data.item, 'ifff');
         const allItems =res.data.item
+        const itemsArr = res.data.item
+        res.data.item.map((e, i) => {
+          // if (e._id === orderDetail[i]._id) {
+            var count = (input, arr) => arr.filter(x => x._id === input).length;
+            const allCount = count(e._id, orderDetail);
+            if(allCount>1){
+              itemsArr.push(e)
+            }
+            
+            // return <div>Match</div>
+          // } else {
+          //   // return <div>No Match</div>
+          // }
+        })
+
+        // var count = (input, arr) => arr.filter(x => x._id === input).length;
+        // const allCount = count(id, this.itemArray);
         var userOrderData = CryptoJS.AES.encrypt(JSON.stringify(allItems), '').toString();
-        localStorage.setItem('OrderData', userOrderData)
+        console.log(orderDetail, 'orderData', res.data.item, 'pppp', itemsArr);
+
+        // localStorage.setItem('OrderData', userOrderData)
         // this.router.navigate(['/view-basket'])
         // allItems.map((element, index) => {
         //   if(element.cat_status===1 && element.menu_status===1 && element.is_online_status===1 &&  element.rest_status===1 &&  element.status===1){
