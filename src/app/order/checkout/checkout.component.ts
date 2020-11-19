@@ -184,7 +184,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.socketService.setupSocketConnection();
     // this.socketService.orderPlace().subscribe((message) => {
     //     console.log(message)
     //   });
@@ -234,7 +233,9 @@ export class CheckoutComponent implements OnInit {
     if (paymentMethod && this.submitted === true) {
       const obj = { restId: res_id, userId: this.userId, orderType: Number(orderType), orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: '', pickupLat: '', pickupLng: '', totalItemCount: this.itemArray.length, isPromoCodeApply: this.isPromoCodeApply, promoCode: this.promocode }
       // console.log(paymentMethod, '776767888', obj);
-      this.socketService.setupSocketConnection();
+      this.socketService.getMessages().subscribe((message) => {
+        console.log(message)
+      })
       this.orderService.postAll('place_order', obj).subscribe((res) => {
         if (res.status === 200) {
           this.socketService.orderPlace(res.data);
@@ -286,7 +287,6 @@ export class CheckoutComponent implements OnInit {
     }
     const obj = { restId: res_id, userId: this.userId, couponCode: this.promocode.trim() }
     // console.log(paymentMethod, '776767888', obj);
-    this.socketService.setupSocketConnection();
     if (this.promocode && (this.promocode || '').trim().length != 0) {
       this.promosubmit = false;
       this.spinner.show();

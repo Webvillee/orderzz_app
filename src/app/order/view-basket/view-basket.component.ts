@@ -178,7 +178,7 @@ export class ViewBasketComponent implements OnInit {
     for (let step = 0; step < availmodifire.length; step++) {
       availmodifire[step].modifire.map(function (el) {
         if (el.isChecked === true) {
-          // console.log(el.price, 'iooooo');
+          console.log(el.price, 'iooooo');
           itemdt = true
         }
       })

@@ -21,9 +21,11 @@ export class SocketioService {
       this.userId = CryptoJS.AES.decrypt(localStorage.getItem('userId'), '').toString(CryptoJS.enc.Utf8)
         this.socket.emit('join_chat', this.userId);
         this.socket.on('join_chat_ack', (data: string) => {
-          console.log(data, 'jhghhgghghghhfg')
         });
         this.socket.on('push_notification', (data) => {
+          this.toastr.info(data.description, data.title, {
+            timeOut: 3000,
+          });
           observer.next(data);
         });
     });
@@ -31,39 +33,39 @@ export class SocketioService {
   }
 
   
-  public setupSocketConnection() {
-    // this.userId=CryptoJS.AES.decrypt(localStorage.getItem('userId'), '').toString(CryptoJS.enc.Utf8)
-    this.socket = io(environment.SOCKET_ENDPOINT);
-    if (localStorage.getItem('userId')) {
-      this.userId = CryptoJS.AES.decrypt(localStorage.getItem('userId'), '').toString(CryptoJS.enc.Utf8)
-      // const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))
-      this.socket.emit('join_chat', `join chat ${this.userId}`);
+  // public setupSocketConnection() {
+  //   // this.userId=CryptoJS.AES.decrypt(localStorage.getItem('userId'), '').toString(CryptoJS.enc.Utf8)
+  //   this.socket = io(environment.SOCKET_ENDPOINT);
+  //   if (localStorage.getItem('userId')) {
+  //     this.userId = CryptoJS.AES.decrypt(localStorage.getItem('userId'), '').toString(CryptoJS.enc.Utf8)
+  //     // const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))
+  //     this.socket.emit('join_chat', `join chat ${this.userId}`);
 
-      this.socket.on('join_chat_ack', (data) => {
-        console.log(data);
-      });
+  //     this.socket.on('join_chat_ack', (data) => {
+  //       console.log(data);
+  //     });
 
-      this.socket.on('join_chat_ack1', (data) => {
-        console.log(data, 'ack1');
-      });
-    }
+  //     this.socket.on('join_chat_ack1', (data) => {
+  //       console.log(data, 'ack1');
+  //     });
+  //   }
 
-  }
+  // }
 
-  public pushNotification() {
-    return new Observable((observer) => {
-      if (localStorage.getItem('userId')) {
-        this.socket.on('push_notification', (message) => {
-          observer.next(message);
-        });
-      }
-    });
-    // if (localStorage.getItem('userId')) {
-    //   this.socket.on('push_notification', (data) => {
-    //     console.log(data, 'ghhhfhfhgfghfgh');
-    //   });
-    // }
-  }
+  // public pushNotification() {
+  //   return new Observable((observer) => {
+  //     if (localStorage.getItem('userId')) {
+  //       this.socket.on('push_notification', (message) => {
+  //         observer.next(message);
+  //       });
+  //     }
+  //   });
+  //   // if (localStorage.getItem('userId')) {
+  //   //   this.socket.on('push_notification', (data) => {
+  //   //     console.log(data, 'ghhhfhfhgfghfgh');
+  //   //   });
+  //   // }
+  // }
 
   public orderPlace(order_data) {
     if (localStorage.getItem('userId')) {
