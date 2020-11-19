@@ -17,6 +17,7 @@ export class CheckoutComponent implements OnInit {
   angForm: FormGroup;
   display: String;
   displaysuccess: String;
+  displayError: String;
   themeCondition
   themeView
   customer_address
@@ -50,7 +51,8 @@ export class CheckoutComponent implements OnInit {
   cardCvv
   promocode
   promosubmit = false;
-  isPromoCodeApply=2
+  isPromoCodeApply = 2;
+  totalorderPrice
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService, private socketService: SocketioService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -167,7 +169,7 @@ export class CheckoutComponent implements OnInit {
       });
 
       this.orderTotal = total;
-
+      this.totalorderPrice = total
       let sellPrice = this.itemArray.reduce((prev, item) => prev + item.sell_price, 0);
       this.savingCost = sellPrice;
       const seen = new Set();
@@ -196,7 +198,7 @@ export class CheckoutComponent implements OnInit {
     // console.log('7767678888888888888', paymentMethod, this.angForm.invalid);
     // console.log(this.cardCvv)
     this.submitted = true;
-    if(paymentMethod==1){
+    if (paymentMethod == 1) {
       if (this.cardCvv === '' || this.cardCvv.trim() === '') {
         is_submit = false
         this.submitted = false;
@@ -230,7 +232,7 @@ export class CheckoutComponent implements OnInit {
     }
 
     if (paymentMethod && this.submitted === true) {
-      const obj = { restId: res_id, userId: this.userId, orderType: Number(orderType), orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: '', pickupLat: '', pickupLng: '', totalItemCount: this.itemArray.length, isPromoCodeApply:this.isPromoCodeApply, promoCode: this.promocode  }
+      const obj = { restId: res_id, userId: this.userId, orderType: Number(orderType), orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: '', pickupLat: '', pickupLng: '', totalItemCount: this.itemArray.length, isPromoCodeApply: this.isPromoCodeApply, promoCode: this.promocode }
       // console.log(paymentMethod, '776767888', obj);
       this.socketService.setupSocketConnection();
       this.orderService.postAll('place_order', obj).subscribe((res) => {
@@ -276,64 +278,76 @@ export class CheckoutComponent implements OnInit {
     }
     return true;
   }
-  applyCode(){
+  applyCode() {
     let res_id;
+    let totalordervalue = this.totalorderPrice
     if (localStorage.getItem('rest_id')) {
       res_id = CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     }
-    const obj = { restId: res_id, userId: this.userId, couponCode: this.promocode.trim()}
+    const obj = { restId: res_id, userId: this.userId, couponCode: this.promocode.trim() }
     // console.log(paymentMethod, '776767888', obj);
     this.socketService.setupSocketConnection();
-    if(this.promocode && (this.promocode || '').trim().length != 0){
-      this.promosubmit=false
+    if (this.promocode && (this.promocode || '').trim().length != 0) {
+      this.promosubmit = false;
+      this.spinner.show();
       this.orderService.postAll('apply_promo_code', obj).subscribe((res) => {
         if (res.status === 200) {
-          console.log(res.data);
           if (res.data.is_minimum_price_type === 1) {
-            if(this.orderTotal>=res.data.minimum_price_value){
+            if (totalordervalue >= res.data.minimum_price_value) {
               if (res.data.discount_type === 1) {
-                let promoAmount = this.orderTotal * res.data.discount_type_value / 100
-                this.orderTotal = promoAmount
-                this.isPromoCodeApply=1
-              }else if (res.data.discount_type === 2) {
-                if(this.orderTotal<=res.data.discount_type_value){
-                  this.displaysuccess = `add more items ${this.orderTotal-res.data.discount_type_value}`;
-                }else{
-                  this.orderTotal = this.orderTotal - res.data.discount_type_value
-                  this.isPromoCodeApply=1
+                let promoAmount = totalordervalue * res.data.discount_type_value / 100
+                totalordervalue = totalordervalue - promoAmount
+                this.isPromoCodeApply = 1
+                this.displaysuccess = res.msg;
+                this.displayError = ''
+              } else if (res.data.discount_type === 2) {
+                if (totalordervalue <= res.data.discount_type_value) {
+                  this.displayError = `add more items for this coupon`;
+                  this.displaysuccess = ''
+                } else {
+                  totalordervalue = totalordervalue - res.data.discount_type_value
+                  this.isPromoCodeApply = 1
+                  this.displaysuccess = res.msg;
+                  this.displayError = ''
                 }
               }
             }
-          }else{
-              if (res.data.discount_type === 1) {
-                let promoAmount = this.orderTotal * res.data.discount_type_value / 100
-                this.orderTotal = promoAmount
-                this.isPromoCodeApply=1
-              }else if (res.data.discount_type === 2) {
-                if(this.orderTotal<=res.data.discount_type_value){
-                  this.displaysuccess = `add more items ${this.orderTotal-res.data.discount_type_value}`;
-                }else{
-                  this.isPromoCodeApply=1
-                  this.orderTotal = this.orderTotal - res.data.discount_type_value;
-                }
+          } else {
+            if (res.data.discount_type === 1) {
+              let promoAmount = totalordervalue * res.data.discount_type_value / 100
+              totalordervalue = totalordervalue - promoAmount
+              this.isPromoCodeApply = 1
+              this.displaysuccess = res.msg;
+              this.displayError = ''
+            } else if (res.data.discount_type === 2) {
+              if (totalordervalue <= res.data.discount_type_value) {
+                this.displayError = `add more items for this coupon`;
+                this.displaysuccess = ''
+              } else {
+                this.isPromoCodeApply = 1
+                totalordervalue = totalordervalue - res.data.discount_type_value;
+                this.displaysuccess = res.msg;
+                this.displayError = ''
               }
+            }
           }
+          this.orderTotal = totalordervalue
           this.display = ''
-          this.displaysuccess = res.msg;
           setTimeout(function () { this.displaysuccess = '' }, 3000);
+          setTimeout(function () { this.displayError = '' }, 3000);
           // this.isLoading =false
           this.spinner.hide();
         } else {
-          // this.isLoading =false
           this.spinner.hide();
           this.displaysuccess = ''
-          this.display = res.msg;
+          this.displayError = res.msg;
         }
+        this.spinner.hide();
       });
-    }else{
-      this.promosubmit=true
+    } else {
+      this.promosubmit = true
     }
-    
+
 
   }
 

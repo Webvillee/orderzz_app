@@ -37,11 +37,19 @@ export class OrderComponent implements OnInit {
     // }else{
     //   this.customer_address = CryptoJS.AES.decrypt(localStorage.getItem('customer_address'),'').toString(CryptoJS.enc.Utf8);
     // }
+    // this.socketService.setupSocketConnection()
     this.get_all_rest_data();
   }
 
   ngOnInit() {
-    this.socketService.setupSocketConnection()
+    // this.socketService.setupSocketConnection()
+    this.socketService.getMessages().subscribe((message) => {
+      console.log(message)
+      // this.totalNotification = (message.data.length != undefined) ? message.data.length : 0
+      // this.orderData = message.data.orderData
+      // localStorage.setItem('totalNotificationata',this.totalNotification);
+      // this.playAudio();
+     });
     // this.socketService.orderPlace()
     // this.socketService.pushNotification().subscribe((message) => {
     //   console.log("hhiiiiiiiiiiiiiiiiii", message)
