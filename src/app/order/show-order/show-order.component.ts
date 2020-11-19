@@ -55,6 +55,7 @@ export class ShowOrderComponent implements OnInit {
   restaurantClose: boolean = false;
   restaurantClosePickup: boolean = false;
   restaurantCloseDelivery: boolean = false;
+  showtime= ''
   constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog, private spinner: NgxSpinnerService, private socketService: SocketioService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -68,10 +69,10 @@ export class ShowOrderComponent implements OnInit {
 
     this.get_all_rest_data()
     this.get_all_category()
+    this.getDeviceType()
   }
 
   ngOnInit() {
-    this.socketService.setupSocketConnection();
     // this.socketService.orderPlace().subscribe((message) => {
     //     console.log(message)
     //   });
@@ -124,9 +125,9 @@ export class ShowOrderComponent implements OnInit {
         const lat2 = CryptoJS.AES.decrypt(localStorage.getItem('lat'), '').toString(CryptoJS.enc.Utf8);
         const lon2 = CryptoJS.AES.decrypt(localStorage.getItem('lng'), '').toString(CryptoJS.enc.Utf8);
 
-        console.log('lat1=>', lat1, 'lon1=>', lon1, 'lat2=>', lat2, 'lon2=>', lon2);
+        // console.log('lat1=>', lat1, 'lon1=>', lon1, 'lat2=>', lat2, 'lon2=>', lon2);
 
-        if (lat1 && lon1 && lat2 && lon2) {
+        if (lat1!== '' && lon1 !== '' && lat2!== '' && lon2!== '') {
           var rad = function (x) {
             return x * Math.PI / 180;
           };
@@ -138,30 +139,32 @@ export class ShowOrderComponent implements OnInit {
             Math.cos(rad(lat1)) * Math.cos(rad(lat2)) *
             Math.sin(dLong / 2) * Math.sin(dLong / 2);
           var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-          console.log((R * c) / 1000, 'In km llllllll');
-          const distance = (R * c) / 1000
-          console.log(distance/30, 'timmmmmeeeeeeeeee')
+          var dist = (R * c)
+          // console.log(dist/ 1000, 'In km llllllll', dist);
+
+          const distance_in_kms = dist / 1000
+          const kms_per_min = 0.5
+          const mins_taken = distance_in_kms / kms_per_min;
+          const totalMinutes =  mins_taken;
+
+          if (totalMinutes<60)
+          {
+            let num = totalMinutes;
+            var n = num.toFixed(2);
+            let rminutes = (n + "").split(".")[1]
+            this.showtime = rminutes + " mins";
+          }else {
+            // console.log( (totalMinutes / 60))
+            let num = totalMinutes;
+            let hours = (num / 60);
+            let rhours = Math.floor(hours);
+            let minutes = (hours - rhours) * 60;
+            let rminutes = Math.round(minutes);
+            this.showtime = rhours + " hour " + rminutes + " mins";
+          }
         }
 
-        // var d = R * c;
-
-        // returns the distance in meter
-        // const R = 6371e3; // metres
-        // const φ1 = lat1 * Math.PI/180; // φ, λ in radians
-        // const φ2 = lat2 * Math.PI/180;
-        // const Δφ = (lat2-lat1) * Math.PI/180;
-        // const Δλ = (lon2-lon1) * Math.PI/180;
-
-        // const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-        //           Math.cos(φ1) * Math.cos(φ2) *
-        //           Math.sin(Δλ/2) * Math.sin(Δλ/2);
-        // const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-        // console.log((R * c)/1000, 'pppp');
-
-        // const d = R * c; // in metres
-
-        // const cValue = formatDate(currentDate, 'yyyy-MM-dd', 'en-US');
-        console.log(this.startDeleveryTime, this.endDeleveryTime, this.startPickupTime, this.endPickupTime, 'time');
+        // console.log(this.startDeleveryTime, this.endDeleveryTime, this.startPickupTime, this.endPickupTime, 'time');
 
         // For adding active class dynamically
         if (this.isOrderTypeDeliver === true) {
@@ -210,6 +213,7 @@ export class ShowOrderComponent implements OnInit {
             this.restaurantCloseDelivery = true
           }
         }
+
         if (localStorage.getItem('order_type')) {
           const orderType = CryptoJS.AES.decrypt(localStorage.getItem('order_type'), '').toString(CryptoJS.enc.Utf8)
           this.selectedDeliveryType = orderType
@@ -250,7 +254,40 @@ export class ShowOrderComponent implements OnInit {
       }
     });
 
+
+    
   }
+
+  getDeviceType() {
+    const ua = navigator.userAgent;
+    if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+      console.log("tablet");
+    }
+    if (
+      /Mobile|iP(hone|od|ad)|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(
+        ua
+      )
+    ) {
+      console.log("mobile");
+    }
+
+    if (
+      /Mobile|Android|(hpw|web)OS|Opera M(obi|ini)/.test(
+        ua
+      )
+    ) {
+      console.log("android");
+    }
+    if (
+      /Mobile|iP(hone|od|ad)|(hpw|web)OS|Opera M(obi|ini)/.test(
+        ua
+      )
+    ) {
+      console.log("iPhone");
+    }
+    console.log("desktop");
+  };
+  
 
 
   findItem(catData) {
@@ -269,7 +306,7 @@ export class ShowOrderComponent implements OnInit {
       if (res.status == 200) {
         this.getItemData = res.data.item
       } else if (res.status == 201) {
-        this.getItemData = 0
+        this.getItemData = res.data.item
       } else {
         this.router.navigate(['/not-found'])
       }
@@ -319,8 +356,6 @@ export class ShowOrderComponent implements OnInit {
   }
 
   addMap() {
-    // console.log('uhjkhjkhg')
-    // if(!localStorage.getItem('customer_address')){
     const dialogRef = this.dialog.open(AddressPopupComponent, {
       width: '600px',
       height: '700px',
@@ -329,9 +364,8 @@ export class ShowOrderComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
+      this.get_all_rest_data()
     });
-    // }
 
   }
 

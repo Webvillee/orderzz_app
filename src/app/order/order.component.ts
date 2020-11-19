@@ -50,17 +50,9 @@ export class OrderComponent implements OnInit {
       // localStorage.setItem('totalNotificationata',this.totalNotification);
       // this.playAudio();
      });
-    // this.socketService.orderPlace()
-    // this.socketService.pushNotification().subscribe((message) => {
-    //   console.log("hhiiiiiiiiiiiiiiiiii", message)
-    // });
   }
 
   ngDoCheck() {
-    this.socketService.pushNotification().subscribe((message) => {
-      console.log("hhiiiiiiiiiiiiiiiiii", message)
-    });
-    // this.socketService.pushNotification();
   }
 
   // ngAfterContentChecked() {

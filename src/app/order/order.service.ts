@@ -25,7 +25,7 @@ export class OrderService {
   }
 
   get_all_item(data) {
-    return this.http.post<any>(`${this.uri}/get_all_Item`, data);
+    return this.http.post<any>(`${this.uri}/get_all_Item1`, data);
   }
 
   postAll(link, obj) {
