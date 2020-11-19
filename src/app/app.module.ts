@@ -18,6 +18,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ToastrModule } from 'ngx-toastr';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+const config: SocketIoConfig = { url: environment.SOCKET_ENDPOINT, options: {} };
 
 const routes: Routes = [
   { path: '', loadChildren: () => import('./order/order.module').then(m => m.OrderModule), pathMatch: 'full' },
@@ -44,6 +46,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     NgxSpinnerModule,
     InfiniteScrollModule,
+    SocketIoModule.forRoot(config),
     AgmCoreModule.forRoot({ // @agm/core
       apiKey: UrlSetting.agm_core_key ,
       libraries: ['places']

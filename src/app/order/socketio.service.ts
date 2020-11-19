@@ -3,8 +3,8 @@ import * as io from 'socket.io-client';
 import { environment } from '../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import * as CryptoJS from 'crypto-js'
-import { Observable } from 'rxjs'
-// import * as Rx from 'rxjs/Rx';
+import { Socket } from 'ngx-socket-io';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,24 @@ export class SocketioService {
   socket;
   userId
   constructor(private toastr: ToastrService) { }
+
+  public getMessages = () => {
+    this.socket = io(environment.SOCKET_ENDPOINT);
+    if (localStorage.getItem('userId')) {
+    return Observable.create((observer) => {
+      this.userId = CryptoJS.AES.decrypt(localStorage.getItem('userId'), '').toString(CryptoJS.enc.Utf8)
+        this.socket.emit('join_chat', this.userId);
+        this.socket.on('join_chat_ack', (data: string) => {
+          console.log(data, 'jhghhgghghghhfg')
+        });
+        this.socket.on('push_notification', (data) => {
+          observer.next(data);
+        });
+    });
+  }
+  }
+
+  
   public setupSocketConnection() {
     // this.userId=CryptoJS.AES.decrypt(localStorage.getItem('userId'), '').toString(CryptoJS.enc.Utf8)
     this.socket = io(environment.SOCKET_ENDPOINT);

@@ -12,7 +12,7 @@
         </div>
         <div class="app_verification_caption app_checkout_content">
             <h6 style="color: red">{{ display }}</h6>
-            <h6 style="color: green">{{ displaysuccess }}</h6>
+           
 
             <label class="app_content">Deliver to</label>
             <div class="app_checkout_input">
@@ -32,11 +32,13 @@
                 <div *ngIf="promosubmit" class="invalid-feedback">
                     <div>*Promocode is required</div>
                 </div>
+                <h6 style="color: green">{{ displaysuccess }}</h6>
+                <h6 style="color: red">{{ displayError }}</h6>
                 <a (click)="applyCode()" class="app_checkout_code cursorCss">apply</a>
             </div>
             <form [formGroup]="angForm" (ngSubmit)="onSubmit()">
                 <label class="app_content">Choose Payment </label>
-                <div class="app_choose_payment" *ngIf="themeData.is_card_payment===1">
+                <!-- <div class="app_choose_payment" *ngIf="themeData.is_card_payment===1">
                     <div class="row" *ngIf="card_details">
                         <div class="col-3">
                             <div class="app_choose_payment_option">
@@ -61,7 +63,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="app_choose_payment" *ngIf="themeData.is_cash_payment===1">
                     <div class="row">
                         <div class="col-3">
