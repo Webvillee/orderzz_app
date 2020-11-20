@@ -29,7 +29,7 @@
                                 <img *ngIf="this.orderHistory.order_status===4"
                                     src="assets/img/staus_progress.svg" alt="">Out of deliver </li>
                             <li class="StepProgress-item"
-                                [ngClass]="this.orderHistory.order_status===5 ? 'current' : ''"> <img *ngIf="this.orderHistory.order_status===5"
+                                [ngClass]="this.orderHistory.order_status===8 ? 'current' : ''"> <img *ngIf="this.orderHistory.order_status===8"
                                     src="assets/img/staus_progress.svg" alt="">Delivered </li>
                         </ul>
                     </div>
@@ -42,7 +42,8 @@
             <div class="app_row">
                 <div class="app_contact_collapse" data-toggle="collapse" data-target="#app_order_placed_collapse"></div>
                 <div class="order_placed_content collapse" id="app_order_placed_collapse">
-                    <p class="arrive_time" *ngIf="this.orderHistory.order_status===3 || this.orderHistory.order_status===4">Arrives in {{this.orderHistory.order_delevery_time}} minutes</p>
+                    <!-- <p class="arrive_time" *ngIf="this.orderHistory.order_status>3 && this.orderHistory.order_status<8">Arrives in {{this.orderHistory.order_delevery_time}} minutes</p> -->
+                    <p class="arrive_time" *ngIf="this.orderHistory.order_status===8">Arrives in {{this.orderHistory.order_completed_time}} minutes</p>
                     <h3><span *ngFor="let itemData of getItemData; let isLast=last">{{itemData.item_name}} -
                             {{countOrder(itemData._id)}}{{isLast ? '' : ', '}}
                         </span> <a [routerLink]="['/order-details', this.orderHistory._id]"><i class="fa fa-angle-right"
@@ -59,7 +60,7 @@
                             {{(this.orderHistory===1)? this.orderHistory.pickup_address : this.orderHistory.delevery_address }}
                         </p>
                     </div>
-                    <div class="delivery_boy_call" *ngIf="this.orderHistory.order_status===3 || this.orderHistory.order_status===4">
+                    <!-- <div class="delivery_boy_call" *ngIf="this.orderHistory.order_status>3">
                         <div class="row">
                             <div class="col-2">
                                 <div class="app_delivery_partner">
@@ -80,7 +81,7 @@
                             <img class="app_submit_call_image" src="assets/img/microphone.png" alt="">
                             <input type="submit" class="app_full_btn" value="call us">
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

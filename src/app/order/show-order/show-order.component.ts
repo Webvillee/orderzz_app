@@ -56,6 +56,7 @@ export class ShowOrderComponent implements OnInit {
   restaurantClosePickup: boolean = false;
   restaurantCloseDelivery: boolean = false;
   showtime= ''
+  keyResult
   constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog, private spinner: NgxSpinnerService, private socketService: SocketioService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -121,8 +122,10 @@ export class ShowOrderComponent implements OnInit {
         // console.log(CryptoJS.AES.decrypt(localStorage.getItem('lat'), '').toString(CryptoJS.enc.Utf8), CryptoJS.AES.decrypt(localStorage.getItem('lng'), '').toString(CryptoJS.enc.Utf8), 'okkkkkkkkkk')
         const lat1 = res.data.rest_lat;
         const lon1 = res.data.rest_lng;
-        const lat2 = CryptoJS.AES.decrypt(localStorage.getItem('lat'), '').toString(CryptoJS.enc.Utf8);
-        const lon2 = CryptoJS.AES.decrypt(localStorage.getItem('lng'), '').toString(CryptoJS.enc.Utf8);
+        let lat2
+        let lon2
+        (localStorage.getItem('lat'))? lat2 = CryptoJS.AES.decrypt(localStorage.getItem('lat'), '').toString(CryptoJS.enc.Utf8) : lat2 = '';
+        (localStorage.getItem('lng'))? lon2 = CryptoJS.AES.decrypt(localStorage.getItem('lng'), '').toString(CryptoJS.enc.Utf8): lon2 ='';
 
         // console.log('lat1=>', lat1, 'lon1=>', lon1, 'lat2=>', lat2, 'lon2=>', lon2);
 
@@ -252,8 +255,6 @@ export class ShowOrderComponent implements OnInit {
         this.getCategoryData = 0
       }
     });
-
-
     
   }
   
@@ -273,9 +274,13 @@ export class ShowOrderComponent implements OnInit {
     this.orderService.get_all_item(obj).subscribe((res) => {
       // console.log(res)
       if (res.status == 200) {
+        console.log(res.data)
         this.getItemData = res.data.item
+        this.keyResult= res.data.keyResult
       } else if (res.status == 201) {
+        console.log(res.data)
         this.getItemData = res.data.item
+        this.keyResult= res.data.keyResult
       } else {
         this.router.navigate(['/not-found'])
       }

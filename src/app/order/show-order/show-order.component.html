@@ -112,8 +112,10 @@
 											<h5>{{itemData.item_name}}</h5>
 											<h6>{{itemData.item_description}}</h6>
 											<div class="app_bestseller_foot">
-											<span class="app_footer">{{itemData.price}} AED</span>
-											<!-- <span><del>{{itemData.price}} AED</del></span><br> -->
+											<span *ngIf="itemData.sell_price===0" class="app_footer">{{itemData.price}} AED</span>
+											<span *ngIf="itemData.sell_price!==0" class="app_footer">{{itemData.sell_price}} AED</span>
+											<span *ngIf="itemData.sell_price!==0" ><del>{{itemData.price}} AED</del></span><br>
+											
 											
 											<div  class="app_add_baset_icon">
 												<span *ngIf="countOrder(itemData._id)!=0">
@@ -268,8 +270,9 @@
 											<h5>{{itemData.item_name}}</h5>
 											<h6>{{itemData.item_description}}</h6>
 											<div class="app_bestseller_foot">
-											<span class="app_footer">{{itemData.price}} AED</span>
-											<!-- <span><del>{{itemData.price}} AED</del></span><br> -->
+											<span *ngIf="itemData.sell_price===0" class="app_footer">{{itemData.price}} AED</span>
+											<span *ngIf="itemData.sell_price!==0" class="app_footer">{{itemData.sell_price}} AED</span>
+											<span *ngIf="itemData.sell_price!==0" ><del>{{itemData.price}} AED</del></span><br>
 											
 											<div  class="app_add_baset_icon">
 												<span *ngIf="countOrder(itemData._id)!=0">
