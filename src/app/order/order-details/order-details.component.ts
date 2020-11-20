@@ -66,7 +66,7 @@ export class OrderDetailsComponent implements OnInit {
     this.orderService.get_restaurant_data(obj).subscribe((res) => {
       if (res.status == 200) {
         // this.isLoading = false
-        // console.log(res.data, 'ifff');
+        // // console.log(res.data, 'ifff');
         this.spinner.hide();
         this.rest_name= res.data.rest_name;
         this.rest_description= res.data.rest_description
@@ -76,7 +76,7 @@ export class OrderDetailsComponent implements OnInit {
       } else {
         this.spinner.hide();
         // this.isLoading = false
-        // console.log('ellls')
+        // // console.log('ellls')
         // this.router.navigate(['/not-found'])
       }
     });
@@ -92,7 +92,7 @@ export class OrderDetailsComponent implements OnInit {
         if (res.status === 200) {
           this.isLoading = false
           this.spinner.hide();
-          console.log(res.data);
+          // console.log(res.data);
           this.orderHistory = res.data
           this.orderItems=res.data.order_items
           if(this.orderItems){
@@ -102,18 +102,18 @@ export class OrderDetailsComponent implements OnInit {
               this.router.navigate(['/order'])
             }
             let total = this.itemArray.reduce((prev, item) => prev + item.price, 0);
-            //  console.log(JSON.stringify(this.itemArray))
+            //  // console.log(JSON.stringify(this.itemArray))
             const arr_total = this.itemArray
       
             this.itemArray.map((element, index) => {
               if (element.is_modifire_status === 1) {
                 const availmodifire = JSON.parse(element.available_modifire);
-                // console.log(availmodifire, 'pppppp');
+                // // console.log(availmodifire, 'pppppp');
                 for (let step = 0; step < availmodifire.length; step++) {
                   // availmodifire[step].modifire.reduce((prev, item) => prev + item.sell_price, 0);
                   availmodifire[step].modifire.map(function (el) {
                     if (el.isChecked === true) {
-                      console.log(el.price, 'elllll');
+                      // console.log(el.price, 'elllll');
                       total =  total + el.price
                     }
                   })
@@ -151,9 +151,9 @@ export class OrderDetailsComponent implements OnInit {
 
   repeatOrder(orderData) {
     const orderDetail = JSON.parse(orderData.order_items)
-    console.log(orderDetail, 'orderData');
+    // console.log(orderDetail, 'orderData');
     let uniqueIds = Array.from(new Set(orderDetail.map((item: any) => item._id)))
-    console.log(uniqueIds, 'uniqueIds');
+    // console.log(uniqueIds, 'uniqueIds');
 
     // this.spinner.show();
     const obj = {
@@ -161,20 +161,20 @@ export class OrderDetailsComponent implements OnInit {
     };
     this.orderService.postAll('get_repeat_order', obj).subscribe((res) => {
       if (res.status == 200) {
-        console.log(res.data.item, 'ifff');
+        // console.log(res.data.item, 'ifff');
         const allItems = res.data.item
         var userOrderData = CryptoJS.AES.encrypt(JSON.stringify(allItems), '').toString();
         localStorage.setItem('OrderData', userOrderData)
         this.router.navigate(['/view-basket']);
         // allItems.map((element, index) => {
         //   if(element.cat_status===1 && element.menu_status===1 && element.is_online_status===1 &&  element.rest_status===1 &&  element.status===1){
-        //     console.log(element)
+        //     // console.log(element)
         //   }
-        //   console.log(element, 'lllll')
+        //   // console.log(element, 'lllll')
         // });
       } else {
         // this.isLoading = false
-        // console.log('ellls')
+        // // console.log('ellls')
         // this.router.navigate(['/not-found'])
       }
     });

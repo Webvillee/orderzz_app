@@ -48,14 +48,14 @@ export class ShowLocationComponent implements OnInit {
       if (res.status == 200) {
         this.spinner.hide();
         // this.isLoading = false
-        // console.log(res.data, 'ifff')
+        // // console.log(res.data, 'ifff')
         // this.minimum_order_value = res.data.end_delevery_time
         // this.themeColor = res.data.theme_color
 
       } else {
         // this.isLoading = false
         this.spinner.hide();
-        // console.log('ellls')
+        // // console.log('ellls')
         // this.router.navigate(['/not-found'])
       }
     });

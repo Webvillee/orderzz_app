@@ -42,11 +42,11 @@ export class SocketioService {
   //     this.socket.emit('join_chat', `join chat ${this.userId}`);
 
   //     this.socket.on('join_chat_ack', (data) => {
-  //       console.log(data);
+  //       // console.log(data);
   //     });
 
   //     this.socket.on('join_chat_ack1', (data) => {
-  //       console.log(data, 'ack1');
+  //       // console.log(data, 'ack1');
   //     });
   //   }
 
@@ -62,7 +62,7 @@ export class SocketioService {
   //   });
   //   // if (localStorage.getItem('userId')) {
   //   //   this.socket.on('push_notification', (data) => {
-  //   //     console.log(data, 'ghhhfhfhgfghfgh');
+  //   //     // console.log(data, 'ghhhfhfhgfghfgh');
   //   //   });
   //   // }
   // }

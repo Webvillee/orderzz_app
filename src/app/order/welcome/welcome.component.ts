@@ -43,7 +43,7 @@ export class WelcomeComponent implements OnInit {
     this.spinner.show();
     this.orderService.get_restaurant_data(obj).subscribe((res) => {
       if (res.status == 200) {
-        // console.log(res.data, 'jkhjk');
+        // // console.log(res.data, 'jkhjk');
         this.logo = res.data.rest_logo
         this.instaId = res.data.rest_instagram_id
         this.linkeinId = res.data.rest_linkedin_id

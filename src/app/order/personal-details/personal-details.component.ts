@@ -63,7 +63,7 @@ export class PersonalDetailsComponent implements OnInit {
     if (localStorage.getItem('UserData')) {
     const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
     // this.UserData= data
-    // console.log(data, 'lll')
+    // // console.log(data, 'lll')
       this.user_image = data.user_image_url
       this.userName= data.user_name
       this.email= data.user_email
@@ -88,7 +88,7 @@ export class PersonalDetailsComponent implements OnInit {
       
     // const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
     // this.UserData=data
-    // console.log(data, 'lll')
+    // // console.log(data, 'lll')
     //   this.userName= data.user_name
     //   this.email= data.user_email
     }
@@ -131,7 +131,7 @@ export class PersonalDetailsComponent implements OnInit {
 
   onFileSelected(event) {
     this.fileToUpload = event.target.files.item(0)
-// console.log(this.fileToUpload.type,'ggggthis.fileToUpload.type')
+// // console.log(this.fileToUpload.type,'ggggthis.fileToUpload.type')
     if (this.fileToUpload.type == 'image/jpeg' || this.fileToUpload.type == 'image/png' || this.fileToUpload.type == 'image/gif' || this.fileToUpload.type == 'image/apng' || this.fileToUpload.type == 'image/svg+xml') {
 
       if (event.target.files && event.target.files[0]) {
@@ -158,9 +158,9 @@ export class PersonalDetailsComponent implements OnInit {
           this.user_image= events.body.data.filepath;
           // alert('SUCCESS !!');
         }
-        // console.log(this.myMediaGallery);
+        // // console.log(this.myMediaGallery);
       }, error => {
-        console.log(error);
+        // console.log(error);
       });
     } else {
       alert("Please Upload an image (JPEG, PNG, GIF)")
@@ -168,7 +168,7 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   onSubmit() {
-    // console.log(this.angForm.controls.userName.value, '776767888');
+    // // console.log(this.angForm.controls.userName.value, '776767888');
     var userName = this.angForm.controls.userName.value;
     var userEmail = this.angForm.controls.email.value;
     const obj = { userId: this.userId, userName: userName, userEmail: userEmail , userImageUrl: this.user_image }
@@ -183,7 +183,7 @@ export class PersonalDetailsComponent implements OnInit {
       return;
     }
     if (this.submitted === true && (userName || '').trim().length != 0 && userName.length >= 2 && userEmail.match(mailformat)) {
-      // console.log(this.angForm.controls.userName, '787678', userName.length);
+      // // console.log(this.angForm.controls.userName, '787678', userName.length);
 
       this.orderService.postAll('update_profile', obj).subscribe((res) => {
         if (res.status === 200) {
@@ -203,7 +203,7 @@ export class PersonalDetailsComponent implements OnInit {
       });
 
     } else {
-      // console.log(this.angForm.controls.userName, '00000000', userName.length);
+      // // console.log(this.angForm.controls.userName, '00000000', userName.length);
       if (this.angForm.invalid) {
         return false;
       }

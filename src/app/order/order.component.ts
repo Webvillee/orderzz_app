@@ -44,7 +44,7 @@ export class OrderComponent implements OnInit {
   ngOnInit() {
     // this.socketService.setupSocketConnection()
     this.socketService.getMessages().subscribe((message) => {
-      console.log(message)
+      // console.log(message)
       // this.totalNotification = (message.data.length != undefined) ? message.data.length : 0
       // this.orderData = message.data.orderData
       // localStorage.setItem('totalNotificationata',this.totalNotification);
@@ -59,7 +59,7 @@ export class OrderComponent implements OnInit {
   //   this.socketService
   //     .orderPlace()
   //     .subscribe((message: string) => {
-  //       console.log(message)
+  //       // console.log(message)
   //     });
   // }
 
@@ -70,7 +70,7 @@ export class OrderComponent implements OnInit {
       };
       this.orderService.get_restaurant_data(obj).subscribe((res) => {
         if (res.status == 200) {
-          // console.log(res.data)
+          // // console.log(res.data)
           // this.themeView = res.data.theme_view
           // if(this.themeView=="1"){       //1=listview in  and 2= gridmeans
           //   this.themeCondition=false

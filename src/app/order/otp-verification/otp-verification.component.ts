@@ -53,7 +53,7 @@ export class OtpVerificationComponent implements OnInit {
     if (localStorage.getItem('UserData')) {
       const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
       // this.UserData= data
-      console.log(data, 'llloo')
+      // console.log(data, 'llloo')
       this.userId= data._id;
       }
 
@@ -103,7 +103,7 @@ export class OtpVerificationComponent implements OnInit {
 
 
   onSubmit() {
-    console.log(this.angForm.controls.otp.value, '776767888');
+    // console.log(this.angForm.controls.otp.value, '776767888');
     var otp = this.angForm.controls.otp.value;
 
     const obj = { userId: this.userId, otp: otp }
@@ -112,7 +112,7 @@ export class OtpVerificationComponent implements OnInit {
 
     this.submitted = true;
     if (this.submitted === true && (otp || '').trim().length != 0 && otp.length >= 4) {
-      console.log(this.angForm.controls.otp, '787678', otp.length);
+      // console.log(this.angForm.controls.otp, '787678', otp.length);
 
       this.orderService.postAll('verify_otp', obj).subscribe((res) => {
         if (res.status === 200) {
@@ -121,7 +121,7 @@ export class OtpVerificationComponent implements OnInit {
         if (localStorage.getItem('UserData')) {
           const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
           // this.UserData= data
-          // console.log(data, 'lll')
+          // // console.log(data, 'lll')
           var encrypted_order_type = CryptoJS.AES.encrypt(data._id, '');
           localStorage.setItem('userId',encrypted_order_type.toString());
           localStorage.setItem('usersid', data._id)
@@ -137,7 +137,7 @@ export class OtpVerificationComponent implements OnInit {
       });
 
     } else {
-      console.log(this.angForm.controls.otp, '00000000', otp.length);
+      // console.log(this.angForm.controls.otp, '00000000', otp.length);
       if (this.angForm.invalid) {
         return false;
       }
@@ -147,7 +147,7 @@ export class OtpVerificationComponent implements OnInit {
   }
 
   resendotp() {
-    console.log(this.userId, 'userId');
+    // console.log(this.userId, 'userId');
     const obj = { userId: this.userId }
     if (this.userId) {
       this.orderService.postAll('resend_otp', obj).subscribe((res) => {

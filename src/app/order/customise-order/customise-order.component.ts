@@ -63,10 +63,10 @@ export class CustomiseOrderComponent implements OnInit {
     //   })
     //   this.available_modifire[step].modifire = result
     //   // this.available_modifire[step].modifire.map(v => ({...v, isChecked: false}))
-    //   // console.log(this.available_modifire[step].modifire, '999', result);
+    //   // // console.log(this.available_modifire[step].modifire, '999', result);
     // }
 
-    console.log(this.itemData, 'hellooo');
+    // console.log(this.itemData, 'hellooo');
     this.get_all_rest_data();
     this.getAllorderData();
   }
@@ -110,12 +110,12 @@ export class CustomiseOrderComponent implements OnInit {
       this.itemArray.map((element, index) => {
         if (element.is_modifire_status === 1) {
           const availmodifire = JSON.parse(element.available_modifire);
-          // console.log(availmodifire, 'pppppp');
+          // // console.log(availmodifire, 'pppppp');
           for (let step = 0; step < availmodifire.length; step++) {
             // availmodifire[step].modifire.reduce((prev, item) => prev + item.sell_price, 0);
             availmodifire[step].modifire.map(function (el) {
               if (el.isChecked === true) {
-                // console.log(el.price, 'elllll');
+                // // console.log(el.price, 'elllll');
                 total =  total + el.price
               }
             })
@@ -143,7 +143,7 @@ export class CustomiseOrderComponent implements OnInit {
     } else {
       this.itemArray.push(itemData);
     }
-    // console.log(this.itemArray);
+    // // console.log(this.itemArray);
     var userOrderData = CryptoJS.AES.encrypt(JSON.stringify(this.itemArray), '').toString();
     localStorage.setItem('OrderData', userOrderData);
     this.getAllorderData();
@@ -171,12 +171,12 @@ export class CustomiseOrderComponent implements OnInit {
   }
 
   changeSelection(event, modifiersVal, modifire) {
-    // console.log('7666666666',event.target.checked);
+    // // console.log('7666666666',event.target.checked);
      this.itemArray.map((element, index) => {
         if (element._id === this.itemData._id) {
           const availmodifire = JSON.parse(element.available_modifire);
           const modifiersIndex = availmodifire.findIndex(z => z._id === modifire._id)
-          // console.log(modifiersIndex, 'ppppp',  availmodifire[modifiersIndex].modifire);
+          // // console.log(modifiersIndex, 'ppppp',  availmodifire[modifiersIndex].modifire);
           const modifiersValIndex = availmodifire[modifiersIndex].modifire.findIndex(y => y._id == modifiersVal._id);
           let updatedModifire= availmodifire[modifiersIndex].modifire[modifiersValIndex];
         
@@ -186,7 +186,7 @@ export class CustomiseOrderComponent implements OnInit {
           }else if(event.target.checked===false){
             updatedModifire.isChecked = false
           }
-          console.log(updatedModifire.isChecked);
+          // console.log(updatedModifire.isChecked);
           element.available_modifire = JSON.stringify(availmodifire)
           this.itemData = element
         }
@@ -195,14 +195,14 @@ export class CustomiseOrderComponent implements OnInit {
     }
 
   save() {
-    // console.log('8888', this.itemData);
+    // // console.log('8888', this.itemData);
     let testArr = []
     this.available_modifire = JSON.parse(this.itemData.available_modifire);
     for (let step = 0; step < this.available_modifire.length; step++) {
       var count = (input, arr) => arr.filter(x => x.isChecked === input).length;
       // console.log (count(id, this.itemArray));
       const allCount = count(true, this.available_modifire[step].modifire);
-      // console.log(this.available_modifire[step].minimum_modifiers, '!==', allCount)
+      // // console.log(this.available_modifire[step].minimum_modifiers, '!==', allCount)
       if (this.available_modifire[step].minimum_modifiers > allCount) {
         this.available_modifire[step].isRequired = true;
         testArr.push("1");
@@ -212,12 +212,12 @@ export class CustomiseOrderComponent implements OnInit {
         testArr = testArr
       }
 
-      // console.log(this.available_modifire[step].minimum_modifiers, 'ooo', allCount);
+      // // console.log(this.available_modifire[step].minimum_modifiers, 'ooo', allCount);
 
     }
     let n = testArr.includes("1");
     if (n === false) {
-      // console.log(testArr, '767676');
+      // // console.log(testArr, '767676');
       var userOrderData = CryptoJS.AES.encrypt(JSON.stringify(this.itemArray), '').toString();
       localStorage.setItem('OrderData', userOrderData);
       this.dialogRef.close();

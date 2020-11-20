@@ -68,7 +68,7 @@ export class AddressPopupComponent implements OnInit {
       // const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))
       const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
 
-      // console.log(data, 'lll')
+      // // console.log(data, 'lll')
       this.address = data.address
     }
 
@@ -128,7 +128,7 @@ export class AddressPopupComponent implements OnInit {
       var longitude = CryptoJS.AES.encrypt(String(this.lng), '');
       localStorage.setItem('lng', longitude.toString());
     } else {
-      // console.log(this.angForm.controls.address, '00000000', address.length);
+      // // console.log(this.angForm.controls.address, '00000000', address.length);
       if (this.angForm.invalid) {
         return false;
       }
@@ -159,7 +159,7 @@ export class AddressPopupComponent implements OnInit {
       const longitude = CryptoJS.AES.decrypt(localStorage.getItem('lng'), '').toString(CryptoJS.enc.Utf8);
 
       // this.UserData= data
-      console.log(Number(latitude), Number(longitude))
+      // console.log(Number(latitude), Number(longitude))
       // this.userName= data.user_name
       // this.email= data.user_email
       this.lat = Number(latitude);
@@ -181,16 +181,16 @@ export class AddressPopupComponent implements OnInit {
       autocomplete.addListener("place_changed", () => {
         this._ngZone.run(() => {
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-          // console.log(place, "*");
+          // // console.log(place, "*");
           var loop = place.address_components;
           loop.forEach(element => {
             if (element.types[0] == 'locality') {
               (element.long_name != undefined) ? this.city = element.long_name : this.city = '';
-              // console.log("city1", element.long_name)
+              // // console.log("city1", element.long_name)
             }
             if (element.types[0] == 'postal_code') {
               (element.long_name != undefined) ? this.zip_code = element.long_name : this.zip_code = '';
-              // console.log("zip_code", element.long_name)
+              // // console.log("zip_code", element.long_name)
             }
           });
           (place.formatted_address != undefined) ? this.address = place.formatted_address : this.address = '';
@@ -207,7 +207,7 @@ export class AddressPopupComponent implements OnInit {
   markerDragEnd($event: MouseEvent) {
     let coords = JSON.stringify($event);
     let coords3 = JSON.parse(coords);
-    // console.log(coords3)
+    // // console.log(coords3)
     this.lat = coords3.latLng.lat;
     this.lng = coords3.latLng.lng;
     this.getAddress(this.lat, this.lng);
@@ -224,11 +224,11 @@ export class AddressPopupComponent implements OnInit {
             loop.forEach(element => {
               if (element.types[0] == 'locality') {
                 (element.long_name != undefined) ? this.city = element.long_name : this.city = '';
-                // console.log("city1", element.long_name)
+                // // console.log("city1", element.long_name)
               }
               if (element.types[0] == 'postal_code') {
                 (element.long_name != undefined) ? this.zip_code = element.long_name : this.zip_code = '';
-                // console.log("zip_code", element.long_name)
+                // // console.log("zip_code", element.long_name)
               }
 
             });

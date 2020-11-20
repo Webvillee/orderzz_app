@@ -57,7 +57,7 @@ export class PickupLocationComponent implements OnInit {
     if (localStorage.getItem('UserData')) {
       const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
       // this.UserData= data
-      console.log(data, 'lll');
+      // console.log(data, 'lll');
       this.userName = data.user_name;
       this.email = data.user_email;
       this.mobileno = data.user_contact_no;
@@ -82,7 +82,7 @@ export class PickupLocationComponent implements OnInit {
 
       // const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
       // this.UserData=data
-      // console.log(data, 'lll')
+      // // console.log(data, 'lll')
       //   this.userName= data.user_name
       //   this.email= data.user_email
     }
@@ -125,7 +125,7 @@ export class PickupLocationComponent implements OnInit {
   }
 
   onSubmit() {
-    // console.log(this.angForm.controls.userName.value, '776767888');
+    // // console.log(this.angForm.controls.userName.value, '776767888');
     var userName = this.angForm.controls.userName.value;
     var userEmail = this.angForm.controls.email.value;
     var mobileno = this.angForm.controls.mobileno.value;
@@ -137,7 +137,7 @@ export class PickupLocationComponent implements OnInit {
     this.submitted = true;
 
     if ((mobileno || '').trim().length != 0 && mobileno.length > 9 && (userName || '').trim().length != 0 && userName.length >= 2 && userEmail.match(mailformat)) {
-      // console.log(obj, '787678');
+      // // console.log(obj, '787678');
       this.isLoading = true
       this.orderService.postAll('update_profile', obj).subscribe((res) => {
         if (res.status === 200) {
@@ -169,7 +169,7 @@ export class PickupLocationComponent implements OnInit {
       });
 
     } else {
-      // console.log(this.angForm.controls.userName, '00000000', userName.length);
+      // // console.log(this.angForm.controls.userName, '00000000', userName.length);
       if (this.angForm.invalid) {
         return false;
       }
