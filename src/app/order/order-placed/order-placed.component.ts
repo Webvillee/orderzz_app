@@ -77,7 +77,7 @@ export class OrderPlacedComponent implements OnInit {
       if (res.status == 200) {
         this.spinner.hide();
         // this.isLoading = false
-        console.log(res.data, 'ifff');
+        // console.log(res.data, 'ifff');
         this.rest_name= res.data.rest_name;
         // this.minimum_order_value = res.data.end_delevery_time
         // this.themeColor = res.data.theme_color
@@ -85,7 +85,7 @@ export class OrderPlacedComponent implements OnInit {
       } else {
         // this.isLoading = false
         this.spinner.hide();
-        // console.log('ellls')
+        // // console.log('ellls')
         // this.router.navigate(['/not-found'])
       }
     });
@@ -100,7 +100,7 @@ export class OrderPlacedComponent implements OnInit {
         if (res.status === 200) {
           this.spinner.hide();
           // this.isLoading = false
-          console.log(res.data);
+          // console.log(res.data);
           this.orderHistory = res.data
           this.orderItems=res.data.order_items
           if(this.orderItems){
@@ -110,18 +110,18 @@ export class OrderPlacedComponent implements OnInit {
               this.router.navigate(['/order'])
             }
             let total = this.itemArray.reduce((prev, item) => prev + item.price, 0);
-            //  console.log(JSON.stringify(this.itemArray))
+            //  // console.log(JSON.stringify(this.itemArray))
             const arr_total = this.itemArray
       
             this.itemArray.map((element, index) => {
               if (element.is_modifire_status === 1) {
                 const availmodifire = JSON.parse(element.available_modifire);
-                // console.log(availmodifire, 'pppppp');
+                // // console.log(availmodifire, 'pppppp');
                 for (let step = 0; step < availmodifire.length; step++) {
                   // availmodifire[step].modifire.reduce((prev, item) => prev + item.sell_price, 0);
                   availmodifire[step].modifire.map(function (el) {
                     if (el.isChecked === true) {
-                      console.log(el.price, 'elllll');
+                      // console.log(el.price, 'elllll');
                       total =  total + el.price
                     }
                   })

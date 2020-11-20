@@ -94,7 +94,7 @@ export class SigninComponent implements OnInit {
 
 
   onSubmit() {
-    // console.log( this.angForm.controls.mobileno.value, 'ioiioiopioiopiop');
+    // // console.log( this.angForm.controls.mobileno.value, 'ioiioiopioiopiop');
     var mobileno = this.angForm.controls.mobileno.value;
     const obj = { phoneNo: mobileno }
 
@@ -102,7 +102,7 @@ export class SigninComponent implements OnInit {
 
     this.submitted = true;
     if (this.submitted === true && (mobileno || '').trim().length != 0 && mobileno.length > 9) {
-      // console.log(this.angForm.controls.mobileno, '787678', mobileno.length);
+      // // console.log(this.angForm.controls.mobileno, '787678', mobileno.length);
 
       this.orderService.postAll('sign_in', obj).subscribe((res) => {
         if (res.status === 200) {
@@ -119,7 +119,7 @@ export class SigninComponent implements OnInit {
         }
       });
     }else{
-      // console.log(this.angForm.controls.mobileno, '00000000', mobileno.length);
+      // // console.log(this.angForm.controls.mobileno, '00000000', mobileno.length);
       if (this.angForm.invalid) {
         return false;
     }

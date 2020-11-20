@@ -59,7 +59,7 @@ export class AddCardComponent implements OnInit {
     if (localStorage.getItem('UserData')) {
     const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
     // this.UserData= data
-    // console.log(data, 'lll')
+    // // console.log(data, 'lll')
       this.card_number= data.user_name
       this.expiry= data.user_expiry
     }
@@ -111,7 +111,7 @@ export class AddCardComponent implements OnInit {
 
 
   onSubmit() {
-    // console.log(this.angForm.controls.card_number.value, '776767888');
+    // // console.log(this.angForm.controls.card_number.value, '776767888');
     var card_number = this.angForm.controls.card_number.value;
     var cardexpiry = this.angForm.controls.expiry.value;
     // var cvv = this.angForm.controls.cvv.value;
@@ -124,7 +124,7 @@ export class AddCardComponent implements OnInit {
       return;
     }
     if (this.submitted === true && (card_number || '').trim().length != 0 && card_number.length >= 12 && (cardexpiry || '').trim().length != 0) {
-      // console.log(obj, '787678', card_number.length);
+      // // console.log(obj, '787678', card_number.length);
 
       this.orderService.postAll('add_card_data', obj).subscribe((res) => {
         if (res.status === 200) {
@@ -144,7 +144,7 @@ export class AddCardComponent implements OnInit {
       });
 
     } else {
-      // console.log(this.angForm.controls.card_number, '00000000', card_number.length);
+      // // console.log(this.angForm.controls.card_number, '00000000', card_number.length);
       if (this.angForm.invalid) {
         return false;
       }
@@ -175,9 +175,9 @@ export class AddCardComponent implements OnInit {
   checkMonth(e) {
     if (e.target.value > 12) {
       e.target.value = "";
-      // console.log(e.target.value)
+      // // console.log(e.target.value)
     }
-    // console.log(e.target.value.length, 'length')
+    // // console.log(e.target.value.length, 'length')
    
   }
 

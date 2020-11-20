@@ -81,7 +81,7 @@ export class BrowseOrderComponent implements OnInit {
       if (res.status == 200) {
         // this.isLoading = false
         this.spinner.hide();
-        console.log(res.data, 'ifff')
+        // console.log(res.data, 'ifff')
         this.themeView = res.data.theme_view
         if (this.themeView == "1") {       //1=listview in  and 2= gridmeans
           this.themeCondition = false
@@ -108,7 +108,7 @@ export class BrowseOrderComponent implements OnInit {
       } else {
         // this.isLoading = false
         this.spinner.hide();
-        console.log('ellls')
+        // console.log('ellls')
         // this.router.navigate(['/not-found'])
       }
     });
@@ -126,7 +126,7 @@ export class BrowseOrderComponent implements OnInit {
     };
 
     this.orderService.get_all_category(obj).subscribe((res) => {
-      // console.log(res)
+      // // console.log(res)
       if (res.status == 200) {
         this.getCategoryData = res.data;
         this.findItem(res.data[0]);
@@ -150,7 +150,7 @@ export class BrowseOrderComponent implements OnInit {
       restId: this.restId,
     };
     this.orderService.get_all_item(obj).subscribe((res) => {
-      console.log(res)
+      // console.log(res)
       if (res.status == 200) {
         this.getItemData = res.data.item
       } else if (res.status == 201) {
@@ -176,7 +176,7 @@ export class BrowseOrderComponent implements OnInit {
   }
 
   addMap() {
-    // console.log('uhjkhjkhg')
+    // // console.log('uhjkhjkhg')
     const dialogRef = this.dialog.open(AddressPopupComponent, {
       width: '600px',
       height: '700px',

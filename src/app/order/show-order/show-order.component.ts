@@ -69,12 +69,11 @@ export class ShowOrderComponent implements OnInit {
 
     this.get_all_rest_data()
     this.get_all_category()
-    this.getDeviceType()
   }
 
   ngOnInit() {
     // this.socketService.orderPlace().subscribe((message) => {
-    //     console.log(message)
+    //     // console.log(message)
     //   });
   }
 
@@ -98,7 +97,7 @@ export class ShowOrderComponent implements OnInit {
       if (res.status == 200) {
         // this.isLoading = false
         this.spinner.hide();
-        // console.log(res.data, 'ifff')
+        // // console.log(res.data, 'ifff')
         this.themeView = res.data.theme_view
         if (this.themeView == "1") {       //1=listview in  and 2= gridmeans
           this.themeCondition = false
@@ -119,13 +118,13 @@ export class ShowOrderComponent implements OnInit {
         this.endDeleveryTime = res.data.end_delevery_time
         this.startPickupTime = res.data.start_pickup_time
         this.endPickupTime = res.data.end_pickup_time
-        // console.log(CryptoJS.AES.decrypt(localStorage.getItem('lat'), '').toString(CryptoJS.enc.Utf8), CryptoJS.AES.decrypt(localStorage.getItem('lng'), '').toString(CryptoJS.enc.Utf8), 'okkkkkkkkkk')
+        // // console.log(CryptoJS.AES.decrypt(localStorage.getItem('lat'), '').toString(CryptoJS.enc.Utf8), CryptoJS.AES.decrypt(localStorage.getItem('lng'), '').toString(CryptoJS.enc.Utf8), 'okkkkkkkkkk')
         const lat1 = res.data.rest_lat;
         const lon1 = res.data.rest_lng;
         const lat2 = CryptoJS.AES.decrypt(localStorage.getItem('lat'), '').toString(CryptoJS.enc.Utf8);
         const lon2 = CryptoJS.AES.decrypt(localStorage.getItem('lng'), '').toString(CryptoJS.enc.Utf8);
 
-        // console.log('lat1=>', lat1, 'lon1=>', lon1, 'lat2=>', lat2, 'lon2=>', lon2);
+        // // console.log('lat1=>', lat1, 'lon1=>', lon1, 'lat2=>', lat2, 'lon2=>', lon2);
 
         if (lat1!== '' && lon1 !== '' && lat2!== '' && lon2!== '') {
           var rad = function (x) {
@@ -140,7 +139,7 @@ export class ShowOrderComponent implements OnInit {
             Math.sin(dLong / 2) * Math.sin(dLong / 2);
           var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
           var dist = (R * c)
-          // console.log(dist/ 1000, 'In km llllllll', dist);
+          // // console.log(dist/ 1000, 'In km llllllll', dist);
 
           const distance_in_kms = dist / 1000
           const kms_per_min = 0.5
@@ -154,7 +153,7 @@ export class ShowOrderComponent implements OnInit {
             let rminutes = (n + "").split(".")[1]
             this.showtime = rminutes + " mins";
           }else {
-            // console.log( (totalMinutes / 60))
+            // // console.log( (totalMinutes / 60))
             let num = totalMinutes;
             let hours = (num / 60);
             let rhours = Math.floor(hours);
@@ -164,7 +163,7 @@ export class ShowOrderComponent implements OnInit {
           }
         }
 
-        // console.log(this.startDeleveryTime, this.endDeleveryTime, this.startPickupTime, this.endPickupTime, 'time');
+        // // console.log(this.startDeleveryTime, this.endDeleveryTime, this.startPickupTime, this.endPickupTime, 'time');
 
         // For adding active class dynamically
         if (this.isOrderTypeDeliver === true) {
@@ -191,7 +190,7 @@ export class ShowOrderComponent implements OnInit {
 
         // for restaurent time checking
         this.opening_hours.map((element, index) => {
-          // console.log(element.name, 'element.name', element, element.name == weekday && element.openstatus === true);
+          // // console.log(element.name, 'element.name', element, element.name == weekday && element.openstatus === true);
           if (element.name == weekday && element.openstatus === true) {
             if (element.startTime <= d.getHours() + ':' + d.getMinutes() && element.endTime >= d.getHours() + ':' + d.getMinutes()) {
               this.restaurantClose = true
@@ -227,7 +226,7 @@ export class ShowOrderComponent implements OnInit {
       } else {
         // this.isLoading = false
         this.spinner.hide();
-        // console.log('ellls');
+        // // console.log('ellls');
         // this.router.navigate(['/not-found'])
       }
     });
@@ -245,7 +244,7 @@ export class ShowOrderComponent implements OnInit {
     };
 
     this.orderService.get_all_category(obj).subscribe((res) => {
-      // console.log(res)
+      // // console.log(res)
       if (res.status == 200) {
         this.getCategoryData = res.data;
         this.findItem(res.data[0]);
@@ -257,36 +256,6 @@ export class ShowOrderComponent implements OnInit {
 
     
   }
-
-  getDeviceType() {
-    const ua = navigator.userAgent;
-    if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
-      console.log("tablet");
-    }
-    if (
-      /Mobile|iP(hone|od|ad)|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(
-        ua
-      )
-    ) {
-      console.log("mobile");
-    }
-
-    if (
-      /Mobile|Android|(hpw|web)OS|Opera M(obi|ini)/.test(
-        ua
-      )
-    ) {
-      console.log("android");
-    }
-    if (
-      /Mobile|iP(hone|od|ad)|(hpw|web)OS|Opera M(obi|ini)/.test(
-        ua
-      )
-    ) {
-      console.log("iPhone");
-    }
-    console.log("desktop");
-  };
   
 
 
@@ -302,7 +271,7 @@ export class ShowOrderComponent implements OnInit {
       restId: this.restId,
     };
     this.orderService.get_all_item(obj).subscribe((res) => {
-      // console.log(res)
+      // // console.log(res)
       if (res.status == 200) {
         this.getItemData = res.data.item
       } else if (res.status == 201) {
@@ -315,14 +284,14 @@ export class ShowOrderComponent implements OnInit {
 
 
   addToCart(itemData) {
-    // console.log(itemData, 'itemDatakkkkk');
+    // // console.log(itemData, 'itemDatakkkkk');
     var index = this.itemArray.findIndex(x => x._id === itemData._id);
     if (index > -1) {
       this.itemArray.splice(index, 0, itemData);
     } else {
       this.itemArray.push(itemData);
     }
-    // console.log(this.itemArray);
+    // // console.log(this.itemArray);
     var userOrderData = CryptoJS.AES.encrypt(JSON.stringify(this.itemArray), '').toString();
     localStorage.setItem('OrderData', userOrderData)
   }
