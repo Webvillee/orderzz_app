@@ -95,19 +95,28 @@ export class ViewBasketComponent implements OnInit {
       if (this.itemArray.length === 0) {
         this.router.navigate(['/order'])
       }
-      let total = this.itemArray.reduce((prev, item) => prev + item.price, 0);
-      //  // console.log(JSON.stringify(this.itemArray))
+      // let total = this.itemArray.reduce((prev, item) => prev + item.price, 0);
+      let total = 0
+      let savings = 0
+      //  console.log(JSON.stringify(this.itemArray))
       const arr_total = this.itemArray
 
       this.itemArray.map((element, index) => {
+        console.log(element)
+        if(element.sell_price===0){
+          total = total + element.price
+        }else{
+          total = total + element.sell_price;
+          savings = element.price-element.sell_price
+        }
         if (element.is_modifire_status === 1) {
           const availmodifire = JSON.parse(element.available_modifire);
-          // // console.log(availmodifire, 'pppppp');
+          // console.log(availmodifire, 'pppppp');
           for (let step = 0; step < availmodifire.length; step++) {
             // availmodifire[step].modifire.reduce((prev, item) => prev + item.sell_price, 0);
             availmodifire[step].modifire.map(function (el) {
               if (el.isChecked === true) {
-                // // console.log(el.price, 'elllll');
+                // console.log(el.price, 'elllll');
                 total = total + el.price
               }
             })
@@ -116,8 +125,8 @@ export class ViewBasketComponent implements OnInit {
       });
 
       this.orderTotal = total;
-      let sellPrice = this.itemArray.reduce((prev, item) => prev + item.sell_price, 0);
-      this.savingCost = sellPrice;
+      // let sellPrice = this.itemArray.reduce((prev, item) => prev + (item.price-item.sell_price), 0);
+      this.savingCost = savings;
       const seen = new Set();
       const filteredArr = data.filter(el => {
         const duplicate = seen.has(el._id);
@@ -125,19 +134,19 @@ export class ViewBasketComponent implements OnInit {
         return !duplicate;
       });
       this.getItemData = filteredArr
-      // // console.log(this.getItemData, "OrderData")
+      // console.log(this.getItemData, "OrderData")
     }
   }
 
   addToCart(itemData) {
-    // // console.log(itemData, 'itemDatakkkkk');
+    // console.log(itemData, 'itemDatakkkkk');
     var index = this.itemArray.findIndex(x => x._id === itemData._id);
     if (index > -1) {
       this.itemArray.splice(index, 0, itemData);
     } else {
       this.itemArray.push(itemData);
     }
-    // // console.log(this.itemArray);
+    // console.log(this.itemArray);
     var userOrderData = CryptoJS.AES.encrypt(JSON.stringify(this.itemArray), '').toString();
     localStorage.setItem('OrderData', userOrderData);
     this.getAllorderData();
@@ -178,7 +187,7 @@ export class ViewBasketComponent implements OnInit {
     for (let step = 0; step < availmodifire.length; step++) {
       availmodifire[step].modifire.map(function (el) {
         if (el.isChecked === true) {
-          // console.log(el.price, 'iooooo');
+          console.log(el.price, 'iooooo');
           itemdt = true
         }
       })

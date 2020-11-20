@@ -70,7 +70,7 @@ export class CheckoutComponent implements OnInit {
       // const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))  
       const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
       this.UserData = data
-      // // console.log(data, 'lll');
+      // console.log(data, 'lll');
       this.userName = data.user_name
       this.email = data.user_email
       this.latitude = data.lat
@@ -97,7 +97,7 @@ export class CheckoutComponent implements OnInit {
     const obj = {
       restId: CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     };
-    // console.log(obj)
+    console.log(obj)
     this.orderService.get_restaurant_data(obj).subscribe((res) => {
       if (res.status == 200) {
         this.spinner.hide();
@@ -133,10 +133,10 @@ export class CheckoutComponent implements OnInit {
     const obj = {
       userId: this.userId
     };
-    // console.log(obj)
+    console.log(obj)
     this.orderService.postAll('get_card_data', obj).subscribe((res) => {
       if (res.status == 200) {
-        // console.log(res.data);
+        console.log(res.data);
         this.card_details = res.data[0]
       } else {
       }
@@ -146,16 +146,16 @@ export class CheckoutComponent implements OnInit {
   getDeviceType() {
     const ua = navigator.userAgent;
     if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
-      // // console.log("tablet");
-      this.userDevicetype=4
+      // console.log("tablet");
+      this.userDevicetype = 4
     }
     if (
       /Mobile|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(
         ua
       )
     ) {
-      // // console.log("mobile");
-      this.userDevicetype=4
+      // console.log("mobile");
+      this.userDevicetype = 4
     }
 
     if (
@@ -163,19 +163,19 @@ export class CheckoutComponent implements OnInit {
         ua
       )
     ) {
-      // // console.log("android");
-      this.userDevicetype=2
+      // console.log("android");
+      this.userDevicetype = 2
     }
     if (
       /Mobile|iP(hone|od|ad)|(hpw|web)OS|Opera M(obi|ini)/.test(
         ua
       )
     ) {
-      // // console.log("iPhone");
-      this.userDevicetype=1
+      // console.log("iPhone");
+      this.userDevicetype = 1
     }
-    // // console.log("desktop");
-    this.userDevicetype=3
+    // console.log("desktop");
+    this.userDevicetype = 3
   };
 
   changeNumber(str) {
@@ -186,13 +186,22 @@ export class CheckoutComponent implements OnInit {
     if (localStorage.getItem("OrderData")) {
       const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))
       this.itemArray = data;
-      let total = this.itemArray.reduce((prev, item) => prev + item.price, 0);
-      //  // console.log(JSON.stringify(this.itemArray))
+      let total = 0
+      let savings = 0
+      //  console.log(JSON.stringify(this.itemArray))
       const arr_total = this.itemArray
+
       this.itemArray.map((element, index) => {
+        console.log(element)
+        if (element.sell_price === 0) {
+          total = total + element.price
+        } else {
+          total = total + element.sell_price;
+          savings = element.price - element.sell_price
+        }
         if (element.is_modifire_status === 1) {
           const availmodifire = JSON.parse(element.available_modifire);
-          // // console.log(availmodifire, 'pppppp');
+          // console.log(availmodifire, 'pppppp');
           for (let step = 0; step < availmodifire.length; step++) {
             // availmodifire[step].modifire.reduce((prev, item) => prev + item.sell_price, 0);
             availmodifire[step].modifire.map(function (el) {
@@ -207,8 +216,7 @@ export class CheckoutComponent implements OnInit {
 
       this.orderTotal = total;
       this.totalorderPrice = total
-      let sellPrice = this.itemArray.reduce((prev, item) => prev + item.sell_price, 0);
-      this.savingCost = sellPrice;
+      this.savingCost = savings;
       const seen = new Set();
       const filteredArr = data.filter(el => {
         const duplicate = seen.has(el._id);
@@ -216,13 +224,13 @@ export class CheckoutComponent implements OnInit {
         return !duplicate;
       });
       // this.getItemData = filteredArr
-      // // console.log(this.getItemData, "OrderData")
+      // console.log(this.getItemData, "OrderData")
     }
   }
 
   ngOnInit() {
     // this.socketService.orderPlace().subscribe((message) => {
-    //     // console.log(message)
+    //     console.log(message)
     //   });
   }
 
@@ -231,8 +239,8 @@ export class CheckoutComponent implements OnInit {
     var is_submit = true
     var paymentMethod = this.angForm.controls.paymentMethod.value;
     // var userEmail = this.angForm.controls.email.value;
-    // // console.log('7767678888888888888', paymentMethod, this.angForm.invalid);
-    // // console.log(this.cardCvv)
+    // console.log('7767678888888888888', paymentMethod, this.angForm.invalid);
+    // console.log(this.cardCvv)
     this.submitted = true;
     if (paymentMethod == 1) {
       if (this.cardCvv === '' || this.cardCvv.trim() === '') {
@@ -268,10 +276,10 @@ export class CheckoutComponent implements OnInit {
     }
 
     if (paymentMethod && this.submitted === true) {
-      const obj = { restId: res_id, userId: this.userId, orderType: Number(orderType), orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: '', pickupLat: '', pickupLng: '', totalItemCount: this.itemArray.length, isPromoCodeApply: this.isPromoCodeApply, promoCode: this.promocode, user_device_type:this.userDevicetype }
-      // // console.log(paymentMethod, '776767888', obj);
+      const obj = { restId: res_id, userId: this.userId, orderType: Number(orderType), orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: '', pickupLat: '', pickupLng: '', totalItemCount: this.itemArray.length, isPromoCodeApply: this.isPromoCodeApply, promoCode: this.promocode, user_device_type: this.userDevicetype }
+      // console.log(paymentMethod, '776767888', obj);
       this.socketService.getMessages().subscribe((message) => {
-        // console.log(message)
+        console.log(message)
       })
       this.orderService.postAll('place_order', obj).subscribe((res) => {
         if (res.status === 200) {
@@ -323,7 +331,7 @@ export class CheckoutComponent implements OnInit {
       res_id = CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     }
     const obj = { restId: res_id, userId: this.userId, couponCode: this.promocode.trim() }
-    // // console.log(paymentMethod, '776767888', obj);
+    // console.log(paymentMethod, '776767888', obj);
     if (this.promocode && (this.promocode || '').trim().length != 0) {
       this.promosubmit = false;
       this.spinner.show();

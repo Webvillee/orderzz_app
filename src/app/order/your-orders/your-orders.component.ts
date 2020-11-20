@@ -65,13 +65,13 @@ export class YourOrdersComponent implements OnInit {
     this.orderService.get_restaurant_data(obj).subscribe((res) => {
       if (res.status == 200) {
         // this.isLoading = false
-        // // console.log(res.data, 'ifff')
+        // console.log(res.data, 'ifff')
         // this.minimum_order_value = res.data.end_delevery_time
         // this.themeColor = res.data.theme_color
 
       } else {
         // this.isLoading = false
-        // // console.log('ellls')
+        // console.log('ellls')
         // this.router.navigate(['/not-found'])
       }
     });
@@ -85,7 +85,7 @@ export class YourOrdersComponent implements OnInit {
     this.orderService.postAll('my_order_list', obj).subscribe((res) => {
       this.isLoading = true
       if (res.status === 200) {
-        // // console.log(res.data);
+        // console.log(res.data);
         this.orderHistory = res.data.menu;
         this.orderCount = res.data.count;
         this.isLoading = false
@@ -120,9 +120,9 @@ export class YourOrdersComponent implements OnInit {
     this.orderService.postAll('my_order_list', obj).subscribe((res) => {
       // this.isLoading = true;
       this.spinner.show();
-      // // console.log(res.data, 'ghfhg');
+      // console.log(res.data, 'ghfhg');
       if (res.status === 200) {
-        // // console.log(res.data, 'ghfhg');
+        // console.log(res.data, 'ghfhg');
         // this.upcomingContest = res.data
         if (res.data != 0 && this.orderHistory.length < this.orderCount) {
           res.data.menu.forEach(childObj => {
@@ -143,7 +143,7 @@ export class YourOrdersComponent implements OnInit {
 
   orderDetails(OrderDetails, heading) {
     const alData = JSON.parse(OrderDetails);
-    // // console.log(alData, 'OrderDetails', heading);
+    // console.log(alData, 'OrderDetails', heading);
     if (heading === 'title') {
       return alData[0].item_name;
     } else if (heading === 'image') {
@@ -155,53 +155,51 @@ export class YourOrdersComponent implements OnInit {
 
   repeatOrder(orderData) {
     const orderDetail = JSON.parse(orderData.order_items)
-    // // console.log(orderDetail, 'orderData');
+    // console.log(orderDetail, 'orderData');
     let uniqueIds = Array.from(new Set(orderDetail.map((item: any) => item._id)))
-    // // console.log(uniqueIds, 'uniqueIds');
+    // console.log(uniqueIds, 'uniqueIds');
     // this.spinner.show();
     const obj = {
       itemIdArr: JSON.stringify(uniqueIds)
     };
     this.orderService.postAll('get_repeat_order', obj).subscribe((res) => {
       if (res.status == 200) {
-        // // console.log(res.data.item, 'ifff');
-        const allItems = res.data.item
-        let result = orderDetail.filter(o1 => allItems.filter(o2 => o1._id === o2._id));
+        // console.log(res.data.item, 'ifff');
+        var allItems = res.data.item
+        // let result = orderDetail.filter(o1 => allItems.filter(o2 => o1._id === o2._id));
       //   var uniqueResultTwo = orderDetail.filter(function(obj) {
       //     return allItems.filter(function(obj2) {
       //         return obj._id == obj2._id.length;
       //     });
       // });
-        // allItems.map((e, i) => {
-        //   // if (e._id === orderDetail[i]._id) {
-        //     let count = orderDetail.filter(x => x._id === e._id).length;
-        //     // console.log(orderDetail[i], 'ppppppppppppppppppp')
-        //     // // const allCount = count(e._id, orderDetail);
-        //     if(count>1){
-        //       allItems.push(e)
-        //     }
-        //     // return <div>Match</div>
-        //     // } else {
-        //     //   // return <div>No Match</div>
-        //   // }
-        // })
+         allItems.map((e, i) => {
+          if (e._id === orderDetail[i]._id) {
+            // // const allCount = count(e._id, orderDetail);
+            if(orderDetail.filter(x => x._id === e._id).length>1){
+              allItems.push(e)
+            }
+            // return <div>Match</div>
+            // } else {
+            //   // return <div>No Match</div>
+          }
+        })
 
         // var count = (input, arr) => arr.filter(x => x._id === input).length;
         // const allCount = count(id, this.itemArray);
         var userOrderData = CryptoJS.AES.encrypt(JSON.stringify(allItems), '').toString();
-        // // console.log(orderDetail, 'orderData', res.data.item, 'pppp', result);
+        console.log(orderDetail, 'orderData', res.data.item, 'pppp', allItems);
 
         // localStorage.setItem('OrderData', userOrderData)
         // this.router.navigate(['/view-basket'])
         // allItems.map((element, index) => {
         //   if(element.cat_status===1 && element.menu_status===1 && element.is_online_status===1 &&  element.rest_status===1 &&  element.status===1){
-        //     // console.log(element)
+        //     console.log(element)
         //   }
-        //   // console.log(element, 'lllll')
+        //   console.log(element, 'lllll')
         // });
       } else {
         // this.isLoading = false
-        // // console.log('ellls')
+        // console.log('ellls')
         // this.router.navigate(['/not-found'])
       }
     });
