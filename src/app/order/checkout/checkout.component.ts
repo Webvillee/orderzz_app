@@ -54,7 +54,7 @@ export class CheckoutComponent implements OnInit {
   isPromoCodeApply = 2;
   totalorderPrice
   userDevicetype: Number
-  pickupAddress: any;
+  orderType: Number
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService, private socketService: SocketioService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -65,6 +65,9 @@ export class CheckoutComponent implements OnInit {
       this.customer_address = ""
     } else {
       this.customer_address = CryptoJS.AES.decrypt(localStorage.getItem('customer_address'), '').toString(CryptoJS.enc.Utf8);
+    }
+    if (localStorage.getItem('order_type')) {
+      this.orderType = Number(CryptoJS.AES.decrypt(localStorage.getItem('order_type'), '').toString(CryptoJS.enc.Utf8));
     }
     if (localStorage.getItem('userId')) {
       this.userId = CryptoJS.AES.decrypt(localStorage.getItem('userId'), '').toString(CryptoJS.enc.Utf8)
@@ -80,10 +83,7 @@ export class CheckoutComponent implements OnInit {
       this.landmark = data.landmark
     }
 
-    if (localStorage.getItem('pickupAddress')) {
-      this.pickupAddress = CryptoJS.AES.decrypt(localStorage.getItem('pickupAddress'), '').toString(CryptoJS.enc.Utf8);
-      console.log(this.pickupAddress,'this.pickupAddress')
-    }
+    
 
     this.angForm = this.fb.group({
       paymentMethod: ['', Validators.required],
@@ -261,13 +261,10 @@ export class CheckoutComponent implements OnInit {
     }
     // this.isLoading =true
     this.spinner.show();
-    let orderType;
     let order_instruction = '';
     let items;
     let res_id;
-    if (localStorage.getItem('order_type')) {
-      orderType = CryptoJS.AES.decrypt(localStorage.getItem('order_type'), '').toString(CryptoJS.enc.Utf8);
-    }
+   
 
     if (localStorage.getItem('order_instruction')) {
       order_instruction = CryptoJS.AES.decrypt(localStorage.getItem('order_instruction'), '').toString(CryptoJS.enc.Utf8)
@@ -280,9 +277,27 @@ export class CheckoutComponent implements OnInit {
     if (localStorage.getItem('rest_id')) {
       res_id = CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     }
+    let pickupAddress;
+    if(this.orderType===2){
+      if (localStorage.getItem('pickupAddress')) {
+        pickupAddress = CryptoJS.AES.decrypt(localStorage.getItem('pickupAddress'), '').toString(CryptoJS.enc.Utf8);
+        console.log(pickupAddress,'this.pickupAddress')
+      }else{
+        pickupAddress= ''
+      }
+    }else{
+      if (localStorage.getItem('pickupAddress')) {
+        pickupAddress = CryptoJS.AES.decrypt(localStorage.getItem('pickupAddress'), '').toString(CryptoJS.enc.Utf8);
+        console.log(pickupAddress,'this.pickupAddress')
+      }else{
+        pickupAddress= ''
+      }
+    }
+
+    
 
     if (paymentMethod && this.submitted === true) {
-      const obj = { restId: res_id, userId: this.userId, orderType: Number(orderType), orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: '', pickupLat: '', pickupLng: '', totalItemCount: this.itemArray.length, isPromoCodeApply: this.isPromoCodeApply, promoCode: this.promocode, user_device_type: this.userDevicetype }
+      const obj = { restId: res_id, userId: this.userId, orderType: this.orderType, orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: pickupAddress, pickupLat: '', pickupLng: '', totalItemCount: this.itemArray.length, isPromoCodeApply: this.isPromoCodeApply, promoCode: this.promocode, user_device_type: this.userDevicetype }
       // console.log(paymentMethod, '776767888', obj);
       this.socketService.getMessages().subscribe((message) => {
         console.log(message)

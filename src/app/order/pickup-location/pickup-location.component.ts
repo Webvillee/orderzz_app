@@ -39,6 +39,7 @@ export class PickupLocationComponent implements OnInit {
   isLoading = false;
   mobileno
   pickupData: any =[];
+  isSubmit =false
   constructor(private fb: FormBuilder, public dialog: MatDialog, private route: ActivatedRoute, private router: Router, private orderService: OrderService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -128,9 +129,12 @@ export class PickupLocationComponent implements OnInit {
       var pickup = []
       pickup.push(this.angForm.value.pickupAddress) 
       if(pickup.length !=0){
+        this.isSubmit=false
         var encrypted_pickupAddress = CryptoJS.AES.encrypt(JSON.stringify(pickup), '');
         localStorage.setItem('pickupAddress', encrypted_pickupAddress.toString());
         this.router.navigate(['/checkout'])
+      }else{
+        this.isSubmit=true
       }
   }
   onKeypressEvent(event: any): boolean {

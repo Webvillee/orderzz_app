@@ -114,9 +114,7 @@
 											<div class="app_bestseller_foot">
 											<span *ngIf="itemData.sell_price===0" class="app_footer">{{itemData.price}} AED</span>
 											<span *ngIf="itemData.sell_price!==0" class="app_footer">{{itemData.sell_price}} AED</span>
-											<span *ngIf="itemData.sell_price!==0" ><del>{{itemData.price}} AED</del></span><br>
-											
-											
+											<span *ngIf="itemData.sell_price!==0" ><del>{{itemData.price}} AED</del></span>
 											<div  class="app_add_baset_icon">
 												<span *ngIf="countOrder(itemData._id)!=0">
 													<span class="app_addition_icon app_minus_icon cursorCss" (click)="removeToCart(itemData._id)"><i class="fa fa-minus" aria-hidden="true"></i></span>
@@ -272,7 +270,7 @@
 											<div class="app_bestseller_foot">
 											<span *ngIf="itemData.sell_price===0" class="app_footer">{{itemData.price}} AED</span>
 											<span *ngIf="itemData.sell_price!==0" class="app_footer">{{itemData.sell_price}} AED</span>
-											<span *ngIf="itemData.sell_price!==0" ><del>{{itemData.price}} AED</del></span><br>
+											<span *ngIf="itemData.sell_price!==0" ><del>{{itemData.price}} AED</del></span>
 											
 											<div  class="app_add_baset_icon">
 												<span *ngIf="countOrder(itemData._id)!=0">

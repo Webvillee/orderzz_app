@@ -157,7 +157,7 @@ export class YourOrdersComponent implements OnInit {
     const orderDetail = JSON.parse(orderData.order_items)
     // console.log(orderDetail, 'orderData');
     let uniqueIds = Array.from(new Set(orderDetail.map((item: any) => item._id)))
-    // console.log(uniqueIds, 'uniqueIds');
+    console.log(uniqueIds, 'uniqueIds');
     // this.spinner.show();
     const obj = {
       itemIdArr: JSON.stringify(uniqueIds)
@@ -172,17 +172,25 @@ export class YourOrdersComponent implements OnInit {
       //         return obj._id == obj2._id.length;
       //     });
       // });
-         allItems.map((e, i) => {
-          if (e._id === orderDetail[i]._id) {
+      let arrb= allItems
+      arrb.map((e, i) => {
+          
+          // if (e._id === orderDetail[i]._id) {
+            
+            const count = orderDetail.filter(x => x._id === e._id).length;
+           
             // // const allCount = count(e._id, orderDetail);
-            if(orderDetail.filter(x => x._id === e._id).length>1){
-              allItems.push(e)
+
+            if(count>1){
+              // console.log(e,'ooooooooooooooooooooo', count)
+              arrb.push(e)
             }
             // return <div>Match</div>
             // } else {
             //   // return <div>No Match</div>
-          }
+          // }
         })
+        console.log('arrrrb', arrb)
 
         // var count = (input, arr) => arr.filter(x => x._id === input).length;
         // const allCount = count(id, this.itemArray);
