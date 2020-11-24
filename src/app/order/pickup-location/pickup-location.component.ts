@@ -38,6 +38,7 @@ export class PickupLocationComponent implements OnInit {
   email;
   isLoading = false;
   mobileno
+  pickupData: any =[];
   constructor(private fb: FormBuilder, public dialog: MatDialog, private route: ActivatedRoute, private router: Router, private orderService: OrderService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -64,9 +65,7 @@ export class PickupLocationComponent implements OnInit {
     }
 
     this.angForm = this.fb.group({
-      userName: ['', Validators.required, Validators.minLength(3)],
-      email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
-      mobileno: ['', Validators.required, Validators.minLength(10)],
+      pickupAddress: ['', Validators.required],
     });
 
 
@@ -109,7 +108,8 @@ export class PickupLocationComponent implements OnInit {
         this.restName = res.data.rest_name
         this.restAddress = res.data.rest_full_address
         this.minimumOrderValue = res.data.minimum_order_value
-
+        this.pickupData = JSON.parse(res.data.pickup_data[0].pickup_cities)
+        // console.log(this.pickupData ,"pickup data")
         // this.minimum_order_value = res.data.end_delevery_time
         // this.themeColor = res.data.theme_color
 
@@ -125,60 +125,14 @@ export class PickupLocationComponent implements OnInit {
   }
 
   onSubmit() {
-    // // console.log(this.angForm.controls.userName.value, '776767888');
-    var userName = this.angForm.controls.userName.value;
-    var userEmail = this.angForm.controls.email.value;
-    var mobileno = this.angForm.controls.mobileno.value;
-    const obj = { userId: this.userId, userName: userName, userEmail: userEmail, phoneNo: mobileno }
-    // var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    var mailformat = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-    // // stop here if form is invalid
-
-    this.submitted = true;
-
-    if ((mobileno || '').trim().length != 0 && mobileno.length > 9 && (userName || '').trim().length != 0 && userName.length >= 2 && userEmail.match(mailformat)) {
-      // // console.log(obj, '787678');
-      this.isLoading = true
-      this.orderService.postAll('update_profile', obj).subscribe((res) => {
-        if (res.status === 200) {
-          var userOrder = CryptoJS.AES.encrypt(JSON.stringify(res.data), '').toString();
-          localStorage.setItem('UserData', userOrder);
-          var encrypted_order_type = CryptoJS.AES.encrypt(userName, '');
-          localStorage.setItem('userName', encrypted_order_type.toString());
-
-          const dialogDatasuccess = new SuccessDialogModel("Success", "Succesfully Updated");
-
-          // let dialogReff = this.dialog.open(SuccessDialogComponent, {
-          //   maxWidth: "700px",
-          //   data: dialogDatasuccess
-          // });
-          // dialogReff.afterClosed()
-          //   .subscribe(result => {
-              this.router.navigate(['/checkout']);
-            // });
-          this.isLoading = false;
-          // this.display = ''
-          // this.displaysuccess = "Succussfully";
-
-          setTimeout(function () { this.displaysuccess = '' }, 3000);
-        } else {
-          this.isLoading = false
-          this.displaysuccess = ''
-          this.display = res.msg;
-        }
-      });
-
-    } else {
-      // // console.log(this.angForm.controls.userName, '00000000', userName.length);
-      if (this.angForm.invalid) {
-        return false;
+      var pickup = []
+      pickup.push(this.angForm.value.pickupAddress) 
+      if(pickup.length !=0){
+        var encrypted_pickupAddress = CryptoJS.AES.encrypt(JSON.stringify(pickup), '');
+        localStorage.setItem('pickupAddress', encrypted_pickupAddress.toString());
+        this.router.navigate(['/checkout'])
       }
-      this.submitted = false;
-    }
-
-
   }
-
   onKeypressEvent(event: any): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {

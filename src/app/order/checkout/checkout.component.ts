@@ -54,6 +54,7 @@ export class CheckoutComponent implements OnInit {
   isPromoCodeApply = 2;
   totalorderPrice
   userDevicetype: Number
+  pickupAddress: any;
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService, private socketService: SocketioService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -77,6 +78,11 @@ export class CheckoutComponent implements OnInit {
       this.longitude = data.lng
       this.address = data.address
       this.landmark = data.landmark
+    }
+
+    if (localStorage.getItem('pickupAddress')) {
+      this.pickupAddress = CryptoJS.AES.decrypt(localStorage.getItem('pickupAddress'), '').toString(CryptoJS.enc.Utf8);
+      console.log(this.pickupAddress,'this.pickupAddress')
     }
 
     this.angForm = this.fb.group({

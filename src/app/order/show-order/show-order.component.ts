@@ -68,6 +68,11 @@ export class ShowOrderComponent implements OnInit {
       // const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))
     }
 
+    if (localStorage.getItem('order_type')) {
+      const orderType = CryptoJS.AES.decrypt(localStorage.getItem('order_type'), '').toString(CryptoJS.enc.Utf8)
+      this.selectedDeliveryType = orderType
+      console.log(this.selectedDeliveryType,'this.selectedDeliveryType')
+    }
     this.get_all_rest_data()
     this.get_all_category()
   }
@@ -169,6 +174,7 @@ export class ShowOrderComponent implements OnInit {
         // console.log(this.startDeleveryTime, this.endDeleveryTime, this.startPickupTime, this.endPickupTime, 'time');
 
         // For adding active class dynamically
+        if (!localStorage.getItem('order_type')) {
         if (this.isOrderTypeDeliver === true) {
           this.selectedDeliveryType = "1";
           var encrypted_order_type = CryptoJS.AES.encrypt('1', '');
@@ -179,7 +185,7 @@ export class ShowOrderComponent implements OnInit {
           var encrypted_order_type = CryptoJS.AES.encrypt('2', '');
           localStorage.setItem('order_type', encrypted_order_type.toString());
         }
-
+      }
 
         const d = new Date();
         let weekday = ['Sunday',
