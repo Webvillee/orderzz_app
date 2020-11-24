@@ -179,11 +179,11 @@ export class ConfirmAddressComponent implements OnInit {
           localStorage.setItem('customer_address', encrypted_order_type.toString());
           this.display = ''
           this.displaysuccess = "Succussfully";
-          // if(this.selectedDeliveryType ==='1'){
-          //   this.router.navigate(['/pickup-location']);
-          // }else{
+          if(this.selectedDeliveryType ==='2'){
+            this.router.navigate(['/pickup-location']);
+          }else{
           this.router.navigate(['/checkout']);
-          // }
+          }
 
           this.isLoading = false
 
