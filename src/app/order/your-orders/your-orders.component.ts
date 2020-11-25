@@ -6,6 +6,9 @@ import * as CryptoJS from 'crypto-js'
 import { OrderService } from '../order.service';
 import { UrlSetting } from '../../urlSetting'
 import { NgxSpinnerService } from "ngx-spinner";
+import { MatPaginator, MatDialog, MatTableDataSource } from '@angular/material';
+import { ConfirmDialogModel, ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { SuccessDialogComponent, SuccessDialogModel } from '../../shared/dialogs/success-dialog/success-dialog.component';
 
 @Component({
   selector: 'app-your-orders',
@@ -34,7 +37,7 @@ export class YourOrdersComponent implements OnInit {
   img_url = UrlSetting.image_uri
   page_no = 1
   perPage = 10
-  constructor(private router: Router, private mapsAPILoader: MapsAPILoader, private orderService: OrderService, private spinner: NgxSpinnerService) {
+  constructor(private router: Router,public dialog: MatDialog, private mapsAPILoader: MapsAPILoader, private orderService: OrderService, private spinner: NgxSpinnerService) {
     var rest_id = localStorage.getItem('rest_id');
 
     if (rest_id == null) {
@@ -167,27 +170,27 @@ export class YourOrdersComponent implements OnInit {
         // console.log(res.data.item, 'ifff');
         var allItems = res.data.item
         // let result = orderDetail.filter(o1 => allItems.filter(o2 => o1._id === o2._id));
-      //   var uniqueResultTwo = orderDetail.filter(function(obj) {
-      //     return allItems.filter(function(obj2) {
-      //         return obj._id == obj2._id.length;
-      //     });
-      // });
-      let arrb= allItems
-      arrb.map((e, i) => {
-          
-          // if (e._id === orderDetail[i]._id) {
-            
-            const count = orderDetail.filter(x => x._id === e._id).length;
-           
-            // // const allCount = count(e._id, orderDetail);
+        //   var uniqueResultTwo = orderDetail.filter(function(obj) {
+        //     return allItems.filter(function(obj2) {
+        //         return obj._id == obj2._id.length;
+        //     });
+        // });
+        let arrb = allItems
+        arrb.map((e, i) => {
 
-            if(count>1){
-              // console.log(e,'ooooooooooooooooooooo', count)
-              arrb.push(e)
-            }
-            // return <div>Match</div>
-            // } else {
-            //   // return <div>No Match</div>
+          // if (e._id === orderDetail[i]._id) {
+
+          const count = orderDetail.filter(x => x._id === e._id).length;
+
+          // // const allCount = count(e._id, orderDetail);
+
+          if (count > 1) {
+            // console.log(e,'ooooooooooooooooooooo', count)
+            arrb.push(e)
+          }
+          // return <div>Match</div>
+          // } else {
+          //   // return <div>No Match</div>
           // }
         })
         console.log('arrrrb', arrb)
@@ -212,6 +215,48 @@ export class YourOrdersComponent implements OnInit {
       }
     });
   }
+  cancelOrder(id) {
+    const obj = { orderId: id  }
+  
 
+
+    const message = `Are you sure you want to Cancel this order?`;
+    const dialogData = new ConfirmDialogModel("Confirm Action", message);
+    // const dialogDatasuccess = new SuccessDialogModel("Success", "Succesfully Logout");
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      maxWidth: "700px",
+      panelClass: 'logout-message',
+      data: dialogData
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      const result = dialogResult;
+      if (result) {
+        this.orderService.postAll('cancel_order', obj).subscribe((res) => {
+          // this.isLoading = true;
+          this.spinner.show();
+          if (res.status === 200) {
+            this.spinner.hide();
+            const dialogDatasuccess = new SuccessDialogModel("Success", res.msg);
+            let dialogReff = this.dialog.open(SuccessDialogComponent, {
+              maxWidth: "700px",
+              panelClass: 'logout-message',
+              data: dialogDatasuccess
+            });
+            dialogReff.afterClosed()
+            this.page_no
+            this.myOrderlist();
+          } else {
+            // this.isLoading = false;
+            this.spinner.hide();
+          }
+        });
+       
+        
+      }
+    });
+  // }
+  }
 
 }

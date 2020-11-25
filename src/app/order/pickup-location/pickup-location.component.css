@@ -94,3 +94,21 @@ div.scroll::-webkit-scrollbar-thumb:hover {background: rgba(0,0,0,0.55)}
 .paddingLeft{
   padding-left: 30px;
 }
+.activeCheckmark{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  background-color: var(--primary-color) !important;
+}
+.activeCheckmark:after{
+  display: block;
+    background-image: url('src/assets/img/check.svg');
+    width: 13px;
+    height: 11px;
+    background-color: transparent;
+    left: 6px;
+    top: 6px;
+}

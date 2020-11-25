@@ -68,7 +68,7 @@ export class PickupLocationComponent implements OnInit {
 
     if (localStorage.getItem('pickupAddress')) {
       this.pickupAddress = CryptoJS.AES.decrypt(localStorage.getItem('pickupAddress'), '').toString(CryptoJS.enc.Utf8);
-      console.log(this.pickupAddress,'this.pickupAddress pickupAddress')
+      // console.log(this.pickupAddress,'this.pickupAddress pickupAddress')
     }
 
     this.angForm = this.fb.group({
@@ -137,12 +137,12 @@ export class PickupLocationComponent implements OnInit {
     if (this.angForm.invalid) {
       return;
     }
-    // var pickup = []
-    // pickup.push(this.angForm.value.pickupAddress);
-    console.log(this.angForm.value.pickupAddress)
     if (this.submitted === true){
-      var encrypted_pickupAddress = CryptoJS.AES.encrypt(JSON.stringify(this.angForm.value.pickupAddress), '');
+      let encrypted_pickupAddress = CryptoJS.AES.encrypt(JSON.stringify(this.angForm.value.pickupAddress), '');
       localStorage.setItem('pickupAddress', encrypted_pickupAddress.toString());
+      let address_obj = this.pickupData[this.angForm.value.pickupAddress]
+      let pickupAddressencrypt = CryptoJS.AES.encrypt(JSON.stringify(address_obj), '');
+      localStorage.setItem('addressPickup', pickupAddressencrypt.toString());
       this.router.navigate(['/checkout'])
     }
   }

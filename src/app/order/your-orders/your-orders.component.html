@@ -21,7 +21,7 @@
                                     <img src="{{img_url}}{{orderDetails(orderData.order_items, 'image')}}">
                                 </div>
                                 <div class="app_your_orders_heading_left_text_image">
-                                    <h3>{{(orderData.order_status===1)? 'Order Place' : (orderData.order_status===2)? 'Accept': (orderData.order_status===3)? 'Preparing': (orderData.order_status===4)? 'Out for delivery': (orderData.order_status===5)? 'Collected': (orderData.order_status===6)? 'Rejected by restaurant': (orderData.order_status===7)? 'Canceled' : (orderData.order_status===8)? 'Delivered': '' }}</h3>
+                                    <h3>{{(orderData.order_status===1)? 'Order Place' :  (orderData.order_status===3)? 'Preparing': (orderData.order_status===4)? 'Out for delivery': (orderData.order_status===5)? 'Collected': (orderData.order_status===6)? 'Rejected by restaurant': (orderData.order_status===7)? 'Canceled' : (orderData.order_status===8)? 'Delivered': '' }}</h3>
                                 </div>
                             </div>
                             <div class="col-8">
@@ -51,9 +51,15 @@
                                 </div>
                                 <div class="app_your_orders_heading_right_text_bold">
                                     <h4>{{orderData.total_amount}} AED</h4>
+                                    <ng-container *ngIf="orderData.order_status===8">
                                     <a class="cursorCss" (click)="repeatOrder(orderData)"><span
                                             class="app_your_orders_right_try_icons"><img src="assets/img/repeat.svg"
                                                 alt="">Repeat Order</span></a>
+                                    </ng-container>
+                                    <ng-container *ngIf="(orderData.order_status===1) || (orderData.order_status===3)">
+                                        <a class="cursorCss" (click)="cancelOrder(orderData._id)"><span
+                                                class="app_your_orders_right_try_icons_cancel">Cancel Order</span></a>
+                                        </ng-container>
                                 </div>
                             </div>
                         </div>
