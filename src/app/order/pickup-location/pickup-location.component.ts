@@ -38,8 +38,9 @@ export class PickupLocationComponent implements OnInit {
   email;
   isLoading = false;
   mobileno
-  pickupData: any =[];
-  isSubmit =false
+  pickupData: any = [];
+  isSubmit = false
+  pickupAddress
   constructor(private fb: FormBuilder, public dialog: MatDialog, private route: ActivatedRoute, private router: Router, private orderService: OrderService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -65,10 +66,14 @@ export class PickupLocationComponent implements OnInit {
       this.mobileno = data.user_contact_no;
     }
 
+    if (localStorage.getItem('pickupAddress')) {
+      this.pickupAddress = CryptoJS.AES.decrypt(localStorage.getItem('pickupAddress'), '').toString(CryptoJS.enc.Utf8);
+      console.log(this.pickupAddress,'this.pickupAddress pickupAddress')
+    }
+
     this.angForm = this.fb.group({
       pickupAddress: ['', Validators.required],
     });
-
 
     this.get_all_rest_data();
   }
@@ -126,17 +131,22 @@ export class PickupLocationComponent implements OnInit {
   }
 
   onSubmit() {
-      var pickup = []
-      pickup.push(this.angForm.value.pickupAddress) 
-      if(pickup.length !=0){
-        this.isSubmit=false
-        var encrypted_pickupAddress = CryptoJS.AES.encrypt(JSON.stringify(pickup), '');
-        localStorage.setItem('pickupAddress', encrypted_pickupAddress.toString());
-        this.router.navigate(['/checkout'])
-      }else{
-        this.isSubmit=true
-      }
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.angForm.invalid) {
+      return;
+    }
+    // var pickup = []
+    // pickup.push(this.angForm.value.pickupAddress);
+    console.log(this.angForm.value.pickupAddress)
+    if (this.submitted === true){
+      var encrypted_pickupAddress = CryptoJS.AES.encrypt(JSON.stringify(this.angForm.value.pickupAddress), '');
+      localStorage.setItem('pickupAddress', encrypted_pickupAddress.toString());
+      this.router.navigate(['/checkout'])
+    }
   }
+
   onKeypressEvent(event: any): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
