@@ -88,10 +88,9 @@ div.scroll::-webkit-scrollbar-thumb {
 }
 div.scroll:hover::-webkit-scrollbar-thumb {background: rgba(0,0,0,0.45)}
 div.scroll::-webkit-scrollbar-thumb:hover {background: rgba(0,0,0,0.55)}
-
-/* .app_full_btn {
-    color: #fff;
+.invalid-feedback{
+  display: block !important
 }
-.app_full_btn:hover {
-    color: #fff;
-} */
+.paddingLeft{
+  padding-left: 30px;
+}

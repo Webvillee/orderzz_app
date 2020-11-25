@@ -1,7 +1,7 @@
 <div class="app_verification app_checkout app_pickup_location">
     <div class="app_container">
         <div class="app_verification_image">
-            <a [routerLink]="['/confirm-address']"><img src="assets/img/close_pickup.svg" alt=""></a>
+            <a [routerLink]="['/personal-details']"><img src="assets/img/close_pickup.svg" alt=""></a>
             <h2 class="app_heading">Pickup Location</h2>
         </div>
         <!-- <div class="app_pickup_item_main">
@@ -25,12 +25,12 @@
         </div> -->
         <form [formGroup]="angForm" (ngSubmit)="onSubmit()">
             <div class="app_pickup_item_main scroll">
-                <ng-container *ngIf="pickupData">
+                <ng-container *ngIf="pickupData && pickupData.length>0">
                     <div class="row" *ngFor="let data of pickupData; let i=index">
-                        <div class="col-9">
+                        <div class="col-9 paddingLeft">
                             <div class="app_pickup_location_cotent_text">
                                 <div class="app_pickup_location_item">
-                                    <h4>{{data.city}}</h4>
+                                    <h4>{{data.city}} {{pickupAddress}}</h4>
                                 </div>
                                 <div class="app_pickup_location_address">
                                     <h6 class="app_content">{{data.address}}</h6>
@@ -39,19 +39,22 @@
                         </div>
                         <div class="col-3">
                             <span class="radioFixed">
-                            <div class="app_pickup_confirm">
-                                <!-- <i class="fa fa-check app_pickup_location_icons" aria-hidden="true"></i> -->
-
-                                <label class="container_radio">
-                                    <input type="radio" formControlName="pickupAddress" [value]="data">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                        </span>
+                                <div class="app_pickup_confirm">
+                                    <!-- <i class="fa fa-check app_pickup_location_icons" aria-hidden="true"></i> -->
+                                    <label class="container_radio">
+                                        <input type="radio" [(ngModel)]="pickupAddress" formControlName="pickupAddress" [checked]="(i == 8)? checked : ''" [value]="i">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </span>
                         </div>
                     </div>
+                    <div *ngIf="submitted && f.pickupAddress.errors" class="invalid-feedback">
+                        <div *ngIf="f.pickupAddress.errors.required">*Pickup Location is required</div>
+                    </div>
                 </ng-container>
-                <input type="submit" class="app_full_btn" [disabled]="angForm.invalid" value="Choose this outlet">
+               
+                <input type="submit" class="app_full_btn" value="Choose this outlet">
             </div>
         </form>
 
