@@ -57,6 +57,8 @@ export class ShowOrderComponent implements OnInit {
   restaurantCloseDelivery: boolean = false;
   showtime= ''
   keyResult
+  is_card_payment
+  is_cash_payment
   constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog, private spinner: NgxSpinnerService, private socketService: SocketioService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -71,7 +73,7 @@ export class ShowOrderComponent implements OnInit {
     if (localStorage.getItem('order_type')) {
       const orderType = CryptoJS.AES.decrypt(localStorage.getItem('order_type'), '').toString(CryptoJS.enc.Utf8)
       this.selectedDeliveryType = orderType
-      console.log(this.selectedDeliveryType,'this.selectedDeliveryType')
+      // console.log(this.selectedDeliveryType,'this.selectedDeliveryType')
     }
     this.get_all_rest_data()
     this.get_all_category()
@@ -124,6 +126,8 @@ export class ShowOrderComponent implements OnInit {
         this.endDeleveryTime = res.data.end_delevery_time
         this.startPickupTime = res.data.start_pickup_time
         this.endPickupTime = res.data.end_pickup_time
+        this.is_card_payment=res.data.is_card_payment;
+        this.is_cash_payment=res.data.is_cash_payment;
         // console.log(CryptoJS.AES.decrypt(localStorage.getItem('lat'), '').toString(CryptoJS.enc.Utf8), CryptoJS.AES.decrypt(localStorage.getItem('lng'), '').toString(CryptoJS.enc.Utf8), 'okkkkkkkkkk')
         const lat1 = res.data.rest_lat;
         const lon1 = res.data.rest_lng;
@@ -131,7 +135,7 @@ export class ShowOrderComponent implements OnInit {
         let lon2
         (localStorage.getItem('lat'))? lat2 = CryptoJS.AES.decrypt(localStorage.getItem('lat'), '').toString(CryptoJS.enc.Utf8) : lat2 = '';
         (localStorage.getItem('lng'))? lon2 = CryptoJS.AES.decrypt(localStorage.getItem('lng'), '').toString(CryptoJS.enc.Utf8): lon2 ='';
-
+        
         // console.log('lat1=>', lat1, 'lon1=>', lon1, 'lat2=>', lat2, 'lon2=>', lon2);
 
         if (lat1!== '' && lon1 !== '' && lat2!== '' && lon2!== '') {
@@ -280,7 +284,7 @@ export class ShowOrderComponent implements OnInit {
     this.orderService.get_all_item(obj).subscribe((res) => {
       // console.log(res)
       if (res.status == 200) {
-        console.log(res.data)
+        // console.log(res.data)
         this.getItemData = res.data.item
         this.keyResult= res.data.keyResult
       } else if (res.status == 201) {

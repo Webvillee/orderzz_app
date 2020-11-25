@@ -38,6 +38,8 @@ export class ViewBasketComponent implements OnInit {
   shippingCost;
   special_instruction;
   isLoading;
+  tax_vat_percent;
+  orderSubtotal;
   constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog, private spinner: NgxSpinnerService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -62,6 +64,7 @@ export class ViewBasketComponent implements OnInit {
     };
     this.orderService.get_restaurant_data(obj).subscribe((res) => {
       if (res.status == 200) {
+        console.log(res.data)
         this.themeView = res.data.theme_view
         if (this.themeView == "1") {       //1=listview in  and 2= gridmeans
           this.themeCondition = false
@@ -75,6 +78,8 @@ export class ViewBasketComponent implements OnInit {
         this.restName = res.data.rest_name
         this.restAddress = res.data.rest_full_address
         this.minimumOrderValue = 0
+        this.tax_vat_percent= res.data.tax_vat_percent;
+        this.getAllorderData();
         // this.minimumOrderValue = res.data.minimum_order_value
 
         // this.minimum_order_value = res.data.end_delevery_time
@@ -100,7 +105,7 @@ export class ViewBasketComponent implements OnInit {
       let savings = 0
       //  console.log(JSON.stringify(this.itemArray))
       const arr_total = this.itemArray
-
+      // console.log(this.tax_vat_percent, 'oooooooo')
       this.itemArray.map((element, index) => {
         console.log(element)
         if(element.sell_price===0){
@@ -124,9 +129,19 @@ export class ViewBasketComponent implements OnInit {
         }
       });
 
-      this.orderTotal = total;
-      // let sellPrice = this.itemArray.reduce((prev, item) => prev + (item.price-item.sell_price), 0);
+      this.orderSubtotal = total;
       this.savingCost = savings;
+
+      if(this.tax_vat_percent){
+        let Amount = this.orderTotal * this.tax_vat_percent / 100
+        let totalamount = this.orderTotal + Amount;
+        this.orderTotal = totalamount;
+        this.shippingCost = Amount
+      }else{
+        this.orderTotal = total;
+        this.shippingCost = 0
+      }
+      
       const seen = new Set();
       const filteredArr = data.filter(el => {
         const duplicate = seen.has(el._id);
