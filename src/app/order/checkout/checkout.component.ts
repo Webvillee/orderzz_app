@@ -58,6 +58,9 @@ export class CheckoutComponent implements OnInit {
   pickupAddress: any;
   pickupLat: any;
   pickupLng: any;
+  tax_vat_percent;
+  orderSubtotal;
+  shippingCost=0
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService, private socketService: SocketioService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -124,7 +127,8 @@ export class CheckoutComponent implements OnInit {
         this.restName = res.data.rest_name
         this.restAddress = res.data.rest_full_address
         this.minimumOrderValue = res.data.minimum_order_value
-
+        this.tax_vat_percent= res.data.tax_vat_percent;
+        this.getAllorderData();
         // this.minimum_order_value = res.data.end_delevery_time
         // this.themeColor = res.data.theme_color
         // const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))
@@ -223,8 +227,21 @@ export class CheckoutComponent implements OnInit {
         }
       });
 
-      this.orderTotal = total;
-      this.totalorderPrice = total
+      this.orderSubtotal = total;
+      this.savingCost = savings;
+
+      if(this.tax_vat_percent){
+        let Amount = this.orderTotal * this.tax_vat_percent / 100
+        let totalamount = this.orderTotal + Amount;
+        this.orderTotal = totalamount;
+        this.totalorderPrice = totalamount
+        this.shippingCost = Amount
+      }else{
+        this.orderTotal = total;
+        this.totalorderPrice = total
+        this.shippingCost = 0
+      }
+      
       this.savingCost = savings;
       const seen = new Set();
       const filteredArr = data.filter(el => {

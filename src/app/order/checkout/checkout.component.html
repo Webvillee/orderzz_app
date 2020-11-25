@@ -112,7 +112,7 @@
                         </div>
                         <div class="col-4">
                             <div class="app_order_detail_price">
-                                <h3>{{orderTotal}} AED</h3>
+                                <h3>{{orderSubtotal}} AED</h3>
                             </div>
                         </div>
                         <div class="col-8">
@@ -125,16 +125,16 @@
                                 <h3>{{savingCost}} AED</h3>
                             </div>
                         </div>
-                        <!-- <div class="col-7">
+                        <div *ngIf="shippingCost!==0" class="col-7">
                             <div class="app_order_detail">
-                                <p>shiping cost (1.5km)</p>
+                                <p>shiping cost</p>
                             </div>
-                        </div> -->
-                        <!-- <div class="col-5">
+                        </div>
+                        <div *ngIf="shippingCost!==0" class="col-5">
                             <div class="app_order_detail_price">
-                                <p>0.99 AED</p>
+                                <p>{{shippingCost}} AED</p>
                             </div>
-                        </div> -->
+                        </div> 
 
                         <div class="col-6">
                             <div class="app_order_detail_total">
