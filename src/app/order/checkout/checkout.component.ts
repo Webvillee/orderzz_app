@@ -55,6 +55,9 @@ export class CheckoutComponent implements OnInit {
   totalorderPrice
   userDevicetype: Number
   orderType: Number
+  pickupAddress: any;
+  pickupLat: any;
+  pickupLng: any;
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService, private socketService: SocketioService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -277,27 +280,23 @@ export class CheckoutComponent implements OnInit {
     if (localStorage.getItem('rest_id')) {
       res_id = CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     }
-    let pickupAddress;
+   
     if(this.orderType===2){
-      if (localStorage.getItem('pickupAddress')) {
-        pickupAddress = CryptoJS.AES.decrypt(localStorage.getItem('pickupAddress'), '').toString(CryptoJS.enc.Utf8);
-        console.log(pickupAddress,'this.pickupAddress')
+      if (localStorage.getItem('addressPickup')) {
+        this.pickupAddress = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem('addressPickup'), '').toString(CryptoJS.enc.Utf8)).address;
+        this.pickupLat = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem('addressPickup'), '').toString(CryptoJS.enc.Utf8)).lat;
+        this.pickupLng = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem('addressPickup'), '').toString(CryptoJS.enc.Utf8)).lng;
       }else{
-        pickupAddress= ''
-      }
-    }else{
-      if (localStorage.getItem('pickupAddress')) {
-        pickupAddress = CryptoJS.AES.decrypt(localStorage.getItem('pickupAddress'), '').toString(CryptoJS.enc.Utf8);
-        console.log(pickupAddress,'this.pickupAddress')
-      }else{
-        pickupAddress= ''
+        this.pickupAddress= ''
+        this.pickupLat= ''
+        this.pickupLng= ''
       }
     }
 
     
 
     if (paymentMethod && this.submitted === true) {
-      const obj = { restId: res_id, userId: this.userId, orderType: this.orderType, orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: pickupAddress, pickupLat: '', pickupLng: '', totalItemCount: this.itemArray.length, isPromoCodeApply: this.isPromoCodeApply, promoCode: this.promocode, user_device_type: this.userDevicetype }
+      const obj = { restId: res_id, userId: this.userId, orderType: this.orderType, orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: this.pickupAddress, pickupLat: this.pickupLat, pickupLng: this.pickupLng, totalItemCount: this.itemArray.length, isPromoCodeApply: this.isPromoCodeApply, promoCode: this.promocode, user_device_type: this.userDevicetype }
       // console.log(paymentMethod, '776767888', obj);
       this.socketService.getMessages().subscribe((message) => {
         console.log(message)
