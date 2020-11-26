@@ -36,6 +36,8 @@ export class PhoneVerificationComponent implements OnInit {
   isRequired = false
   submitted = false;
   isLoading;
+  signupProcess: any;
+  mobilenoGet: any;
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -47,7 +49,14 @@ export class PhoneVerificationComponent implements OnInit {
     } else {
       this.customer_address = CryptoJS.AES.decrypt(localStorage.getItem('customer_address'), '').toString(CryptoJS.enc.Utf8);
     }
-
+    
+    if (localStorage.getItem('signup_process')) {
+      this.signupProcess = CryptoJS.AES.decrypt(localStorage.getItem("signup_process"), '').toString(CryptoJS.enc.Utf8)
+    }
+    if (localStorage.getItem('mobilenoGet')) {
+      this.mobilenoGet = CryptoJS.AES.decrypt(localStorage.getItem("mobilenoGet"), '').toString(CryptoJS.enc.Utf8)
+    }
+    
     this.angForm = this.fb.group({
       mobileno: ['', Validators.required, Validators.minLength(10)],
     })
@@ -108,9 +117,11 @@ export class PhoneVerificationComponent implements OnInit {
       this.orderService.postAll('phone_verify', obj).subscribe((res) => {
         if (res.status === 200) {
           // all user details
-          var userOrder = CryptoJS.AES.encrypt(JSON.stringify(res.data), '').toString();
-          localStorage.setItem('UserData', userOrder);
+          var mobilenoGet = CryptoJS.AES.encrypt(mobileno, '').toString();
+          localStorage.setItem('mobilenoGet', mobilenoGet);
 
+          let userOrder = CryptoJS.AES.encrypt(JSON.stringify(res.data), '').toString();
+          localStorage.setItem('UserData', userOrder);
           this.router.navigate(['/otp']);
           this.display = ''
           this.displaysuccess = res.msg
@@ -128,7 +139,9 @@ export class PhoneVerificationComponent implements OnInit {
 
    
   }
-
+  signupClear(){
+    localStorage.removeItem('signup_process');
+  }
   onKeypressEvent(event: any): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {

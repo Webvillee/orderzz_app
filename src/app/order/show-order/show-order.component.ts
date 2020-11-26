@@ -6,10 +6,10 @@ import { OrderService } from '../order.service';
 import { UrlSetting } from '../../urlSetting'
 import * as CryptoJS from 'crypto-js';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ConfirmDialogModel, ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { AddressPopupComponent } from '../address-popup/address-popup.component'
 import { SuccessDialogComponent, SuccessDialogModel } from '../../shared/dialogs/success-dialog/success-dialog.component';
 import { NgxSpinnerService } from "ngx-spinner";
-import { ConfirmDialogModel, ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { SocketioService } from '../socketio.service'
 import { formatDate } from '@angular/common';
 
@@ -373,9 +373,11 @@ export class ShowOrderComponent implements OnInit {
       if (result) {
         localStorage.removeItem('UserData');
         localStorage.removeItem('userId');
+        localStorage.removeItem('usersid');
         localStorage.removeItem('otp');
         localStorage.removeItem('order_instruction');
         localStorage.removeItem('userName');
+        localStorage.removeItem('signup_process');
         const dialogDatasuccess = new SuccessDialogModel("Success", "Succesfully Logout");
         let dialogReff = this.dialog.open(SuccessDialogComponent, {
           maxWidth: "700px",
@@ -390,5 +392,8 @@ export class ShowOrderComponent implements OnInit {
       }
     });
   }
-
+  singUp(){
+    let encrypted_signup = CryptoJS.AES.encrypt('signup_process', '');
+    localStorage.setItem('signup_process', encrypted_signup.toString());
+  }
 }

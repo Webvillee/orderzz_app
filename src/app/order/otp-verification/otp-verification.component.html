@@ -1,7 +1,8 @@
 <div class="app_verification app_otp">
     <div class="app_container">
         <div class="app_verification_image">
-            <a [routerLink]="['/phone-verification']"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+            <a *ngIf="!signupProcess" [routerLink]="['/phone-verification']"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+            <a *ngIf="signupProcess" [routerLink]="['/signup']"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
         </div>
         <div class="app_verification_caption">
             <h2 class="app_heading">Enter OTP</h2>

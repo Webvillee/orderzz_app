@@ -386,4 +386,26 @@ input.app_checkout_input_pad.app_check_input_loc {
         margin-bottom: 50px;
     }
 
-
+.app_full_btn_up{
+    position: fixed;
+    width: 250px;
+    bottom: 98px;
+    background-color: #f6f4f4;
+    border-color: #f6f4f4;
+    color: #000;
+    min-height: 60px;
+    border: 1px solid var(--primary-color);
+    border-radius: 25px;
+    background-color: var(--primary-color);
+    display: inline-block;
+    color: #fff;
+    max-width: 100%;
+    text-transform: capitalize;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    padding: 14px 0;
+}
+.app_nav_bar a:hover {
+    text-decoration: none !important;
+}
