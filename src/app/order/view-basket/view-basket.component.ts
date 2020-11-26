@@ -35,7 +35,7 @@ export class ViewBasketComponent implements OnInit {
 
   orderTotal;
   savingCost;
-  shippingCost=0;
+  taxvatpercent=0;
   special_instruction;
   isLoading;
   tax_vat_percent;
@@ -107,7 +107,7 @@ export class ViewBasketComponent implements OnInit {
       const arr_total = this.itemArray
       // console.log(this.tax_vat_percent, 'oooooooo')
       this.itemArray.map((element, index) => {
-        console.log(element)
+        // console.log(element)
         if(element.sell_price===0){
           total = total + element.price
         }else{
@@ -133,13 +133,13 @@ export class ViewBasketComponent implements OnInit {
       this.savingCost = savings;
 
       if(this.tax_vat_percent){
-        let Amount = this.orderTotal * this.tax_vat_percent / 100
-        let totalamount = this.orderTotal + Amount;
-        this.orderTotal = totalamount;
-        this.shippingCost = Amount
+        let Amount = this.orderSubtotal * this.tax_vat_percent / 100
+        let totalamount = this.orderSubtotal + Amount;
+        this.orderTotal = Math.round(totalamount);
+        this.taxvatpercent = Amount
       }else{
         this.orderTotal = total;
-        this.shippingCost = 0
+        this.taxvatpercent = 0
       }
       
       const seen = new Set();

@@ -60,7 +60,7 @@ export class CheckoutComponent implements OnInit {
   pickupLng: any;
   tax_vat_percent;
   orderSubtotal;
-  shippingCost=0
+  taxvatpercent=0
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService, private socketService: SocketioService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -109,7 +109,7 @@ export class CheckoutComponent implements OnInit {
     const obj = {
       restId: CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     };
-    console.log(obj)
+    // console.log(obj)
     this.orderService.get_restaurant_data(obj).subscribe((res) => {
       if (res.status == 200) {
         this.spinner.hide();
@@ -146,10 +146,10 @@ export class CheckoutComponent implements OnInit {
     const obj = {
       userId: this.userId
     };
-    console.log(obj)
+    // console.log(obj)
     this.orderService.postAll('get_card_data', obj).subscribe((res) => {
       if (res.status == 200) {
-        console.log(res.data);
+        // console.log(res.data);
         this.card_details = res.data[0]
       } else {
       }
@@ -205,7 +205,7 @@ export class CheckoutComponent implements OnInit {
       const arr_total = this.itemArray
 
       this.itemArray.map((element, index) => {
-        console.log(element)
+        // console.log(element)
         if (element.sell_price === 0) {
           total = total + element.price
         } else {
@@ -231,15 +231,15 @@ export class CheckoutComponent implements OnInit {
       this.savingCost = savings;
 
       if(this.tax_vat_percent){
-        let Amount = this.orderTotal * this.tax_vat_percent / 100
-        let totalamount = this.orderTotal + Amount;
-        this.orderTotal = totalamount;
-        this.totalorderPrice = totalamount
-        this.shippingCost = Amount
+        let Amount = this.orderSubtotal * this.tax_vat_percent / 100
+        let totalamount = this.orderSubtotal + Amount;
+        this.orderTotal = Math.round(totalamount);
+        this.totalorderPrice =  Math.round(totalamount);
+        this.taxvatpercent = Amount
       }else{
         this.orderTotal = total;
         this.totalorderPrice = total
-        this.shippingCost = 0
+        this.taxvatpercent = 0
       }
       
       this.savingCost = savings;
@@ -316,7 +316,7 @@ export class CheckoutComponent implements OnInit {
       const obj = { restId: res_id, userId: this.userId, orderType: this.orderType, orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: this.pickupAddress, pickupLat: this.pickupLat, pickupLng: this.pickupLng, totalItemCount: this.itemArray.length, isPromoCodeApply: this.isPromoCodeApply, promoCode: this.promocode, user_device_type: this.userDevicetype }
       // console.log(paymentMethod, '776767888', obj);
       this.socketService.getMessages().subscribe((message) => {
-        console.log(message)
+        // console.log(message)
       })
       this.orderService.postAll('place_order', obj).subscribe((res) => {
         if (res.status === 200) {

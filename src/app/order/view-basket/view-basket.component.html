@@ -127,18 +127,18 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="shippingCost!==0" class="app_your_basket_content_text_bottom">
+        <div *ngIf="taxvatpercent!==0" class="app_your_basket_content_text_bottom">
                 <div class="row app_row">
                     <div class=" col-12">
                         <div class="row app_row">
                             <div class="col-8">
                                 <div class="app_your_basket_heading_left_bottom">
-                                    <h3>Shipping Cost </h3>
+                                    <h3>Tax {{tax_vat_percent}} %</h3>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="app_your_basket_heading_right_bottom">
-                                    <h3>{{shippingCost}} AED</h3>
+                                    <h3>{{taxvatpercent}} AED</h3>
                                 </div>
                             </div>
                         </div>
