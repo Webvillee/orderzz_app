@@ -40,8 +40,10 @@
                             </div>
                             <div class="app_your_basket_text_right">
                                 <span *ngIf="itemData.sell_price===0" class="app_footer">{{itemData.price}} AED</span>
-                                <span *ngIf="itemData.sell_price!==0" class="app_footer">{{itemData.sell_price}} AED</span>
-                                <span class="app_your_basket_text_right_del" *ngIf="itemData.sell_price!==0" ><del>{{itemData.price}} AED</del></span><br>
+                                <span *ngIf="itemData.sell_price!==0" class="app_footer">{{itemData.sell_price}}
+                                    AED</span>
+                                <span class="app_your_basket_text_right_del"
+                                    *ngIf="itemData.sell_price!==0"><del>{{itemData.price}} AED</del></span><br>
                                 <!-- {{(itemData.priceNew)? itemData.priceNew: itemData.price}} AED -->
                                 <!-- <span class="app_your_basket_text_right_del">
                                         <del>{{itemData.price}} AED</del>
@@ -61,14 +63,22 @@
                                 </div>
                             </div>
                             <div *ngIf="itemData.is_modifire_status===1" class="app_your_basket_text_right_bottom">
-                                <h2><a (click)="customiseOrder(itemData)" class="linkColor">{{((customiseFun(itemData))===true? 'Edit Customise': 'Customise this')}}</a></h2>
+                                <h2><a (click)="customiseOrder(itemData)"
+                                        class="linkColor">{{((customiseFun(itemData))===true? 'Edit Customise': 'Customise this')}}</a>
+                                </h2>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
+        <label class="app_review_food_text__left_special">Menu Items Recommendation</label>
+        <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+            <div ngxSlickItem *ngFor="let slide of slides" class="slide">
+                <img src="{{img_url}}{{slide.item_image}}" alt="" >
+                <p class="text-center">{{slide.item_name}}</p>
+            </div>
+        </ngx-slick-carousel>
         <div *ngIf="orderTotal>=minimumOrderValue" class="row">
             <div class="col-12">
                 <form>
@@ -128,23 +138,23 @@
             </div>
         </div>
         <div *ngIf="taxvatpercent!==0" class="app_your_basket_content_text_bottom">
-                <div class="row app_row">
-                    <div class=" col-12">
-                        <div class="row app_row">
-                            <div class="col-8">
-                                <div class="app_your_basket_heading_left_bottom">
-                                    <h3>Tax {{tax_vat_percent}} %</h3>
-                                </div>
+            <div class="row app_row">
+                <div class=" col-12">
+                    <div class="row app_row">
+                        <div class="col-8">
+                            <div class="app_your_basket_heading_left_bottom">
+                                <h3>Tax {{tax_vat_percent}} %</h3>
                             </div>
-                            <div class="col-4">
-                                <div class="app_your_basket_heading_right_bottom">
-                                    <h3>{{taxvatpercent}} AED</h3>
-                                </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="app_your_basket_heading_right_bottom">
+                                <h3>{{taxvatpercent}} AED</h3>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         <div class="app_your_basket_content_text_bottom">
             <div class="row app_row">
                 <div class=" col-12">
@@ -163,8 +173,8 @@
                 </div>
             </div>
             <a *ngIf="orderTotal<minimumOrderValue" [routerLink]="['/order']" class="app_full_btn">Add more item</a>
-            <a *ngIf="orderTotal>=minimumOrderValue" class="app_full_btn proceed-order"
-                (click)="submit()">Proceed to order</a>
+            <a *ngIf="orderTotal>=minimumOrderValue" class="app_full_btn proceed-order" (click)="submit()">Proceed to
+                order</a>
         </div>
     </div>
 

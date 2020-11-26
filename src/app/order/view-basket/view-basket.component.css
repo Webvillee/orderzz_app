@@ -221,3 +221,10 @@ i.fa.fa-minus {
 a.app_full_btn.proceed-order{
     color: #fff;
 }
+.slick-slide img {
+    display: block;
+    border-radius: 10px;
+    width: 165px;
+    height:150px;
+}
+
