@@ -125,14 +125,14 @@
                                 <h3>{{savingCost}} AED</h3>
                             </div>
                         </div>
-                        <div *ngIf="shippingCost!==0" class="col-7">
+                        <div *ngIf="taxvatpercent!==0" class="col-8">
                             <div class="app_order_detail">
-                                <p>shiping cost</p>
+                                <h3>Tax {{tax_vat_percent}} %</h3>
                             </div>
                         </div>
-                        <div *ngIf="shippingCost!==0" class="col-5">
+                        <div *ngIf="taxvatpercent!==0" class="col-4">
                             <div class="app_order_detail_price">
-                                <p>{{shippingCost}} AED</p>
+                                <h3>{{taxvatpercent}} AED</h3>
                             </div>
                         </div> 
 
