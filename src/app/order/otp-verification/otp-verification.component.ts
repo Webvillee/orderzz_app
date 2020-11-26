@@ -10,7 +10,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmDialogModel, ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { SuccessDialogComponent, SuccessDialogModel } from '../../shared/dialogs/success-dialog/success-dialog.component';
-
+import { SocketioService } from '.././socketio.service'
 
 @Component({
   selector: 'app-otp-verification',
@@ -40,7 +40,7 @@ export class OtpVerificationComponent implements OnInit {
   userId;
   isLoading;
   signupProcess: any;
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog, private spinner: NgxSpinnerService) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog, private spinner: NgxSpinnerService, private socketService: SocketioService) {
 
     if (localStorage.getItem('rest_id') == null) {
       this.router.navigate(['/not-found'])
@@ -109,70 +109,39 @@ export class OtpVerificationComponent implements OnInit {
 
   onSubmit() {
     // console.log(this.angForm.controls.otp.value, '776767888');
-    if (!this.signupProcess) {
-      var otp = this.angForm.controls.otp.value;
+    var otp = this.angForm.controls.otp.value;
 
-      const obj = { userId: this.userId, otp: otp }
+    const obj = { userId: this.userId, otp: otp }
 
-      // // stop here if form is invalid
+    // // stop here if form is invalid
 
-      this.submitted = true;
-      if (this.submitted === true && (otp || '').trim().length != 0 && otp.length >= 4) {
-        // console.log(this.angForm.controls.otp, '787678', otp.length);
+    this.submitted = true;
+    if (this.submitted === true && (otp || '').trim().length != 0 && otp.length >= 4) {
+      // console.log(this.angForm.controls.otp, '787678', otp.length);
 
-        this.orderService.postAll('verify_otp', obj).subscribe((res) => {
-          if (res.status === 200) {
-            var encrypted_order_type = CryptoJS.AES.encrypt(otp, '');
-            localStorage.setItem('otp', encrypted_order_type.toString());
-            if (localStorage.getItem('UserData')) {
-              const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
-              // this.UserData= data
-              // // console.log(data, 'lll')
-              var encrypted_order_type = CryptoJS.AES.encrypt(data._id, '');
-              localStorage.setItem('userId', encrypted_order_type.toString());
-              localStorage.setItem('usersid', data._id)
-            }
+      this.orderService.postAll('verify_otp', obj).subscribe((res) => {
+        if (res.status === 200) {
+          var encrypted_order_type = CryptoJS.AES.encrypt(otp, '');
+          localStorage.setItem('otp', encrypted_order_type.toString());
+          if (localStorage.getItem('UserData')) {
+            const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
+            // this.UserData= data
+            // // console.log(data, 'lll')
+            var encrypted_order_type = CryptoJS.AES.encrypt(data._id, '');
+            localStorage.setItem('userId', encrypted_order_type.toString());
+            localStorage.setItem('usersid', data._id)
+          }
+          this.socketService.getMessages().subscribe((message) => {
+            console.log(message)
+          });
+          this.display = ''
+          this.displaysuccess = "Succussfully";
+          if (!this.signupProcess) {
             this.display = ''
             this.displaysuccess = "Succussfully";
             this.router.navigate(['/personal-details']);
             setTimeout(function () { this.displaysuccess = '' }, 3000);
           } else {
-            this.displaysuccess = ''
-            this.display = res.msg;
-          }
-        });
-
-      } else {
-        // console.log(this.angForm.controls.otp, '00000000', otp.length);
-        if (this.angForm.invalid) {
-          return false;
-        }
-      }
-    } else {
-      var otp = this.angForm.controls.otp.value;
-
-      const obj = { userId: this.userId, otp: otp }
-
-      // // stop here if form is invalid
-
-      this.submitted = true;
-      if (this.submitted === true && (otp || '').trim().length != 0 && otp.length >= 4) {
-        // console.log(this.angForm.controls.otp, '787678', otp.length);
-
-        this.orderService.postAll('verify_otp', obj).subscribe((res) => {
-          if (res.status === 200) {
-            var encrypted_order_type = CryptoJS.AES.encrypt(otp, '');
-            localStorage.setItem('otp', encrypted_order_type.toString());
-            if (localStorage.getItem('UserData')) {
-              const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("UserData"), '').toString(CryptoJS.enc.Utf8))
-              // this.UserData= data
-              // // console.log(data, 'lll')
-              var encrypted_order_type = CryptoJS.AES.encrypt(data._id, '');
-              localStorage.setItem('userId', encrypted_order_type.toString());
-              localStorage.setItem('usersid', data._id)
-            }
-            this.display = ''
-            this.displaysuccess = "Succussfully";
             const dialogDatasuccess = new SuccessDialogModel("Success", "Succesfully SignUp");
             let dialogReff = this.dialog.open(SuccessDialogComponent, {
               maxWidth: "700px",
@@ -187,20 +156,18 @@ export class OtpVerificationComponent implements OnInit {
               });
 
             setTimeout(function () { this.displaysuccess = '' }, 3000);
-          } else {
-            this.displaysuccess = ''
-            this.display = res.msg;
           }
-        });
-
-      } else {
-        // console.log(this.angForm.controls.otp, '00000000', otp.length);
-        if (this.angForm.invalid) {
-          return false;
+        } else {
+          this.displaysuccess = ''
+          this.display = res.msg;
         }
+      });
+
+    } else {
+      // console.log(this.angForm.controls.otp, '00000000', otp.length);
+      if (this.angForm.invalid) {
+        return false;
       }
-
-
     }
 
   }
