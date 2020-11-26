@@ -66,6 +66,7 @@ const routes: Routes = [
       {path: 'browse-order',component:BrowseOrderComponent},
 
       {path: 'phone-verification', component:PhoneVerificationComponent},
+      {path: 'signup', component:PhoneVerificationComponent},
       {path: 'otp', component:OtpVerificationComponent},
       {path: 'personal-details', component:PersonalDetailsComponent},
       {path: 'confirm-address', component:ConfirmAddressComponent},

@@ -19,6 +19,7 @@
 					</ul>
 				</div>
 				<a *ngIf="userId" (click)='logout()' class="app_full_btn">Sign Out</a>
+				<a *ngIf="!userId" routerLink="/signup" (click)='singUp()' class="app_full_btn_up">Sign Up</a>
 				<a *ngIf="!userId" routerLink="/signin" class="app_full_btn">Sign In</a>
 			</div>
 			<!-- sidebar close -->
@@ -177,6 +178,7 @@
 					</ul>
 				</div>
 				<a *ngIf="userId" (click)='logout()' class="app_full_btn">Sign Out</a>
+				<a *ngIf="!userId" routerLink="/signup" (click)='singUp()' class="app_full_btn_up">Sign Up</a>
 				<a *ngIf="!userId" routerLink="/signin" class="app_full_btn">Sign In</a>
 			</div>
 			<!-- sidebar close -->
