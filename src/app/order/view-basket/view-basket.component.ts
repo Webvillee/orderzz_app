@@ -35,7 +35,7 @@ export class ViewBasketComponent implements OnInit {
 
   orderTotal;
   savingCost;
-  shippingCost;
+  shippingCost=0;
   special_instruction;
   isLoading;
   tax_vat_percent;

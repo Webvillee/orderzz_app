@@ -160,55 +160,27 @@ export class YourOrdersComponent implements OnInit {
     const orderDetail = JSON.parse(orderData.order_items)
     // console.log(orderDetail, 'orderData');
     let uniqueIds = Array.from(new Set(orderDetail.map((item: any) => item._id)))
-    console.log(uniqueIds, 'uniqueIds');
-    // this.spinner.show();
     const obj = {
       itemIdArr: JSON.stringify(uniqueIds)
     };
     this.orderService.postAll('get_repeat_order', obj).subscribe((res) => {
+      this.spinner.show();
       if (res.status == 200) {
-        // console.log(res.data.item, 'ifff');
         var allItems = res.data.item
-        // let result = orderDetail.filter(o1 => allItems.filter(o2 => o1._id === o2._id));
-        //   var uniqueResultTwo = orderDetail.filter(function(obj) {
-        //     return allItems.filter(function(obj2) {
-        //         return obj._id == obj2._id.length;
-        //     });
-        // });
-        let arrb = allItems
-        arrb.map((e, i) => {
-
-          // if (e._id === orderDetail[i]._id) {
-
+        const newdataArr=[]
+        allItems.map((e, i) => {
           const count = orderDetail.filter(x => x._id === e._id).length;
-
-          // // const allCount = count(e._id, orderDetail);
-
-          if (count > 1) {
-            // console.log(e,'ooooooooooooooooooooo', count)
-            arrb.push(e)
+          for (i = 0; i < count; i++) {
+            newdataArr.push(e)
           }
-          // return <div>Match</div>
-          // } else {
-          //   // return <div>No Match</div>
-          // }
         })
-        console.log('arrrrb', arrb)
-
-        // var count = (input, arr) => arr.filter(x => x._id === input).length;
-        // const allCount = count(id, this.itemArray);
-        var userOrderData = CryptoJS.AES.encrypt(JSON.stringify(allItems), '').toString();
-        console.log(orderDetail, 'orderData', res.data.item, 'pppp', allItems);
-
-        // localStorage.setItem('OrderData', userOrderData)
-        // this.router.navigate(['/view-basket'])
-        // allItems.map((element, index) => {
-        //   if(element.cat_status===1 && element.menu_status===1 && element.is_online_status===1 &&  element.rest_status===1 &&  element.status===1){
-        //     console.log(element)
-        //   }
-        //   console.log(element, 'lllll')
-        // });
+        var userOrderData = CryptoJS.AES.encrypt(JSON.stringify(newdataArr), '').toString();
+        // console.log(orderDetail, 'orderData', res.data.item, 'pppp', allItems);
+        localStorage.setItem('OrderData', userOrderData)
+        this.router.navigate(['/view-basket'])
+        this.spinner.hide();
       } else {
+        this.spinner.hide();
         // this.isLoading = false
         // console.log('ellls')
         // this.router.navigate(['/not-found'])
@@ -216,14 +188,9 @@ export class YourOrdersComponent implements OnInit {
     });
   }
   cancelOrder(id) {
-    const obj = { orderId: id  }
-  
-
-
+    const obj = { orderId: id }
     const message = `Are you sure you want to Cancel this order?`;
     const dialogData = new ConfirmDialogModel("Confirm Action", message);
-    // const dialogDatasuccess = new SuccessDialogModel("Success", "Succesfully Logout");
-
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       maxWidth: "700px",
       panelClass: 'logout-message',
@@ -248,12 +215,9 @@ export class YourOrdersComponent implements OnInit {
             this.page_no
             this.myOrderlist();
           } else {
-            // this.isLoading = false;
             this.spinner.hide();
           }
         });
-       
-        
       }
     });
   // }
