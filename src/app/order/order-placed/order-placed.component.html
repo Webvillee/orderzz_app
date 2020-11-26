@@ -18,19 +18,19 @@
                         <ul class="StepProgress">
                             <li class="StepProgress-item"
                                 [ngClass]="this.orderHistory.order_status===1 ? 'current' : this.orderHistory.order_status>1 ? 'is-done' : ''">
-                                <img *ngIf="this.orderHistory.order_status===1"
-                                    src="assets/img/staus_progress.svg" alt=""> Order Placed </li>
+                                 Order Placed </li>
                             <li class="StepProgress-item"
                                 [ngClass]="this.orderHistory.order_status===3 ? 'current': this.orderHistory.order_status>3 ? 'is-done' : ''">
                                 <img *ngIf="this.orderHistory.order_status===3"
-                                    src="assets/img/staus_progress.svg" alt=""><strong>Preparing your order</strong></li>
+                                    src="assets/img/staus_progress.svg" alt="">Preparing your order</li>
                             <li class="StepProgress-item"
                                 [ngClass]="this.orderHistory.order_status===4 ? 'current': this.orderHistory.order_status>4 ? 'is-done' : ''">
                                 <img *ngIf="this.orderHistory.order_status===4"
                                     src="assets/img/staus_progress.svg" alt="">Out of deliver </li>
-                            <li class="StepProgress-item"
-                                [ngClass]="this.orderHistory.order_status===8 ? 'current' : ''"> <img *ngIf="this.orderHistory.order_status===8"
-                                    src="assets/img/staus_progress.svg" alt="">Delivered </li>
+                                    <li class="StepProgress-item"
+                                    [ngClass]="this.orderHistory.order_status===8 ? 'current': this.orderHistory.order_status>7 ? 'is-done' : ''">
+                                    <img *ngIf="this.orderHistory.order_status===8"
+                                        src="assets/img/staus_progress.svg" alt="">Delivered </li>
                         </ul>
                     </div>
                 </div>

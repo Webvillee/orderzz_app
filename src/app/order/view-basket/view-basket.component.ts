@@ -40,6 +40,9 @@ export class ViewBasketComponent implements OnInit {
   isLoading;
   tax_vat_percent;
   orderSubtotal;
+  recomendedItemIdArray: any =[];
+  slides: any=[];
+  slideConfig: { slidesToShow: number; slidesToScroll: number; };
   constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog, private spinner: NgxSpinnerService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -107,7 +110,7 @@ export class ViewBasketComponent implements OnInit {
       const arr_total = this.itemArray
       // console.log(this.tax_vat_percent, 'oooooooo')
       this.itemArray.map((element, index) => {
-        // console.log(element)
+       this.recomendedItemIdArray.push(...element.recomended_items)
         if(element.sell_price===0){
           total = total + element.price
         }else{
@@ -128,7 +131,11 @@ export class ViewBasketComponent implements OnInit {
           }
         }
       });
-
+      this.recomendedItemIdArray =[...new Set(this.recomendedItemIdArray.map(e =>e))]
+      if(this.recomendedItemIdArray.length !==0){
+        this.recomendedItem()
+      }
+      console.log(this.recomendedItemIdArray,"this.recomendedItemIdArray")
       this.orderSubtotal = total;
       this.savingCost = savings;
 
@@ -152,7 +159,22 @@ export class ViewBasketComponent implements OnInit {
       // console.log(this.getItemData, "OrderData")
     }
   }
-
+  recomendedItem() {
+    const obj = {
+      itemIdArr: JSON.stringify(this.recomendedItemIdArray)
+    };
+    this.orderService.postAll('get_repeat_order', obj).subscribe((res) => {
+      if (res.status == 200) {
+        this.slides = [
+          ...res.data.item
+        ];
+        console.log(this.slides,"this.slides")
+        this.slideConfig = {"slidesToShow": 4, "slidesToScroll": 4};
+        console.log(res.data.item,"recomendedItem")
+      } else {
+      }
+    });
+  }
   addToCart(itemData) {
     // console.log(itemData, 'itemDatakkkkk');
     var index = this.itemArray.findIndex(x => x._id === itemData._id);

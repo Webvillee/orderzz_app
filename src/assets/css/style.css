@@ -1699,9 +1699,9 @@ Personal Detail
     border-radius: 50%;
     top: 20%;
     left: 20%;
-    border: 2px solid #fd7e14;
+    border: 2px solid var(--primary-color);
     padding: 15px;
-    color: #fd7e14;
+    color: var(--primary-color);
     font-size: 26px;
 }
 .app_order_placed_header{
@@ -1787,7 +1787,8 @@ Personal Detail
     top: 0;
 }
 .StepProgress-item.current{
-	color:#fff;
+    color: #fff !important;
+    font-weight: bolder !important;
 }
 .StepProgress-item.current::before {
     border-left: 2px solid #4e526a;
@@ -1803,8 +1804,8 @@ Personal Detail
         font-size: 18px;
         text-align: center;
         /* color: green; */
-    border: 2px solid #f55b02;
-        background-color: #f55b02;
+    border: 2px solid #fff;
+        background-color: #fff;
 }
 .StepProgress strong {
   display: block;
