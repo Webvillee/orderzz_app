@@ -64,6 +64,9 @@
                             </div>
                         </div>
                     </div>
+                    <div *ngIf="orderHistory.length===0">
+                        <h5>Order data not found</h5>
+                    </div>
                 </div>
             </div>
         </div>

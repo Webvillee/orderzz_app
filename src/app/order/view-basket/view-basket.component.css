@@ -17,13 +17,14 @@
     width: 100%;
     border-radius: 15px;
     margin-bottom: 25px;
-height: 157px;
-    object-fit: cover;}
+    height: 157px;
+    object-fit: cover;
+}
 
 @media only screen and (max-width: 800px) and (min-width: 320px){
     .app_your_basket_text_icons_number {
     color: black;
-  padding-left: 10px;
+    padding-left: 10px;
     padding-right: 10px;
     font-size: 18px !important;
 }

@@ -53,7 +53,9 @@
                         <div *ngIf="f.pickupAddress.errors.required">*Pickup Location is required</div>
                     </div>
                 </ng-container>
-               
+                <div *ngIf="pickupData.length===0">
+                    <h5> Pickup location data not found</h5>
+                </div>
                 <input type="submit" class="app_full_btn" value="Choose this outlet">
             </div>
         </form>
