@@ -6,7 +6,7 @@
     </div> -->
     <div  class="app_verification app_otp">
         <div class="app_container">
-            <div class="app_verification_image">
+            <div *ngIf="!affiliateId" class="app_verification_image">
                 <a [routerLink]="['/signin']"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
             </div>
             <div class="app_verification_caption">

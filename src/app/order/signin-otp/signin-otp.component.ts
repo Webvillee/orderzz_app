@@ -38,6 +38,7 @@ export class SigninOtpComponent implements OnInit {
   isLoading;
   timeLeft: number = 60;
   interval;
+  affiliateId
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService, private socketService: SocketioService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -59,6 +60,9 @@ export class SigninOtpComponent implements OnInit {
       // this.UserData= data
       // console.log(data, 'lll')
       this.userId = data._id;
+    }
+    if(localStorage.getItem('affiliateId')){
+      this.affiliateId =CryptoJS.AES.decrypt(localStorage.getItem('affiliateId'), '').toString(CryptoJS.enc.Utf8)
     }
 
 
@@ -128,6 +132,7 @@ export class SigninOtpComponent implements OnInit {
             var encrypted_order_type = CryptoJS.AES.encrypt(data._id, '');
             localStorage.setItem('userId', encrypted_order_type.toString());
             localStorage.setItem('usersid', data._id);
+            localStorage.removeItem('affiliateId');
             this.socketService.getMessages().subscribe((message) => {
             console.log(message)
             });
@@ -155,7 +160,7 @@ export class SigninOtpComponent implements OnInit {
   }
 
   resendotp() {
-    console.log(this.userId, 'userId');
+    // console.log(this.userId, 'userId');
     const obj = { userId: this.userId }
     if (this.userId) {
       this.orderService.postAll('resend_otp', obj).subscribe((res) => {
