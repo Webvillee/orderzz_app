@@ -1921,6 +1921,34 @@ input.app_full_btn:focus {
     margin-left: 45%
 }
 @media only screen and (max-width: 800px) and (min-width: 320px){
+    .slick-prev, .slick-next{
+        top: 35% !important;
+    }
+    .slick-prev {
+        left: -18px !important;
+    }
+    .slick-next {
+        right: -18px !important;
+    }
+    .slick-slide {
+        margin-right: 7px;
+        margin-left: 7px;
+    }
+    .StepProgress-item.is-done::before {
+        border-left: 2px solid #ffff;
+        height: 100%;
+    }
+    .StepProgress-item::before {
+        display: inline-block;
+        content: '';
+        position: absolute;
+        left: -30px;
+        height: 78%;
+        width: 10px;
+    }
+    /* .StepProgress-item.current::after{
+        top: 0px;
+    } */
 	.loader{
     margin-top: 50% !important;
     position: absolute;
