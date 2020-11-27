@@ -180,7 +180,7 @@ input.app_checkout_input_pad.app_check_input_loc {
     position: fixed;
     width: calc(100% - 33px) !important;
     left: 14px !important;
-    bottom: 5px !important;
+    bottom: 25px !important;
 }
 /*.app_hot_food_restaurant_delivery_details ul li {
     position: relative;
