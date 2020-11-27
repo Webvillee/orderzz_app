@@ -142,7 +142,7 @@ export class ViewBasketComponent implements OnInit {
       if(this.tax_vat_percent){
         let Amount = this.orderSubtotal * this.tax_vat_percent / 100
         let totalamount = this.orderSubtotal + Amount;
-        this.orderTotal = Math.round(totalamount);
+        this.orderTotal = totalamount;
         this.taxvatpercent = Amount
       }else{
         this.orderTotal = total;

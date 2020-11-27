@@ -85,6 +85,7 @@ const routes: Routes = [
 
       {path: 'not-found',component:PagenotfoundComponent},
       {path: ':id',component:WelcomeComponent},
+      {path: ':id/:affiliateid',component:SigninComponent},
       {path: '**', component:PagenotfoundComponent},
     ]
   }

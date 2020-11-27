@@ -187,6 +187,7 @@ export class YourOrdersComponent implements OnInit {
       }
     });
   }
+  
   cancelOrder(id) {
     const obj = { orderId: id }
     const message = `Are you sure you want to Cancel this order?`;

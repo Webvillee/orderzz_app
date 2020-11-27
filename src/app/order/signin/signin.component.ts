@@ -36,10 +36,48 @@ export class SigninComponent implements OnInit {
   isRequired = false
   submitted = false;
   isLoading;
+  affiliateId
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService) {
 
-    if (localStorage.getItem('rest_id') == null) {
-      this.router.navigate(['/not-found'])
+    const slugId = this.route.snapshot.params.id
+    this.affiliateId = this.route.snapshot.params.affiliateid;
+    console.log(this.affiliateId, slugId);
+
+    if(slugId){
+      this.isLoading =true
+      const obj = {
+        slugId:slugId,
+      };
+      this.spinner.show();
+      this.orderService.get_restaurant_data(obj).subscribe((res) => {
+        if (res.status == 200) {
+          console.log(res.data, 'jkhjk');
+          this.logo = res.data.rest_logo
+          this.restName = res.data.rest_name
+          
+          var rest_id = res.data._id
+          var encrypted_restid = CryptoJS.AES.encrypt(rest_id, '');
+          localStorage.setItem('rest_id',encrypted_restid.toString());
+          
+          var theme_color = res.data.theme_color;
+          document.documentElement.style.setProperty('--primary-color', theme_color);
+          // this.spinner.hide();
+          this.spinner.hide();
+          // this.router.navigateByUrl(`/${slugId}/${this.affiliateId}`, { skipLocationChange: true }).then(() => {
+          //   this.router.navigate([`/${slugId}/${this.affiliateId}`]);
+          // }); 
+        } else {
+          console.log("hhghgghjhhj", 'jkhjk');
+          // this.isLoading =false
+          this.spinner.hide();
+          this.router.navigate(['/not-found'])
+        }
+      });
+    }else{
+      console.log("hhghgghjhhj", 'jkhjk');
+      if (localStorage.getItem('rest_id') == null) {
+        this.router.navigate(['/not-found'])
+      }
     }
 
     if (localStorage.getItem('customer_address') == null) {
@@ -51,7 +89,6 @@ export class SigninComponent implements OnInit {
     this.angForm = this.fb.group({
       mobileno: ['', Validators.required, Validators.minLength(10)],
     })
-
 
     this.get_all_rest_data();
   }
@@ -84,10 +121,6 @@ export class SigninComponent implements OnInit {
         // this.minimum_order_value = res.data.end_delevery_time
         // this.themeColor = res.data.theme_color
 
-      } else {
-        // this.isLoading =false
-        this.spinner.hide();
-        this.router.navigate(['/not-found'])
       }
     });
   }

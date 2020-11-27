@@ -132,7 +132,7 @@
                         </div>
                         <div *ngIf="taxvatpercent!==0" class="col-4">
                             <div class="app_order_detail_price">
-                                <h3>{{taxvatpercent}} AED</h3>
+                                <h3>{{taxvatpercent | number : '1.2-2' }} AED</h3>
                             </div>
                         </div> 
 
@@ -143,7 +143,7 @@
                         </div>
                         <div class="col-6">
                             <div class="app_order_detail_total_price">
-                                <p>{{orderTotal}} AED</p>
+                                <p>{{orderTotal | number : '1.2-2' }} AED</p>
                             </div>
                         </div>
                     </div>
