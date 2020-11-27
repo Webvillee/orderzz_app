@@ -233,8 +233,8 @@ export class CheckoutComponent implements OnInit {
       if(this.tax_vat_percent){
         let Amount = this.orderSubtotal * this.tax_vat_percent / 100
         let totalamount = this.orderSubtotal + Amount;
-        this.orderTotal = Math.round(totalamount);
-        this.totalorderPrice =  Math.round(totalamount);
+        this.orderTotal = totalamount;
+        this.totalorderPrice =  totalamount;
         this.taxvatpercent = Amount
       }else{
         this.orderTotal = total;
@@ -313,7 +313,7 @@ export class CheckoutComponent implements OnInit {
     
 
     if (paymentMethod && this.submitted === true) {
-      const obj = { restId: res_id, userId: this.userId, orderType: this.orderType, orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: this.pickupAddress, pickupLat: this.pickupLat, pickupLng: this.pickupLng, totalItemCount: this.itemArray.length, isPromoCodeApply: this.isPromoCodeApply, promoCode: this.promocode, user_device_type: this.userDevicetype }
+      const obj = { restId: res_id, userId: this.userId, orderType: this.orderType, orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: this.pickupAddress, pickupLat: this.pickupLat, pickupLng: this.pickupLng, totalItemCount: this.itemArray.length, isPromoCodeApply: this.isPromoCodeApply, promoCode: this.promocode, user_device_type: this.userDevicetype, subtotal_amount: this.orderSubtotal }
       // console.log(paymentMethod, '776767888', obj);
       this.socketService.getMessages().subscribe((message) => {
         // console.log(message)
