@@ -115,7 +115,7 @@ export class ViewBasketComponent implements OnInit {
           total = total + element.price
         }else{
           total = total + element.sell_price;
-          savings = element.price-element.sell_price
+          savings = savings + element.price-element.sell_price
         }
         if (element.is_modifire_status === 1) {
           const availmodifire = JSON.parse(element.available_modifire);

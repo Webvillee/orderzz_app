@@ -41,9 +41,13 @@ export class SigninComponent implements OnInit {
 
     const slugId = this.route.snapshot.params.id
     this.affiliateId = this.route.snapshot.params.affiliateid;
-    console.log(this.affiliateId, slugId);
-
+    // console.log(this.affiliateId, slugId);
+    localStorage.removeItem('affiliateId');
     if(slugId){
+      var encrypted_restid = CryptoJS.AES.encrypt(slugId, '');
+      localStorage.setItem('rest_id',encrypted_restid.toString());
+      var encrypted_affiliateId = CryptoJS.AES.encrypt(this.affiliateId, '');
+      localStorage.setItem('affiliateId',encrypted_affiliateId.toString());
       this.isLoading =true
       const obj = {
         slugId:slugId,
@@ -51,7 +55,6 @@ export class SigninComponent implements OnInit {
       this.spinner.show();
       this.orderService.get_restaurant_data(obj).subscribe((res) => {
         if (res.status == 200) {
-          console.log(res.data, 'jkhjk');
           this.logo = res.data.rest_logo
           this.restName = res.data.rest_name
           
@@ -63,18 +66,14 @@ export class SigninComponent implements OnInit {
           document.documentElement.style.setProperty('--primary-color', theme_color);
           // this.spinner.hide();
           this.spinner.hide();
-          // this.router.navigateByUrl(`/${slugId}/${this.affiliateId}`, { skipLocationChange: true }).then(() => {
-          //   this.router.navigate([`/${slugId}/${this.affiliateId}`]);
-          // }); 
         } else {
-          console.log("hhghgghjhhj", 'jkhjk');
           // this.isLoading =false
           this.spinner.hide();
           this.router.navigate(['/not-found'])
         }
       });
     }else{
-      console.log("hhghgghjhhj", 'jkhjk');
+      // console.log("hhghgghjhhj", 'jkhjk');
       if (localStorage.getItem('rest_id') == null) {
         this.router.navigate(['/not-found'])
       }
@@ -136,21 +135,38 @@ export class SigninComponent implements OnInit {
     this.submitted = true;
     if (this.submitted === true && (mobileno || '').trim().length != 0 && mobileno.length > 9) {
       // // console.log(this.angForm.controls.mobileno, '787678', mobileno.length);
-
-      this.orderService.postAll('sign_in', obj).subscribe((res) => {
-        if (res.status === 200) {
-          // all user details
-          var userOrder = CryptoJS.AES.encrypt(JSON.stringify(res.data), '').toString();
-          localStorage.setItem('UserData', userOrder);
-
-          this.router.navigate(['/signin-otp']);
-          this.display = ''
-          this.displaysuccess = res.msg
-        } else {
-          this.displaysuccess = ''
-          this.display = res.msg;
-        }
-      });
+      if(this.affiliateId){
+        this.orderService.postAll('affilate_sign_in', obj).subscribe((res) => {
+          if (res.status === 200) {
+            // all user details
+            var userOrder = CryptoJS.AES.encrypt(JSON.stringify(res.data), '').toString();
+            localStorage.setItem('UserData', userOrder);
+  
+            this.router.navigate(['/signin-otp']);
+            this.display = ''
+            this.displaysuccess = res.msg
+          } else {
+            this.displaysuccess = ''
+            this.display = res.msg;
+          }
+        });
+      }else{
+        this.orderService.postAll('sign_in', obj).subscribe((res) => {
+          if (res.status === 200) {
+            // all user details
+            var userOrder = CryptoJS.AES.encrypt(JSON.stringify(res.data), '').toString();
+            localStorage.setItem('UserData', userOrder);
+  
+            this.router.navigate(['/signin-otp']);
+            this.display = ''
+            this.displaysuccess = res.msg
+          } else {
+            this.displaysuccess = ''
+            this.display = res.msg;
+          }
+        });
+      }
+      
     }else{
       // // console.log(this.angForm.controls.mobileno, '00000000', mobileno.length);
       if (this.angForm.invalid) {

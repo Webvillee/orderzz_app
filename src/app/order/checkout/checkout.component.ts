@@ -60,7 +60,8 @@ export class CheckoutComponent implements OnInit {
   pickupLng: any;
   tax_vat_percent;
   orderSubtotal;
-  taxvatpercent=0
+  taxvatpercent=0;
+  promo_code_amount=0
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService, private socketService: SocketioService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -210,7 +211,7 @@ export class CheckoutComponent implements OnInit {
           total = total + element.price
         } else {
           total = total + element.sell_price;
-          savings = element.price - element.sell_price
+          savings = savings + element.price-element.sell_price
         }
         if (element.is_modifire_status === 1) {
           const availmodifire = JSON.parse(element.available_modifire);
@@ -313,7 +314,7 @@ export class CheckoutComponent implements OnInit {
     
 
     if (paymentMethod && this.submitted === true) {
-      const obj = { restId: res_id, userId: this.userId, orderType: this.orderType, orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: this.pickupAddress, pickupLat: this.pickupLat, pickupLng: this.pickupLng, totalItemCount: this.itemArray.length, isPromoCodeApply: this.isPromoCodeApply, promoCode: this.promocode, user_device_type: this.userDevicetype, subtotal_amount: this.orderSubtotal }
+      const obj = { restId: res_id, userId: this.userId, orderType: this.orderType, orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: this.pickupAddress, pickupLat: this.pickupLat, pickupLng: this.pickupLng, totalItemCount: this.itemArray.length, isPromoCodeApply: this.isPromoCodeApply, promoCode: this.promocode, user_device_type: this.userDevicetype, subtotal_amount: this.orderSubtotal, promo_code_amount:this.promo_code_amount, vat_percent: this.tax_vat_percent, vat_percent_value: this.taxvatpercent }
       // console.log(paymentMethod, '776767888', obj);
       this.socketService.getMessages().subscribe((message) => {
         // console.log(message)
@@ -363,7 +364,7 @@ export class CheckoutComponent implements OnInit {
   }
   applyCode() {
     let res_id;
-    let totalordervalue = this.totalorderPrice
+    let totalordervalue = this.orderSubtotal
     if (localStorage.getItem('rest_id')) {
       res_id = CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     }
@@ -378,6 +379,7 @@ export class CheckoutComponent implements OnInit {
             if (totalordervalue >= res.data.minimum_price_value) {
               if (res.data.discount_type === 1) {
                 let promoAmount = totalordervalue * res.data.discount_type_value / 100
+                this.promo_code_amount = promoAmount
                 totalordervalue = totalordervalue - promoAmount
                 this.isPromoCodeApply = 1
                 this.displaysuccess = res.msg;
@@ -388,6 +390,7 @@ export class CheckoutComponent implements OnInit {
                   this.displaysuccess = ''
                 } else {
                   totalordervalue = totalordervalue - res.data.discount_type_value
+                  this.promo_code_amount = res.data.discount_type_value
                   this.isPromoCodeApply = 1
                   this.displaysuccess = res.msg;
                   this.displayError = ''
@@ -397,6 +400,7 @@ export class CheckoutComponent implements OnInit {
           } else {
             if (res.data.discount_type === 1) {
               let promoAmount = totalordervalue * res.data.discount_type_value / 100
+              this.promo_code_amount = promoAmount
               totalordervalue = totalordervalue - promoAmount
               this.isPromoCodeApply = 1
               this.displaysuccess = res.msg;
@@ -408,13 +412,25 @@ export class CheckoutComponent implements OnInit {
               } else {
                 this.isPromoCodeApply = 1
                 totalordervalue = totalordervalue - res.data.discount_type_value;
+                this.promo_code_amount = res.data.discount_type_value
                 this.displaysuccess = res.msg;
                 this.displayError = ''
               }
             }
           }
-          this.orderTotal = totalordervalue
-          this.display = ''
+          this.orderSubtotal = totalordervalue;
+          if(this.tax_vat_percent){
+            let Amount = this.orderSubtotal * this.tax_vat_percent / 100
+            let totalamount = this.orderSubtotal + Amount;
+            this.orderTotal = totalamount;
+            this.totalorderPrice =  totalamount;
+            this.taxvatpercent = Amount
+          }else{
+            this.orderTotal = this.orderSubtotal;
+            this.totalorderPrice = this.orderSubtotal
+            this.taxvatpercent = 0
+          }
+          this.display = '';
           setTimeout(function () { this.displaysuccess = '' }, 3000);
           setTimeout(function () { this.displayError = '' }, 3000);
           // this.isLoading =false
