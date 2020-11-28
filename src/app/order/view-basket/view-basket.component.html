@@ -173,7 +173,7 @@
                 </div>
             </div>
             <a *ngIf="orderTotal<minimumOrderValue" [routerLink]="['/order']" class="app_full_btn">Add more item</a>
-            <a *ngIf="orderTotal>=minimumOrderValue" class="app_full_btn proceed-order" (click)="submit()">Proceed to
+            <a *ngIf="orderTotal>=minimumOrderValue" class="app_full_btn proceed-order cursorCss" (click)="submit()">Proceed to
                 order</a>
         </div>
     </div>

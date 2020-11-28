@@ -23,9 +23,29 @@ li.StepProgress-item.current img {
     width: 10%;
     position: absolute;
     text-align: left;
-    left: -42px;
+    left: -44px;
     z-index: 9999;
-    top: -11px;
+    top: -13px;
+}
+.StepProgress-item.is-done::before {
+    border-left: 2px solid #ffff;
+    height: 100%;
+}
+.StepProgress-item::before {
+    display: inline-block;
+    content: '';
+    position: absolute;
+    left: -30px;
+    height: 78%;
+    width: 10px;
+}
+.StepProgress-item.current::after{
+    top: 6px;
+    /* bottom: 0 !important; */
+}
+li.StepProgress-item.order_place_sec.current::after {
+    top: 0;
+    /* bottom: 0 !important; */
 }
 .app_heading {
     font-weight: 700;
@@ -183,4 +203,12 @@ i.fa.fa-angle-left {
     font-size: 40px;
     padding: 30px 0 30px;
     color: #fff;
+}
+.StepProgress-item.current::after{
+    top: 13px;
+    /* bottom: 0 !important; */
+}
+li.StepProgress-item.order_place_sec.current::after {
+    top: 0;
+    /* bottom: 0 !important; */
 }
