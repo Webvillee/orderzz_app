@@ -112,7 +112,7 @@
                         </div>
                         <div class="col-4">
                             <div class="app_order_detail_price">
-                                <h3>{{orderSubtotal}} AED</h3>
+                                <h3>{{orderSubtotal | number : '1.2-2'}} AED</h3>
                             </div>
                         </div>
                         <div class="col-8">
@@ -122,7 +122,7 @@
                         </div>
                         <div class="col-4">
                             <div class="app_order_detail_price">
-                                <h3>{{savingCost}} AED</h3>
+                                <h3>{{savingCost | number : '1.2-2'}} AED</h3>
                             </div>
                         </div>
                         <div *ngIf="taxvatpercent!==0" class="col-8">
@@ -148,6 +148,8 @@
                         </div>
                     </div>
                 </div>
+                <!-- <span class="invalid-feedback"  *ngIf="restaurantClosePickupMsg">*restaurent pickup hour is differnt</span>
+                <span class="invalid-feedback" *ngIf="restaurantCloseDeliveryMsg">*restaurent delivery hour is differnt</span> -->
                 <input type="submit" class="app_full_btn" value="pay">
             </form>
         </div>
