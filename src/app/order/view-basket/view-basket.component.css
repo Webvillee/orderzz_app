@@ -39,8 +39,13 @@
 }
 .app_full_btn {
     font-size: 20px !important;
-    margin-bottom: 180px;
+    margin-bottom: 150px;
     margin-top: 15px;
+}
+.app_your_basket_text_right_del {
+    font-size: 13px;
+    color: #8a8787;
+    font-weight: 700;
 }
 .app_your_basket_content_text_bottom .col-8 {
     padding-left: 15px;
