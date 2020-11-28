@@ -60,6 +60,7 @@ export class CheckoutComponent implements OnInit {
   pickupLng: any;
   tax_vat_percent;
   orderSubtotal;
+  orderSubtotalamount;
   taxvatpercent=0;
   promo_code_amount=0
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService, private socketService: SocketioService) {
@@ -229,6 +230,7 @@ export class CheckoutComponent implements OnInit {
       });
 
       this.orderSubtotal = total;
+      this.orderSubtotalamount = total
       this.savingCost = savings;
 
       if(this.tax_vat_percent){
@@ -364,7 +366,7 @@ export class CheckoutComponent implements OnInit {
   }
   applyCode() {
     let res_id;
-    let totalordervalue = this.orderSubtotal
+    let totalordervalue = this.orderSubtotalamount
     if (localStorage.getItem('rest_id')) {
       res_id = CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     }
