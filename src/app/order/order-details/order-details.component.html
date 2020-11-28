@@ -109,7 +109,7 @@
                         <div class="col-7">
                             <div class="app_order_details_heading_right_bottom">
                                 <!-- <span><del>102.98 AED</del></span> -->
-                                <span class="app_order_details_text_right_bottom">{{this.orderHistory.total_amount}} AED</span>
+                                <span class="app_order_details_text_right_bottom">{{this.orderHistory.total_amount | number : '1.2-2'}} AED</span>
                             </div>
                         </div>
                     </div>
@@ -147,7 +147,7 @@
                             <div class="app_order_details_total">
                                 <button type="button" class=" btn app_btn_details"> Paid </button>
                                 <div class="app_order_deatils_heading_text_right_bottom">
-                                    <h4>{{this.orderHistory.total_amount}} AED</h4>
+                                    <h4>{{this.orderHistory.total_amount | number : '1.2-2'}} AED</h4>
                                 </div>
                             </div>
                         </div>

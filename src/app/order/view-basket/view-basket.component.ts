@@ -41,7 +41,7 @@ export class ViewBasketComponent implements OnInit {
   tax_vat_percent;
   orderSubtotal;
   recomendedItemIdArray: any =[];
-  slides: any=[];
+  recomendedItemArray: any=[];
   slideConfig: { slidesToShow: number; slidesToScroll: number; };
   constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog, private spinner: NgxSpinnerService) {
 
@@ -165,10 +165,14 @@ export class ViewBasketComponent implements OnInit {
     };
     this.orderService.postAll('get_repeat_order', obj).subscribe((res) => {
       if (res.status == 200) {
-        this.slides = [
+        this.recomendedItemArray = [
           ...res.data.item
         ];
-        console.log(this.slides,"this.slides")
+
+        this.itemArray.forEach(e =>{
+          this.recomendedItemArray= this.recomendedItemArray.filter(r => e._id !== r._id)
+        });
+        console.log(this.recomendedItemArray,"this.recomendedItemArray")
         this.slideConfig = {"slidesToShow": 4, "slidesToScroll": 4};
         console.log(res.data.item,"recomendedItem")
       } else {

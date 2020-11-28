@@ -72,13 +72,31 @@
                 </div>
             </div>
         </div>
-        <label class="app_review_food_text__left_special">Menu Items Recommendation</label>
-        <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
-            <div ngxSlickItem *ngFor="let slide of slides" class="slide">
-                <img src="{{img_url}}{{slide.item_image}}" alt="" >
-                <p class="text-center">{{slide.item_name}}</p>
-            </div>
-        </ngx-slick-carousel>
+        <div *ngIf="recomendedItemArray.length !==0" class="add_slider">
+            <label class="app_review_food_text__left_special">Menu Items Recommendation</label>
+            <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+                <div ngxSlickItem *ngFor="let slide of recomendedItemArray" class="slide">
+                    <img src="{{img_url}}{{slide.item_image}}" alt="">
+                    <div class="app_your_basket_heading_3_right">
+                        <h5>{{slide.item_name}}</h5>
+                    </div>
+                    <div class="app_your_basket_heading_6_right">
+                        <h6>{{slide.item_description}}</h6>
+                    </div>
+                    <div class="app_your_basket_text_right">
+                        <span *ngIf="slide.sell_price===0" class="app_footer">{{slide.price}} AED</span>
+                        <span *ngIf="slide.sell_price!==0" class="app_footer">{{slide.sell_price}}
+                            AED</span>
+                        <span class="app_your_basket_text_right_del"
+                            *ngIf="slide.sell_price!==0"><del>{{slide.price}} AED</del></span>
+                    </div>
+                    <div class="app_add_baset_icon">
+                        <span><i class="fa fa-plus app_your_basket_icons cursorCss" aria-hidden="true"
+                                (click)="addToCart(slide)"></i></span>
+                    </div>
+                </div>
+            </ngx-slick-carousel>
+        </div>
         <div *ngIf="orderTotal>=minimumOrderValue" class="row">
             <div class="col-12">
                 <form>
@@ -112,7 +130,7 @@
                         </div>
                         <div class="col-4">
                             <div class="app_your_basket_heading_right_bottom">
-                                <h3>{{orderSubtotal}} AED</h3>
+                                <h3>{{orderSubtotal | number : '1.2-2'}} AED</h3>
                             </div>
                         </div>
                     </div>
@@ -173,7 +191,7 @@
                 </div>
             </div>
             <a *ngIf="orderTotal<minimumOrderValue" [routerLink]="['/order']" class="app_full_btn">Add more item</a>
-            <a *ngIf="orderTotal>=minimumOrderValue" class="app_full_btn proceed-order cursorCss" (click)="submit()">Proceed to
+            <a *ngIf="orderTotal>=minimumOrderValue" class="app_full_btn proceed-order" (click)="submit()">Proceed to
                 order</a>
         </div>
     </div>

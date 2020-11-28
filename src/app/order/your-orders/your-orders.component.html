@@ -50,7 +50,7 @@
                                     <h5>Total :</h5>
                                 </div>
                                 <div class="app_your_orders_heading_right_text_bold">
-                                    <h4>{{orderData.total_amount}} AED</h4>
+                                    <h4>{{orderData.total_amount | number : '1.2-2'}} AED</h4>
                                     <ng-container *ngIf="orderData.order_status===8">
                                     <a class="cursorCss" (click)="repeatOrder(orderData)"><span
                                             class="app_your_orders_right_try_icons"><img src="assets/img/repeat.svg"

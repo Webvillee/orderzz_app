@@ -39,13 +39,8 @@
 }
 .app_full_btn {
     font-size: 20px !important;
-    margin-bottom: 150px;
+    margin-bottom: 180px;
     margin-top: 15px;
-}
-.app_your_basket_text_right_del {
-    font-size: 13px;
-    color: #8a8787;
-    font-weight: 700;
 }
 .app_your_basket_content_text_bottom .col-8 {
     padding-left: 15px;
@@ -240,4 +235,36 @@ a.app_full_btn.proceed-order{
     width: 165px;
     height:150px;
 }
-
+.app_your_basket_text_right_del {
+    font-size: 13px;
+    color: #8a8787;
+    font-weight: 700;
+}
+.add_slider .app_your_basket_heading_6_right h6{
+    font-size: 13px;
+}
+.add_slider .app_your_basket_heading_3_right h5 {
+    font-size: 18px;
+}
+.add_slider .app_your_basket_text_right{
+    margin-top: 13px;
+}
+.add_slider .app_your_basket_text_right {
+    font-size: 19px;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+.add_slider i.fa.fa-plus.app_your_basket_icons{
+    width: 21px;
+    text-align: center;
+    height: 21px;
+    padding-top: 6px;
+    border-radius: 50%;
+    font-size: 12px;
+}
+.add_slider .app_add_baset_icon {
+    /* display: inline-block; */
+    float: right;
+    margin-right: 11px;
+    margin-top: -26px;
+}
