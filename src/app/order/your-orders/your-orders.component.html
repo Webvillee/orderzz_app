@@ -21,7 +21,7 @@
                                     <img src="{{img_url}}{{orderDetails(orderData.order_items, 'image')}}">
                                 </div>
                                 <div class="app_your_orders_heading_left_text_image">
-                                    <h3>{{(orderData.order_status===1)? 'Order Place' :  (orderData.order_status===3)? 'Preparing': (orderData.order_status===4)? 'Out for delivery': (orderData.order_status===5)? 'Collected': (orderData.order_status===6)? 'Rejected by restaurant': (orderData.order_status===7)? 'Canceled' : (orderData.order_status===8)? 'Delivered': '' }}</h3>
+                                    <h3>{{(orderData.order_status===1)? 'Order Place' :  (orderData.order_status===3)? 'Preparing': (orderData.order_status===4)? 'Out for delivery': (orderData.order_status===5)? 'Delivered': (orderData.order_status===6)? 'Rejected by restaurant': (orderData.order_status===7)? 'Canceled' : (orderData.order_status===8)? 'Delivered': '' }}</h3>
                                 </div>
                             </div>
                             <div class="col-8">

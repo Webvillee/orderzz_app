@@ -268,3 +268,6 @@ a.app_full_btn.proceed-order{
     margin-right: 11px;
     margin-top: -26px;
 }
+.slick-slide:focus{
+    outline: none;
+}

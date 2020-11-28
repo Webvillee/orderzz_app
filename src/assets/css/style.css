@@ -2030,9 +2030,9 @@ input.app_full_btn:focus {
     border-radius: 5px !important;
 }
 }
-.mat-dialog-container:hover {
+/* .mat-dialog-container:hover {
   color: rgba(0, 0, 0, 0.3);
-}
+} */
 
 /* .mat-dialog-container{
   background: white;
