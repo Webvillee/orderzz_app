@@ -78,7 +78,7 @@
 .app_your_basket_heading_3_right h5 {
     font-size: 19px !important;
     font-weight: 700;
-    margin-top: 0px;
+    margin-top: 9px;
 }
 .app_your_basket_heading_6_right h6 {
     line-height: 1.5;
@@ -155,8 +155,27 @@
 .slick-slide img {
     display: block;
     border-radius: 10px;
-    width: 116px !important;
-    height: 67px !important;
+    width: 185px !important;
+    height: 110px !important;
+}
+
+.slick-slide {
+    float: left;
+    height: 100%;
+    min-height: 1px;
+    min-width: 50% !important;
+    margin-right: 10px;
+}
+/* .add_slider .app_add_baset_icon {
+    float: right;
+    margin-right: 23px !important;
+    margin-top: -26px;
+} */
+.add_slider .app_your_basket_heading_3_right h5 {
+    word-break: break-all;
+}
+.add_slider .app_your_basket_heading_6_right h6{
+    word-break: break-all;
 }
 }
 .app_bestsellers_detail .row {
@@ -275,5 +294,4 @@ a.app_full_btn.proceed-order{
 }
 .slick-slide:focus{
     outline: none;
-}
 }

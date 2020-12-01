@@ -1930,10 +1930,10 @@ input.app_full_btn:focus {
     .slick-next {
         right: -18px !important;
     }
-    .slick-slide {
+    /* .slick-slide {
         width: 46% !important;
         margin-right: 10px;
-    }
+    } */
     .app_nav_bar .app_full_btn {
         position: fixed;
         width: 250px;
