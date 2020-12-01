@@ -1931,8 +1931,8 @@ input.app_full_btn:focus {
         right: -18px !important;
     }
     .slick-slide {
-        margin-right: 7px;
-        margin-left: 7px;
+        width: 46% !important;
+        margin-right: 10px;
     }
     .app_nav_bar .app_full_btn {
         position: fixed;
@@ -1977,7 +1977,7 @@ input.app_full_btn:focus {
 .app_review_food_text__left_special {
     margin-top: 24px;
     font-weight: bold !important;
-    font-size: 24px !important;
+    font-size: 22px !important;
     line-height: 34px;
     color: #2a3b56;
 }
