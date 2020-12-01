@@ -211,21 +211,6 @@ export class ShowOrderComponent implements OnInit {
           }
         });
 
-        // available for restaurent pickup time 
-        if (this.isOrderTypePickup) {
-          if (this.startPickupTime <= d.getHours() + ':' + d.getMinutes() && this.endPickupTime >= d.getHours() + ':' + d.getMinutes()) {
-            this.restaurantClosePickup = true
-          }
-        }
-
-
-        // available for restaurent delivery time 
-        if (this.isOrderTypeDeliver) {
-          if (this.startDeleveryTime <= d.getHours() + ':' + d.getMinutes() && this.endDeleveryTime >= d.getHours() + ':' + d.getMinutes()) {
-            this.restaurantCloseDelivery = true
-          }
-        }
-
         if (localStorage.getItem('order_type')) {
           const orderType = CryptoJS.AES.decrypt(localStorage.getItem('order_type'), '').toString(CryptoJS.enc.Utf8)
           this.selectedDeliveryType = orderType
@@ -378,6 +363,7 @@ export class ShowOrderComponent implements OnInit {
         localStorage.removeItem('order_instruction');
         localStorage.removeItem('userName');
         localStorage.removeItem('signup_process');
+        localStorage.removeItem('mobilenoGet');
         const dialogDatasuccess = new SuccessDialogModel("Success", "Succesfully Logout");
         let dialogReff = this.dialog.open(SuccessDialogComponent, {
           maxWidth: "700px",

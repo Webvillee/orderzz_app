@@ -18,19 +18,19 @@
                         <ul class="StepProgress">
                             <li class="StepProgress-item order_place_sec"
                                 [ngClass]="this.orderHistory.order_status===1 ? 'current' : this.orderHistory.order_status>1 ? 'is-done' : ''">
-                                 Order Placed </li>
+                                Order Placed </li>
                             <li class="StepProgress-item"
                                 [ngClass]="this.orderHistory.order_status===3 ? 'current': this.orderHistory.order_status>3 ? 'is-done' : ''">
-                                <img *ngIf="this.orderHistory.order_status===3"
-                                    src="assets/img/staus_progress.svg" alt="">Preparing your order</li>
+                                <img *ngIf="this.orderHistory.order_status===3" src="assets/img/staus_progress.svg"
+                                    alt="">Preparing your order</li>
                             <li class="StepProgress-item"
                                 [ngClass]="this.orderHistory.order_status===4 ? 'current': this.orderHistory.order_status>4 ? 'is-done' : ''">
-                                <img *ngIf="this.orderHistory.order_status===4"
-                                    src="assets/img/staus_progress.svg" alt="">Out of deliver </li>
-                                    <li class="StepProgress-item"
-                                    [ngClass]="this.orderHistory.order_status===8 ? 'current': this.orderHistory.order_status>7 ? 'is-done' : ''">
-                                    <img *ngIf="this.orderHistory.order_status===8"
-                                        src="assets/img/staus_progress.svg" alt="">Delivered </li>
+                                <img *ngIf="this.orderHistory.order_status===4" src="assets/img/staus_progress.svg"
+                                    alt="">{{(this.orderHistory.order_type===2)? 'Ready for pickup' : 'Out of delivery'}}</li>
+                            <li class="StepProgress-item"
+                                [ngClass]="this.orderHistory.order_status===8 ? 'current': this.orderHistory.order_status>7 ? 'is-done' : ''">
+                                <img *ngIf="this.orderHistory.order_status===8" src="assets/img/staus_progress.svg"
+                                    alt="">{{(this.orderHistory.order_type===2)? 'Pickup' : 'Delivered'}} </li>
                         </ul>
                     </div>
                 </div>
@@ -43,7 +43,11 @@
                 <div class="app_contact_collapse" data-toggle="collapse" data-target="#app_order_placed_collapse"></div>
                 <div class="order_placed_content collapse" id="app_order_placed_collapse">
                     <!-- <p class="arrive_time" *ngIf="this.orderHistory.order_status>3 && this.orderHistory.order_status<8">Arrives in {{this.orderHistory.order_delevery_time}} minutes</p> -->
-                    <p class="arrive_time" *ngIf="this.orderHistory.order_status===8">Arrives in {{this.orderHistory.order_completed_time}} minutes</p>
+                    <!-- <p class="arrive_time" *ngIf="this.orderHistory.order_status===8">Arrives in {{this.orderHistory.order_completed_time}} minutes</p> -->
+                    <!-- <p>{{getorderDatetime(this.orderHistory.order_accepted_date, this.orderHistory.order_completed_time)}}</p> -->
+                    <!-- <p>
+                        <countdown [config]="{leftTime:  300 }"></countdown>
+                    </p> -->
                     <h3><span *ngFor="let itemData of getItemData; let isLast=last">{{itemData.item_name}} -
                             {{countOrder(itemData._id)}}{{isLast ? '' : ', '}}
                         </span> <a [routerLink]="['/order-details', this.orderHistory._id]"><i class="fa fa-angle-right"
@@ -56,8 +60,8 @@
                         </p>
                         <p>
                             <img src="assets/img/delivery_fast.svg" alt="">
-                            {{(this.orderHistory===1)? 'Pickup' : 'Delivery' }} to
-                            {{(this.orderHistory===1)? this.orderHistory.pickup_address : this.orderHistory.delevery_address }}
+                            {{(this.orderHistory.order_type===2)? 'Pickup' : 'Delivery' }} to
+                            {{(this.orderHistory===2)? this.orderHistory.pickup_address : this.orderHistory.delevery_address }}
                         </p>
                     </div>
                     <!-- <div class="delivery_boy_call" *ngIf="this.orderHistory.order_status>3">

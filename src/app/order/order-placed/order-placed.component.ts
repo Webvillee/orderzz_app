@@ -152,6 +152,18 @@ export class OrderPlacedComponent implements OnInit {
       });
   }
 
+  getorderDatetime(orderdateTime, orderCompleteTime) {
+    console.log(orderdateTime, 'orderdateTime', orderCompleteTime);
+    // const myTimer = setInterval(myClock, 1000);
+    // var now = new Date().getTime();
+    // var timeleft = countDownDate - now;
+        
+    // var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
+    // var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    // var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+    // var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+  }
+
   countOrder(id) {
     var count = (input, arr) => arr.filter(x => x._id === input).length;
     return count(id, this.itemArray);

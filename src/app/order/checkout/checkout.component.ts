@@ -71,8 +71,8 @@ export class CheckoutComponent implements OnInit {
   endPickupTime: any;
   startDeleveryTime: any;
   endDeleveryTime: any;
-  restaurantClosePickupMsg: boolean =false;
-  restaurantCloseDeliveryMsg: boolean =false;
+  restaurantClosePickupMsg: boolean = false;
+  restaurantCloseDeliveryMsg: boolean = false;
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService, private socketService: SocketioService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -159,12 +159,16 @@ export class CheckoutComponent implements OnInit {
         const d = new Date();
         // available for restaurent pickup time 
         if (this.isOrderTypePickup) {
-          if(isDefaultPickupTime){
+          if (isDefaultPickupTime) {
             if (this.startPickupTime <= d.getHours() + ':' + d.getMinutes() && this.endPickupTime >= d.getHours() + ':' + d.getMinutes()) {
               // console.log("####")
+              this.restaurantClosePickup = true
+            } else {
+              this.restaurantClosePickup = false
+            }
+          } else {
             this.restaurantClosePickup = true
           }
-        }
         }
 
 
@@ -173,7 +177,11 @@ export class CheckoutComponent implements OnInit {
           if (isDefaultDeliveryTime) {
             if (this.startDeleveryTime <= d.getHours() + ':' + d.getMinutes() && this.endDeleveryTime >= d.getHours() + ':' + d.getMinutes()) {
               this.restaurantCloseDelivery = true
+            } else {
+              this.restaurantCloseDelivery = false
             }
+          } else {
+            this.restaurantCloseDelivery = true
           }
         }
       } else {
@@ -202,34 +210,31 @@ export class CheckoutComponent implements OnInit {
     if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
       // console.log("tablet");
       this.userDevicetype = 4
-    }
-    if (
+    }else if (
       /Mobile|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(
         ua
       )
     ) {
       // console.log("mobile");
       this.userDevicetype = 4
-    }
-
-    if (
-      /Mobile|Android|(hpw|web)OS|Opera M(obi|ini)/.test(
+    }else if(/Mobi|Android/i.test(
         ua
       )
     ) {
       // console.log("android");
       this.userDevicetype = 2
-    }
-    if (
+    }else if(
       /Mobile|iP(hone|od|ad)|(hpw|web)OS|Opera M(obi|ini)/.test(
         ua
       )
     ) {
       // console.log("iPhone");
       this.userDevicetype = 1
+    }else{
+      // console.log("desktop");
+      this.userDevicetype = 3
     }
-    // console.log("desktop");
-    this.userDevicetype = 3
+    
   };
 
   changeNumber(str) {
@@ -317,24 +322,29 @@ export class CheckoutComponent implements OnInit {
       }
     }
 
+    console.log(this.restaurantCloseDelivery, 'this.restaurantCloseDelivery')
 
     // logic for pickup and delivery
-    // if(this.restaurantClosePickup){
-    //   this.submitted = false;
-    //   this.restaurantClosePickupMsg = true
-    // }else{
-    //   this.submitted = true;
-    //   this.restaurantClosePickupMsg =false
-    // }
+    if (this.orderType === 2) {
+      if (this.restaurantClosePickup === false) {
+        this.submitted = false;
+        this.restaurantClosePickupMsg = true
+      } else {
+        this.submitted = true;
+        this.restaurantClosePickupMsg = false
+      }
+    }
 
-    // if(this.restaurantCloseDelivery){
-    //   this.submitted = false;
-    //   this.restaurantCloseDeliveryMsg = true
-    // }else{
-    //   this.submitted = true;
-    //   this.restaurantCloseDeliveryMsg =false
-    // }
-    // console.log(this.restaurantClosePickup,this.restaurantCloseDelivery,"***")
+    if (this.orderType === 1) {
+      if (this.restaurantCloseDelivery === false) {
+        this.submitted = false;
+        this.restaurantCloseDeliveryMsg = true
+      } else {
+        this.submitted = true;
+        this.restaurantCloseDeliveryMsg = false
+      }
+    }
+    console.log(this.restaurantClosePickup, this.restaurantCloseDelivery, "***")
 
 
     // stop here if form is invalid
@@ -342,7 +352,7 @@ export class CheckoutComponent implements OnInit {
       return;
     }
     // this.isLoading =true
-    
+
     let order_instruction = '';
     let items;
     let res_id;
@@ -374,7 +384,7 @@ export class CheckoutComponent implements OnInit {
 
 
 
-    if (paymentMethod && this.submitted === true) {
+    if (paymentMethod && this.restaurantCloseDeliveryMsg===false && this.restaurantClosePickupMsg === false && this.submitted === true) {
       this.spinner.show();
       const obj = { restId: res_id, userId: this.userId, orderType: this.orderType, orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: this.pickupAddress, pickupLat: this.pickupLat, pickupLng: this.pickupLng, totalItemCount: this.itemArray.length, isPromoCodeApply: this.isPromoCodeApply, promoCode: this.promocode, user_device_type: this.userDevicetype, subtotal_amount: this.orderSubtotal, promo_code_amount: this.promo_code_amount, vat_percent: this.tax_vat_percent, vat_percent_value: this.taxvatpercent }
       // console.log(paymentMethod, '776767888', obj);

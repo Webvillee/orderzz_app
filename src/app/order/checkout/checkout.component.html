@@ -13,8 +13,6 @@
         </div>
         <div class="app_verification_caption app_checkout_content">
             <h6 style="color: red">{{ display }}</h6>
-           
-
             <label class="app_content">Deliver to</label>
             <div class="app_checkout_input">
                 <img src="assets/img/position_pin.svg" alt="">
@@ -148,6 +146,8 @@
                         </div>
                     </div>
                 </div>
+                <h6 *ngIf="restaurantClosePickupMsg && orderType===2" style="color: red">Sorry , Pickup not available for this time</h6>
+                <h6 *ngIf="restaurantCloseDeliveryMsg && orderType===1" style="color: red">Sorry , Delivery not available for this time</h6>
                 <!-- <span class="invalid-feedback"  *ngIf="restaurantClosePickupMsg">*restaurent pickup hour is differnt</span>
                 <span class="invalid-feedback" *ngIf="restaurantCloseDeliveryMsg">*restaurent delivery hour is differnt</span> -->
                 <input type="submit" class="app_full_btn" value="pay">

@@ -147,7 +147,7 @@
 										</div>
 									</div>
 									<div class="app_close_content">
-										<h3>{{(allData.online_status_type===1)? 'Sorry , restaurant is busy': (allData.online_status_type===2)? 'Sorry , restaurant Shortage': (allData.online_status_type===3)? 'Sorry , We will be late' : (allData.online_status_type===4)? 'Sorry , offline for a while' : 'Sorry , restaurant will open soon'}}</h3>
+										<h3 *ngIf="is_online_status===2">{{(allData.online_status_type===1)? 'Sorry , restaurant is busy': (allData.online_status_type===2)? 'Sorry , restaurant Shortage': (allData.online_status_type===3)? 'Sorry , We will be late' : (allData.online_status_type===4)? 'Sorry , offline for a while' : 'Sorry , restaurant will open soon'}}</h3>
 										<h3>{{allData.custom_message_for_customer}}</h3>
 										<h2 class="app_heading">Still want to browse?</h2>
 										<p class="app_content">Note: you can't order but you can see menu<br> list to order once it opens.</p>
@@ -305,7 +305,7 @@
 									</div>
 									<div class="app_close_content">
 										<!-- <h3>Sorry , restaurant will open </h3> -->
-										<h3>{{(allData.online_status_type===1)? 'Sorry , restaurant is busy': (allData.online_status_type===2)? 'Sorry , restaurant Shortage': (allData.online_status_type===3)? 'Sorry , We will be late' : (allData.online_status_type===4)? 'Sorry , offline for a while' : 'Sorry , restaurant will open soon'}}</h3>
+										<h3 *ngIf="is_online_status===2">{{(allData.online_status_type===1)? 'Sorry , restaurant is busy': (allData.online_status_type===2)? 'Sorry , restaurant Shortage': (allData.online_status_type===3)? 'Sorry , We will be late' : (allData.online_status_type===4)? 'Sorry , offline for a while' : 'Sorry , restaurant will open soon'}}</h3>
 										<h3>{{allData.custom_message_for_customer}}</h3>
 										<h2 class="app_heading">Still want to browse?</h2>
 										<p class="app_content">Note: you can't order but you can see menu<br> list to order once it opens.</p>
