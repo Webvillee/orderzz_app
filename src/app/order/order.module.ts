@@ -35,6 +35,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { BrowseOrderComponent } from './browse-order/browse-order.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { CountdownModule } from 'ngx-countdown';
+
        // @agm/core
 
 // const routes: Routes = [
@@ -127,7 +129,8 @@ const routes: Routes = [
     InfiniteScrollModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
-    SlickCarouselModule
+    SlickCarouselModule,
+    CountdownModule
   ],
   providers: [OrderService, AuthguardGuard, SocketioService],
   entryComponents: [CustomiseOrderComponent, ConfirmAddressComponent, ConfirmDialogComponent]
