@@ -28,6 +28,11 @@
     padding-right: 10px;
     font-size: 18px !important;
 }
+.app_your_basket_heading_right_bottom_last h3{
+	font-weight: 700;
+    font-size: 25px;
+    color: var(--primary-color);
+}
 /*.app_heading {
     font-weight: 700;
     letter-spacing: 1px;
@@ -267,4 +272,7 @@ a.app_full_btn.proceed-order{
     float: right;
     margin-right: 11px;
     margin-top: -26px;
+}
+.slick-slide:focus{
+    outline: none;
 }
