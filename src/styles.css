@@ -53,6 +53,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin-top: 20% !important;
         border-radius: 42px !important;
 }
+.slick-track {
+  position: relative;
+  left: 0;
+  top: 0;
+  display: flex !important;
+  width: 100% !important;
+  overflow-x: scroll;
+}
 }
 .my-class .mat-dialog-container {
     margin-top: 10%;
