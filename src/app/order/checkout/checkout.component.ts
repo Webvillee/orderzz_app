@@ -61,8 +61,18 @@ export class CheckoutComponent implements OnInit {
   tax_vat_percent;
   orderSubtotal;
   orderSubtotalamount;
-  taxvatpercent=0;
-  promo_code_amount=0
+  taxvatpercent = 0;
+  promo_code_amount = 0
+  isOrderTypeDeliver: boolean;
+  isOrderTypePickup: boolean;
+  restaurantClosePickup: boolean = false;
+  restaurantCloseDelivery: boolean = false;
+  startPickupTime: any;
+  endPickupTime: any;
+  startDeleveryTime: any;
+  endDeleveryTime: any;
+  restaurantClosePickupMsg: boolean =false;
+  restaurantCloseDeliveryMsg: boolean =false;
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService, private socketService: SocketioService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -91,7 +101,7 @@ export class CheckoutComponent implements OnInit {
       this.landmark = data.landmark
     }
 
-    
+
 
     this.angForm = this.fb.group({
       paymentMethod: ['', Validators.required],
@@ -129,13 +139,42 @@ export class CheckoutComponent implements OnInit {
         this.restName = res.data.rest_name
         this.restAddress = res.data.rest_full_address
         this.minimumOrderValue = res.data.minimum_order_value
-        this.tax_vat_percent= res.data.tax_vat_percent;
+        this.tax_vat_percent = res.data.tax_vat_percent;
+        this.isOrderTypeDeliver = (res.data.is_order_type_deliver == 1) ? true : false
+        this.isOrderTypePickup = (res.data.is_order_type_pickup == 1) ? true : false
+        var isDefaultDeliveryTime = (res.data.is_default_delivery_time === 1) ? true : false
+        var isDefaultPickupTime = (res.data.is_default_pickup_time === 1) ? true : false
+        this.startPickupTime = res.data.start_pickup_time
+        this.endPickupTime = res.data.end_pickup_time
+        this.startDeleveryTime = res.data.start_delevery_time
+        this.endDeleveryTime = res.data.end_delevery_time
+        // console.log(this.isOrderTypePickup, "pickup", "delivery", this.isOrderTypeDeliver, this.startPickupTime, this.endPickupTime)
         this.getAllorderData();
         // this.minimum_order_value = res.data.end_delevery_time
         // this.themeColor = res.data.theme_color
         // const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))
         if (!localStorage.getItem("OrderData")) {
           this.router.navigate(['/order'])
+        }
+        const d = new Date();
+        // available for restaurent pickup time 
+        if (this.isOrderTypePickup) {
+          if(isDefaultPickupTime){
+            if (this.startPickupTime <= d.getHours() + ':' + d.getMinutes() && this.endPickupTime >= d.getHours() + ':' + d.getMinutes()) {
+              // console.log("####")
+            this.restaurantClosePickup = true
+          }
+        }
+        }
+
+
+        // available for restaurent delivery time 
+        if (this.isOrderTypeDeliver) {
+          if (isDefaultDeliveryTime) {
+            if (this.startDeleveryTime <= d.getHours() + ':' + d.getMinutes() && this.endDeleveryTime >= d.getHours() + ':' + d.getMinutes()) {
+              this.restaurantCloseDelivery = true
+            }
+          }
         }
       } else {
         this.router.navigate(['/not-found'])
@@ -212,7 +251,7 @@ export class CheckoutComponent implements OnInit {
           total = total + element.price
         } else {
           total = total + element.sell_price;
-          savings = savings + element.price-element.sell_price
+          savings = savings + element.price - element.sell_price
         }
         if (element.is_modifire_status === 1) {
           const availmodifire = JSON.parse(element.available_modifire);
@@ -233,18 +272,18 @@ export class CheckoutComponent implements OnInit {
       this.orderSubtotalamount = total
       this.savingCost = savings;
 
-      if(this.tax_vat_percent){
+      if (this.tax_vat_percent) {
         let Amount = this.orderSubtotal * this.tax_vat_percent / 100
         let totalamount = this.orderSubtotal + Amount;
         this.orderTotal = totalamount;
-        this.totalorderPrice =  totalamount;
+        this.totalorderPrice = totalamount;
         this.taxvatpercent = Amount
-      }else{
+      } else {
         this.orderTotal = total;
         this.totalorderPrice = total
         this.taxvatpercent = 0
       }
-      
+
       this.savingCost = savings;
       const seen = new Set();
       const filteredArr = data.filter(el => {
@@ -278,16 +317,36 @@ export class CheckoutComponent implements OnInit {
       }
     }
 
+
+    // logic for pickup and delivery
+    // if(this.restaurantClosePickup){
+    //   this.submitted = false;
+    //   this.restaurantClosePickupMsg = true
+    // }else{
+    //   this.submitted = true;
+    //   this.restaurantClosePickupMsg =false
+    // }
+
+    // if(this.restaurantCloseDelivery){
+    //   this.submitted = false;
+    //   this.restaurantCloseDeliveryMsg = true
+    // }else{
+    //   this.submitted = true;
+    //   this.restaurantCloseDeliveryMsg =false
+    // }
+    // console.log(this.restaurantClosePickup,this.restaurantCloseDelivery,"***")
+
+
     // stop here if form is invalid
     if (this.angForm.invalid) {
       return;
     }
     // this.isLoading =true
-    this.spinner.show();
+    
     let order_instruction = '';
     let items;
     let res_id;
-   
+
 
     if (localStorage.getItem('order_instruction')) {
       order_instruction = CryptoJS.AES.decrypt(localStorage.getItem('order_instruction'), '').toString(CryptoJS.enc.Utf8)
@@ -300,23 +359,24 @@ export class CheckoutComponent implements OnInit {
     if (localStorage.getItem('rest_id')) {
       res_id = CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     }
-   
-    if(this.orderType===2){
+
+    if (this.orderType === 2) {
       if (localStorage.getItem('addressPickup')) {
         this.pickupAddress = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem('addressPickup'), '').toString(CryptoJS.enc.Utf8)).address;
         this.pickupLat = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem('addressPickup'), '').toString(CryptoJS.enc.Utf8)).lat;
         this.pickupLng = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem('addressPickup'), '').toString(CryptoJS.enc.Utf8)).lng;
-      }else{
-        this.pickupAddress= ''
-        this.pickupLat= ''
-        this.pickupLng= ''
+      } else {
+        this.pickupAddress = ''
+        this.pickupLat = ''
+        this.pickupLng = ''
       }
     }
 
-    
+
 
     if (paymentMethod && this.submitted === true) {
-      const obj = { restId: res_id, userId: this.userId, orderType: this.orderType, orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: this.pickupAddress, pickupLat: this.pickupLat, pickupLng: this.pickupLng, totalItemCount: this.itemArray.length, isPromoCodeApply: this.isPromoCodeApply, promoCode: this.promocode, user_device_type: this.userDevicetype, subtotal_amount: this.orderSubtotal, promo_code_amount:this.promo_code_amount, vat_percent: this.tax_vat_percent, vat_percent_value: this.taxvatpercent }
+      this.spinner.show();
+      const obj = { restId: res_id, userId: this.userId, orderType: this.orderType, orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: this.pickupAddress, pickupLat: this.pickupLat, pickupLng: this.pickupLng, totalItemCount: this.itemArray.length, isPromoCodeApply: this.isPromoCodeApply, promoCode: this.promocode, user_device_type: this.userDevicetype, subtotal_amount: this.orderSubtotal, promo_code_amount: this.promo_code_amount, vat_percent: this.tax_vat_percent, vat_percent_value: this.taxvatpercent }
       // console.log(paymentMethod, '776767888', obj);
       this.socketService.getMessages().subscribe((message) => {
         // console.log(message)
@@ -421,13 +481,13 @@ export class CheckoutComponent implements OnInit {
             }
           }
           this.orderSubtotal = totalordervalue;
-          if(this.tax_vat_percent){
+          if (this.tax_vat_percent) {
             let Amount = this.orderSubtotal * this.tax_vat_percent / 100
             let totalamount = this.orderSubtotal + Amount;
             this.orderTotal = totalamount;
-            this.totalorderPrice =  totalamount;
+            this.totalorderPrice = totalamount;
             this.taxvatpercent = Amount
-          }else{
+          } else {
             this.orderTotal = this.orderSubtotal;
             this.totalorderPrice = this.orderSubtotal
             this.taxvatpercent = 0

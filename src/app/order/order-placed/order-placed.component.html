@@ -51,7 +51,7 @@
                     <div class="app_order_placed_content">
                         <p>
                             <img src="assets/img/wallet.svg" alt="">
-                            {{this.orderHistory.total_amount}} AED -Paid by
+                            {{this.orderHistory.total_amount | number : '1.2-2'}} AED -Paid by
                             {{(this.orderHistory.paymentm_method===1)? 'Card': 'Cash'}}
                         </p>
                         <p>
