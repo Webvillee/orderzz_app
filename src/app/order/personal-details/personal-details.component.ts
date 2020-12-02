@@ -77,6 +77,7 @@ export class PersonalDetailsComponent implements OnInit {
     this.angForm = this.fb.group({
       userName: ['', Validators.required, Validators.minLength(3)],
       email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
+      file: ['']
     });
 
     
@@ -217,7 +218,7 @@ export class PersonalDetailsComponent implements OnInit {
       if (this.angForm.invalid) {
         return false;
       }
-      this.submitted = false;
+      // this.submitted = false;
     }
 
 
