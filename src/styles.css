@@ -74,7 +74,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
 .slick-slider {
-    width: 100%;
+    width: 90%;
     margin: auto;
     /* background: #000; */
   }
@@ -138,3 +138,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .slick-prev:before, .slick-next:before{
     color: #000 !important;
 }
+/* .slick-next {
+  right: 0px !important;
+} */

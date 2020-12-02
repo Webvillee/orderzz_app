@@ -227,15 +227,15 @@ input.app_checkout_input_pad.app_check_input_loc {
     margin-left: -5px;
 }
 .minutess{
-	width: 40%;
+	width:100%;
 }
 .valuess{
-	width: 60%;
+	width: 100%;
 }
 .app_hot_food_restaurant_delivery_details ul li a img {
     max-width: 20px;
     margin-bottom: 5px;
-    margin-right: 1px !important;
+    margin-right: 5px !important;
 }
 }
 .app_hot_food_restaurant_delivery_details a {
