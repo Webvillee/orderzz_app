@@ -210,31 +210,24 @@ export class CheckoutComponent implements OnInit {
     if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
       // console.log("tablet");
       this.userDevicetype = 4
-    }else if (
-      /Mobile|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(
-        ua
-      )
-    ) {
-      // console.log("mobile");
-      this.userDevicetype = 4
-    }else if(/Mobi|Android/i.test(
-        ua
-      )
+    } else if (/Mobile|Android/.test(
+      ua
+    )
     ) {
       // console.log("android");
       this.userDevicetype = 2
-    }else if(
+    } else if (
       /Mobile|iP(hone|od|ad)|(hpw|web)OS|Opera M(obi|ini)/.test(
         ua
       )
     ) {
       // console.log("iPhone");
       this.userDevicetype = 1
-    }else{
+    } else {
       // console.log("desktop");
       this.userDevicetype = 3
     }
-    
+
   };
 
   changeNumber(str) {
@@ -322,7 +315,7 @@ export class CheckoutComponent implements OnInit {
       }
     }
 
-    console.log(this.restaurantCloseDelivery, 'this.restaurantCloseDelivery')
+    // console.log(this.restaurantCloseDelivery, 'this.restaurantCloseDelivery')
 
     // logic for pickup and delivery
     if (this.orderType === 2) {
@@ -384,7 +377,7 @@ export class CheckoutComponent implements OnInit {
 
 
 
-    if (paymentMethod && this.restaurantCloseDeliveryMsg===false && this.restaurantClosePickupMsg === false && this.submitted === true) {
+    if (paymentMethod && this.restaurantCloseDeliveryMsg === false && this.restaurantClosePickupMsg === false && this.submitted === true) {
       this.spinner.show();
       const obj = { restId: res_id, userId: this.userId, orderType: this.orderType, orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: this.pickupAddress, pickupLat: this.pickupLat, pickupLng: this.pickupLng, totalItemCount: this.itemArray.length, isPromoCodeApply: this.isPromoCodeApply, promoCode: this.promocode, user_device_type: this.userDevicetype, subtotal_amount: this.orderSubtotal, promo_code_amount: this.promo_code_amount, vat_percent: this.tax_vat_percent, vat_percent_value: this.taxvatpercent }
       // console.log(paymentMethod, '776767888', obj);

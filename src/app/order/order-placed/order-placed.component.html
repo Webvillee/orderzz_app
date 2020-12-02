@@ -26,11 +26,12 @@
                             <li class="StepProgress-item"
                                 [ngClass]="this.orderHistory.order_status===4 ? 'current': this.orderHistory.order_status>4 ? 'is-done' : ''">
                                 <img *ngIf="this.orderHistory.order_status===4" src="assets/img/staus_progress.svg"
-                                    alt="">{{(this.orderHistory.order_type===2)? 'Ready for pickup' : 'Out of delivery'}}</li>
+                                    alt="">{{(this.orderHistory.order_type===2)? 'Ready for pickup' : 'Out of delivery'}}
+                            </li>
                             <li class="StepProgress-item"
-                                [ngClass]="this.orderHistory.order_status===8 ? 'current': this.orderHistory.order_status>7 ? 'is-done' : ''">
+                                [ngClass]="this.orderHistory.order_status===8 ? 'current': this.orderHistory.order_status>8 ? 'is-done' : ''">
                                 <img *ngIf="this.orderHistory.order_status===8" src="assets/img/staus_progress.svg"
-                                    alt="">{{(this.orderHistory.order_type===2)? 'Pickup' : 'Delivered'}} </li>
+                                    alt="">Delivered</li>
                         </ul>
                     </div>
                 </div>
@@ -44,10 +45,12 @@
                 <div class="order_placed_content collapse" id="app_order_placed_collapse">
                     <!-- <p class="arrive_time" *ngIf="this.orderHistory.order_status>3 && this.orderHistory.order_status<8">Arrives in {{this.orderHistory.order_delevery_time}} minutes</p> -->
                     <!-- <p class="arrive_time" *ngIf="this.orderHistory.order_status===8">Arrives in {{this.orderHistory.order_completed_time}} minutes</p> -->
-                    <!-- <p>{{getorderDatetime(this.orderHistory.order_accepted_date, this.orderHistory.order_completed_time)}}</p> -->
-                    <!-- <p>
-                        <countdown [config]="{leftTime:  300 }"></countdown>
-                    </p> -->
+                    <p *ngIf='getorderDatetime(this.orderHistory.order_accepted_date, this.orderHistory.order_completed_time)>0'>
+                        <countdown [config]="{leftTime: getorderDatetime(this.orderHistory.order_accepted_date, this.orderHistory.order_completed_time) }"></countdown>
+                    </p>
+                    <p *ngIf='getorderDatetime(this.orderHistory.order_accepted_date, this.orderHistory.order_completed_time)<0 && this.orderHistory.order_status>2  && this.orderHistory.order_status<7'>
+                       Coming soon
+                    </p>
                     <h3><span *ngFor="let itemData of getItemData; let isLast=last">{{itemData.item_name}} -
                             {{countOrder(itemData._id)}}{{isLast ? '' : ', '}}
                         </span> <a [routerLink]="['/order-details', this.orderHistory._id]"><i class="fa fa-angle-right"
