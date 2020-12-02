@@ -224,7 +224,7 @@ export class UpdateProfileComponent implements OnInit {
       if (this.angForm.invalid) {
         return false;
       }
-      this.submitted = false;
+      // this.submitted = false;
     }
 
 
