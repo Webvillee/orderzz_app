@@ -8,8 +8,9 @@ input[type="submit"] {
 }
 p.phone_icon {
     position: absolute;
-    top: 8px;
-    left: 44px;
+    /* top: 8px;
+    left: 44px; */
+    transform: translate(40px, -52px);
     font-size: 34px;
     color: rgb(209 213 218);
 }
