@@ -153,15 +153,26 @@ export class OrderPlacedComponent implements OnInit {
   }
 
   getorderDatetime(orderdateTime, orderCompleteTime) {
-    console.log(orderdateTime, 'orderdateTime', orderCompleteTime);
-    // const myTimer = setInterval(myClock, 1000);
-    // var now = new Date().getTime();
-    // var timeleft = countDownDate - now;
-        
-    // var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
-    // var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    // var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
-    // var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+    var d = new Date(orderdateTime);
+    var hms = orderCompleteTime;   // your input string
+    var a = hms.split(':'); // split it at the colons
+    // minutes are worth 60 seconds. Hours are worth 60 minutes.
+    var minutes
+    if((a[1]) !=undefined){
+      var seconds = (+a[0]) * 60 * 60 + (+((a[1]) ? (a[1]) : 0)) * 60;
+       minutes = Math.floor(seconds / 60);
+      // console.log("if",seconds)
+    }else{
+      var seconds = (+a[0]) * 60 ;
+      minutes = Math.floor(seconds / 60);
+      // console.log("else",seconds)
+    }
+    // console.log(minutes, 'minutes')
+    d.setMinutes(d.getMinutes() + minutes);
+    let date1 = Math.floor(new Date(d).getTime()/1000);
+    let date2 = Math.floor(new Date().getTime()/1000);
+    let time = date1 - date2;  //msec
+    return  time ;
   }
 
   countOrder(id) {
