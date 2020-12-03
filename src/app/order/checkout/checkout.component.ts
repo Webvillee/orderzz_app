@@ -132,6 +132,7 @@ export class CheckoutComponent implements OnInit {
     // console.log(obj)
     this.orderService.get_restaurant_data(obj).subscribe((res) => {
       if (res.status == 200) {
+        // console.log(res.data.Zone_data)
         this.spinner.hide();
         // this.isLoading =false
         this.themeData = res.data;
@@ -266,19 +267,19 @@ export class CheckoutComponent implements OnInit {
 
   getDeviceType() {
     const ua = navigator.userAgent;
-    if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+    if (/(tablet|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
       // console.log("tablet");
       this.userDevicetype = 4
-    } else if (/Mobile|Android/.test(
+    } else if (/Android/i.test(
       ua
     )
     ) {
       // console.log("android");
       this.userDevicetype = 2
     } else if (
-      /Mobile|iP(hone|od|ad)|(hpw|web)OS|Opera M(obi|ini)/.test(
+      /iPad|iPhone|iPod/i.test(
         ua
-      )
+      ) && !window.MSStream
     ) {
       // console.log("iPhone");
       this.userDevicetype = 1
@@ -398,6 +399,7 @@ export class CheckoutComponent implements OnInit {
       }
     }
 
+
     if(this.deliveryArea ==true){
       this.deliveryAreaMsg = true
       this.submitted = false;
@@ -406,7 +408,9 @@ export class CheckoutComponent implements OnInit {
       this.submitted = true;
     }
     // console.log(this.restaurantClosePickup, this.restaurantCloseDelivery, "***")
-   
+
+    // console.log(this.restaurantClosePickup, this.restaurantCloseDelivery, "***")
+
     // stop here if form is invalid
     if (this.angForm.invalid) {
       return;
@@ -442,7 +446,6 @@ export class CheckoutComponent implements OnInit {
       }
     }
    
-
 
     if (paymentMethod && this.restaurantCloseDeliveryMsg === false && this.restaurantClosePickupMsg === false && this.submitted === true) {
       this.spinner.show();
