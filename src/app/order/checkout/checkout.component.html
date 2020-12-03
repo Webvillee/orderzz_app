@@ -22,7 +22,8 @@
             <label class="app_content">Deliver in</label>
             <div class="app_checkout_input app_checkout_input_deliver">
                 <img src="assets/img/Asset 3.svg" alt="">
-                <input type="text" class="app_checkout_input_pad" value="30 - 45 minutes">
+                <input *ngIf="!deliveryTime" type="text" class="app_checkout_input_pad" value="30 - 45 minutes">
+                <input *ngIf="deliveryTime" type="text" class="app_checkout_input_pad" value="{{deliveryTime +' - '+ deliveryTimeAdd}} minutes">
             </div>
             <label class="app_content">Add Promo</label>
             <div class="app_checkout_input app_checkout_input_pro">
@@ -123,6 +124,18 @@
                                 <h3>{{savingCost | number : '1.2-2'}} AED</h3>
                             </div>
                         </div>
+                        <ng-container *ngIf="shippingCost">
+                            <div class="col-8">
+                                <div class="app_order_detail">
+                                    <h3>Shipping Cost</h3>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="app_order_detail_price">
+                                    <h3>{{shippingCost | number : '1.2-2'}} AED</h3>
+                                </div>
+                            </div>
+                        </ng-container>
                         <div *ngIf="taxvatpercent!==0" class="col-8">
                             <div class="app_order_detail">
                                 <h3>Tax {{tax_vat_percent}} %</h3>
@@ -148,8 +161,8 @@
                 </div>
                 <h6 *ngIf="restaurantClosePickupMsg && orderType===2" style="color: red">Sorry , Pickup not available for this time</h6>
                 <h6 *ngIf="restaurantCloseDeliveryMsg && orderType===1" style="color: red">Sorry , Delivery not available for this time</h6>
-                <!-- <span class="invalid-feedback"  *ngIf="restaurantClosePickupMsg">*restaurent pickup hour is differnt</span>
-                <span class="invalid-feedback" *ngIf="restaurantCloseDeliveryMsg">*restaurent delivery hour is differnt</span> -->
+                <h6 *ngIf="deliveryAreaMsg && orderType===1" style="color: red">Sorry , Delivery not available for this location</h6>
+                
                 <input type="submit" class="app_full_btn" value="pay">
             </form>
         </div>

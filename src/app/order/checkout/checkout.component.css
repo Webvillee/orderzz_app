@@ -232,3 +232,9 @@
     min-height: 29px;
     margin-top: 10px;
 }
+
+
+
+#map {
+  height: 100%;
+}

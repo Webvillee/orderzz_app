@@ -8,6 +8,7 @@ import { OrderService } from '../order.service';
 import { UrlSetting } from '../../urlSetting'
 import * as CryptoJS from 'crypto-js'
 import { NgxSpinnerService } from "ngx-spinner";
+import * as geolib from 'geolib';
 
 @Component({
   selector: 'app-view-basket',
@@ -43,6 +44,11 @@ export class ViewBasketComponent implements OnInit {
   recomendedItemIdArray: any =[];
   recomendedItemArray: any=[];
   slideConfig: { slidesToShow: number; slidesToScroll: number; };
+  shippingCost: any= 0;
+  zoneData: any =[];
+  latitude: any;
+  longitude: any;
+  orderType: number;
   constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog, private spinner: NgxSpinnerService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -55,6 +61,10 @@ export class ViewBasketComponent implements OnInit {
       this.customer_address = CryptoJS.AES.decrypt(localStorage.getItem('customer_address'), '').toString(CryptoJS.enc.Utf8);
     }
 
+    this.latitude = (localStorage.getItem('lat'))?CryptoJS.AES.decrypt(localStorage.getItem('lat'), '').toString(CryptoJS.enc.Utf8):'';
+    this.longitude = (localStorage.getItem('lng'))?CryptoJS.AES.decrypt(localStorage.getItem('lng'), '').toString(CryptoJS.enc.Utf8):'';
+    this.orderType = (localStorage.getItem('order_type'))?CryptoJS.AES.decrypt(localStorage.getItem('order_type'), '').toString(CryptoJS.enc.Utf8):'';
+    
     this.get_all_rest_data();
     this.getAllorderData();
   }
@@ -82,6 +92,51 @@ export class ViewBasketComponent implements OnInit {
         this.restAddress = res.data.rest_full_address
         this.minimumOrderValue = 0
         this.tax_vat_percent= res.data.tax_vat_percent;
+        this.zoneData = res.data.Zone_data
+        console.log(this.zoneData, "zoneData", this.orderType, Number(this.latitude), Number(this.longitude),typeof(this.orderType))
+
+        if (this.orderType == 1) {
+          this.zoneData.filter(e => {
+            var zoneArea = (e.zone_cities) ? JSON.parse(e.zone_cities).map(e => ({ lat: e.lat, lng: e.lng })) : ''
+    
+            if (e.draw_map_delevery_value === 2) {
+              // isPointWithinRadius(point, centerPoint, radius)
+              if (geolib.isPointWithinRadius(
+                { latitude: Number(this.latitude), longitude: Number(this.longitude) },
+                zoneArea[0],
+                e.zone_radius
+              )) {
+                this.shippingCost = e.delevery_fee
+                this.minimumOrderValue = Number(e.minimum_order_value)
+                // this.deliveryTime = Number(e.minimum_delevery_time) 
+                // this.deliveryTimeAdd =this.deliveryTime +5
+                console.log("inside the radius", this.minimumOrderValue)
+                return
+              } else {
+                console.log("outside the radius")
+                // this.deliveryArea = true
+              }
+            } else if (e.draw_map_delevery_value === 1) {
+                // isPointInPolygon(point, polygon)
+                if (geolib.isPointInPolygon(
+                  { lat: Number(this.latitude), lng: Number(this.longitude) },
+                  zoneArea
+                )) {
+                  this.shippingCost = e.delevery_fee
+                  this.minimumOrderValue = Number(e.minimum_order_value)
+                  // this.deliveryTime = Number(e.minimum_delevery_time) 
+                  // this.deliveryTimeAdd =this.deliveryTime +5
+                  console.log("inside the polygon", this.minimumOrderValue)
+                  return
+                } else {
+                  console.log("outside the polygon")
+                  // this.deliveryArea = true
+                }
+              }else{
+                //  this.deliveryArea = true
+              }
+          });
+        }
         this.getAllorderData();
         // this.minimumOrderValue = res.data.minimum_order_value
 
@@ -135,17 +190,17 @@ export class ViewBasketComponent implements OnInit {
       if(this.recomendedItemIdArray.length !==0){
         this.recomendedItem()
       }
-      console.log(this.recomendedItemIdArray,"this.recomendedItemIdArray")
+      // console.log(this.recomendedItemIdArray,"this.recomendedItemIdArray")
       this.orderSubtotal = total;
       this.savingCost = savings;
 
       if(this.tax_vat_percent){
         let Amount = this.orderSubtotal * this.tax_vat_percent / 100
-        let totalamount = this.orderSubtotal + Amount;
+        let totalamount = this.orderSubtotal + Amount+ Number(this.shippingCost);;
         this.orderTotal = totalamount;
         this.taxvatpercent = Amount
       }else{
-        this.orderTotal = total;
+        this.orderTotal = total+ Number(this.shippingCost);;
         this.taxvatpercent = 0
       }
       
@@ -172,9 +227,7 @@ export class ViewBasketComponent implements OnInit {
         this.itemArray.forEach(e =>{
           this.recomendedItemArray= this.recomendedItemArray.filter(r => e._id !== r._id)
         });
-        console.log(this.recomendedItemArray,"this.recomendedItemArray")
         this.slideConfig = {"slidesToShow": 4, "slidesToScroll": 4};
-        console.log(res.data.item,"recomendedItem")
       } else {
       }
     });
