@@ -8,6 +8,8 @@ import { UrlSetting } from '../../urlSetting'
 import * as CryptoJS from 'crypto-js'
 import { NgxSpinnerService } from "ngx-spinner";
 import { SocketioService } from '../socketio.service'
+import * as geolib from 'geolib';
+
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
@@ -73,6 +75,12 @@ export class CheckoutComponent implements OnInit {
   endDeleveryTime: any;
   restaurantClosePickupMsg: boolean = false;
   restaurantCloseDeliveryMsg: boolean = false;
+  zoneData: any = [];
+  shippingCost: any= 0;
+  deliveryAreaMsg: boolean = false;
+  deliveryArea: boolean = false;
+  deliveryTime: any;
+  deliveryTimeAdd: any;
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService, private socketService: SocketioService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -148,6 +156,57 @@ export class CheckoutComponent implements OnInit {
         this.endPickupTime = res.data.end_pickup_time
         this.startDeleveryTime = res.data.start_delevery_time
         this.endDeleveryTime = res.data.end_delevery_time
+        this.zoneData = res.data.Zone_data
+        console.log(this.zoneData, "zoneData", this.orderType, Number(this.latitude), Number(this.longitude))
+        let deliveryTrue = []
+        if (this.orderType === 1) {
+          this.zoneData.filter(e => {
+            var zoneArea = (e.zone_cities) ? JSON.parse(e.zone_cities).map(e => ({ lat: e.lat, lng: e.lng })) : ''
+    
+            if (e.draw_map_delevery_value === 2) {
+              // isPointWithinRadius(point, centerPoint, radius)
+              if (geolib.isPointWithinRadius(
+                { latitude: Number(this.latitude), longitude: Number(this.longitude) },
+                zoneArea[0],
+                e.zone_radius
+              )) {
+                this.shippingCost = e.delevery_fee
+                this.deliveryTime = Number(e.minimum_delevery_time) 
+                this.deliveryTimeAdd =this.deliveryTime +5
+                this.deliveryArea = false
+                deliveryTrue.push(1)
+                // console.log("inside the radius", this.shippingCost)
+                return
+              } else {
+                // console.log("outside the radius")
+                this.deliveryArea = true
+              }
+            } else if (e.draw_map_delevery_value === 1) {
+                // isPointInPolygon(point, polygon)
+                if (geolib.isPointInPolygon(
+                  { lat: Number(this.latitude), lng: Number(this.longitude) },
+                  zoneArea
+                )) {
+                  this.shippingCost = e.delevery_fee
+                  this.deliveryTime = Number(e.minimum_delevery_time) 
+                  this.deliveryTimeAdd =this.deliveryTime +5
+                  this.deliveryArea = false
+                  deliveryTrue.push(1)
+                  // console.log("inside the polygon", this.shippingCost)
+                  return
+                } else {
+                  // console.log("outside the polygon")
+                  this.deliveryArea = true
+                }
+              }else{
+                 this.deliveryArea = true
+              }
+              if(deliveryTrue.length !== 0){
+                this.deliveryArea = false
+                // console.log(deliveryTrue,"deliveryTrue")
+              }
+          });
+        }
         // console.log(this.isOrderTypePickup, "pickup", "delivery", this.isOrderTypeDeliver, this.startPickupTime, this.endPickupTime)
         this.getAllorderData();
         // this.minimum_order_value = res.data.end_delevery_time
@@ -272,13 +331,13 @@ export class CheckoutComponent implements OnInit {
 
       if (this.tax_vat_percent) {
         let Amount = this.orderSubtotal * this.tax_vat_percent / 100
-        let totalamount = this.orderSubtotal + Amount;
+        let totalamount = this.orderSubtotal + Amount + Number(this.shippingCost);
         this.orderTotal = totalamount;
-        this.totalorderPrice = totalamount;
+        this.totalorderPrice = totalamount ;
         this.taxvatpercent = Amount
       } else {
-        this.orderTotal = total;
-        this.totalorderPrice = total
+        this.orderTotal = this.orderSubtotal + Number(this.shippingCost);
+        this.totalorderPrice = this.orderSubtotal + Number(this.shippingCost);
         this.taxvatpercent = 0
       }
 
@@ -298,6 +357,7 @@ export class CheckoutComponent implements OnInit {
     // this.socketService.orderPlace().subscribe((message) => {
     //     console.log(message)
     //   });
+
   }
 
 
@@ -337,9 +397,16 @@ export class CheckoutComponent implements OnInit {
         this.restaurantCloseDeliveryMsg = false
       }
     }
-    console.log(this.restaurantClosePickup, this.restaurantCloseDelivery, "***")
 
-
+    if(this.deliveryArea ==true){
+      this.deliveryAreaMsg = true
+      this.submitted = false;
+    }else{
+      this.deliveryAreaMsg = false
+      this.submitted = true;
+    }
+    // console.log(this.restaurantClosePickup, this.restaurantCloseDelivery, "***")
+   
     // stop here if form is invalid
     if (this.angForm.invalid) {
       return;
@@ -374,12 +441,12 @@ export class CheckoutComponent implements OnInit {
         this.pickupLng = ''
       }
     }
-
+   
 
 
     if (paymentMethod && this.restaurantCloseDeliveryMsg === false && this.restaurantClosePickupMsg === false && this.submitted === true) {
       this.spinner.show();
-      const obj = { restId: res_id, userId: this.userId, orderType: this.orderType, orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: this.pickupAddress, pickupLat: this.pickupLat, pickupLng: this.pickupLng, totalItemCount: this.itemArray.length, isPromoCodeApply: this.isPromoCodeApply, promoCode: this.promocode, user_device_type: this.userDevicetype, subtotal_amount: this.orderSubtotal, promo_code_amount: this.promo_code_amount, vat_percent: this.tax_vat_percent, vat_percent_value: this.taxvatpercent }
+      const obj = { restId: res_id, userId: this.userId, orderType: this.orderType, orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: this.pickupAddress, pickupLat: this.pickupLat, pickupLng: this.pickupLng, totalItemCount: this.itemArray.length, isPromoCodeApply: this.isPromoCodeApply, promoCode: this.promocode, user_device_type: this.userDevicetype, subtotal_amount: this.orderSubtotal, promo_code_amount: this.promo_code_amount, vat_percent: this.tax_vat_percent, vat_percent_value: this.taxvatpercent ,order_delevery_cost:this.shippingCost}
       // console.log(paymentMethod, '776767888', obj);
       this.socketService.getMessages().subscribe((message) => {
         // console.log(message)
@@ -486,13 +553,13 @@ export class CheckoutComponent implements OnInit {
           this.orderSubtotal = totalordervalue;
           if (this.tax_vat_percent) {
             let Amount = this.orderSubtotal * this.tax_vat_percent / 100
-            let totalamount = this.orderSubtotal + Amount;
+            let totalamount = this.orderSubtotal + Amount + this.shippingCost;
             this.orderTotal = totalamount;
             this.totalorderPrice = totalamount;
             this.taxvatpercent = Amount
           } else {
-            this.orderTotal = this.orderSubtotal;
-            this.totalorderPrice = this.orderSubtotal
+            this.orderTotal = this.orderSubtotal + this.shippingCost;
+            this.totalorderPrice = this.orderSubtotal + this.shippingCost
             this.taxvatpercent = 0
           }
           this.display = '';
