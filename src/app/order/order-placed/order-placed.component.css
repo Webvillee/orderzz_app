@@ -23,9 +23,9 @@ li.StepProgress-item.current img {
     width: 25px;
     position: absolute;
     text-align: left;
-    left: -42px;
+    left: -41px;
     z-index: 9999;
-    top: -12px;
+    top: -10px;
 }
 .StepProgress-item.is-done::before {
     border-left: 2px solid #ffff;
@@ -158,6 +158,14 @@ img.app_delievery_boy_image{
     }
     .app_heading{
         margin-left: 20px !important;
+    }
+    li.StepProgress-item.current img {
+        width: 27px;
+        position: absolute;
+        text-align: left;
+        left: -43px;
+        z-index: 9999;
+        top: -11px;
     }
 }
 .collapse:not(.show) {

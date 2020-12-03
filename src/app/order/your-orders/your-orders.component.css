@@ -52,6 +52,19 @@ i.fa.fa-angle-right {
     color: #008cff;
     font-weight: 400;
 }
+.app_your_orders_right_try_icons_cancel{
+    padding-left: 0;
+    font-size: 15px;
+    font-weight: 400;
+    color: #ff5656;
+}
+.app_your_orders_heading_right_text_bold h4 {
+    font-weight: 700;
+    font-size: 15px;
+    display: inline-block;
+    color: #2a3b56;
+    width: 100%;
+}
 }
 
 
