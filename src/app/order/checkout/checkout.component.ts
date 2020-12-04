@@ -235,12 +235,16 @@ export class CheckoutComponent implements OnInit {
         // available for restaurent delivery time 
         if (this.isOrderTypeDeliver) {
           if (isDefaultDeliveryTime) {
+            // console.log("*",this.startDeleveryTime,this.endDeleveryTime ,d.getHours() + ':' + d.getMinutes())
             if (this.startDeleveryTime <= d.getHours() + ':' + d.getMinutes() && this.endDeleveryTime >= d.getHours() + ':' + d.getMinutes()) {
+              // console.log("**if1**")
               this.restaurantCloseDelivery = true
             } else {
+              // console.log("**if2**")
               this.restaurantCloseDelivery = false
             }
           } else {
+            // console.log("**else**")
             this.restaurantCloseDelivery = true
           }
         }

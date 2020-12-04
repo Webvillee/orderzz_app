@@ -77,7 +77,7 @@ export class ViewBasketComponent implements OnInit {
     };
     this.orderService.get_restaurant_data(obj).subscribe((res) => {
       if (res.status == 200) {
-        console.log(res.data)
+        // console.log(res.data)
         this.themeView = res.data.theme_view
         if (this.themeView == "1") {       //1=listview in  and 2= gridmeans
           this.themeCondition = false
@@ -108,13 +108,10 @@ export class ViewBasketComponent implements OnInit {
               )) {
                 this.shippingCost = e.delevery_fee
                 this.minimumOrderValue = Number(e.minimum_order_value)
-                // this.deliveryTime = Number(e.minimum_delevery_time) 
-                // this.deliveryTimeAdd =this.deliveryTime +5
-                console.log("inside the radius", this.minimumOrderValue)
+                // console.log("inside the radius", this.minimumOrderValue)
                 return
               } else {
-                console.log("outside the radius")
-                // this.deliveryArea = true
+                // console.log("outside the radius")
               }
             } else if (e.draw_map_delevery_value === 1) {
                 // isPointInPolygon(point, polygon)
@@ -124,16 +121,11 @@ export class ViewBasketComponent implements OnInit {
                 )) {
                   this.shippingCost = e.delevery_fee
                   this.minimumOrderValue = Number(e.minimum_order_value)
-                  // this.deliveryTime = Number(e.minimum_delevery_time) 
-                  // this.deliveryTimeAdd =this.deliveryTime +5
-                  console.log("inside the polygon", this.minimumOrderValue)
+                  // console.log("inside the polygon", this.minimumOrderValue)
                   return
                 } else {
-                  console.log("outside the polygon")
-                  // this.deliveryArea = true
+                  // console.log("outside the polygon")
                 }
-              }else{
-                //  this.deliveryArea = true
               }
           });
         }
@@ -281,7 +273,7 @@ export class ViewBasketComponent implements OnInit {
     for (let step = 0; step < availmodifire.length; step++) {
       availmodifire[step].modifire.map(function (el) {
         if (el.isChecked === true) {
-          console.log(el.price, 'iooooo');
+          // console.log(el.price, 'iooooo');
           itemdt = true
         }
       })
