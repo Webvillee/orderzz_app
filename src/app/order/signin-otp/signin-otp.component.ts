@@ -111,10 +111,11 @@ export class SigninOtpComponent implements OnInit {
 
 
   onSubmit() {
-    console.log(this.angForm.controls.otp.value, '776767888');
+    // console.log(this.angForm.controls.otp.value, '776767888');
+    const restId= CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     var otp = this.angForm.controls.otp.value;
 
-    const obj = { userId: this.userId, otp: otp }
+    const obj = { userId: this.userId, otp: otp ,restId:restId}
 
     // // stop here if form is invalid
 
@@ -161,7 +162,8 @@ export class SigninOtpComponent implements OnInit {
 
   resendotp() {
     // console.log(this.userId, 'userId');
-    const obj = { userId: this.userId }
+    const restId= CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
+    const obj = { userId: this.userId ,restId:restId}
     if (this.userId) {
       this.orderService.postAll('resend_otp', obj).subscribe((res) => {
         if (res.status === 200) {
