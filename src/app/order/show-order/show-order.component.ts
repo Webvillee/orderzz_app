@@ -141,7 +141,7 @@ export class ShowOrderComponent implements OnInit {
         
         // console.log('lat1=>', lat1, 'lon1=>', lon1, 'lat2=>', lat2, 'lon2=>', lon2);
 
-        if (lat1!== '' && lon1 !== '' && lat2!== '' && lon2!== '') {
+        if (lat1!== '' && lon1 !== '' && lat2!== '' && lon2!== '' && lat1!=0 && lon1!=0) {
           var rad = function (x) {
             return x * Math.PI / 180;
           };
@@ -268,7 +268,7 @@ export class ShowOrderComponent implements OnInit {
       catId: this.catId,
       menuId: this.menuId,
       restId: this.restId,
-      page_no: this.page_no,
+      page_no: 1,
       perPage: this.perPage
     };
     this.orderService.get_all_item(obj).subscribe((res) => {
@@ -301,9 +301,9 @@ export class ShowOrderComponent implements OnInit {
     };
     this.orderService.get_all_item(obj).subscribe((res) => {
       this.spinner.show();
-      // console.log(res)
+      // console.log(res, 'kjhkhjkhjkhjk')
       if (res.status == 200) {
-        if (res.data != 0 && this.orderHistory.length < this.orderCount) {
+        if (res.data != 0 && res.data.length!==0 && this.orderHistory.length < this.orderCount) {
           res.data.item.forEach(childObj => {
             this.orderHistory.push(childObj);
           });
