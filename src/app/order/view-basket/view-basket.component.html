@@ -75,20 +75,20 @@
         <div *ngIf="recomendedItemArray.length !==0" class="add_slider">
             <label class="app_review_food_text__left_special">Menu Items Recommendation</label>
             <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
-                <div ngxSlickItem *ngFor="let slide of recomendedItemArray" class="slide">
-                    <img src="{{img_url}}{{slide.item_image}}" alt="">
+                <div ngxSlickItem *ngFor="let slide of recomendedItemArray ;let i= index" class="slide">
+                    <img data-toggle="modal" data-target="#myModal{{slide._id}}" src="{{img_url}}{{slide.item_image}}"
+                        alt="" (click)="menuSliderAdd(i,slide._id)" class="cursorCss">
                     <div class="app_your_basket_heading_3_right">
-                        <h5>{{slide.item_name}}</h5>
+                        <h5 class="cursorCss" data-toggle="modal" data-target="#myModal{{slide._id}}"
+                            (click)="menuSliderAdd(i,slide._id)">{{slide.item_name}}</h5>
                     </div>
-                    <div class="app_your_basket_heading_6_right">
-                        <h6>{{slide.item_description}}</h6>
-                    </div>
+
                     <div class="app_your_basket_text_right">
                         <span *ngIf="slide.sell_price===0" class="app_footer">{{slide.price}} AED</span>
                         <span *ngIf="slide.sell_price!==0" class="app_footer">{{slide.sell_price}}
                             AED</span>
-                        <span class="app_your_basket_text_right_del"
-                            *ngIf="slide.sell_price!==0"><del>{{slide.price}} AED</del></span>
+                        <span class="app_your_basket_text_right_del" *ngIf="slide.sell_price!==0"><del>{{slide.price}}
+                                AED</del></span>
                     </div>
                     <div class="app_add_baset_icon">
                         <span><i class="fa fa-plus app_your_basket_icons cursorCss" aria-hidden="true"
@@ -97,7 +97,23 @@
                 </div>
             </ngx-slick-carousel>
         </div>
-        <div *ngIf="orderSubtotal>=minimumOrderValue" class="row">
+        <ng-container *ngFor="let slide of recomendedItemPopup">
+            <div class="modal fade" id="myModal{{sliderId}}" role="dialog"
+                [ngClass]="(sliderId ==slide._id)?'slideradd':'sliderremove'">
+                <div class="modal-opens">
+                    <div class="modal-content">
+                        <div class="modal-body" >
+                            <button type="button" class="close" data-dismiss="modal"
+                                (click)="menuSliderRemove()">&times;</button>
+                            <h5>{{slide.item_name}}</h5>
+                            <p>{{slide.item_description}}.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </ng-container>
+        <div *ngIf="orderSubtotal>=minimumOrderValue" class="row special_instruct">
             <div class="col-12">
                 <form>
                     <label class="app_review_food_text__left_special">Special Instructions</label>
@@ -164,7 +180,7 @@
                             </div>
                         </ng-container>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -204,7 +220,8 @@
                 </div>
             </div>
             <a *ngIf="orderSubtotal<minimumOrderValue" [routerLink]="['/order']" class="app_full_btn">Add more item</a>
-            <a *ngIf="orderSubtotal>=minimumOrderValue" class="app_full_btn proceed-order cursorCss" (click)="submit()">Proceed to
+            <a *ngIf="orderSubtotal>=minimumOrderValue" class="app_full_btn proceed-order cursorCss"
+                (click)="submit()">Proceed to
                 order</a>
         </div>
     </div>

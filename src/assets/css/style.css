@@ -2094,3 +2094,29 @@ input.app_full_btn:focus {
 .logout-message button.mat-raised-button:focus{
 	outline: none;
 }
+
+.modal-opens button.close {
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    color:var(--primary-color) !important;
+    opacity: 1;
+}
+.slick-list {
+    position: relative;
+    /* overflow: visible !important; */
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+.add_slider.ng-star-inserted {
+    overflow: visible;
+}
+
+ngx-slick-carousel.carousel.slick-initialized.slick-slider {
+    overflow: visible;
+}
+
+.slick-track {
+    overflow: visible;
+}
