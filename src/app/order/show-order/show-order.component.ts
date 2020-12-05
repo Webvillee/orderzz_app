@@ -60,7 +60,7 @@ export class ShowOrderComponent implements OnInit {
   is_card_payment
   is_cash_payment
   page_no = 1
-  perPage = 3
+  perPage = 10
   orderHistory = [];
   constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog, private spinner: NgxSpinnerService, private socketService: SocketioService) {
 
