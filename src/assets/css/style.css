@@ -22,8 +22,9 @@
   font-style: normal;
 }
 :root {
-	--primary-color: rgb(245 91 2);
-	/* --second-color: #ffff8c; */
+	/* --primary-color: rgb(245 91 2); */
+    /* --second-color: #ffff8c; */
+    --primary-color: #fff;
 }
 
 body {

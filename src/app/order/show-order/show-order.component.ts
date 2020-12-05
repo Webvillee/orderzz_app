@@ -59,6 +59,9 @@ export class ShowOrderComponent implements OnInit {
   keyResult
   is_card_payment
   is_cash_payment
+  page_no = 1
+  perPage = 10
+  orderHistory = [];
   constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog, private spinner: NgxSpinnerService, private socketService: SocketioService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -265,23 +268,59 @@ export class ShowOrderComponent implements OnInit {
       catId: this.catId,
       menuId: this.menuId,
       restId: this.restId,
+      page_no: this.page_no,
+      perPage: this.perPage
     };
     this.orderService.get_all_item(obj).subscribe((res) => {
       // console.log(res)
       if (res.status == 200) {
         // console.log(res.data)
         this.getItemData = res.data.item
+        this.orderCount = res.data.count;
+        this.orderHistory = res.data.item
         this.keyResult= res.data.keyResult
       } else if (res.status == 201) {
-        console.log(res.data)
+        // console.log(res.data)
         this.getItemData = res.data.item
         this.keyResult= res.data.keyResult
+        this.orderCount = res.data.count;
+        this.orderHistory = res.data.item
       } else {
         this.router.navigate(['/not-found'])
       }
     });
   }
-
+  onScroll() {
+    this.page_no++;
+    const obj = {
+      catId: this.catId,
+      menuId: this.menuId,
+      restId: this.restId,
+      page_no: this.page_no,
+      perPage: this.perPage
+    };
+    this.orderService.get_all_item(obj).subscribe((res) => {
+      this.spinner.show();
+      // console.log(res)
+      if (res.status == 200) {
+        if (res.data != 0 && this.orderHistory.length < this.orderCount) {
+          res.data.item.forEach(childObj => {
+            this.orderHistory.push(childObj);
+          });
+        }
+        this.spinner.hide();
+      } else if (res.status == 201) {
+        if (res.data != 0 && this.orderHistory.length < this.orderCount) {
+          res.data.item.forEach(childObj => {
+            this.orderHistory.push(childObj);
+          });
+          this.spinner.hide();
+        }       
+      } else{
+        this.spinner.hide();
+      }
+    });
+  }
 
   addToCart(itemData) {
     // console.log(itemData, 'itemDatakkkkk');
