@@ -37,12 +37,12 @@
                                 [ngClass]="this.orderHistory.order_status===7 ? 'current': this.orderHistory.order_status>3 ? 'is-done' : ''">
                                 <img *ngIf="this.orderHistory.order_status===7" src="assets/img/staus_progress.svg"
                                     alt="">Cancelled by Customer</li>
-                            <li class="StepProgress-item"
+                            <li *ngIf="this.orderHistory.order_status!==7 && this.orderHistory.order_status!==6" class="StepProgress-item"
                                 [ngClass]="(this.orderHistory.order_status===4 ||this.orderHistory.order_status===5)? 'current': (this.orderHistory.order_status===4 ||this.orderHistory.order_status===5 ||this.orderHistory.order_status===8) ? 'is-done' : ''">
                                 <img *ngIf="this.orderHistory.order_status===4 ||this.orderHistory.order_status===5" src="assets/img/staus_progress.svg"
                                     alt="">{{(this.orderHistory.order_type===2)? 'Ready for pickup' : 'Out of delivery'}}
                             </li>
-                            <li class="StepProgress-item"
+                            <li  *ngIf="this.orderHistory.order_status!==7 && this.orderHistory.order_status!==6" class="StepProgress-item"
                                 [ngClass]="this.orderHistory.order_status===8 ? 'current': this.orderHistory.order_status>8 ? 'is-done' : ''">
                                 <img *ngIf="this.orderHistory.order_status===8" src="assets/img/staus_progress.svg"
                                     alt="">Delivered</li>
