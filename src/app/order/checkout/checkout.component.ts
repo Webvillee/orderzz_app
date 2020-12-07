@@ -560,13 +560,13 @@ export class CheckoutComponent implements OnInit {
           this.orderSubtotal = totalordervalue;
           if (this.tax_vat_percent) {
             let Amount = this.orderSubtotal * this.tax_vat_percent / 100
-            let totalamount = this.orderSubtotal + Amount + this.shippingCost;
+            let totalamount = this.orderSubtotal + Amount + Number(this.shippingCost);
             this.orderTotal = totalamount;
             this.totalorderPrice = totalamount;
             this.taxvatpercent = Amount
           } else {
-            this.orderTotal = this.orderSubtotal + this.shippingCost;
-            this.totalorderPrice = this.orderSubtotal + this.shippingCost
+            this.orderTotal = this.orderSubtotal + Number(this.shippingCost);
+            this.totalorderPrice = this.orderSubtotal +  Number(this.shippingCost)
             this.taxvatpercent = 0
           }
           this.display = '';
