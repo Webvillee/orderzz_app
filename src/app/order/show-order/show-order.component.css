@@ -409,3 +409,6 @@ input.app_checkout_input_pad.app_check_input_loc {
 .app_nav_bar a:hover {
     text-decoration: none !important;
 }
+h6 {
+    text-transform: unset;
+}

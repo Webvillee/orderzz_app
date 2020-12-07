@@ -438,3 +438,6 @@ a.app_full_btn.proceed-order {
 .modal-opens button.close:focus{
     outline: none;
 }
+h6 {
+    text-transform: unset;
+}
