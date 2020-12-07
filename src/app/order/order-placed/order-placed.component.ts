@@ -100,8 +100,9 @@ export class OrderPlacedComponent implements OnInit {
         if (res.status === 200) {
           this.spinner.hide();
           // this.isLoading = false
-          // console.log(res.data);
+          console.log(res.data);
           this.orderHistory = res.data
+
           this.orderItems=res.data.order_items
           if(this.orderItems){
             const data = JSON.parse(this.orderItems)
@@ -155,6 +156,7 @@ export class OrderPlacedComponent implements OnInit {
   getorderDatetime(orderdateTime, orderCompleteTime) {
     var d = new Date(orderdateTime);
     var hms = orderCompleteTime;   // your input string
+    if(hms !==null){
     var a = hms.split(':'); // split it at the colons
     // minutes are worth 60 seconds. Hours are worth 60 minutes.
     var minutes
@@ -173,6 +175,7 @@ export class OrderPlacedComponent implements OnInit {
     let date2 = Math.floor(new Date().getTime()/1000);
     let time = date1 - date2;  //msec
     return  time ;
+  }
   }
 
   countOrder(id) {
