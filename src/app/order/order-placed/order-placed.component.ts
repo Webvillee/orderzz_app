@@ -73,6 +73,7 @@ export class OrderPlacedComponent implements OnInit {
     const obj = {
       restId: CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     };
+    
     this.orderService.get_restaurant_data(obj).subscribe((res) => {
       if (res.status == 200) {
         this.spinner.hide();

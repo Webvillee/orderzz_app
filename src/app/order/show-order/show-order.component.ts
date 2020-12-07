@@ -185,6 +185,8 @@ export class ShowOrderComponent implements OnInit {
                   }
                 }
             });
+          }else{
+            this.minimumOrderValue = 0
           }
           var rad = function (x) {
             return x * Math.PI / 180;
@@ -407,6 +409,7 @@ export class ShowOrderComponent implements OnInit {
       var encrypted_order_type = CryptoJS.AES.encrypt('2', '');
       localStorage.setItem('order_type', encrypted_order_type.toString());
     }
+    this.get_all_rest_data()
   }
 
   addMap() {
