@@ -96,7 +96,7 @@ export class ViewBasketComponent implements OnInit {
         this.minimumOrderValue = 0
         this.tax_vat_percent= res.data.tax_vat_percent;
         this.zoneData = res.data.Zone_data
-        console.log(this.zoneData, "zoneData", this.orderType, Number(this.latitude), Number(this.longitude),typeof(this.orderType))
+        // console.log(this.zoneData, "zoneData", this.orderType, Number(this.latitude), Number(this.longitude),typeof(this.orderType))
 
         if (this.orderType == 1) {
           this.zoneData.filter(e => {

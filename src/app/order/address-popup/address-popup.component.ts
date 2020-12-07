@@ -253,5 +253,7 @@ export class AddressPopupComponent implements OnInit {
   close() {
     this.dialogRef.close();
   }
-
+  findAddressMap() {
+    this.findAdress();
+  }
 }

@@ -12,6 +12,7 @@ import { SuccessDialogComponent, SuccessDialogModel } from '../../shared/dialogs
 import { NgxSpinnerService } from "ngx-spinner";
 import { SocketioService } from '../socketio.service'
 import { formatDate } from '@angular/common';
+import * as geolib from 'geolib';
 
 @Component({
   selector: 'app-show-order',
@@ -27,7 +28,7 @@ export class ShowOrderComponent implements OnInit {
   logo
   restName
   restAddress
-  minimumOrderValue
+  minimumOrderValue:Number =0
   img_url = UrlSetting.image_uri
 
   getCategoryData: any;
@@ -62,6 +63,10 @@ export class ShowOrderComponent implements OnInit {
   page_no = 1
   perPage = 10
   orderHistory = [];
+  orderType: any;
+  zoneData: any =[];
+  latitude: any;
+  longitude: any;
   constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog, private spinner: NgxSpinnerService, private socketService: SocketioService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -120,7 +125,7 @@ export class ShowOrderComponent implements OnInit {
         this.logo = res.data.rest_logo
         this.restName = res.data.rest_name
         this.restAddress = res.data.rest_full_address
-        this.minimumOrderValue = res.data.minimum_order_value
+        // this.minimumOrderValue = res.data.minimum_order_value
         this.is_online_status = res.data.is_online_status
         this.opening_hours = JSON.parse(res.data.opening_hours);
         this.isOrderTypeDeliver = (res.data.is_order_type_deliver == 1) ? true : false
@@ -131,6 +136,7 @@ export class ShowOrderComponent implements OnInit {
         this.endPickupTime = res.data.end_pickup_time
         this.is_card_payment=res.data.is_card_payment;
         this.is_cash_payment=res.data.is_cash_payment;
+        this.zoneData = res.data.Zone_data
         // console.log(CryptoJS.AES.decrypt(localStorage.getItem('lat'), '').toString(CryptoJS.enc.Utf8), CryptoJS.AES.decrypt(localStorage.getItem('lng'), '').toString(CryptoJS.enc.Utf8), 'okkkkkkkkkk')
         const lat1 = res.data.rest_lat;
         const lon1 = res.data.rest_lng;
@@ -142,6 +148,44 @@ export class ShowOrderComponent implements OnInit {
         // console.log('lat1=>', lat1, 'lon1=>', lon1, 'lat2=>', lat2, 'lon2=>', lon2);
 
         if (lat1!== '' && lon1 !== '' && lat2!== '' && lon2!== '' && lat1!=0 && lon1!=0) {
+          this.latitude = lat2;
+          this.longitude = lon2;
+          this.orderType =(localStorage.getItem('order_type')) ?CryptoJS.AES.decrypt
+          (localStorage.getItem('order_type'), '').toString(CryptoJS.enc.Utf8):''
+          if (this.orderType == '1') {
+            this.zoneData.filter(e => {
+              var zoneArea = (e.zone_cities) ? JSON.parse(e.zone_cities).map(e => ({ lat: e.lat, lng: e.lng })) : ''
+      
+              if (e.draw_map_delevery_value === 2) {
+                // isPointWithinRadius(point, centerPoint, radius)
+                if (geolib.isPointWithinRadius(
+                  { latitude: Number(this.latitude), longitude: Number(this.longitude) },
+                  zoneArea[0],
+                  e.zone_radius
+                )) {
+                  this.minimumOrderValue = Number(e.minimum_order_value)
+                  // console.log("inside the radius", this.minimumOrderValue)
+                  return
+                } else {
+                  this.minimumOrderValue = 0
+                  // console.log("outside the radius")
+                }
+              } else if (e.draw_map_delevery_value === 1) {
+                  // isPointInPolygon(point, polygon)
+                  if (geolib.isPointInPolygon(
+                    { lat: Number(this.latitude), lng: Number(this.longitude) },
+                    zoneArea
+                  )) {
+                    this.minimumOrderValue = Number(e.minimum_order_value)
+                    // console.log("inside the polygon", this.minimumOrderValue)
+                    return
+                  } else {
+                    this.minimumOrderValue = 0
+                    // console.log("outside the polygon")
+                  }
+                }
+            });
+          }
           var rad = function (x) {
             return x * Math.PI / 180;
           };
@@ -236,6 +280,8 @@ export class ShowOrderComponent implements OnInit {
       const data = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem("OrderData"), '').toString(CryptoJS.enc.Utf8))
       this.itemArray = data;
     }
+
+
   }
 
 
