@@ -167,14 +167,23 @@
                                 <h3>{{savingCost}} AED</h3>
                             </div>
                         </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="app_your_basket_content_text_bottom">
+            <div class="row app_row">
+                <div class=" col-12">
+                    <div class="row app_row">
                         <ng-container *ngIf="shippingCost">
                             <div class="col-8">
-                                <div class="app_your_basket_heading_left_bottom pt-4">
+                                <div class="app_your_basket_heading_left_bottom">
                                     <h3>Shipping Cost</h3>
                                 </div>
                             </div>
                             <div class="col-4">
-                                <div class="app_your_basket_heading_number_text_right_bottom pt-4">
+                                <div class="app_your_basket_heading_number_text_right_bottom">
                                     <h3>{{shippingCost | number : '1.2-2'}} AED</h3>
                                 </div>
                             </div>
@@ -184,6 +193,7 @@
                 </div>
             </div>
         </div>
+
         <div *ngIf="taxvatpercent!==0" class="app_your_basket_content_text_bottom">
             <div class="row app_row">
                 <div class=" col-12">

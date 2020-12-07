@@ -63,7 +63,7 @@ export class ViewBasketComponent implements OnInit {
     } else {
       this.customer_address = CryptoJS.AES.decrypt(localStorage.getItem('customer_address'), '').toString(CryptoJS.enc.Utf8);
     }
-
+    this.special_instruction = (localStorage.getItem('order_instruction'))?CryptoJS.AES.decrypt(localStorage.getItem('order_instruction'), '').toString(CryptoJS.enc.Utf8):'';
     this.latitude = (localStorage.getItem('lat'))?CryptoJS.AES.decrypt(localStorage.getItem('lat'), '').toString(CryptoJS.enc.Utf8):'';
     this.longitude = (localStorage.getItem('lng'))?CryptoJS.AES.decrypt(localStorage.getItem('lng'), '').toString(CryptoJS.enc.Utf8):'';
     this.orderType = (localStorage.getItem('order_type'))?CryptoJS.AES.decrypt(localStorage.getItem('order_type'), '').toString(CryptoJS.enc.Utf8):'';

@@ -425,7 +425,7 @@ a.app_full_btn.proceed-order {
     font-weight: 500;
 }
 .special_instruct .col-12 {
-    z-index: -999;
+    z-index: 1;
 }
 .modal {
     width: 400px;
