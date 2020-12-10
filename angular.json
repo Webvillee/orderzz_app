@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "orderzzApp": {
+    "orderrzzApp": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/orderzzApp",
+            "outputPath": "dist/orderrzzApp",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -72,18 +72,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "orderzzApp:build"
+            "browserTarget": "orderrzzApp:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "orderzzApp:build:production"
+              "browserTarget": "orderrzzApp:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "orderzzApp:build"
+            "browserTarget": "orderrzzApp:build"
           }
         },
         "test": {
@@ -126,18 +126,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "orderzzApp:serve"
+            "devServerTarget": "orderrzzApp:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "orderzzApp:serve:production"
+              "devServerTarget": "orderrzzApp:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "orderzzApp",
+  "defaultProject": "orderrzzApp",
   "cli": {
     "analytics": false
   }
