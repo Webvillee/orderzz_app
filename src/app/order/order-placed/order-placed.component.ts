@@ -34,6 +34,8 @@ export class OrderPlacedComponent implements OnInit {
   order_id
   rest_name;
   placedData
+  trackId: any;
+  trackurldrop: any ;
   constructor(private router: Router, private route: ActivatedRoute , private mapsAPILoader: MapsAPILoader, private orderService: OrderService, private spinner: NgxSpinnerService) {
     var rest_id = localStorage.getItem('rest_id');
     localStorage.removeItem("OrderData");
@@ -104,6 +106,13 @@ export class OrderPlacedComponent implements OnInit {
           console.log(res.data);
           this.orderHistory = res.data
 
+          if (this.orderHistory.order_type === 1) {
+            if (this.orderHistory.order_status >= 3 && this.orderHistory.order_status !== 6 && this.orderHistory.order_status !== 7) {
+              this.trackId = this.orderHistory.trackId
+              this.trackurldrop =''
+              this.track_order()
+            }
+          }
           this.orderItems=res.data.order_items
           if(this.orderItems){
             const data = JSON.parse(this.orderItems)
@@ -184,6 +193,52 @@ export class OrderPlacedComponent implements OnInit {
     return count(id, this.itemArray);
   }
 
+  track_order() {
+
+    fetch("https://api.staging.quiqup.com/oauth/token", {
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json",
+        "accept": "application/json"
+      },
+      "body": JSON.stringify({
+        "grant_type": "client_credentials",
+        "client_id": "7d267325aee321c82db3dd3fbbe3fd5949ef22975c8f22b8147bcff4d93ab581",
+        "client_secret": "695233d31d995e21d9f4838162dffeba63990648c0001d7a5ecc3f157a81c6e8"
+      })
+    })
+      .then(response => response.json())
+      .then(response => {
+        // console.log(response, 'response')
+        if (response.access_token) {
+          // console.log(response, scheduled_date);
+          fetch(`https://api.staging.quiqup.com/partner/jobs/${this.trackId}`, {
+            "method": "GET",
+            "headers": {
+              "Authorization": `Bearer ${response.access_token}`,
+              "Content-Type": "application/json",
+              "accept": "application/json"
+            },
+          })
+            .then(res => res.json())
+            .then(async (res) => {
+              let trackingUrl = res.orders[0]
+              this.trackurldrop = (trackingUrl.dropoff) ? trackingUrl.dropoff.tracking_url :''
+              console.log('ljhj', trackingUrl, this.trackurldrop)
+              // this.setState({ alltrackDetails: res, trackingUrl: res.orders[0], loadingdrop: false, loadingpick: false, visiblemodal: true, })
+            })
+            .catch(error => {
+
+            });
+        } else {
+          // this.notifier.notify("error", response.error + ' please recheck');
+        }
+
+      })
+      .catch(err => {
+        // this.notifier.notify("error", err);
+      });
+  }
 
 }
 

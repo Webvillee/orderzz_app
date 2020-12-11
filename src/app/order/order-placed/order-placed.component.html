@@ -59,8 +59,7 @@
                 <div class="order_placed_content collapse" id="app_order_placed_collapse">
                     <!-- <p class="arrive_time" *ngIf="this.orderHistory.order_status>3 && this.orderHistory.order_status<8">Arrives in {{this.orderHistory.order_delevery_time}} minutes</p> -->
                     <!-- <p class="arrive_time" *ngIf="this.orderHistory.order_status===8">Arrives in {{this.orderHistory.order_completed_time}} minutes</p> -->
-                    <p
-                        *ngIf='getorderDatetime(this.orderHistory.order_accepted_date, this.orderHistory.order_completed_time)>0'>
+                    <p *ngIf='getorderDatetime(this.orderHistory.order_accepted_date, this.orderHistory.order_completed_time)>0'>
                         <countdown
                             [config]="{leftTime: getorderDatetime(this.orderHistory.order_accepted_date, this.orderHistory.order_completed_time) }">
                         </countdown>
@@ -69,6 +68,10 @@
                         *ngIf='getorderDatetime(this.orderHistory.order_accepted_date, this.orderHistory.order_completed_time)<0 && this.orderHistory.order_status>2  && this.orderHistory.order_status<7'>
                         Coming soon
                     </p>
+
+                    <span *ngIf="trackurldrop !== ''">
+                    <span *ngIf="this.orderHistory.order_status===4 ||this.orderHistory.order_status===5 || this.orderHistory.order_status===3" class="tracking"><a target="_blank" href="{{trackurldrop}}">Track Details</a></span></span>
+
                     <h3><span *ngFor="let itemData of getItemData; let isLast=last">{{itemData.item_name}} -
                             {{countOrder(itemData._id)}}{{isLast ? '' : ', '}}
                         </span> <a [routerLink]="['/order-details', this.orderHistory._id]"><i class="fa fa-angle-right"
