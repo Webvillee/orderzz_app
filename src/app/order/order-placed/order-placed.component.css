@@ -282,3 +282,7 @@ li.StepProgress-item.order_place_sec.current::after {
         width: 6%;
     }
 } */
+.tracking{
+    top: 15px;
+    position: absolute;
+}
