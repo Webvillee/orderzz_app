@@ -1,7 +1,7 @@
 <section>
     <h1 mat-dialog-title>Error message</h1>
     <mat-dialog-content>
-      <p>{{data.errorMessage}}</p>
+      <p>{{(message)? message : 'Action completed successfully'}}</p>
     </mat-dialog-content>
     <mat-dialog-actions>
       <button mat-raised-button color="warn" (click)="closeDialog()">OK</button>
