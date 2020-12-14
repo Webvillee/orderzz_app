@@ -9,7 +9,9 @@ import * as CryptoJS from 'crypto-js'
 import { NgxSpinnerService } from "ngx-spinner";
 import { SocketioService } from '../socketio.service'
 import * as geolib from 'geolib';
-
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ConfirmDialogModel, ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { ErrorDialogComponent, ErrorDialogModel } from '../../shared/dialogs/error-dialog/error-dialog.component';
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
@@ -29,7 +31,7 @@ export class CheckoutComponent implements OnInit {
   restAddress
   minimumOrderValue
   img_url = UrlSetting.image_uri
-
+  PaymentUrl = UrlSetting.uri
   getCategoryData: any;
   catId
   menuId
@@ -76,12 +78,14 @@ export class CheckoutComponent implements OnInit {
   restaurantClosePickupMsg: boolean = false;
   restaurantCloseDeliveryMsg: boolean = false;
   zoneData: any = [];
-  shippingCost: any= 0;
+  shippingCost: any = 0;
   deliveryAreaMsg: boolean = false;
   deliveryArea: boolean = false;
   deliveryTime: any;
   deliveryTimeAdd: any;
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService, private socketService: SocketioService) {
+  cardPaymentStatus: number;
+  transactionId: any;
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService, private socketService: SocketioService, public dialog: MatDialog) {
 
     if (localStorage.getItem('rest_id') == null) {
       this.router.navigate(['/not-found'])
@@ -158,12 +162,11 @@ export class CheckoutComponent implements OnInit {
         this.startDeleveryTime = res.data.start_delevery_time
         this.endDeleveryTime = res.data.end_delevery_time
         this.zoneData = res.data.Zone_data
-        console.log(this.zoneData, "zoneData", this.orderType, Number(this.latitude), Number(this.longitude))
         let deliveryTrue = []
         if (this.orderType === 1) {
           this.zoneData.filter(e => {
             var zoneArea = (e.zone_cities) ? JSON.parse(e.zone_cities).map(e => ({ lat: e.lat, lng: e.lng })) : ''
-    
+
             if (e.draw_map_delevery_value === 2) {
               // isPointWithinRadius(point, centerPoint, radius)
               if (geolib.isPointWithinRadius(
@@ -172,8 +175,8 @@ export class CheckoutComponent implements OnInit {
                 e.zone_radius
               )) {
                 this.shippingCost = e.delevery_fee
-                this.deliveryTime = Number(e.minimum_delevery_time) 
-                this.deliveryTimeAdd =this.deliveryTime +5
+                this.deliveryTime = Number(e.minimum_delevery_time)
+                this.deliveryTimeAdd = this.deliveryTime + 5
                 this.deliveryArea = false
                 deliveryTrue.push(1)
                 // console.log("inside the radius", this.shippingCost)
@@ -183,29 +186,29 @@ export class CheckoutComponent implements OnInit {
                 this.deliveryArea = true
               }
             } else if (e.draw_map_delevery_value === 1) {
-                // isPointInPolygon(point, polygon)
-                if (geolib.isPointInPolygon(
-                  { lat: Number(this.latitude), lng: Number(this.longitude) },
-                  zoneArea
-                )) {
-                  this.shippingCost = e.delevery_fee
-                  this.deliveryTime = Number(e.minimum_delevery_time) 
-                  this.deliveryTimeAdd =this.deliveryTime +5
-                  this.deliveryArea = false
-                  deliveryTrue.push(1)
-                  // console.log("inside the polygon", this.shippingCost)
-                  return
-                } else {
-                  // console.log("outside the polygon")
-                  this.deliveryArea = true
-                }
-              }else{
-                 this.deliveryArea = true
-              }
-              if(deliveryTrue.length !== 0){
+              // isPointInPolygon(point, polygon)
+              if (geolib.isPointInPolygon(
+                { lat: Number(this.latitude), lng: Number(this.longitude) },
+                zoneArea
+              )) {
+                this.shippingCost = e.delevery_fee
+                this.deliveryTime = Number(e.minimum_delevery_time)
+                this.deliveryTimeAdd = this.deliveryTime + 5
                 this.deliveryArea = false
-                // console.log(deliveryTrue,"deliveryTrue")
+                deliveryTrue.push(1)
+                // console.log("inside the polygon", this.shippingCost)
+                return
+              } else {
+                // console.log("outside the polygon")
+                this.deliveryArea = true
               }
+            } else {
+              this.deliveryArea = true
+            }
+            if (deliveryTrue.length !== 0) {
+              this.deliveryArea = false
+              // console.log(deliveryTrue,"deliveryTrue")
+            }
           });
         }
         // console.log(this.isOrderTypePickup, "pickup", "delivery", this.isOrderTypeDeliver, this.startPickupTime, this.endPickupTime)
@@ -338,7 +341,7 @@ export class CheckoutComponent implements OnInit {
         let Amount = this.orderSubtotal * this.tax_vat_percent / 100
         let totalamount = this.orderSubtotal + Amount + Number(this.shippingCost);
         this.orderTotal = totalamount;
-        this.totalorderPrice = totalamount ;
+        this.totalorderPrice = totalamount;
         this.taxvatpercent = Amount
       } else {
         this.orderTotal = this.orderSubtotal + Number(this.shippingCost);
@@ -362,24 +365,28 @@ export class CheckoutComponent implements OnInit {
     // this.socketService.orderPlace().subscribe((message) => {
     //     console.log(message)
     //   });
-
+    this.paymentSuccesss();
   }
 
 
   onSubmit() {
     var is_submit = true
+
     var paymentMethod = this.angForm.controls.paymentMethod.value;
+    if (this.cardPaymentStatus) {
+      paymentMethod = this.cardPaymentStatus
+      this.angForm.controls.paymentMethod.setValue(this.cardPaymentStatus)
+    }
     // var userEmail = this.angForm.controls.email.value;
     // console.log('7767678888888888888', paymentMethod, this.angForm.invalid);
-    // console.log(this.cardCvv)
-    this.submitted = true;
-    if (paymentMethod == 1) {
-      if (this.cardCvv === '' || this.cardCvv.trim() === '') {
-        is_submit = false
-        this.submitted = false;
-      }
-    }
 
+    this.submitted = true;
+    // if (paymentMethod == 1) {
+    // if (this.cardCvv === '' || this.cardCvv.trim() === '') {
+    //   is_submit = false
+    // this.submitted = true;
+    // }
+    // }
     // console.log(this.restaurantCloseDelivery, 'this.restaurantCloseDelivery')
 
     // logic for pickup and delivery
@@ -404,10 +411,10 @@ export class CheckoutComponent implements OnInit {
     }
 
 
-    if(this.deliveryArea ==true){
+    if (this.deliveryArea == true) {
       this.deliveryAreaMsg = true
       this.submitted = false;
-    }else{
+    } else {
       this.deliveryAreaMsg = false
       this.submitted = true;
     }
@@ -449,12 +456,9 @@ export class CheckoutComponent implements OnInit {
         this.pickupLng = ''
       }
     }
-   
-
     if (paymentMethod && this.restaurantCloseDeliveryMsg === false && this.restaurantClosePickupMsg === false && this.submitted === true) {
       this.spinner.show();
-      const obj = { restId: res_id, userId: this.userId, orderType: this.orderType, orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: this.pickupAddress, pickupLat: this.pickupLat, pickupLng: this.pickupLng, totalItemCount: this.itemArray.length, isPromoCodeApply: this.isPromoCodeApply, promoCode: this.promocode, user_device_type: this.userDevicetype, subtotal_amount: this.orderSubtotal, promo_code_amount: this.promo_code_amount, vat_percent: this.tax_vat_percent, vat_percent_value: this.taxvatpercent ,order_delevery_cost:this.shippingCost}
-      // console.log(paymentMethod, '776767888', obj);
+      const obj = { restId: res_id, userId: this.userId, orderType: this.orderType, orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: this.pickupAddress, pickupLat: this.pickupLat, pickupLng: this.pickupLng, totalItemCount: this.itemArray.length, isPromoCodeApply: this.isPromoCodeApply, promoCode: this.promocode, user_device_type: this.userDevicetype, subtotal_amount: this.orderSubtotal, promo_code_amount: this.promo_code_amount, vat_percent: this.tax_vat_percent, vat_percent_value: this.taxvatpercent, order_delevery_cost: this.shippingCost, transactionId: this.transactionId }
       this.socketService.getMessages().subscribe((message) => {
         // console.log(message)
       })
@@ -465,6 +469,9 @@ export class CheckoutComponent implements OnInit {
           localStorage.setItem('placedData', encrypted_order_type.toString());
 
           localStorage.removeItem("OrderData")
+          localStorage.removeItem('ordersref');
+          localStorage.removeItem('access_token');
+          this.transactionId =''
           this.display = ''
           this.displaysuccess = "Succussfully";
           this.router.navigate([`/order-tracking/${res.data._id}`]);
@@ -566,7 +573,7 @@ export class CheckoutComponent implements OnInit {
             this.taxvatpercent = Amount
           } else {
             this.orderTotal = this.orderSubtotal + Number(this.shippingCost);
-            this.totalorderPrice = this.orderSubtotal +  Number(this.shippingCost)
+            this.totalorderPrice = this.orderSubtotal + Number(this.shippingCost)
             this.taxvatpercent = 0
           }
           this.display = '';
@@ -587,6 +594,115 @@ export class CheckoutComponent implements OnInit {
 
 
   }
+  paymentProcess() {
+    this.spinner.show();
+    const obj = { realm: "ni" }
+    this.orderService.postAll('access-token', obj).subscribe((res) => {
+      if (res.statusCode === 200) {
+        // console.log(res, "res")
+        this.spinner.hide();
+        const resData = JSON.parse(res.body);
+        // console.log("resData", resData.access_token);
+        if (resData.access_token) {
+          // const reqallData = { token: resData.access_token, amount: totalPayment * 100, redirectUri: `http://app.dubaibc.ae/payment-processing/${request_id}`, cancelUri: `http://app.dubaibc.ae/payment-processing/${request_id}` }
+          var encrypted_access_token = CryptoJS.AES.encrypt(resData.access_token, '').toString();;
+          localStorage.setItem('access_token', encrypted_access_token.toString());
+          const reqallData = { token: resData.access_token, amount: this.orderTotal * 100, redirectUri: `${UrlSetting.uriApp}checkout`, cancelUri: `${UrlSetting.uriApp}checkout` }
+          // console.log(reqallData, "reqallData")
 
+          this.orderService.postAll('create-order', reqallData).subscribe((res) => {
+            console.log(res, "res create-order")
+            if (res.statusCode === 201) {
+              const orderData = JSON.parse(res.body);
+              const ordersref = (orderData._embedded.payment[0]) ? orderData._embedded.payment[0].orderReference : ''
+              var encrypted_ordersref = CryptoJS.AES.encrypt(ordersref, '').toString();;
+              localStorage.setItem('ordersref', encrypted_ordersref.toString());
 
+              if (orderData._links.payment.href) {
+                window.location.assign(orderData._links.payment.href + '&slim=true');
+
+              } else {
+                // console.log(createOrder, 'eklllllll');
+                const dialogDataerror = new ErrorDialogModel("Error", "Payment not processing");
+                let dialogReff = this.dialog.open(ErrorDialogComponent, {
+                  maxWidth: "700px",
+                  panelClass: 'logout-message',
+                  data: dialogDataerror
+                });
+                dialogReff.afterClosed()
+                  .subscribe(result => {
+                    this.router.navigate(['/checkout']);
+                  });
+              }
+            }
+          });
+        }
+      } else {
+        const dialogDataerror = new ErrorDialogModel("Error", "Payment not processing");
+        let dialogReff = this.dialog.open(ErrorDialogComponent, {
+          maxWidth: "700px",
+          panelClass: 'logout-message',
+          data: dialogDataerror
+        });
+        dialogReff.afterClosed()
+          .subscribe(result => {
+            this.router.navigate(['/checkout']);
+          });
+      }
+    });
+  }
+  paymentSuccesss() {
+    if (localStorage.getItem('ordersref')) {
+      if (localStorage.getItem('access_token')) {
+        const ordersref = CryptoJS.AES.decrypt(localStorage.getItem("ordersref"), '').toString(CryptoJS.enc.Utf8)
+        this.transactionId = CryptoJS.AES.decrypt(localStorage.getItem("ordersref"), '').toString(CryptoJS.enc.Utf8)
+        const access_token = CryptoJS.AES.decrypt(localStorage.getItem("access_token"), '').toString(CryptoJS.enc.Utf8)
+        // const reqgetData = { token: access_token, ordersref: ordersref }
+        if (access_token) {
+          let url = `https://api-gateway.sandbox.ngenius-payments.com/transactions/outlets/f17ca305-8b5f-489c-8c56-0a73dba9e64e/orders/${ordersref}`;
+          let options = {
+            method: 'GET',
+            headers: {
+              Accept: 'application/vnd.ni-payment.v2+json',
+              Authorization: `Bearer ${access_token}`
+            }
+          };
+          fetch(url, options)
+            .then((res) => res.json())
+            .then(async (json) => {
+              const resResult = json;
+              // console.log(json, "json");
+              if (resResult._embedded.payment[0].state === "CAPTURED") {
+                // console.log("successfully hhhhhh");
+                this.cardPaymentStatus = 1
+                this.onSubmit();
+              } else {
+                const dialogDataerror = new ErrorDialogModel("Error", "Unable to fetch payment. Please try again or contact your bank");
+                let dialogReff = this.dialog.open(ErrorDialogComponent, {
+                  maxWidth: "700px",
+                  panelClass: 'logout-message',
+                  data: dialogDataerror
+                });
+                dialogReff.afterClosed()
+                  .subscribe(result => {
+                    this.router.navigate(['/checkout']);
+                  });
+              }
+            })
+            .catch(err => {
+              const dialogDataerror = new ErrorDialogModel("Error", "something went wrong please try again");
+              let dialogReff = this.dialog.open(ErrorDialogComponent, {
+                maxWidth: "700px",
+                panelClass: 'logout-message',
+                data: dialogDataerror
+              });
+              dialogReff.afterClosed()
+                .subscribe(result => {
+                  this.router.navigate(['/checkout']);
+                });
+            });
+        }
+      }
+    }
+  }
 }

@@ -37,9 +37,9 @@
                 <a (click)="applyCode()" class="app_checkout_code cursorCss">apply</a>
             </div>
             <form [formGroup]="angForm" (ngSubmit)="onSubmit()">
-                <label class="app_content">Choose Payment </label>
-                <!-- <div class="app_choose_payment" *ngIf="themeData.is_card_payment===1">
-                    <div class="row" *ngIf="card_details">
+                <label class="app_content">Choose Payment</label>
+                <div class="app_choose_payment" *ngIf="themeData.is_card_payment===1">
+                    <div class="row">
                         <div class="col-3">
                             <div class="app_choose_payment_option">
                                 <img src="assets/img/mastercard.svg" alt="">
@@ -48,22 +48,19 @@
                         </div>
                         <div class="col-9">
                             <div class="app_choose_payment_option">
-                                <p class="app_checkout_text_right">{{changeNumber(card_details.card_number)}}<label
+                                <p class="app_checkout_text_right">Pay by card<label
                                         class="container_radio">
-                                        <input type="radio" formControlName="paymentMethod" value="1"
-                                            name="paymentMethod">
+                                        <input type="radio" formControlName="paymentMethod" [value]="1"
+                                            name="paymentMethod" (click)="paymentProcess()" [(ngModel)]="cardPaymentStatus">
                                         <span class="checkmark"></span>
                                     </label></p>
-                                <input *ngIf="angForm.controls.paymentMethod.value==1" type="text" [(ngModel)]="cardCvv"
-                                    (keypress)="onKeypressEvent($event)" maxlength="3" class="cvvclass"
-                                    placeholder="Eg: 123">
                                 <div *ngIf="is_submit==false" class="invalid-feedback">
                                     <div>*Payment Method is required</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
                 <div class="app_choose_payment" *ngIf="themeData.is_cash_payment===1">
                     <div class="row">
                         <div class="col-3">
@@ -86,7 +83,8 @@
                 <div *ngIf="submitted && f.paymentMethod.errors" class="invalid-feedback">
                     <div *ngIf="f.paymentMethod.errors.required">*Payment Method is required</div>
                 </div>
-                <div class="app_choose_payment" *ngIf="themeData.is_card_payment===1">
+                
+                <!-- <div class="app_choose_payment" *ngIf="themeData.is_card_payment===1">
                     <div class="row">
                         <div class="col-8">
                             <div class="app_choose_payment_option">
@@ -101,7 +99,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="app_choose_text">
                     <div class="row">
                         <div class="col-8">
