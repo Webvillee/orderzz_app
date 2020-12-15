@@ -458,7 +458,7 @@ export class CheckoutComponent implements OnInit {
     }
     if (paymentMethod && this.restaurantCloseDeliveryMsg === false && this.restaurantClosePickupMsg === false && this.submitted === true) {
       this.spinner.show();
-      const obj = { restId: res_id, userId: this.userId, orderType: this.orderType, orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: this.pickupAddress, pickupLat: this.pickupLat, pickupLng: this.pickupLng, totalItemCount: this.itemArray.length, isPromoCodeApply: this.isPromoCodeApply, promoCode: this.promocode, user_device_type: this.userDevicetype, subtotal_amount: this.orderSubtotal, promo_code_amount: this.promo_code_amount, vat_percent: this.tax_vat_percent, vat_percent_value: this.taxvatpercent, order_delevery_cost: this.shippingCost, transactionId: this.transactionId }
+      const obj = { restId: res_id, userId: this.userId, orderType: this.orderType, orderItems: items, orderDescription: order_instruction, totalAmount: this.orderTotal, paymentMethod: Number(paymentMethod), orderReview: 1, isCreditPayment: 1, deleveryAddress: this.address, deleveryLandmark: this.landmark, deleveryLat: Number(this.latitude), deleveryLng: Number(this.longitude), pickupAddress: this.pickupAddress, pickupLat: this.pickupLat, pickupLng: this.pickupLng, totalItemCount: this.itemArray.length, isPromoCodeApply: this.isPromoCodeApply, promoCode: this.promocode, user_device_type: this.userDevicetype, subtotal_amount: this.orderSubtotal, promo_code_amount: this.promo_code_amount, vat_percent: this.tax_vat_percent, vat_percent_value: this.taxvatpercent, order_delevery_cost: this.shippingCost, card_transactionId: this.transactionId }
       this.socketService.getMessages().subscribe((message) => {
         // console.log(message)
       })
@@ -471,7 +471,7 @@ export class CheckoutComponent implements OnInit {
           localStorage.removeItem("OrderData")
           localStorage.removeItem('ordersref');
           localStorage.removeItem('access_token');
-          this.transactionId =''
+          this.transactionId = ''
           this.display = ''
           this.displaysuccess = "Succussfully";
           this.router.navigate([`/order-tracking/${res.data._id}`]);
