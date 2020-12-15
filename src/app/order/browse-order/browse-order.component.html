@@ -1,352 +1,390 @@
+<!-- <div class="loader">
+<mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center ;">
+	<mat-progress-spinner color="primary" mode="indeterminate">
+	</mat-progress-spinner>
+</mat-card>
+</div> -->
+
 <div *ngIf="themeCondition; else elseBlock">
-    <div class="app_hot_food_restaurant">
-        <!-- sidebar open -->
-        <div class="app_nav_bar" [ngClass]="{'active': toggle}">
-            <div class="app_nav_bar_content">
-                <button type="button" class="close" (click)="clickEvent($event)">&times;</button>
-                <h4>Menu Options</h4>
-                <ul>
-                    <li><a routerLink="/order" class="active">Home</a></li>
-                    <li *ngIf="userId"><a routerLink="/your-orders">Your Orders</a></li>
-                    <li *ngIf="userId"><a routerLink="/update-profile">Profile</a></li>
-                </ul>
-            </div>
-            <a *ngIf="userId" (click)='logout()' class="app_full_btn">Sign Out</a>
-            <a *ngIf="!userId" routerLink="/signin" class="app_full_btn">Sign In</a>
-        </div>
-        <!-- sidebar close -->
+	<div class="app_hot_food_restaurant">
+		<!-- sidebar open -->
+		<div class="app_nav_bar" [ngClass]="{'active': toggle}">
+			<div class="app_nav_bar_content">
+				<button type="button" class="close" (click)="clickEvent($event)">&times;</button>
+				<h4>Menu Options</h4>
+				<ul>
+					<li><a routerLink="/order" class="active">Home</a></li>
+					<li *ngIf="userId"><a routerLink="/your-orders">Your Orders</a></li>
+					<li *ngIf="userId"><a routerLink="/update-profile">Profile</a></li>
+				</ul>
+			</div>
+			<a *ngIf="userId" (click)='logout()' class="app_full_btn">Sign Out</a>
+			<a *ngIf="!userId" routerLink="/signup" (click)='singUp()' class="app_full_btn_up">Sign Up</a>
+			<a *ngIf="!userId" routerLink="/signin" class="app_full_btn">Sign In</a>
+		</div>
+		<!-- sidebar close -->
 
-        <!-- order section open -->
-        <div class="app_container">
-            <div class="app_hot_food_restaurant_image">
-                <img *ngIf="!banner" src="assets/img/1920x430(2).png">
-                <img *ngIf="banner" src="{{img_url}}{{banner}}" alt="item Image" class="image_adjust">
-            </div>
-            <div class="app_restaurant">
-                <div class="row">
-                    <div class="col-6">
-                        <div class="app_hot_food_restaurant_logo">
-                            <img *ngIf="!logo" src="assets/img/500x500.png">
-                            <img *ngIf="logo" src="{{img_url}}{{logo}}" alt="item Image" class="image_adjust">
-                        </div>
-                    </div>
-                    <div class="col-6"></div>
-                    <div class="col-10">
-                        <div class="app_hot_food_restaurant_heading">
-                            <h2>{{restName}}</h2>
-                            <h3>{{restAddress}}</h3>
-                        </div>
-                        <div class="app_hot_food_restaurant_delivery_details">
-                            <ul>
-                                <li class="minutess"><a><img src="assets/img/clock.svg"> 30-45 min</a></li>
-                                <li class="valuess"><a><img src="assets/img/shopping_bag.svg">AED
-                                        {{(minimumOrderValue)? minimumOrderValue: 0 }} Minimum Value</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="app_bar_icon">
-                            <button class="app_nav_icon" (click)="clickEvent($event)"><i class="fa fa-bars app_bar_icon"
-                                    aria-hidden="true"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="app_border_bottom"></div>
-            <div class="app_restaurant">
-                <div class="row">
-                    <div class="col-6 address_order">
-                        <div class="app_hot_food_restaurant_location">
-                            <ul>
-                                <li (click)="addMap()" class="cursorCss"><a><img src="assets/img/position_pin.svg">
-                                        <input type="text" class="app_checkout_input_pad app_check_input_loc"
-                                            value="{{customer_address}}"></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-6 delivery_order">
-                        <div class="app_delivery_button">
-                            <div class="btn-group app_delivery_pickup_btn_main">
-                                <button class="btn btn-sm  app_delivery_pickup_btn app_delivery_btn"
-                                    (click)="onClick(1)"
-                                    [ngClass]="{'active': selectedDeliveryType==='1'}"><span>Delivery</span></button>
-                                <button class="btn btn-sm btn-default app_delivery_pickup_btn app_pickup_btn"
-                                    [ngClass]="{'active': selectedDeliveryType==='2'}"
-                                    (click)="onClick(2)"><span>Pickup</span></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="app_hot_food_restaurant_category">
-                            <h3>Categories</h3>
-                        </div>
-                    </div>
+		<!-- order section open -->
+		<div class="app_container">
+			<div class="app_hot_food_restaurant_image">
+				<img *ngIf="!banner" src="assets/img/1920x430(2).png">
+				<img *ngIf="banner" src="{{img_url}}{{banner}}" alt="item Image" class="image_adjust">
+			</div>
+			<div class="app_restaurant">
+				<div class="row">
+					<div class="col-6">
+						<div class="app_hot_food_restaurant_logo">
+							<img *ngIf="!logo" src="assets/img/500x500.png">
+							<img *ngIf="logo" src="{{img_url}}{{logo}}" alt="Image logo" class="image_adjust">
+						</div>
+					</div>
+					<div class="col-6"></div>
+					<div class="col-10">
+						<div class="app_hot_food_restaurant_heading">
+							<h2>{{restName}}</h2>
+							<h3>{{restAddress}}</h3>
+						</div>
+						<div class="app_hot_food_restaurant_delivery_details">
+							<ul>
+								<li class="minutess"><a><img
+											src="assets/img/clock.svg">{{(showtime)? showtime : ' 30-45 min'}}</a></li>
+								<li class="valuess"><a><img src="assets/img/shopping_bag.svg">AED
+										{{(minimumOrderValue)? minimumOrderValue: 0 | number : '1.2-2'}} Minimum Value</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-2">
+						<div class="app_bar_icon">
+							<button class="app_nav_icon" (click)="clickEvent($event)"><i class="fa fa-bars app_bar_icon"
+									aria-hidden="true"></i></button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="app_border_bottom"></div>
+			<div class="app_restaurant">
+				<div class="row">
+					<div class="col-6 address_order">
+						<div class="app_hot_food_restaurant_location">
+							<ul>
+								<li (click)="addMap()" class="cursorCss"><a><img src="assets/img/position_pin.svg">
+										<input type="text" class="app_checkout_input_pad app_check_input_loc"
+											value="{{customer_address}}"></a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-6 delivery_order">
+						<div class="app_delivery_button">
+							<div class="btn-group app_delivery_pickup_btn_main">
+								<button title="{{(isOrderTypeDeliver ===false)?'Disabled':''}}"
+									class="btn btn-sm  app_delivery_pickup_btn app_delivery_btn"
+									[disabled]="(isOrderTypeDeliver ===false)?true:false" (click)="onClick(1)"
+									[ngClass]="{'active': selectedDeliveryType==='1'}"><span>Delivery</span></button>
+								<button title="{{(isOrderTypePickup ===false)?'Disabled':''}}"
+									class="btn btn-sm btn-default app_delivery_pickup_btn app_pickup_btn"
+									[disabled]="(isOrderTypePickup ===false)?true:false"
+									[ngClass]="{'active': selectedDeliveryType==='2'}"
+									(click)="onClick(2)"><span>Pickup</span></button>
+							</div>
+						</div>
+					</div>
+					<div class="col-12"
+						*ngIf="getCategoryData  &&  is_online_status===1 && restaurantClose && (isOrderTypeDeliver===true || isOrderTypePickup===true)  && (is_card_payment===1 || is_cash_payment===1)">
+						<div class="app_hot_food_restaurant_category">
+							<h3>Categories</h3>
+						</div>
+					</div>
 
-                    <div class="col-12 app_scroll">
-                        <div class="app_category_scroll_button">
-                            <ng-container *ngIf="getCategoryData">
-                                <ul>
-                                    <li *ngFor="let catData of getCategoryData">
-                                        <a [class.active]="clicked === catData._id" (click)="findItem(catData)"
-                                            class="btn app_scroll_button">{{catData.cate_name}}</a>
-                                    </li> &nbsp;
-                                </ul>
-                            </ng-container>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="app_hot_food_restaurant_bestsellers">
-                            <h4>{{catName}}</h4>
-                        </div>
-                    </div>
-                    <div class="col-6 box-view" *ngFor="let itemData of getItemData">
-                        <ng-container *ngIf="getItemData">
-                            <!-- <div class="col-12"> -->
-                            <div class="app_bestsellers_detail">
-                                <!-- <div class="row" >  -->
-                                <!-- <div class="col-4"> -->
-                                <!-- <img src="{{img_url}}{{itemData.item_image}}"> -->
-                                <!-- <img *ngIf="!banner" src="assets/img/biryani.jpg"> -->
-                                <span *ngIf="itemData.add_lable!=3"
-                                    class="image_title_sec">{{(itemData.add_lable===1)? 'New':  (itemData.add_lable===2)? 'Signature' : ''}}</span>
-                                <img src="{{img_url}}{{itemData.item_image}}" alt="item Image" class="image_adjust">
-                                <!-- </div> -->
-                                <!-- <div class="col-8"> -->
-                                <h5>{{itemData.item_name}}</h5>
-                                <h6>{{itemData.item_description}}</h6>
-                                <div class="app_bestseller_foot">
-                                    <span class="app_footer">{{itemData.price}} AED</span>
-                                    <!-- <span><del>{{itemData.price}} AED</del></span><br> -->
+					<div class="col-12 app_scroll">
+						<div class="app_category_scroll_button">
+							<ng-container
+								*ngIf="getCategoryData  && is_online_status===1 && restaurantClose && (isOrderTypeDeliver===true || isOrderTypePickup===true)  && (is_card_payment===1 || is_cash_payment===1)">
+								<ul>
+									<li *ngFor="let catData of getCategoryData">
+										<a [class.active]="clicked === catData._id" (click)="findItem(catData)"
+											class="btn app_scroll_button">{{catData.cate_name}}</a>
+									</li> &nbsp;
+								</ul>
+							</ng-container>
+						</div>
+					</div>
+					<div class="col-12"
+						*ngIf="is_online_status===1 && restaurantClose && (isOrderTypeDeliver===true || isOrderTypePickup===true)  && (is_card_payment===1 || is_cash_payment===1)">
+						<div class="app_hot_food_restaurant_bestsellers">
+							<h4>{{catName}}</h4>
+						</div>
+					</div>
+					<div class="col-6 box-view" *ngFor="let itemData of getItemData">
+						<ng-container
+							*ngIf="getItemData  && is_online_status===1  && restaurantClose && (isOrderTypeDeliver===true || isOrderTypePickup===true)  && (is_card_payment===1 || is_cash_payment===1)">
+							<!-- <div class="col-12"> -->
+							<div class="app_bestsellers_detail">
+								<!-- <div class="row" >  -->
+								<!-- <div class="col-4"> -->
+								<!-- <img src="{{img_url}}{{itemData.item_image}}"> -->
+								<!-- <img *ngIf="!banner" src="assets/img/biryani.jpg"> -->
+								<span *ngIf="itemData.add_lable!=3"
+									class="image_title_sec">{{(itemData.add_lable===1)? 'New':  (itemData.add_lable===2)? 'Signature' : ''}}</span>
+								<img src="{{img_url}}{{itemData.item_image}}" alt="item Image" class="image_adjust">
+								<!-- </div> -->
+								<!-- <div class="col-8"> -->
+								<h5>{{itemData.item_name}}</h5>
+								<h6>{{itemData.item_description}}</h6>
+								<div class="app_bestseller_foot">
+									<span *ngIf="itemData.sell_price===0" class="app_footer">{{itemData.price | number : '1.2-2'}}
+										AED</span>
+									<span *ngIf="itemData.sell_price!==0" class="app_footer">{{itemData.sell_price | number : '1.2-2'}}
+										AED</span>
+									<span *ngIf="itemData.sell_price!==0"><del>{{itemData.price | number : '1.2-2'}} AED</del></span>
+									<div class="app_add_baset_icon">
+										<!-- <span *ngIf="countOrder(itemData._id)!=0">
+											<span class="app_addition_icon app_minus_icon cursorCss"
+												(click)="removeToCart(itemData._id)"><i class="fa fa-minus"
+													aria-hidden="true"></i></span>
+											<span class="app_basket_quantity">{{countOrder(itemData._id)}}</span>
+										</span>
+										<span class="app_addition_icon cursorCss" (click)="addToCart(itemData)"><i
+												class="fa fa-plus" aria-hidden="true"></i></span> -->
+									</div>
+								</div>
+								<!-- </div> -->
+								<!-- </div> -->
+							</div>
+							<!-- <div *ngIf="itemArray.length != 0" class="app_basket_btn_submit">
+								<a [routerLink]="['/view-basket']" class="app_full_btn app_add_basket_btn"><img
+										src="assets/img/basket_bag.svg" alt=""><span>{{itemArray.length}}</span>View
+									Basket</a>
+							</div> -->
+							<!-- </div> -->
 
-                                    <div class="app_add_baset_icon">
-                                        <!-- <span *ngIf="countOrder(itemData._id)!=0">
-                                            <span class="app_addition_icon app_minus_icon"
-                                                (click)="removeToCart(itemData._id)"><i class="fa fa-minus"
-                                                    aria-hidden="true"></i></span>
-                                            <span class="app_basket_quantity">{{countOrder(itemData._id)}}</span>
-                                        </span>
-                                        <span class="app_addition_icon cursorCss" (click)="addToCart(itemData)"><i
-                                                class="fa fa-plus" aria-hidden="true"></i></span> -->
-                                    </div>
-                                </div>
-                                <!-- </div> -->
-                                <!-- </div> -->
-                            </div>
-                            <!-- <div *ngIf="itemArray.length != 0" class="app_basket_btn_submit">
-                                <a [routerLink]="['/view-basket']" class="app_full_btn app_add_basket_btn"><img
-                                        src="assets/img/basket_bag.svg" alt=""><span>{{itemArray.length}}</span>View
-                                    Basket</a>
-                            </div> -->
-                            <!-- </div> -->
+						</ng-container>
+					</div>
 
-                        </ng-container>
-                    </div>
+					<ng-container
+						*ngIf="getCategoryData==0 || is_online_status===2 || restaurantClose===false || (isOrderTypeDeliver===false && isOrderTypePickup===false) || (is_card_payment===2 && is_cash_payment===2)">
+						<div class="app_close">
+							<div class="app_container">
+								<div class="app_close_image">
+									<div class="app_close_image_rest">
+										<img src="assets/img/shop.svg" alt="">
+										<div class="app_closed_restaurant">
+											<p class="app_content">Closed</p>
+										</div>
+									</div>
+								</div>
+								<div class="app_close_content">
+									<h3 *ngIf="is_online_status===2">
+										{{(allData.online_status_type===1)? 'Sorry , restaurant is busy': (allData.online_status_type===2)? 'Sorry , restaurant Shortage': (allData.online_status_type===3)? 'Sorry , We will be late' : (allData.online_status_type===4)? 'Sorry , offline for a while' : 'Sorry , restaurant will open soon'}}
+									</h3>
+									<h3>{{allData.custom_message_for_customer}}</h3>
+									<h2 class="app_heading">Still want to browse?</h2>
+									<p class="app_content">Note: you can't order but you can see menu<br> list to order
+										once it opens.</p>
+									<a [routerLink]="['/browse-order']" class="app_full_btn">Browse</a>
+								</div>
+							</div>
+						</div>
+					</ng-container>
 
-                    <ng-container *ngIf="getCategoryData==0">
-                        <div class="app_close">
-                            <div class="app_container">
-                                <div class="app_close_image">
-                                    <div class="app_close_image_rest">
-                                        <img src="assets/img/shop.svg" alt="">
-                                        <div class="app_closed_restaurant">
-                                            <p class="app_content">Closed</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="app_close_content">
-                                    <h3>{{(allData.online_status_type===1)? 'Sorry , restaurant is busy': (allData.online_status_type===2)? 'Sorry , restaurant Shortage': (allData.online_status_type===3)? 'Sorry , We will be late' : (allData.online_status_type===4)? 'Sorry , offline for a while' : 'Sorry , restaurant will open soon'}}
-                                    </h3>
-                                    <h3>{{allData.custom_message_for_customer}}</h3>
-                                    <h2 class="app_heading">Still want to browse?</h2>
-                                    <p class="app_content">Note: you can't order but you can see menu<br> list to order
-                                        once it opens.</p>
-                                    <a class="app_full_btn">Browse</a>
-                                </div>
-                            </div>
-                        </div>
-                    </ng-container>
-
-                </div>
-            </div>
-        </div>
-        <!-- order section close -->
-    </div>
+				</div>
+			</div>
+		</div>
+		<!-- order section close -->
+	</div>
 </div>
 <ng-template #elseBlock>
 
-    <div class="app_hot_food_restaurant app_food_grid">
-        <!-- sidebar open -->
-        <div class="app_nav_bar" [ngClass]="{'active': toggle}">
-            <div class="app_nav_bar_content">
-                <button type="button" class="close" (click)="clickEvent($event)">&times;</button>
-                <h4>Menu Options</h4>
-                <ul>
-                    <li><a routerLink="/order" class="active">Home</a></li>
-                    <li *ngIf="userId"><a routerLink="/your-orders">Your Orders</a></li>
-                    <li *ngIf="userId"><a routerLink="/update-profile">Profile</a></li>
-                </ul>
-            </div>
-            <a *ngIf="userId" (click)='logout()' class="app_full_btn">Sign Out</a>
-            <a *ngIf="!userId" routerLink="/signin" class="app_full_btn">Sign In</a>
-        </div>
-        <!-- sidebar close -->
+	<div class="app_hot_food_restaurant app_food_grid">
+		<!-- sidebar open -->
+		<div class="app_nav_bar" [ngClass]="{'active': toggle}">
+			<div class="app_nav_bar_content">
+				<button type="button" class="close" (click)="clickEvent($event)">&times;</button>
+				<h4>Menu Options</h4>
+				<ul>
+					<li><a routerLink="/order" class="active">Home</a></li>
+					<li *ngIf="userId"><a routerLink="/your-orders">Your Orders</a></li>
+					<li *ngIf="userId"><a routerLink="/update-profile">Profile</a></li>
+				</ul>
+			</div>
+			<a *ngIf="userId" (click)='logout()' class="app_full_btn">Sign Out</a>
+			<a *ngIf="!userId" routerLink="/signup" (click)='singUp()' class="app_full_btn_up">Sign Up</a>
+			<a *ngIf="!userId" routerLink="/signin" class="app_full_btn">Sign In</a>
+		</div>
+		<!-- sidebar close -->
 
-        <!-- order section open -->
-        <div class="app_container">
-            <div class="app_hot_food_restaurant_image">
-                <img *ngIf="!banner" src="assets/img/1920x430(2).png">
-                <img *ngIf="banner" src="{{img_url}}{{banner}}" class="image_adjust">
-            </div>
-            <div class="app_restaurant">
-                <div class="row">
-                    <div class="col-6">
-                        <div class="app_hot_food_restaurant_logo">
-                            <img *ngIf="!logo" src="assets/img/500x500.png">
-                            <img *ngIf="logo" src="{{img_url}}{{logo}}" class="image_adjust">
-                        </div>
-                    </div>
-                    <div class="col-6"></div>
-                    <div class="col-10">
-                        <div class="app_hot_food_restaurant_heading">
-                            <h2>{{restName}}</h2>
-                            <h3>{{restAddress}}</h3>
-                        </div>
-                        <div class="app_hot_food_restaurant_delivery_details">
-                            <ul>
-                                <li><a><img src="assets/img/clock.svg"> 30-45 min</a></li>
-                                <li><a><img src="assets/img/shopping_bag.svg">AED
-                                        {{(minimumOrderValue)? minimumOrderValue: 0 }} Minimum Value</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="app_bar_icon">
-                            <button class="app_nav_icon" (click)="clickEvent($event)"><i class="fa fa-bars app_bar_icon"
-                                    aria-hidden="true"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="app_border_bottom"></div>
-            <div class="app_restaurant">
-                <div class="row">
-                    <div class="col-6 address_order">
-                        <div class="app_hot_food_restaurant_location">
-                            <ul>
-                                <li (click)="addMap()" class="cursorCss"><a><img
-                                            src="assets/img/position_pin.svg"><input type="text"
-                                            class="app_checkout_input_pad app_check_input_loc"
-                                            value="{{customer_address}}"></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-6 delivery_order">
-                        <div class="app_delivery_button">
-                            <div class="btn-group app_delivery_pickup_btn_main">
-                                <button class="btn btn-sm  app_delivery_pickup_btn app_delivery_btn"
-                                    (click)="onClick(1)"
-                                    [ngClass]="{'active': selectedDeliveryType==='1'}"><span>Delivery</span></button>
-                                <button class="btn btn-sm btn-default app_delivery_pickup_btn app_pickup_btn"
-                                    [ngClass]="{'active': selectedDeliveryType==='2'}"
-                                    (click)="onClick(2)"><span>Pickup</span></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="app_hot_food_restaurant_category">
-                            <h3>Categories</h3>
-                        </div>
-                    </div>
-                    <div class="col-12 app_scroll">
-                        <div class="app_category_scroll_button">
-                            <ng-container *ngIf="getCategoryData">
-                                <ul>
-                                    <li *ngFor="let catData of getCategoryData">
-                                        <a [class.active]="clicked === catData._id" (click)="findItem(catData)"
-                                            class="btn app_scroll_button">{{catData.cate_name}}</a>
-                                    </li> &nbsp;
-                                </ul>
-                            </ng-container>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="app_hot_food_restaurant_bestsellers">
-                            <h4>{{catName}}</h4>
-                        </div>
-                    </div>
-                    <ng-container *ngIf="getItemData">
-                        <div class="col-12">
-                            <div class="app_bestsellers_detail">
-                                <div class="row" *ngFor="let itemData of getItemData">
-                                    <div class="col-4">
-                                        <!-- <img src="{{img_url}}{{itemData.item_image}}"> -->
-                                        <!-- <img *ngIf="!banner" src="assets/img/biryani.jpg"> -->
-                                        <span *ngIf="itemData.add_lable!=3"
-                                            class="image_title_sec">{{(itemData.add_lable===1)? 'New':  (itemData.add_lable===2)? 'Signature' : ''}}</span>
-                                        <img src="{{img_url}}{{itemData.item_image}}" alt="item Image"
-                                            class="image_adjust">
-                                    </div>
-                                    <div class="col-8">
-                                        <h5>{{itemData.item_name}}</h5>
-                                        <h6>{{itemData.item_description}}</h6>
-                                        <div class="app_bestseller_foot">
-                                            <span class="app_footer">{{itemData.price}} AED</span>
-                                            <!-- <span><del>{{itemData.price}} AED</del></span><br> -->
+		<!-- order section open -->
+		<div class="app_container">
+			<div class="app_hot_food_restaurant_image">
+				<img *ngIf="!banner" src="assets/img/1920x430(2).png">
+				<img *ngIf="banner" src="{{img_url}}{{banner}}" class="image_adjust">
+			</div>
+			<div class="app_restaurant">
+				<div class="row">
+					<div class="col-6">
+						<div class="app_hot_food_restaurant_logo">
+							<img *ngIf="!logo" src="assets/img/500x500.png">
+							<img *ngIf="logo" src="{{img_url}}{{logo}}" alt="Image logo" class="image_adjust">
+						</div>
+					</div>
+					<div class="col-6"></div>
+					<div class="col-10">
+						<div class="app_hot_food_restaurant_heading">
+							<h2>{{restName}}</h2>
+							<h3>{{restAddress}}</h3>
+						</div>
+						<div class="app_hot_food_restaurant_delivery_details">
+							<ul>
+								<li class="minutess"><a><img
+											src="assets/img/clock.svg">{{(showtime)? showtime : ' 30-45 min'}}</a></li>
+								<li class="valuess"><a><img src="assets/img/shopping_bag.svg">AED
+										{{(minimumOrderValue)? minimumOrderValue: 0 | number : '1.2-2'}} Minimum Value</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-2">
+						<div class="app_bar_icon">
+							<button class="app_nav_icon" (click)="clickEvent($event)"><i class="fa fa-bars app_bar_icon"
+									aria-hidden="true"></i></button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="app_border_bottom"></div>
+			<div class="app_restaurant">
+				<div class="row">
+					<div class="col-6 address_order">
+						<div class="app_hot_food_restaurant_location">
+							<ul>
+								<li (click)="addMap()" class="cursorCss"><a><img
+											src="assets/img/position_pin.svg"><input type="text"
+											class="app_checkout_input_pad app_check_input_loc"
+											value="{{customer_address}}"></a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-6 delivery_order">
+						<div class="app_delivery_button">
+							<div class="btn-group app_delivery_pickup_btn_main">
+								<button title="{{(isOrderTypeDeliver ===false)?'Disabled':''}}"
+									class="btn btn-sm  app_delivery_pickup_btn app_delivery_btn"
+									[disabled]="(isOrderTypeDeliver ===false)?true:false" (click)="onClick(1)"
+									[ngClass]="{'active': selectedDeliveryType==='1'}"><span>Delivery</span></button>
+								<button title="{{(isOrderTypePickup ===false)?'Disabled':''}}"
+									class="btn btn-sm btn-default app_delivery_pickup_btn app_pickup_btn"
+									[disabled]="(isOrderTypePickup ===false)?true:false"
+									[ngClass]="{'active': selectedDeliveryType==='2'}"
+									(click)="onClick(2)"><span>Pickup</span></button>
+							</div>
+						</div>
+					</div>
+					<div class="col-12"
+						*ngIf="getCategoryData && is_online_status===1 && restaurantClose && (isOrderTypeDeliver===true || isOrderTypePickup===true)  && (is_card_payment===1 || is_cash_payment===1)">
+						<div class="app_hot_food_restaurant_category">
+							<h3>Categories</h3>
+						</div>
+					</div>
+					<div class="col-12 app_scroll">
+						<div class="app_category_scroll_button">
+							<ng-container
+								*ngIf="getCategoryData && is_online_status===1 && restaurantClose && (isOrderTypeDeliver===true || isOrderTypePickup===true)  && (is_card_payment===1 || is_cash_payment===1)">
+								<ul>
+									<li *ngFor="let catData of getCategoryData">
+										<a [class.active]="clicked === catData._id" (click)="findItem(catData)"
+											class="btn app_scroll_button">{{catData.cate_name}}</a>
+									</li> &nbsp;
+								</ul>
+							</ng-container>
+						</div>
+					</div>
+					<div class="col-12"
+						*ngIf="is_online_status===1 && restaurantClose && (isOrderTypeDeliver===true || isOrderTypePickup===true)  && (is_card_payment===1 || is_cash_payment===1)">
+						<div class="app_hot_food_restaurant_bestsellers">
+							<h4>{{catName}}</h4>
+						</div>
+					</div>
+					<ng-container
+						*ngIf="getItemData && is_online_status===1  && restaurantClose && (isOrderTypeDeliver===true || isOrderTypePickup===true) && (is_card_payment===1 || is_cash_payment===1)">
+						<div class="col-12">
+							<div class="app_bestsellers_detail">
+								<div class="search-results" infiniteScroll [infiniteScrollDistance]="2"
+									[infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+									<div class="row" *ngFor="let itemData of getItemData">
+										<div class="col-4">
+											<!-- <img src="{{img_url}}{{itemData.item_image}}"> -->
+											<!-- <img *ngIf="!banner" src="assets/img/biryani.jpg"> -->
+											<span *ngIf="itemData.add_lable!=3"
+												class="image_title_sec">{{(itemData.add_lable===1)? 'New':  (itemData.add_lable===2)? 'Signature' : ''}}</span>
+											<img src="{{img_url}}{{itemData.item_image}}" alt="item Image"
+												class="image_adjust">
+										</div>
+										<div class="col-8">
+											<h5>{{itemData.item_name}}</h5>
+											<h6>{{itemData.item_description}}</h6>
+											<div class="app_bestseller_foot">
+												<span *ngIf="itemData.sell_price===0"
+													class="app_footer">{{itemData.price | number : '1.2-2'}} AED</span>
+												<span *ngIf="itemData.sell_price!==0"
+													class="app_footer">{{itemData.sell_price | number : '1.2-2'}} AED</span>
+												<span *ngIf="itemData.sell_price!==0"><del>{{itemData.price | number : '1.2-2'}}
+														AED</del></span>
 
-                                            <div class="app_add_baset_icon">
-                                                <!-- <span *ngIf="countOrder(itemData._id)!=0">
-                                                    <span class="app_addition_icon app_minus_icon"
-                                                        (click)="removeToCart(itemData._id)"><i class="fa fa-minus"
-                                                            aria-hidden="true"></i></span>
-                                                    <span
-                                                        class="app_basket_quantity">{{countOrder(itemData._id)}}</span>
-                                                </span>
-                                                <span class="app_addition_icon cursorCss"
-                                                    (click)="addToCart(itemData)"><i class="fa fa-plus"
-                                                        aria-hidden="true"></i></span> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <div *ngIf="itemArray.length != 0" class="app_basket_btn_submit">
-                                <a [routerLink]="['/view-basket']" class="app_full_btn app_add_basket_btn"><img
-                                        src="assets/img/basket_bag.svg" alt=""><span>{{itemArray.length}}</span>View
-                                    Basket</a>
-                            </div> -->
-                        </div>
+												<div class="app_add_baset_icon">
+													<!-- <span *ngIf="countOrder(itemData._id)!=0">
+														<span class="app_addition_icon app_minus_icon cursorCss"
+															(click)="removeToCart(itemData._id)"><i class="fa fa-minus"
+																aria-hidden="true"></i></span>
+														<span
+															class="app_basket_quantity">{{countOrder(itemData._id)}}</span>
+													</span>
+													<span class="app_addition_icon cursorCss"
+														(click)="addToCart(itemData)"><i class="fa fa-plus"
+															aria-hidden="true"></i></span> -->
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- <div *ngIf="itemArray.length != 0" class="app_basket_btn_submit">
+								<a [routerLink]="['/view-basket']" class="app_full_btn app_add_basket_btn"><img
+										src="assets/img/basket_bag.svg" alt=""><span>{{itemArray.length}}</span>View
+									Basket</a>
+							</div> -->
+						</div>
 
-                    </ng-container>
+					</ng-container>
 
-                    <ng-container *ngIf="getCategoryData==0">
-                        <div class="app_close">
-                            <div class="app_container">
-                                <div class="app_close_image">
-                                    <div class="app_close_image_rest">
-                                        <img src="assets/img/shop.svg" alt="">
-                                        <div class="app_closed_restaurant">
-                                            <p class="app_content">Closed</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="app_close_content">
-                                    <!-- <h3>Sorry , restaurant will open </h3> -->
-                                    <h3>{{(allData.online_status_type===1)? 'Sorry , restaurant is busy': (allData.online_status_type===2)? 'Sorry , restaurant Shortage': (allData.online_status_type===3)? 'Sorry , We will be late' : (allData.online_status_type===4)? 'Sorry , offline for a while' : 'Sorry , restaurant will open soon'}}
-                                    </h3>
-                                    <h3>{{allData.custom_message_for_customer}}</h3>
-                                    <h2 class="app_heading">Still want to browse?</h2>
-                                    <p class="app_content">Note: you can't order but you can see menu<br> list to order
-                                        once it opens.</p>
-                                    <a class="app_full_btn">Browse</a>
-                                </div>
-                            </div>
-                        </div>
-                    </ng-container>
-                </div>
-            </div>
-        </div>
-        <!-- order section close -->
+					<ng-container
+						*ngIf="getCategoryData==0 || is_online_status===2  || restaurantClose===false || (isOrderTypeDeliver===false && isOrderTypePickup===false)  || (is_card_payment===2 && is_cash_payment===2)">
+						<div class="app_close">
+							<div class="app_container">
+								<div class="app_close_image">
+									<div class="app_close_image_rest">
+										<img src="assets/img/shop.svg" alt="">
+										<div class="app_closed_restaurant">
+											<p class="app_content">Closed</p>
+										</div>
+									</div>
+								</div>
+								<div class="app_close_content">
+									<!-- <h3>Sorry , restaurant will open </h3> -->
+									<h3 *ngIf="is_online_status===2">
+										{{(allData.online_status_type===1)? 'Sorry , restaurant is busy': (allData.online_status_type===2)? 'Sorry , restaurant Shortage': (allData.online_status_type===3)? 'Sorry , We will be late' : (allData.online_status_type===4)? 'Sorry , offline for a while' : 'Sorry , restaurant will open soon'}}
+									</h3>
+									<h3>{{allData.custom_message_for_customer}}</h3>
+									<h2 class="app_heading">Still want to browse?</h2>
+									<p class="app_content">Note: you can't order but you can see menu<br> list to order
+										once it opens.</p>
+									<a [routerLink]="['/browse-order']" class="app_full_btn">Browse</a>
+								</div>
+							</div>
+						</div>
+					</ng-container>
+				</div>
+			</div>
+		</div>
+		<!-- order section close -->
 
-    </div>
+	</div>
 
 </ng-template>

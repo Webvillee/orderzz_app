@@ -8,6 +8,13 @@ span.app_basket_quantity {
     padding-right: 10px;
     font-size: 18px !important;
 }
+.box-view .app_bestsellers_detail h5{
+    min-height: 50px;
+}
+.col-6.address_order {
+    padding-right: 0;
+    padding-left: 8px;
+}
 .box-view .app_bestsellers_detail img {
     border-radius: 18px;
     width: 100%;
@@ -16,7 +23,10 @@ span.app_basket_quantity {
 }
 .box-view .app_basket_btn_submit .app_full_btn.app_add_basket_btn {
     position: fixed;
-    bottom: 14px !important;
+    bottom: 7px !important;
+}
+.app_restaurant {
+    padding: 20px 20px 77px 20px;
 }
 .box-view .app_bestseller_foot .app_footer {
     font-size: 18px;
@@ -163,13 +173,14 @@ input.app_checkout_input_pad.app_check_input_loc {
     padding-right: 7px !important;
 }
 .col-6.delivery_order {
-    padding-right: 0;
+    padding-right: 6px;
 }
 
 .app_basket_btn_submit .app_full_btn.app_add_basket_btn {
     position: fixed;
     width: calc(100% - 33px) !important;
     left: 14px !important;
+    bottom: 25px !important;
 }
 /*.app_hot_food_restaurant_delivery_details ul li {
     position: relative;
@@ -189,14 +200,14 @@ input.app_checkout_input_pad.app_check_input_loc {
     margin-bottom: 40px;
 }
 .app_bestsellers_detail h5 {
-    font-size: 22px;
+    font-size: 19px;
     font-weight: 700;
     margin-top: 10px;
 }
 
 .app_bestsellers_detail h6 {
     color: #ccc;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 500;
 }
 /*.app_bestsellers_detail h6 {
@@ -213,17 +224,18 @@ input.app_checkout_input_pad.app_check_input_loc {
     max-width: 10%;
     flex: 10%;
     padding-left: 0;
+    margin-left: -5px;
 }
 .minutess{
-	width: 40%;
+	width:100%;
 }
 .valuess{
-	width: 60%;
+	width: 100%;
 }
 .app_hot_food_restaurant_delivery_details ul li a img {
     max-width: 20px;
     margin-bottom: 5px;
-    margin-right: 1px !important;
+    margin-right: 5px !important;
 }
 }
 .app_hot_food_restaurant_delivery_details a {
@@ -367,5 +379,36 @@ input.app_checkout_input_pad.app_check_input_loc {
 }
 .box-view  .app_basket_btn_submit .app_full_btn.app_add_basket_btn {
     position: fixed;
-    bottom: -14px;
+    bottom: 10px;
+    }
+    .app_restaurant {
+        padding: 20px;
+        margin-bottom: 50px;
+    }
+
+.app_full_btn_up{
+    position: fixed;
+    width: 250px;
+    bottom: 98px;
+    background-color: #f6f4f4;
+    border-color: #f6f4f4;
+    color: #000;
+    min-height: 60px;
+    border: 1px solid var(--primary-color);
+    border-radius: 25px;
+    background-color: var(--primary-color);
+    display: inline-block;
+    color: #fff;
+    max-width: 100%;
+    text-transform: capitalize;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    padding: 14px 0;
+}
+.app_nav_bar a:hover {
+    text-decoration: none !important;
+}
+h6 {
+    text-transform: unset;
 }

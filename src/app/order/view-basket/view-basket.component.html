@@ -15,7 +15,7 @@
             <div class="col-12">
                 <div class="app_your_basket_text_top_border">
                     <div class="app_your_basket_icons_heading_left">
-                        <h4>Note: Minimum Order Value is {{minimumOrderValue}} AED</h4>
+                        <h4>Note: Minimum Order Value is {{minimumOrderValue | number : '1.2-2'}} AED</h4>
                     </div>
                 </div>
             </div>
@@ -39,11 +39,11 @@
                                 <h6>{{itemData.item_description}}</h6>
                             </div>
                             <div class="app_your_basket_text_right">
-                                <span *ngIf="itemData.sell_price===0" class="app_footer">{{itemData.price}} AED</span>
-                                <span *ngIf="itemData.sell_price!==0" class="app_footer">{{itemData.sell_price}}
+                                <span *ngIf="itemData.sell_price===0" class="app_footer">{{itemData.price | number : '1.2-2'}} AED</span>
+                                <span *ngIf="itemData.sell_price!==0" class="app_footer">{{itemData.sell_price | number : '1.2-2'}}
                                     AED</span>
                                 <span class="app_your_basket_text_right_del"
-                                    *ngIf="itemData.sell_price!==0"><del>{{itemData.price}} AED</del></span>
+                                    *ngIf="itemData.sell_price!==0"><del>{{itemData.price | number : '1.2-2'}} AED</del></span>
                                 <!-- {{(itemData.priceNew)? itemData.priceNew: itemData.price}} AED -->
                                 <!-- <span class="app_your_basket_text_right_del">
                                         <del>{{itemData.price}} AED</del>
@@ -84,10 +84,10 @@
                     </div>
 
                     <div class="app_your_basket_text_right">
-                        <span *ngIf="slide.sell_price===0" class="app_footer">{{slide.price}} AED</span>
-                        <span *ngIf="slide.sell_price!==0" class="app_footer">{{slide.sell_price}}
+                        <span *ngIf="slide.sell_price===0" class="app_footer">{{slide.price | number : '1.2-2'}} AED</span>
+                        <span *ngIf="slide.sell_price!==0" class="app_footer">{{slide.sell_price | number : '1.2-2'}}
                             AED</span>
-                        <span class="app_your_basket_text_right_del" *ngIf="slide.sell_price!==0"><del>{{slide.price}}
+                        <span class="app_your_basket_text_right_del" *ngIf="slide.sell_price!==0"><del>{{slide.price | number : '1.2-2'}}
                                 AED</del></span>
                     </div>
                     <div class="app_add_baset_icon">
@@ -164,7 +164,7 @@
                         </div>
                         <div class="col-4">
                             <div class="app_your_basket_heading_number_text_right_bottom">
-                                <h3>{{savingCost}} AED</h3>
+                                <h3>{{savingCost | number : '1.2-2'}} AED</h3>
                             </div>
                         </div>
                     </div>
