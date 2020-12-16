@@ -412,3 +412,11 @@ input.app_checkout_input_pad.app_check_input_loc {
 h6 {
     text-transform: unset;
 }
+h6.box_view_description {
+    display: block;
+    text-overflow: ellipsis;
+    overflow: auto;
+    max-height: 46px;
+    line-height: 23px;
+    height: 55px;
+}

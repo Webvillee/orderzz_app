@@ -281,15 +281,16 @@ a.app_full_btn.proceed-order {
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    height: 44px;
+    height: 30px;
 }
 .add_slider .app_your_basket_text_right {
-    margin-top: 13px;
+    margin-top: 0px;
 }
 .add_slider .app_your_basket_text_right {
-    font-size: 19px;
+    font-size: 16px;
     color: var(--primary-color);
     font-weight: 600;
+    height: 70px;
 }
 .add_slider i.fa.fa-plus.app_your_basket_icons {
     width: 21px;
@@ -440,4 +441,9 @@ a.app_full_btn.proceed-order {
 }
 h6 {
     text-transform: unset;
+}
+.add_slider .app_your_basket_text_right_del {
+    font-size: 11px;
+    color: #8a8787;
+    font-weight: 700;
 }

@@ -19,6 +19,7 @@ import { environment } from '../environments/environment';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ToastrModule } from 'ngx-toastr';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { SliderPopupComponent } from './slider-popup/slider-popup.component';
 const config: SocketIoConfig = { url: environment.SOCKET_ENDPOINT, options: {} };
 
 const routes: Routes = [
@@ -31,6 +32,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    SliderPopupComponent,
   ],
   imports: [
   NgxSpinnerModule,
