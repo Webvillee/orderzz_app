@@ -85,6 +85,8 @@ export class CheckoutComponent implements OnInit {
   deliveryTimeAdd: any;
   cardPaymentStatus: number;
   transactionId: any;
+  promocodeGet: any;
+  disabledBtn: boolean =false;
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService, private socketService: SocketioService, public dialog: MatDialog) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -123,6 +125,13 @@ export class CheckoutComponent implements OnInit {
     this.getAllorderData();
     this.getCardDetails();
     this.getDeviceType();
+
+    this.promocodeGet= (localStorage.getItem("promocodeGet"))?CryptoJS.AES.decrypt(localStorage.getItem("promocodeGet"), '').toString(CryptoJS.enc.Utf8):''
+
+    if(this.promocodeGet){
+      this.promocode = this.promocodeGet
+      this.applyCode()
+    }
   }
 
   get f() { return this.angForm.controls; }
@@ -515,12 +524,16 @@ export class CheckoutComponent implements OnInit {
       res_id = CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     }
     const obj = { restId: res_id, userId: this.userId, couponCode: this.promocode.trim() }
-    // console.log(paymentMethod, '776767888', obj);
+    // console.log( '776767888', obj);
     if (this.promocode && (this.promocode || '').trim().length != 0) {
       this.promosubmit = false;
       this.spinner.show();
+      let promocode= (this.promocode)?this.promocode.trim():''
       this.orderService.postAll('apply_promo_code', obj).subscribe((res) => {
         if (res.status === 200) {
+          var encrypted_promocodeget= CryptoJS.AES.encrypt(promocode, '').toString();;
+          localStorage.setItem('promocodeGet', encrypted_promocodeget.toString());
+
           if (res.data.is_minimum_price_type === 1) {
             if (totalordervalue >= res.data.minimum_price_value) {
               if (res.data.discount_type === 1) {
@@ -591,16 +604,19 @@ export class CheckoutComponent implements OnInit {
     } else {
       this.promosubmit = true
     }
-
-
+  }
+  disabledEvent(){
+    this.disabledBtn = false
   }
   paymentProcess() {
+    this.disabledBtn = true
     this.spinner.show();
     const obj = { realm: "ni" }
     this.orderService.postAll('access-token', obj).subscribe((res) => {
       if (res.statusCode === 200) {
         // console.log(res, "res")
-        this.spinner.hide();
+
+        setTimeout(() => { this.spinner.hide(); }, 3000)
         const resData = JSON.parse(res.body);
         // console.log("resData", resData.access_token);
         if (resData.access_token) {
@@ -611,7 +627,6 @@ export class CheckoutComponent implements OnInit {
           // console.log(reqallData, "reqallData")
 
           this.orderService.postAll('create-order', reqallData).subscribe((res) => {
-            console.log(res, "res create-order")
             if (res.statusCode === 201) {
               const orderData = JSON.parse(res.body);
               const ordersref = (orderData._embedded.payment[0]) ? orderData._embedded.payment[0].orderReference : ''
@@ -620,7 +635,7 @@ export class CheckoutComponent implements OnInit {
 
               if (orderData._links.payment.href) {
                 window.location.assign(orderData._links.payment.href + '&slim=true');
-
+                // this.spinner.hide()
               } else {
                 // console.log(createOrder, 'eklllllll');
                 const dialogDataerror = new ErrorDialogModel("Error", "Payment not processing");
@@ -633,6 +648,9 @@ export class CheckoutComponent implements OnInit {
                   .subscribe(result => {
                     this.router.navigate(['/checkout']);
                   });
+
+                localStorage.removeItem('ordersref');
+                localStorage.removeItem('access_token');
               }
             }
           });
@@ -648,36 +666,58 @@ export class CheckoutComponent implements OnInit {
           .subscribe(result => {
             this.router.navigate(['/checkout']);
           });
+        localStorage.removeItem('ordersref');
+        localStorage.removeItem('access_token');
       }
     });
   }
+
   paymentSuccesss() {
     if (localStorage.getItem('ordersref')) {
-      if (localStorage.getItem('access_token')) {
-        const ordersref = CryptoJS.AES.decrypt(localStorage.getItem("ordersref"), '').toString(CryptoJS.enc.Utf8)
-        this.transactionId = CryptoJS.AES.decrypt(localStorage.getItem("ordersref"), '').toString(CryptoJS.enc.Utf8)
-        const access_token = CryptoJS.AES.decrypt(localStorage.getItem("access_token"), '').toString(CryptoJS.enc.Utf8)
-        // const reqgetData = { token: access_token, ordersref: ordersref }
-        if (access_token) {
-          let url = `https://api-gateway.sandbox.ngenius-payments.com/transactions/outlets/f17ca305-8b5f-489c-8c56-0a73dba9e64e/orders/${ordersref}`;
-          let options = {
-            method: 'GET',
-            headers: {
-              Accept: 'application/vnd.ni-payment.v2+json',
-              Authorization: `Bearer ${access_token}`
-            }
-          };
-          fetch(url, options)
-            .then((res) => res.json())
-            .then(async (json) => {
-              const resResult = json;
-              // console.log(json, "json");
-              if (resResult._embedded.payment[0].state === "CAPTURED") {
-                // console.log("successfully hhhhhh");
-                this.cardPaymentStatus = 1
-                this.onSubmit();
-              } else {
-                const dialogDataerror = new ErrorDialogModel("Error", "Unable to fetch payment. Please try again or contact your bank");
+      const obj = { realm: "ni" }
+      this.orderService.postAll('access-token', obj).subscribe((res) => {
+        if (res.statusCode === 200) {
+          const resData = JSON.parse(res.body);
+          // console.log("resData", resData.access_token);
+          const access_token = resData.access_token
+          const ordersref = CryptoJS.AES.decrypt(localStorage.getItem("ordersref"), '').toString(CryptoJS.enc.Utf8)
+          this.transactionId = CryptoJS.AES.decrypt(localStorage.getItem("ordersref"), '').toString(CryptoJS.enc.Utf8)
+          // const reqgetData = { token: access_token, ordersref: ordersref }
+          if (access_token) {
+            let url = `https://api-gateway.sandbox.ngenius-payments.com/transactions/outlets/f17ca305-8b5f-489c-8c56-0a73dba9e64e/orders/${ordersref}`;
+            let options = {
+              method: 'GET',
+              headers: {
+                Accept: 'application/vnd.ni-payment.v2+json',
+                Authorization: `Bearer ${access_token}`
+              }
+            };
+            fetch(url, options)
+              .then((res) => res.json())
+              .then(async (json) => {
+                const resResult = json;
+                // console.log(json, "json");
+                if (resResult._embedded.payment[0].state === "CAPTURED") {
+                  // console.log("successfully hhhhhh");
+                  this.cardPaymentStatus = 1
+                  this.onSubmit();
+                } else {
+                  const dialogDataerror = new ErrorDialogModel("Error", "Unable to fetch payment. Please try again or contact your bank");
+                  localStorage.removeItem('ordersref');
+                  localStorage.removeItem('access_token');
+                  let dialogReff = this.dialog.open(ErrorDialogComponent, {
+                    maxWidth: "700px",
+                    panelClass: 'logout-message',
+                    data: dialogDataerror
+                  });
+                  dialogReff.afterClosed()
+                    .subscribe(result => {
+                      this.router.navigate(['/checkout']);
+                    });
+                }
+              })
+              .catch(err => {
+                const dialogDataerror = new ErrorDialogModel("Error", "something went wrong please try again");
                 let dialogReff = this.dialog.open(ErrorDialogComponent, {
                   maxWidth: "700px",
                   panelClass: 'logout-message',
@@ -687,22 +727,13 @@ export class CheckoutComponent implements OnInit {
                   .subscribe(result => {
                     this.router.navigate(['/checkout']);
                   });
-              }
-            })
-            .catch(err => {
-              const dialogDataerror = new ErrorDialogModel("Error", "something went wrong please try again");
-              let dialogReff = this.dialog.open(ErrorDialogComponent, {
-                maxWidth: "700px",
-                panelClass: 'logout-message',
-                data: dialogDataerror
+                localStorage.removeItem('ordersref');
+                localStorage.removeItem('access_token');
               });
-              dialogReff.afterClosed()
-                .subscribe(result => {
-                  this.router.navigate(['/checkout']);
-                });
-            });
+          }
         }
-      }
+      });
+
     }
   }
 }
