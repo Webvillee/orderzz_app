@@ -1,11 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule ,CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule,FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { OrderModule } from './order/order.module';
 import { DashboardModule } from './dashboard/dashboard.module';
@@ -19,7 +19,6 @@ import { environment } from '../environments/environment';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ToastrModule } from 'ngx-toastr';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-import { SliderPopupComponent } from './slider-popup/slider-popup.component';
 const config: SocketIoConfig = { url: environment.SOCKET_ENDPOINT, options: {} };
 
 const routes: Routes = [
@@ -32,10 +31,9 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    SliderPopupComponent,
   ],
   imports: [
-  NgxSpinnerModule,
+    NgxSpinnerModule,
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
@@ -50,7 +48,7 @@ const routes: Routes = [
     InfiniteScrollModule,
     SocketIoModule.forRoot(config),
     AgmCoreModule.forRoot({ // @agm/core
-      apiKey: UrlSetting.agm_core_key ,
+      apiKey: UrlSetting.agm_core_key,
       libraries: ['places']
     }),
     ToastrModule.forRoot(),
@@ -59,7 +57,7 @@ const routes: Routes = [
   ],
   providers: [],
   bootstrap: [AppComponent],
-   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 
 export class AppModule { }
