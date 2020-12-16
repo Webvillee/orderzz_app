@@ -73,7 +73,7 @@
                             <div class="app_choose_payment_option">
                                 <p class="app_checkout_text_right">Pay when receive order<label class="container_radio">
                                         <input type="radio" value="3" formControlName="paymentMethod"
-                                            name="paymentMethod">
+                                            name="paymentMethod" (click)="disabledEvent()">
                                         <span class="checkmark"></span>
                                     </label></p>
                             </div>
@@ -161,7 +161,7 @@
                 <h6 *ngIf="restaurantCloseDeliveryMsg && orderType===1" style="color: red">Sorry , Delivery not available for this time</h6>
                 <h6 *ngIf="deliveryAreaMsg && orderType===1" style="color: red">Sorry , Delivery not available for this location</h6>
                 
-                <input type="submit" class="app_full_btn" value="pay">
+                <input type="submit" class="app_full_btn" value="pay" [disabled]="(disabledBtn===true)?true:false">
             </form>
         </div>
     </div>
