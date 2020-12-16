@@ -13,10 +13,11 @@
     min-height: calc(100vh - 30px);
 }
 i.fa.fa-long-arrow-right {
-    margin-left: 20px;
+    /* margin-left: 20px; */
     font-size: 30px;
-    margin-top: 5px;
+    /* margin-top: 5px; */
     position: absolute;
+    transform: translate(8px, 4px);
 }
 .app_welcome .app_full_btn {
     background-color: #fff;
@@ -49,5 +50,12 @@ i.fa.fa-long-arrow-right {
 }
 .app_welcome .app_banner_image {
     margin-bottom: 50px !important;
+}
+i.fa.fa-long-arrow-right{
+    font-size: 30px;
+    position: absolute;
+    transform: translate(8px, 0px);
+    margin-left: 0px;
+    margin-top: 0px;
 }
 }

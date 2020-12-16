@@ -32,13 +32,13 @@
                             </div>
                         </div>
                         <div class="col-8">
-                            <div class="app_your_basket_heading_3_right">
+                            <div class="app_your_basket_heading_3_right ">
                                 <h5>{{itemData.item_name}}</h5>
                             </div>
                             <div class="app_your_basket_heading_6_right">
                                 <h6>{{itemData.item_description}}</h6>
                             </div>
-                            <div class="app_your_basket_text_right">
+                            <div class="app_your_basket_text_right aed_spacing">
                                 <span *ngIf="itemData.sell_price===0" class="app_footer">{{itemData.price | number : '1.2-2'}} AED</span>
                                 <span *ngIf="itemData.sell_price!==0" class="app_footer">{{itemData.sell_price | number : '1.2-2'}}
                                     AED</span>
@@ -83,7 +83,7 @@
                             (click)="menuSliderAdd(i,slide._id)">{{slide.item_name}}</h5>
                     </div>
 
-                    <div class="app_your_basket_text_right">
+                    <div class="app_your_basket_text_right aed_spacing">
                         <span *ngIf="slide.sell_price===0" class="app_footer">{{slide.price | number : '1.2-2'}} AED</span>
                         <span *ngIf="slide.sell_price!==0" class="app_footer">{{slide.sell_price | number : '1.2-2'}}
                             AED</span>

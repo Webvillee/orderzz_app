@@ -447,3 +447,6 @@ h6 {
     color: #8a8787;
     font-weight: 700;
 }
+.aed_spacing span.app_footer {
+    padding-right: 3px;
+}
