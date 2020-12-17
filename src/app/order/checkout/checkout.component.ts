@@ -86,7 +86,7 @@ export class CheckoutComponent implements OnInit {
   cardPaymentStatus: number;
   transactionId: any;
   promocodeGet: any;
-  disabledBtn: boolean =false;
+  disabledBtn: boolean = false;
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService, private socketService: SocketioService, public dialog: MatDialog) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -97,6 +97,10 @@ export class CheckoutComponent implements OnInit {
       this.customer_address = ""
     } else {
       this.customer_address = CryptoJS.AES.decrypt(localStorage.getItem('customer_address'), '').toString(CryptoJS.enc.Utf8);
+    }
+
+    if (localStorage.getItem('addressPickup')) {
+      this.pickupAddress = JSON.parse(CryptoJS.AES.decrypt(localStorage.getItem('addressPickup'), '').toString(CryptoJS.enc.Utf8)).address;
     }
     if (localStorage.getItem('order_type')) {
       this.orderType = Number(CryptoJS.AES.decrypt(localStorage.getItem('order_type'), '').toString(CryptoJS.enc.Utf8));
@@ -126,9 +130,9 @@ export class CheckoutComponent implements OnInit {
     this.getCardDetails();
     this.getDeviceType();
 
-    this.promocodeGet= (localStorage.getItem("promocodeGet"))?CryptoJS.AES.decrypt(localStorage.getItem("promocodeGet"), '').toString(CryptoJS.enc.Utf8):''
+    this.promocodeGet = (localStorage.getItem("promocodeGet")) ? CryptoJS.AES.decrypt(localStorage.getItem("promocodeGet"), '').toString(CryptoJS.enc.Utf8) : ''
 
-    if(this.promocodeGet){
+    if (this.promocodeGet) {
       this.promocode = this.promocodeGet
       this.applyCode()
     }
@@ -380,9 +384,8 @@ export class CheckoutComponent implements OnInit {
 
   onSubmit() {
     var is_submit = true
-
     var paymentMethod = this.angForm.controls.paymentMethod.value;
-    if (this.cardPaymentStatus) {
+    if (this.cardPaymentStatus === 1) {
       paymentMethod = this.cardPaymentStatus
       this.angForm.controls.paymentMethod.setValue(this.cardPaymentStatus)
     }
@@ -528,10 +531,10 @@ export class CheckoutComponent implements OnInit {
     if (this.promocode && (this.promocode || '').trim().length != 0) {
       this.promosubmit = false;
       this.spinner.show();
-      let promocode= (this.promocode)?this.promocode.trim():''
+      let promocode = (this.promocode) ? this.promocode.trim() : ''
       this.orderService.postAll('apply_promo_code', obj).subscribe((res) => {
         if (res.status === 200) {
-          var encrypted_promocodeget= CryptoJS.AES.encrypt(promocode, '').toString();;
+          var encrypted_promocodeget = CryptoJS.AES.encrypt(promocode, '').toString();;
           localStorage.setItem('promocodeGet', encrypted_promocodeget.toString());
 
           if (res.data.is_minimum_price_type === 1) {
@@ -605,71 +608,88 @@ export class CheckoutComponent implements OnInit {
       this.promosubmit = true
     }
   }
-  disabledEvent(){
+  disabledEvent() {
     this.disabledBtn = false
+    this.angForm.controls.paymentMethod.setValue(3)
   }
+
   paymentProcess() {
-    this.disabledBtn = true
-    this.spinner.show();
-    const obj = { realm: "ni" }
-    this.orderService.postAll('access-token', obj).subscribe((res) => {
-      if (res.statusCode === 200) {
-        // console.log(res, "res")
-
-        setTimeout(() => { this.spinner.hide(); }, 3000)
-        const resData = JSON.parse(res.body);
-        // console.log("resData", resData.access_token);
-        if (resData.access_token) {
-          // const reqallData = { token: resData.access_token, amount: totalPayment * 100, redirectUri: `http://app.dubaibc.ae/payment-processing/${request_id}`, cancelUri: `http://app.dubaibc.ae/payment-processing/${request_id}` }
-          var encrypted_access_token = CryptoJS.AES.encrypt(resData.access_token, '').toString();;
-          localStorage.setItem('access_token', encrypted_access_token.toString());
-          const reqallData = { token: resData.access_token, amount: this.orderTotal * 100, redirectUri: `${UrlSetting.uriApp}checkout`, cancelUri: `${UrlSetting.uriApp}checkout` }
-          // console.log(reqallData, "reqallData")
-
-          this.orderService.postAll('create-order', reqallData).subscribe((res) => {
-            if (res.statusCode === 201) {
-              const orderData = JSON.parse(res.body);
-              const ordersref = (orderData._embedded.payment[0]) ? orderData._embedded.payment[0].orderReference : ''
-              var encrypted_ordersref = CryptoJS.AES.encrypt(ordersref, '').toString();;
-              localStorage.setItem('ordersref', encrypted_ordersref.toString());
-
-              if (orderData._links.payment.href) {
-                window.location.assign(orderData._links.payment.href + '&slim=true');
-                // this.spinner.hide()
-              } else {
-                // console.log(createOrder, 'eklllllll');
-                const dialogDataerror = new ErrorDialogModel("Error", "Payment not processing");
-                let dialogReff = this.dialog.open(ErrorDialogComponent, {
-                  maxWidth: "700px",
-                  panelClass: 'logout-message',
-                  data: dialogDataerror
-                });
-                dialogReff.afterClosed()
-                  .subscribe(result => {
-                    this.router.navigate(['/checkout']);
-                  });
-
-                localStorage.removeItem('ordersref');
-                localStorage.removeItem('access_token');
-              }
-            }
-          });
-        }
+    this.angForm.controls.paymentMethod.setValue(1)
+    if (this.restaurantCloseDelivery === false) {
+      this.restaurantCloseDeliveryMsg = true
+      this.submitted = false;
+      // setTimeout(() => { this.angForm.controls.paymentMethod.setValue('');this.cardPaymentStatus = Number('') }, 1500)
+    } else {
+      if (this.deliveryArea == true) {
+        this.deliveryAreaMsg = true
+        this.submitted = false;
+        // setTimeout(() => { this.angForm.controls.paymentMethod.setValue('');this.cardPaymentStatus = Number('') }, 1500)
       } else {
-        const dialogDataerror = new ErrorDialogModel("Error", "Payment not processing");
-        let dialogReff = this.dialog.open(ErrorDialogComponent, {
-          maxWidth: "700px",
-          panelClass: 'logout-message',
-          data: dialogDataerror
+        this.deliveryAreaMsg = false
+        this.submitted = true;
+        this.disabledBtn = true
+        this.spinner.show();
+        const obj = { realm: "ni" }
+        this.orderService.postAll('access-token', obj).subscribe((res) => {
+          if (res.statusCode === 200) {
+            // console.log(res, "res")
+
+            setTimeout(() => { this.spinner.hide(); }, 3000)
+            const resData = JSON.parse(res.body);
+            // console.log("resData", resData.access_token);
+            if (resData.access_token) {
+              // const reqallData = { token: resData.access_token, amount: totalPayment * 100, redirectUri: `http://app.dubaibc.ae/payment-processing/${request_id}`, cancelUri: `http://app.dubaibc.ae/payment-processing/${request_id}` }
+              var encrypted_access_token = CryptoJS.AES.encrypt(resData.access_token, '').toString();;
+              localStorage.setItem('access_token', encrypted_access_token.toString());
+              const reqallData = { token: resData.access_token, amount: this.orderTotal * 100, redirectUri: `${UrlSetting.uriApp}checkout`, cancelUri: `${UrlSetting.uriApp}checkout` }
+              // console.log(reqallData, "reqallData")
+
+              this.orderService.postAll('create-order', reqallData).subscribe((res) => {
+                if (res.statusCode === 201) {
+                  const orderData = JSON.parse(res.body);
+                  const ordersref = (orderData._embedded.payment[0]) ? orderData._embedded.payment[0].orderReference : ''
+                  var encrypted_ordersref = CryptoJS.AES.encrypt(ordersref, '').toString();;
+                  localStorage.setItem('ordersref', encrypted_ordersref.toString());
+
+                  if (orderData._links.payment.href) {
+                    window.location.assign(orderData._links.payment.href + '&slim=true');
+                    // this.spinner.hide()
+                  } else {
+                    // console.log(createOrder, 'eklllllll');
+                    const dialogDataerror = new ErrorDialogModel("Error", "Payment not processing");
+                    let dialogReff = this.dialog.open(ErrorDialogComponent, {
+                      maxWidth: "700px",
+                      panelClass: 'logout-message',
+                      data: dialogDataerror
+                    });
+                    dialogReff.afterClosed()
+                      .subscribe(result => {
+                        this.router.navigate(['/checkout']);
+                      });
+
+                    localStorage.removeItem('ordersref');
+                    localStorage.removeItem('access_token');
+                  }
+                }
+              });
+            }
+          } else {
+            const dialogDataerror = new ErrorDialogModel("Error", "Payment not processing");
+            let dialogReff = this.dialog.open(ErrorDialogComponent, {
+              maxWidth: "700px",
+              panelClass: 'logout-message',
+              data: dialogDataerror
+            });
+            dialogReff.afterClosed()
+              .subscribe(result => {
+                this.router.navigate(['/checkout']);
+              });
+            localStorage.removeItem('ordersref');
+            localStorage.removeItem('access_token');
+          }
         });
-        dialogReff.afterClosed()
-          .subscribe(result => {
-            this.router.navigate(['/checkout']);
-          });
-        localStorage.removeItem('ordersref');
-        localStorage.removeItem('access_token');
       }
-    });
+    }
   }
 
   paymentSuccesss() {

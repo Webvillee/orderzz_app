@@ -73,7 +73,7 @@ export class UpdateProfileComponent implements OnInit {
 
     this.angForm = this.fb.group({
       userName: ['', Validators.required, Validators.minLength(3)],
-      email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
+      email: [null, [Validators.required, this.emailValidator]],
       mobileno: ['', Validators.required, Validators.minLength(10)],
         file: ['', Validators.required],
     });
@@ -81,7 +81,14 @@ export class UpdateProfileComponent implements OnInit {
 
     this.get_all_rest_data();
   }
-
+  emailValidator(control) {
+    if (control.value) {
+      const matches = control.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/);
+      return matches ? null : { 'invalidEmail': true };
+    } else {
+      return null;
+    }
+  }
   get f() { return this.angForm.controls; }
 
   ngAfterContentChecked() {
@@ -180,12 +187,11 @@ export class UpdateProfileComponent implements OnInit {
     var mobileno = this.angForm.controls.mobileno.value;
     const obj = { userId: this.userId, userName: userName, userEmail: userEmail, phoneNo: mobileno, userImageUrl: this.user_image }
     // var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    var mailformat = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+    // var mailformat = "^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$"
     // // stop here if form is invalid
-
     this.submitted = true;
 
-    if ((mobileno || '').trim().length != 0 && mobileno.length > 9 && (userName || '').trim().length != 0 && userName.length >= 2 && userEmail.match(mailformat)) {
+    if ((mobileno || '').trim().length != 0 && mobileno.length > 9 && (userName || '').trim().length != 0 && userName.length >= 2 && this.angForm.get('email').valid) {
       // // console.log(obj, '787678');
       this.isLoading = true
       this.orderService.postAll('update_profile', obj).subscribe((res) => {

@@ -6,6 +6,7 @@ import { OrderService } from '../order.service';
 import { UrlSetting } from '../../urlSetting'
 import * as CryptoJS from 'crypto-js';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-pickup-location',
@@ -41,7 +42,7 @@ export class PickupLocationComponent implements OnInit {
   pickupData: any = [];
   isSubmit = false
   pickupAddress
-  constructor(private fb: FormBuilder, public dialog: MatDialog, private route: ActivatedRoute, private router: Router, private orderService: OrderService) {
+  constructor(private fb: FormBuilder, public dialog: MatDialog, private route: ActivatedRoute, private router: Router, private orderService: OrderService,private spinner: NgxSpinnerService) {
 
     if (localStorage.getItem('rest_id') == null) {
       this.router.navigate(['/not-found'])
@@ -67,8 +68,7 @@ export class PickupLocationComponent implements OnInit {
     }
 
     if (localStorage.getItem('pickupAddress')) {
-      this.pickupAddress = CryptoJS.AES.decrypt(localStorage.getItem('pickupAddress'), '').toString(CryptoJS.enc.Utf8);
-      // console.log(this.pickupAddress,'this.pickupAddress pickupAddress')
+      this.pickupAddress = Number(CryptoJS.AES.decrypt(localStorage.getItem('pickupAddress'), '').toString(CryptoJS.enc.Utf8));
     }
 
     this.angForm = this.fb.group({
@@ -96,11 +96,13 @@ export class PickupLocationComponent implements OnInit {
 
   get_all_rest_data() {
     this.isLoading = true
+    this.spinner.show();
     const obj = {
       restId: CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     };
     this.orderService.get_restaurant_data(obj).subscribe((res) => {
       if (res.status == 200) {
+        this.spinner.hide();
         this.isLoading = false
         this.themeView = res.data.theme_view
         if (this.themeView == "1") {       //1=listview in  and 2= gridmeans
@@ -121,6 +123,7 @@ export class PickupLocationComponent implements OnInit {
 
       } else {
         this.isLoading = false
+        this.spinner.hide();
         this.router.navigate(['/not-found'])
       }
     });
@@ -132,7 +135,6 @@ export class PickupLocationComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
     // stop here if form is invalid
     if (this.angForm.invalid) {
       return;
@@ -143,6 +145,7 @@ export class PickupLocationComponent implements OnInit {
       let address_obj = this.pickupData[this.angForm.value.pickupAddress]
       let pickupAddressencrypt = CryptoJS.AES.encrypt(JSON.stringify(address_obj), '');
       localStorage.setItem('addressPickup', pickupAddressencrypt.toString());
+      localStorage.removeItem('customer_address')
       this.router.navigate(['/checkout'])
     }
   }

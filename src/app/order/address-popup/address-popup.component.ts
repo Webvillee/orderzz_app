@@ -121,6 +121,7 @@ export class AddressPopupComponent implements OnInit {
     if ((this.address || '').trim().length != 0) {
       var encrypted_order_type = CryptoJS.AES.encrypt(this.address, '');
       localStorage.setItem('customer_address', encrypted_order_type.toString());
+      localStorage.removeItem('addressPickup')
       this.dialogRef.close();
       var latitude = CryptoJS.AES.encrypt(String(this.lat), '');
       localStorage.setItem('lat', latitude.toString());

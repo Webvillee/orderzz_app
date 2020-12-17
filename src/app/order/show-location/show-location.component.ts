@@ -84,9 +84,9 @@ export class ShowLocationComponent implements OnInit {
         this.address = results[0].formatted_address
         var address = CryptoJS.AES.encrypt(this.address, '');
         localStorage.setItem('customer_address', address.toString());
+        localStorage.removeItem('addressPickup')
       });
 
     })
   }
-
 }
