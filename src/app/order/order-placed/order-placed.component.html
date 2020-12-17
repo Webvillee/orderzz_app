@@ -59,13 +59,13 @@
                 <div class="order_placed_content collapse" id="app_order_placed_collapse">
                     <!-- <p class="arrive_time" *ngIf="this.orderHistory.order_status>3 && this.orderHistory.order_status<8">Arrives in {{this.orderHistory.order_delevery_time}} minutes</p> -->
                     <!-- <p class="arrive_time" *ngIf="this.orderHistory.order_status===8">Arrives in {{this.orderHistory.order_completed_time}} minutes</p> -->
-                    <p *ngIf='getorderDatetime(this.orderHistory.order_accepted_date, this.orderHistory.order_completed_time)>0'>
+                    <p *ngIf='getorderDatetime(this.orderHistory.order_accepted_date, this.orderHistory.order_completed_time)>0 && this.orderHistory.order_status!==7 && this.orderHistory.order_status!==6 &&this.orderHistory.order_status!==8'>
                         <countdown
                             [config]="{leftTime: getorderDatetime(this.orderHistory.order_accepted_date, this.orderHistory.order_completed_time) }">
                         </countdown>
                     </p>
                     <p
-                        *ngIf='getorderDatetime(this.orderHistory.order_accepted_date, this.orderHistory.order_completed_time)<0 && this.orderHistory.order_status>2  && this.orderHistory.order_status<7'>
+                        *ngIf='getorderDatetime(this.orderHistory.order_accepted_date, this.orderHistory.order_completed_time)<0 && this.orderHistory.order_status>2  && this.orderHistory.order_status<7 && this.orderHistory.order_status!==7 && this.orderHistory.order_status!==6 &&this.orderHistory.order_status!==8'>
                         Coming soon
                     </p>
 

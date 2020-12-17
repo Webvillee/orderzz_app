@@ -13,14 +13,15 @@
         </div>
         <div class="app_verification_caption app_checkout_content">
             <h6 style="color: red">{{ display }}</h6>
-            <label class="app_content">Deliver to</label>
+            <label class="app_content">{{(orderType===1)?'Deliver to':'Pickup from'}}</label>
             <div class="app_checkout_input">
                 <img src="assets/img/position_pin.svg" alt="">
-                <input type="text" class="app_checkout_input_pad app_check_input_loc" value="{{customer_address}}">
-                <a [routerLink]="['/confirm-address']" class="app_checkout_input_link">Change</a>
+                <input type="text" class="app_checkout_input_pad app_check_input_loc" value="{{(orderType===1)?customer_address:this.pickupAddress}}">
+                <a *ngIf="orderType===1" [routerLink]="['/confirm-address']" class="app_checkout_input_link">Change</a>
+                <a *ngIf="orderType===2" [routerLink]="['/pickup-location']" class="app_checkout_input_link">Change</a>
             </div>
-            <label class="app_content">Deliver in</label>
-            <div class="app_checkout_input app_checkout_input_deliver">
+            <label class="app_content" *ngIf="orderType===1">Deliver in</label>
+            <div *ngIf="orderType===1" class="app_checkout_input app_checkout_input_deliver">
                 <img src="assets/img/Asset 3.svg" alt="">
                 <input *ngIf="!deliveryTime" type="text" class="app_checkout_input_pad" value="30 - 45 minutes">
                 <input *ngIf="deliveryTime" type="text" class="app_checkout_input_pad" value="{{deliveryTime +' - '+ deliveryTimeAdd}} minutes">
@@ -50,8 +51,8 @@
                             <div class="app_choose_payment_option">
                                 <p class="app_checkout_text_right">Pay by card<label
                                         class="container_radio">
-                                        <input type="radio" formControlName="paymentMethod" [value]="1"
-                                            name="paymentMethod" (click)="paymentProcess()" [(ngModel)]="cardPaymentStatus">
+                                        <input type="radio" [(ngModel)]="cardPaymentStatus" formControlName="paymentMethod" [value]="1"
+                                            name="paymentMethod" (click)="paymentProcess()" >
                                         <span class="checkmark"></span>
                                     </label></p>
                                 <div *ngIf="is_submit==false" class="invalid-feedback">
@@ -66,14 +67,14 @@
                         <div class="col-3">
                             <div class="app_choose_payment_option">
                                 <img src="assets/img/coins.svg" alt="">
-                                <p class="app_checkout_text_left">Cash </p>
+                                <p class="app_checkout_text_left">Cash</p>
                             </div>
                         </div>
                         <div class="col-9">
                             <div class="app_choose_payment_option">
                                 <p class="app_checkout_text_right">Pay when receive order<label class="container_radio">
-                                        <input type="radio" value="3" formControlName="paymentMethod"
-                                            name="paymentMethod" (click)="disabledEvent()">
+                                        <input type="radio"  [value]="3" formControlName="paymentMethod"
+                                            name="paymentMethod" (click)="disabledEvent()" >
                                         <span class="checkmark"></span>
                                     </label></p>
                             </div>
