@@ -47,6 +47,12 @@ input[type=checkbox] {
 .requireds .col-12 {
     padding: 0;
 }
+.app_food_popup .app_the_food_image img {
+    width: 100%;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    height: 160px;
+}
 .choose_options.ng-star-inserted{
     padding-left: 20px !important;
     padding-right: 20px !important;
@@ -307,7 +313,7 @@ i.fa.fa-minus {
 .app_the_food_image_heading_left_bottom h4 {
     font-size: 18px;
     color: #8a8787;
-        text-shadow: none;
+    text-shadow: none;
     font-weight: 600;
 }
 .app_the_food_image {
@@ -353,3 +359,14 @@ i.fa.fa-minus {
   box-shadow: inset 0 0 0 10px;
 }
 
+@media only screen and (max-width: 800px) and (min-width: 600px){
+    .app_food_popup .app_the_food_image img {
+        width: 100%;
+        margin-bottom: 25px;
+        border-radius: 40px;
+        height: 380px;
+    }
+    .app_the_food_image_button{
+        width: 97% !important;
+    }
+}
