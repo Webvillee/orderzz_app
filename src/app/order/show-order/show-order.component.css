@@ -227,7 +227,7 @@ input.app_checkout_input_pad.app_check_input_loc {
     margin-left: -5px;
 }
 .minutess{
-	width:100%;
+	width:100% !important;
 }
 .valuess{
 	width: 100%;
