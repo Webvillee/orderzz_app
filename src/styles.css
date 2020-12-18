@@ -49,10 +49,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     width: 100% !important;
     max-width: 100% !important;
 }
-.mat-dialog-container {
+
+.my-class .mat-dialog-container {
+  margin-top: 20% !important;
+}
+/* .mat-dialog-container {
     margin-top: 20% !important;
         border-radius: 42px !important;
-}
+} */
 .slick-track {
   position: relative;
   left: 0;
@@ -60,6 +64,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   display: flex !important;
   width: 100% !important;
   overflow-x: scroll;
+}
+}
+
+@media only screen and (max-width: 800px) and (min-width: 600px){
+  .my-class .mat-dialog-container {
+      margin-top: -13% !important;
+      min-height: 880px;
+  }
+  .app_close_review_popup{
+    right: 44%;
 }
 }
 .my-class .mat-dialog-container {

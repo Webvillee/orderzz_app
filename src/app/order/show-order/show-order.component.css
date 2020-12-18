@@ -238,6 +238,15 @@ input.app_checkout_input_pad.app_check_input_loc {
     margin-right: 5px !important;
 }
 }
+@media only screen and (max-width: 1024px) and (min-width: 801px){
+    .app_basket_btn_submit .app_full_btn.app_add_basket_btn {
+        position: fixed;
+        width: calc(100% - 33px) !important;
+        left: 14px !important;
+        bottom: 25px !important;
+    }
+    
+}
 .app_hot_food_restaurant_delivery_details a {
     pointer-events: none;
 }
@@ -324,7 +333,7 @@ input.app_checkout_input_pad.app_check_input_loc {
     overflow: hidden;
     text-overflow: ellipsis;
     min-height: auto;
-       width: calc(100% - 20px);
+    width: calc(100% - 20px);
     font-size: 16px;
     margin-top: 6px;
     padding-left: 7px;
