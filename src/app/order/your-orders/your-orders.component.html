@@ -9,6 +9,7 @@
         <div class="app_verification_image">
             <a [routerLink]="['/order']"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
             <h2 class="app_heading">Your Orders</h2>
+              <hr>
         </div>
         <div class="app_your_orders_content_text">
             <div class="row">
@@ -64,13 +65,13 @@
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="orderHistory.length===0">
+                    <div *ngIf="orderHistory.length===0" class="orderdata_found">
                         <h5>Order data not found</h5>
                     </div>
                 </div>
             </div>
         </div>
-        <hr>
+      
     </div>
 
 </div>
