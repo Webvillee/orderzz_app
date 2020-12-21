@@ -483,6 +483,7 @@ export class CheckoutComponent implements OnInit {
           localStorage.removeItem("OrderData")
           localStorage.removeItem('ordersref');
           localStorage.removeItem('access_token');
+          localStorage.removeItem("promocodeGet")
           this.transactionId = ''
           this.display = ''
           this.displaysuccess = "Succussfully";
