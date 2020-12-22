@@ -734,7 +734,8 @@ export class CheckoutComponent implements OnInit {
                   dialogReff.afterClosed()
                     .subscribe(result => {
                       console.log("**")
-                      setTimeout(function () { this.onSubmit(); console.log("***")}, 5000);
+
+                      setTimeout( () => { this.onSubmit(); console.log("***")}, 3000);
                     });
                 } else {
                   const dialogDataerror = new ErrorDialogModel("Error", "Unable to fetch payment. Please try again or contact your bank");
