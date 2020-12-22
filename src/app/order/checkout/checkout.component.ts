@@ -730,12 +730,10 @@ export class CheckoutComponent implements OnInit {
                     panelClass: 'logout-message',
                     data: dialogDatasuccess
                   });
-                  console.log("****")
                   dialogReff.afterClosed()
                     .subscribe(result => {
-                      console.log("**")
-
-                      setTimeout( () => { this.onSubmit(); console.log("***")}, 3000);
+                      this.onSubmit()
+                      // setTimeout( () => { this.onSubmit());
                     });
                 } else {
                   const dialogDataerror = new ErrorDialogModel("Error", "Unable to fetch payment. Please try again or contact your bank");
