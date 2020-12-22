@@ -9,6 +9,12 @@ span.app_basket_quantity {
     font-size: 18px !important;
 }
 .box-view .app_bestsellers_detail h5{
+    white-space: nowrap;
+    padding-right: 30px;
+    display: block;
+    overflow: auto;
+}
+.box-view .app_bestsellers_detail h5{
     min-height: 22px;
 }
 .col-6.address_order {
@@ -245,7 +251,12 @@ input.app_checkout_input_pad.app_check_input_loc {
         left: 14px !important;
         bottom: 25px !important;
     }
-    
+    .box-view .app_bestsellers_detail h5{
+        white-space: nowrap;
+        padding-right: 30px;
+        display: block;
+        overflow: auto;
+    } 
 }
 .app_hot_food_restaurant_delivery_details a {
     pointer-events: none;

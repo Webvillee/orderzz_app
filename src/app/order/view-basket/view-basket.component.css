@@ -331,6 +331,14 @@ a.app_full_btn.proceed-order {
         bottom: 0;
         position: absolute;
     }
+    h2.customise_title {
+        margin-top: 20px;
+    }
+    .app_your_basket_content_text_bottom {
+        padding-top: 12px;
+        margin-bottom: 0px;
+    }
+    
 }
 @media only screen and (max-width: 599px) and (min-width: 401px) {
     .slick-slide {
@@ -353,6 +361,13 @@ a.app_full_btn.proceed-order {
         transform: translate(0%, 37%) !important;
         bottom: 0;
         position: absolute;
+    }
+    h2.customise_title {
+        margin-top: 20px;
+    }
+    .app_your_basket_content_text_bottom {
+        padding-top: 12px;
+        margin-bottom: 0px;
     }
 }
 
@@ -385,6 +400,13 @@ a.app_full_btn.proceed-order {
         display: flex !important;
         width: 100% !important;
         overflow-x: scroll;
+    }
+    h2.customise_title {
+        margin-top: 20px;
+    }
+    .app_your_basket_content_text_bottom{
+        padding-top: 12px;
+        margin-bottom: 0px;
     }
 }
 .modal-opens {
