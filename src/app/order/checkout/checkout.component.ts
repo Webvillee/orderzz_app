@@ -12,6 +12,8 @@ import * as geolib from 'geolib';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmDialogModel, ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { ErrorDialogComponent, ErrorDialogModel } from '../../shared/dialogs/error-dialog/error-dialog.component';
+import { SuccessDialogComponent, SuccessDialogModel } from '../../shared/dialogs/success-dialog/success-dialog.component';
+
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
@@ -721,7 +723,19 @@ export class CheckoutComponent implements OnInit {
                 if (resResult._embedded.payment[0].state === "CAPTURED") {
                   // console.log("successfully hhhhhh");
                   this.cardPaymentStatus = 1
-                  this.onSubmit();
+
+                  const dialogDatasuccess = new SuccessDialogModel("Success", "Payment Succesfully");
+                  let dialogReff = this.dialog.open(SuccessDialogComponent, {
+                    maxWidth: "700px",
+                    panelClass: 'logout-message',
+                    data: dialogDatasuccess
+                  });
+                  console.log("****")
+                  dialogReff.afterClosed()
+                    .subscribe(result => {
+                      console.log("**")
+                      setTimeout(function () { this.onSubmit(); console.log("***")}, 5000);
+                    });
                 } else {
                   const dialogDataerror = new ErrorDialogModel("Error", "Unable to fetch payment. Please try again or contact your bank");
                   localStorage.removeItem('ordersref');

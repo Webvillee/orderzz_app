@@ -52,6 +52,7 @@ export class ViewBasketComponent implements OnInit {
   menuslider:any =null
   sliderId: any;
   recomendedItemPopup: any =[];
+  menuItemRecommened: any;
   constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog, private spinner: NgxSpinnerService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -95,6 +96,7 @@ export class ViewBasketComponent implements OnInit {
         this.restAddress = res.data.rest_full_address
         this.minimumOrderValue = 0
         this.tax_vat_percent= res.data.tax_vat_percent;
+        this.menuItemRecommened =(res.data.is_menu_item_recomadation ===1)?true:false
         this.zoneData = res.data.Zone_data
         // console.log(this.zoneData, "zoneData", this.orderType, Number(this.latitude), Number(this.longitude),typeof(this.orderType))
 
@@ -304,8 +306,8 @@ export class ViewBasketComponent implements OnInit {
     this.menuslider = item
     this.sliderId =sliderId
     this.recomendedItemPopup= this.recomendedItemArray.filter(e => e._id === this.sliderId)
-    console.log(this.sliderId,"$$$")
-    console.log("recomendedItemPopup" ,this.recomendedItemPopup);
+    // console.log(this.sliderId,"$$$")
+    // console.log("recomendedItemPopup" ,this.recomendedItemPopup);
   }
   menuSliderRemove(){
     this.menuslider = null
