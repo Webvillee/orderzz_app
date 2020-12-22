@@ -72,7 +72,7 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="recomendedItemArray.length !==0" class="add_slider">
+        <div *ngIf="recomendedItemArray.length !==0 && menuItemRecommened" class="add_slider">
             <label class="app_review_food_text__left_special">Menu Items Recommendation</label>
             <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
                 <div ngxSlickItem *ngFor="let slide of recomendedItemArray ;let i= index" class="slide">
