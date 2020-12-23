@@ -145,7 +145,7 @@ export class PickupLocationComponent implements OnInit {
       let address_obj = this.pickupData[this.angForm.value.pickupAddress]
       let pickupAddressencrypt = CryptoJS.AES.encrypt(JSON.stringify(address_obj), '');
       localStorage.setItem('addressPickup', pickupAddressencrypt.toString());
-      localStorage.removeItem('customer_address')
+      // localStorage.removeItem('customer_address')
       this.router.navigate(['/checkout'])
     }
   }
