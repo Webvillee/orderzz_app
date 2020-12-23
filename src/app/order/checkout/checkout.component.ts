@@ -380,6 +380,12 @@ export class CheckoutComponent implements OnInit {
     // this.socketService.orderPlace().subscribe((message) => {
     //     console.log(message)
     //   });
+    this.promocodeGet = (localStorage.getItem("promocodeGet")) ? CryptoJS.AES.decrypt(localStorage.getItem("promocodeGet"), '').toString(CryptoJS.enc.Utf8) : ''
+
+    if (this.promocodeGet) {
+      this.promocode = this.promocodeGet
+      this.applyCode()
+    }
     this.paymentSuccesss();
   }
 
@@ -619,15 +625,19 @@ export class CheckoutComponent implements OnInit {
   paymentProcess() {
     this.angForm.controls.paymentMethod.setValue(1)
     if (this.restaurantCloseDelivery === false) {
+      console.log("if")
       this.restaurantCloseDeliveryMsg = true
       this.submitted = false;
       // setTimeout(() => { this.angForm.controls.paymentMethod.setValue('');this.cardPaymentStatus = Number('') }, 1500)
     } else {
+      console.log("else")
       if (this.deliveryArea == true) {
         this.deliveryAreaMsg = true
         this.submitted = false;
+        console.log("else*")
         // setTimeout(() => { this.angForm.controls.paymentMethod.setValue('');this.cardPaymentStatus = Number('') }, 1500)
       } else {
+        console.log("else**")
         this.deliveryAreaMsg = false
         this.submitted = true;
         this.disabledBtn = true
