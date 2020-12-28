@@ -654,7 +654,7 @@ export class CheckoutComponent implements OnInit {
               // const reqallData = { token: resData.access_token, amount: totalPayment * 100, redirectUri: `http://app.dubaibc.ae/payment-processing/${request_id}`, cancelUri: `http://app.dubaibc.ae/payment-processing/${request_id}` }
               var encrypted_access_token = CryptoJS.AES.encrypt(resData.access_token, '').toString();;
               localStorage.setItem('access_token', encrypted_access_token.toString());
-              const reqallData = { token: resData.access_token, amount: this.orderTotal.toFixed(2) * 100, redirectUri: `${UrlSetting.uriApp}checkout`, cancelUri: `${UrlSetting.uriApp}checkout` }
+              const reqallData = { token: resData.access_token, amount: (this.orderTotal * 100).toFixed(0), redirectUri: `${UrlSetting.uriApp}checkout`, cancelUri: `${UrlSetting.uriApp}checkout` }
               // console.log(reqallData, "reqallData")
 
               this.orderService.postAll('create-order', reqallData).subscribe((res) => {
