@@ -36,7 +36,6 @@ import { BrowseOrderComponent } from './browse-order/browse-order.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { CountdownModule } from 'ngx-countdown';
-
        // @agm/core
 
 // const routes: Routes = [
