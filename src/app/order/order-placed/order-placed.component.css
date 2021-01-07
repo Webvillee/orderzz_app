@@ -27,6 +27,22 @@ li.StepProgress-item.current img {
     z-index: 9999;
     top: -10px;
 }
+.app_order_placed_banner {
+    position: relative;
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    border: 1px solid var(--primary-color);
+    border-radius: 100%;
+    background-color: #fff;
+    margin-top: 0px !important;
+    margin-bottom: 20px;
+}
+.app_checkout .app_heading{
+    line-height: 47px;
+    margin-top: 29px !important;
+    position: absolute !important;
+}
 .StepProgress-item.is-done::before {
     border-left: 2px solid #ffff;
     height: 100%;
@@ -52,6 +68,7 @@ li.StepProgress-item.order_place_sec.current::after {
     letter-spacing: 1px;
     margin-left: 15px !important;
     padding-left: 12px !important;
+    font-size: 30px !important;
 }
 .app_order_placed{
     position: relative;
@@ -111,6 +128,7 @@ img.app_delievery_boy_image{
         letter-spacing: 1px;
         margin-left: 15px !important;
         padding-left: 12px !important;
+        font-size: 30px !important;
     }
     .app_order_placed{
         position: relative;

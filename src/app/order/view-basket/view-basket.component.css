@@ -338,7 +338,12 @@ a.app_full_btn.proceed-order {
         padding-top: 12px;
         margin-bottom: 0px;
     }
-    
+    .app_checkout .app_heading{
+        font-size: 30px !important;
+        line-height: 47px;
+        position: absolute;
+        margin-top: 24px;
+    }
 }
 @media only screen and (max-width: 599px) and (min-width: 401px) {
     .slick-slide {
@@ -361,6 +366,12 @@ a.app_full_btn.proceed-order {
         transform: translate(0%, 37%) !important;
         bottom: 0;
         position: absolute;
+    }
+    .app_checkout .app_heading{
+        font-size: 30px !important;
+        line-height: 47px;
+        position: absolute;
+        margin-top: 24px;
     }
     h2.customise_title {
         margin-top: 20px;
