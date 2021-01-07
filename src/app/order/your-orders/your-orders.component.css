@@ -25,6 +25,12 @@
     height: 150px !important;
     object-fit: cover;
 }
+.app_checkout .app_heading {
+    font-size: 30px !important;
+    line-height: 47px;
+    margin-top: 20px !important;
+    position: absolute !important;
+}
 .app_heading{
     margin-left: 20px !important;
 }
