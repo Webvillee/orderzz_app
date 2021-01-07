@@ -180,12 +180,12 @@ App_verification
 	color:rgb(42 59 86);
 }
 .app_verification .app_verification_image a i{
-    font-size: 40px;
+    font-size: 45px;
 	padding:30px 0 60px;	
 }
 .app_checkout .app_heading,
 .app_verification_caption .app_heading{
-	font-size:40px;
+	font-size:36px;
     line-height: 47px;
 }
 .app_checkout .app_content,
@@ -2120,3 +2120,9 @@ ngx-slick-carousel.carousel.slick-initialized.slick-slider {
 .slick-track {
     overflow: visible;
 }
+/* .app_checkout .app_heading, .app_verification_caption .app_heading {
+    font-size: 36px;
+    line-height: 35px;
+    margin-top: 26px;
+    position: absolute;
+} */
