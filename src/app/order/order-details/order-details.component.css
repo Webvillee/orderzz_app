@@ -87,6 +87,11 @@ a.app_full_btn.order_againn {
     height: 130px !important;
     object-fit: cover;
 }
+.app_checkout .app_heading{
+    line-height: 47px;
+    margin-top: 21px !important;
+    position: absolute !important;
+}
 .app_order_details .app_order_details_heading_left_bottom h3 {
     font-size: 20px !important;
     color: #8a8787;

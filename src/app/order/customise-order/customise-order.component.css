@@ -244,7 +244,7 @@ i.fa.fa-minus{
 
 /* Style the checkmark/indicator */
 .container_checkbox .checkmark:after {
-top: 3px;
+  top: 3px;
     left: 9px;
     width: 8px;
     height: 14px;
@@ -321,7 +321,6 @@ i.fa.fa-minus {
     padding-left: 80px;
     padding-right: 80px;
 }
-
 .app_the_food_image_button {
     position: relative;
     width: 88%;
@@ -369,4 +368,10 @@ i.fa.fa-minus {
     .app_the_food_image_button{
         width: 97% !important;
     }
+}
+.app_food_popup .app_the_food_image img {
+    width: 100%;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    height: 225px;
 }
