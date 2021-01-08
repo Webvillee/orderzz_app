@@ -26,8 +26,8 @@
                     <div class="row app_row">
                         <div class="col-4">
                             <div class="app_your_basket_image">
-                                <span *ngIf="itemData.add_lable!=3"
-                                    class="image_title_sec">{{(itemData.add_lable===1)? 'New':  (itemData.add_lable===2)? 'Signature' : ''}}</span>
+                                <span *ngIf="itemData.add_lable!=3" class="image_title_sec">{{(itemData.add_lable===1)?
+                                    'New': (itemData.add_lable===2)? 'Signature' : ''}}</span>
                                 <img src="{{img_url}}{{itemData.item_image}}" alt="item Image" class="image_adjust">
                             </div>
                         </div>
@@ -39,11 +39,14 @@
                                 <h6>{{itemData.item_description}}</h6>
                             </div>
                             <div class="app_your_basket_text_right aed_spacing">
-                                <span *ngIf="itemData.sell_price===0" class="app_footer">{{itemData.price | number : '1.2-2'}} AED</span>
-                                <span *ngIf="itemData.sell_price!==0" class="app_footer">{{itemData.sell_price | number : '1.2-2'}}
+                                <span *ngIf="itemData.sell_price===0" class="app_footer">{{itemData.price | number :
+                                    '1.2-2'}} AED</span>
+                                <span *ngIf="itemData.sell_price!==0" class="app_footer">{{itemData.sell_price | number
+                                    : '1.2-2'}}
                                     AED</span>
                                 <span class="app_your_basket_text_right_del"
-                                    *ngIf="itemData.sell_price!==0"><del>{{itemData.price | number : '1.2-2'}} AED</del></span>
+                                    *ngIf="itemData.sell_price!==0"><del>{{itemData.price | number : '1.2-2'}}
+                                        AED</del></span>
                                 <!-- {{(itemData.priceNew)? itemData.priceNew: itemData.price}} AED -->
                                 <!-- <span class="app_your_basket_text_right_del">
                                         <del>{{itemData.price}} AED</del>
@@ -64,7 +67,8 @@
                             </div>
                             <div *ngIf="itemData.is_modifire_status===1" class="app_your_basket_text_right_bottom">
                                 <h2 class="customise_title"><a (click)="customiseOrder(itemData)"
-                                        class="linkColor">{{((customiseFun(itemData))===true? 'Edit Customise': 'Customise this')}}</a>
+                                        class="linkColor">{{((customiseFun(itemData))===true? 'Edit Customise':
+                                        'Customise this')}}</a>
                                 </h2>
                             </div>
                         </div>
@@ -77,17 +81,33 @@
             <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
                 <div ngxSlickItem *ngFor="let slide of recomendedItemArray ;let i= index" class="slide">
                     <img data-toggle="modal" data-target="#myModal{{slide._id}}" src="{{img_url}}{{slide.item_image}}"
-                        alt="" (click)="menuSliderAdd(i,slide._id)" class="cursorCss">
+                        alt="" class="cursorCss">
                     <div class="app_your_basket_heading_3_right">
-                        <h5 class="cursorCss" data-toggle="modal" data-target="#myModal{{slide._id}}"
-                            (click)="menuSliderAdd(i,slide._id)">{{slide.item_name}}</h5>
+                        <h5 class="cursorCss" data-toggle="modal" data-target="#myModal{{slide._id}}">
+                            {{slide.item_name}}</h5>
+                            <!-- <span class="content_des_byline" [ngClass]="(addDiv) ? 'addDiv' : '' " >{{slide.item_description}}</span>
+                            <span class="collapse content_des" id="more{{slide._id}}">{{slide.item_description}}</span>
+                        <a href="#more{{slide._id}}" data-toggle="collapse" class="readmore" (click)="menuSliderAdd(i,slide._id)">{{(addDiv && slide._id ===sliderId) ? 'Read Less' : 'Read More' }} <i class="fa fa-caret-down"></i></a> -->
+
+                        
+                        <div [ngClass]="{'show-more': showShortDesciption && slide._id ===sliderId}">
+                            <span class="readMore_button" >{{slide.item_description}} </span>
+                        </div>   
+                        <a class="readmore" (click)="alterDescriptionText(i,slide._id)" >
+                            {{ (showShortDesciption && slide._id ===sliderId) ? 'Read More': 'Read Less' }}
+                        </a>  
                     </div>
+                    <!-- MAIN -->
+                    
+
 
                     <div class="app_your_basket_text_right aed_spacing">
-                        <span *ngIf="slide.sell_price===0" class="app_footer">{{slide.price | number : '1.2-2'}} AED</span>
+                        <span *ngIf="slide.sell_price===0" class="app_footer">{{slide.price | number : '1.2-2'}}
+                            AED</span>
                         <span *ngIf="slide.sell_price!==0" class="app_footer">{{slide.sell_price | number : '1.2-2'}}
                             AED</span>
-                        <span class="app_your_basket_text_right_del" *ngIf="slide.sell_price!==0"><del>{{slide.price | number : '1.2-2'}}
+                        <span class="app_your_basket_text_right_del" *ngIf="slide.sell_price!==0"><del>{{slide.price |
+                                number : '1.2-2'}}
                                 AED</del></span>
                     </div>
                     <div class="app_add_baset_icon">
@@ -97,7 +117,7 @@
                 </div>
             </ngx-slick-carousel>
         </div>
-        <ng-container *ngFor="let slide of recomendedItemPopup">
+        <!-- <ng-container *ngFor="let slide of recomendedItemPopup">
             <div class="modal fade" id="myModal{{sliderId}}" role="dialog"
                 [ngClass]="(sliderId ==slide._id)?'slideradd':'sliderremove'">
                 <div class="modal-opens">
@@ -112,7 +132,7 @@
 
                 </div>
             </div>
-        </ng-container>
+        </ng-container> -->
         <div *ngIf="orderSubtotal>=minimumOrderValue" class="row special_instruct">
             <div class="col-12">
                 <form>

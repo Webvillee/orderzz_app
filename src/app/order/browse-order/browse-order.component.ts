@@ -454,6 +454,7 @@ export class BrowseOrderComponent implements OnInit {
         localStorage.removeItem('userName');
         localStorage.removeItem('signup_process');
         localStorage.removeItem('mobilenoGet');
+        localStorage.removeItem('mobilenoCodeGet');
         const dialogDatasuccess = new SuccessDialogModel("Success", "Succesfully Logout");
         let dialogReff = this.dialog.open(SuccessDialogComponent, {
           maxWidth: "700px",

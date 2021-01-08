@@ -9,7 +9,7 @@ import { UrlSetting } from '../../urlSetting'
 import * as CryptoJS from 'crypto-js'
 import { NgxSpinnerService } from "ngx-spinner";
 import * as geolib from 'geolib';
-
+import * as $ from 'jquery'
 @Component({
   selector: 'app-view-basket',
   templateUrl: './view-basket.component.html',
@@ -53,6 +53,7 @@ export class ViewBasketComponent implements OnInit {
   sliderId: any;
   recomendedItemPopup: any =[];
   menuItemRecommened: any;
+  addDiv: boolean =false;
   constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog, private spinner: NgxSpinnerService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -303,6 +304,7 @@ export class ViewBasketComponent implements OnInit {
   ngOnInit(): void {
   }
   menuSliderAdd(item,sliderId){
+    this.addDiv = !this.addDiv
     this.menuslider = item
     this.sliderId =sliderId
     this.recomendedItemPopup= this.recomendedItemArray.filter(e => e._id === this.sliderId)
@@ -313,4 +315,13 @@ export class ViewBasketComponent implements OnInit {
     this.menuslider = null
     this.sliderId =null
   }
+
+ showShortDesciption = false
+
+ alterDescriptionText(item,sliderId) {
+  this.sliderId =sliderId
+  this.menuslider = item
+    this.showShortDesciption = !this.showShortDesciption
+ }
 }
+

@@ -6,11 +6,52 @@ input[type="submit"] {
     margin: 40px 0;
     letter-spacing: 1px;
 }
+
+
+.phone_number_code input[type="text"] {
+    background: transparent;
+    border: none;
+    margin-bottom: 0;
+    padding-left: 7px;
+    font-size: 18px;
+    color: #9e9a9a;
+}
+
+span.input-group-text.phone_number_code {
+    height: 60px;
+    width: 68px;
+}
+.phone_number_code input[type="text"]:focus{
+    outline: none;
+}
+span.input-group-text.phone_number_code {
+    height: 60px;
+    width: 80px;
+    min-height: 60px;
+    border-top-left-radius: 30px;
+    border: none;
+    font-size: 18px;
+    border-bottom-left-radius: 30px;
+    background-color: rgb(246 244 244);
+    border-right: 1px solid #ddd;
+    font-weight: 6;
+    transform: translate(43px, 60px);
+    padding-left: 14px;
+}
+.app_verification_caption .app_icon_input_pad {
+    padding-left: 135px;
+}
 p.phone_icon {
     position: absolute;
-    transform: translate(40px, -52px);
-    /* top: 8px;
-    left: 44px; */
-    font-size: 34px;
+    transform: translate(24px, 68px);
+    font-size: 30px;
     color: rgb(209 213 218);
+}
+.app_verification_caption p.app_content {
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+.invalid-feedback {
+    display: block !important;
 }
