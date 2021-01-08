@@ -71,5 +71,9 @@ export class WelcomeComponent implements OnInit {
   ngOnInit(): void {
 
   }
-
+  nextRoute(){
+    this.router.navigateByUrl('/web_url', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/location']);
+    }); 
+  }
 }
