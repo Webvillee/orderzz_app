@@ -37,6 +37,7 @@ export class SigninComponent implements OnInit {
   submitted = false;
   isLoading;
   affiliateId
+  mobilenoCode: any =971;
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService) {
 
     const slugId = this.route.snapshot.params.id
@@ -86,7 +87,8 @@ export class SigninComponent implements OnInit {
     }
 
     this.angForm = this.fb.group({
-      mobileno: ['', Validators.required, Validators.minLength(10)],
+      mobileno: ['', Validators.required, Validators.minLength(8)],
+      mobilenoCode: ['', Validators.required, Validators.minLength(3)]
     })
 
     this.get_all_rest_data();
@@ -126,16 +128,15 @@ export class SigninComponent implements OnInit {
 
 
   onSubmit() {
-    // // console.log( this.angForm.controls.mobileno.value, 'ioiioiopioiopiop');
-    var mobileno = this.angForm.controls.mobileno.value;
+    // // console.log( this.angForm.controls.mobileno.value, 'ioiioiopioiopiop');  
+    this.submitted = true;
+    var mobileno =this.angForm.controls.mobilenoCode.value + this.angForm.controls.mobileno.value;
     const restId= CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
     const obj = { phoneNo: mobileno ,restId: restId }
-
     // // stop here if form is invalid
-
-    this.submitted = true;
+    
     if (this.submitted === true && (mobileno || '').trim().length != 0 && mobileno.length > 9) {
-      // // console.log(this.angForm.controls.mobileno, '787678', mobileno.length);
+      console.log(this.angForm.controls.mobileno, '787678', mobileno.length);
       if(this.affiliateId){
         this.orderService.postAll('affilate_sign_in', obj).subscribe((res) => {
           if (res.status === 200) {

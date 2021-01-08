@@ -38,6 +38,7 @@ export class PhoneVerificationComponent implements OnInit {
   isLoading;
   signupProcess: any;
   mobilenoGet: any;
+  mobilenoCodeGet: any = 971;
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -49,16 +50,20 @@ export class PhoneVerificationComponent implements OnInit {
     } else {
       this.customer_address = CryptoJS.AES.decrypt(localStorage.getItem('customer_address'), '').toString(CryptoJS.enc.Utf8);
     }
-    
+
     if (localStorage.getItem('signup_process')) {
       this.signupProcess = CryptoJS.AES.decrypt(localStorage.getItem("signup_process"), '').toString(CryptoJS.enc.Utf8)
     }
     if (localStorage.getItem('mobilenoGet')) {
       this.mobilenoGet = CryptoJS.AES.decrypt(localStorage.getItem("mobilenoGet"), '').toString(CryptoJS.enc.Utf8)
     }
-    
+    if (localStorage.getItem('mobilenoCodeGet')) {
+      this.mobilenoCodeGet = CryptoJS.AES.decrypt(localStorage.getItem("mobilenoCodeGet"), '').toString(CryptoJS.enc.Utf8)
+    }
+
     this.angForm = this.fb.group({
-      mobileno: ['', Validators.required, Validators.minLength(10)],
+      mobileno: ['', Validators.required, Validators.minLength(8)],
+      mobilenoCode: ['', Validators.required, Validators.minLength(3)]
     })
 
 
@@ -104,14 +109,15 @@ export class PhoneVerificationComponent implements OnInit {
 
   onSubmit() {
     // // console.log( this.angForm.controls.mobileno.value, 'ioiioiopioiopiop');
-    const restId= CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
+    const restId = CryptoJS.AES.decrypt(localStorage.getItem('rest_id'), '').toString(CryptoJS.enc.Utf8)
+    var mobilenoCode = this.angForm.controls.mobilenoCode.value
     var mobileno = this.angForm.controls.mobileno.value;
-    const obj = { phoneNo: mobileno, restId: restId}
+    const obj = { phoneNo: mobilenoCode + mobileno, restId: restId }
 
     // // stop here if form is invalid
 
     this.submitted = true;
-    if (this.submitted === true && (mobileno || '').trim().length != 0 && mobileno.length > 9) {
+    if (this.submitted === true && (mobileno || '').trim().length != 0 && mobileno.length > 7 && (mobilenoCode || '').trim().length != 0 && mobilenoCode.length > 2) {
       // // console.log(this.angForm.controls.mobileno, '787678', mobileno.length);
 
       this.orderService.postAll('phone_verify', obj).subscribe((res) => {
@@ -119,6 +125,9 @@ export class PhoneVerificationComponent implements OnInit {
           // all user details
           var mobilenoGet = CryptoJS.AES.encrypt(mobileno, '').toString();
           localStorage.setItem('mobilenoGet', mobilenoGet);
+
+          var mobilenoCodeGet = CryptoJS.AES.encrypt(mobilenoCode, '').toString();
+          localStorage.setItem('mobilenoCodeGet', mobilenoCodeGet);
 
           let userOrder = CryptoJS.AES.encrypt(JSON.stringify(res.data), '').toString();
           localStorage.setItem('UserData', userOrder);
@@ -130,16 +139,16 @@ export class PhoneVerificationComponent implements OnInit {
           this.display = res.msg;
         }
       });
-    }else{
+    } else {
       // // console.log(this.angForm.controls.mobileno, '00000000', mobileno.length);
       if (this.angForm.invalid) {
         return false;
-    }
+      }
     }
 
-   
+
   }
-  signupClear(){
+  signupClear() {
     localStorage.removeItem('signup_process');
   }
   onKeypressEvent(event: any): boolean {

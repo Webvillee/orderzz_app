@@ -18,7 +18,7 @@
                     <h6 style="color: red">{{ display }}</h6>
                     <h6 style="color: green">{{ displaysuccess }}</h6>
                    
-                    <input type="text" (keypress)="onKeypressEvent($event)" minlength="10" maxlength="12"
+                    <!-- <input type="text" (keypress)="onKeypressEvent($event)" minlength="10" maxlength="12"
                         placeholder="Enter Phone Number" formControlName="mobileno" class="app_icon_input_pad"
                         placeholder="Phone number"
                         [ngClass]="{ 'is-invalid': submitted && f.mobileno.errors }" [(ngModel)]="mobilenoGet"/>
@@ -26,6 +26,28 @@
                     <div *ngIf="submitted && f.mobileno.errors" class="invalid-feedback">
                         <div *ngIf="f.mobileno.errors.required">*Phone Number is required</div>
                         <div *ngIf="f.mobileno.errors.minlength">*Phone Number minimum length 10 is required</div>
+                    </div> -->
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text phone_number_code">
+                                <input type="text" (keypress)="onKeypressEvent($event)" minlength="3" maxlength="3"
+                                    placeholder="Code" formControlName="mobilenoCode" [(ngModel)]="mobilenoCodeGet"
+                                    class="app_icon_input_pad" />
+                            </span>
+                        </div>
+                        <input type="text" (keypress)="onKeypressEvent($event)" minlength="8" maxlength="8"
+                        placeholder="Enter Phone Number" formControlName="mobileno" class="app_icon_input_pad"
+                        placeholder="Phone number"
+                        [ngClass]="{ 'is-invalid': submitted && f.mobileno.errors }" [(ngModel)]="mobilenoGet"/>
+                        <p class="phone_icon"><i class="fa fa-phone"></i></p>
+                    </div>
+                    <div *ngIf="submitted && f.mobilenoCode.errors" class="invalid-feedback">
+                        <div *ngIf="f.mobilenoCode.errors.required">*Code is required</div>
+                        <div *ngIf="f.mobilenoCode.errors.minlength">*Code Min length 3 is required</div>
+                    </div>
+                    <div *ngIf="submitted && f.mobileno.errors" class="invalid-feedback">
+                        <div *ngIf="f.mobileno.errors.required">*Phone Number is required</div>
+                        <div *ngIf="f.mobileno.errors.minlength">*Phone Number minimum length 8 is required</div>
                     </div>
                 </div>
                 <input type="submit" class="app_full_btn"
