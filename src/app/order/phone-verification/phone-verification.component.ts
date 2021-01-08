@@ -38,7 +38,7 @@ export class PhoneVerificationComponent implements OnInit {
   isLoading;
   signupProcess: any;
   mobilenoGet: any;
-  mobilenoCodeGet: any = 971;
+  mobilenoCodeGet: any = '971';
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -115,7 +115,6 @@ export class PhoneVerificationComponent implements OnInit {
     const obj = { phoneNo: mobilenoCode + mobileno, restId: restId }
 
     // // stop here if form is invalid
-
     this.submitted = true;
     if (this.submitted === true && (mobileno || '').trim().length != 0 && mobileno.length > 7 && (mobilenoCode || '').trim().length != 0 && mobilenoCode.length > 2) {
       // // console.log(this.angForm.controls.mobileno, '787678', mobileno.length);
