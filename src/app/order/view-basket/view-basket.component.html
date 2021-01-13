@@ -107,9 +107,6 @@
                         </div> 
                         <a class="readmore" (click)="menuSliderAdd(i,slide._id)"  *ngIf="(slide.item_description)?slide.item_description.trim().length >56:false">Read More</a> 
                     </div>
-                    
-
-
                     <div class="app_your_basket_text_right aed_spacing">
                         <span *ngIf="slide.sell_price===0" class="app_footer">{{slide.price | number : '1.2-2'}}
                             AED</span>
@@ -126,7 +123,7 @@
                 </div>
             </ngx-slick-carousel>
         </div>
-        <ng-container *ngFor="let slide of recomendedItemPopup">
+        <!-- <ng-container *ngFor="let slide of recomendedItemPopup">
             <div class="modal fade" id="myModal{{sliderId}}" role="dialog"
                 [ngClass]="(sliderId ==slide._id)?'slideradd':'sliderremove'">
                 <div class="modal-opens">
@@ -141,7 +138,7 @@
 
                 </div>
             </div>
-        </ng-container>
+        </ng-container> -->
         <div *ngIf="orderSubtotal>=minimumOrderValue" class="row special_instruct">
             <div class="col-12">
                 <form>

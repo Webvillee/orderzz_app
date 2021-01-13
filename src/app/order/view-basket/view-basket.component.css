@@ -489,8 +489,42 @@ h6 {
 }
 
 
+
 .readmore{
     font-size: 16px;
+
+.content_des_byline{
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 13px;
+    transition: all 0.0s ease 0s !important;
+}
+.content_des.collapse.show,
+.content_des.collapsing {
+    transition: all 0.0s ease 0s !important;    
+}
+.content_des{
+    /* display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis; */
+    font-size: 13px;
+    /* display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-height: 46px;
+    line-height: 23px;
+    height: 55px;
+    white-space: nowrap;
+    font-size: 12px;
+    width: 170px; */
+}
+.readmore{
+    font-size: 13px;
     color: #007bff !important;
     cursor: pointer;
     margin-bottom: 5px;
@@ -499,6 +533,9 @@ h6 {
     outline: none;
 }
 
+.addDiv{
+    display: none;
+}
 .show-more  span.readMore_button {
     height: 100%;
 }
