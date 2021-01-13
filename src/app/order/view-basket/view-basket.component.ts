@@ -56,7 +56,6 @@ export class ViewBasketComponent implements OnInit {
   addDiv: boolean = false;
   reviewrId: any =false;
   reviewPopup: any =[];
-
   constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog, private spinner: NgxSpinnerService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -307,9 +306,7 @@ export class ViewBasketComponent implements OnInit {
   ngOnInit(): void {
 
   }
-
-  menuSliderAdd(item,sliderId){
-    this.addDiv = !this.addDiv
+  menuSliderAdd(item, sliderId) {
     this.menuslider = item
     this.sliderId = sliderId
     this.recomendedItemPopup = this.recomendedItemArray.filter(e => e._id === this.sliderId)
@@ -325,13 +322,10 @@ export class ViewBasketComponent implements OnInit {
   reviewFoodRemove(){
     this.reviewrId = null
   }
-
- showShortDesciption = false
-
- alterDescriptionText(item,sliderId) {
-  this.sliderId =sliderId
-  this.menuslider = item
-    this.showShortDesciption = !this.showShortDesciption
- }
 }
+
+
+
+
+
 
