@@ -36,24 +36,27 @@ export class ViewBasketComponent implements OnInit {
 
   orderTotal;
   savingCost;
-  taxvatpercent=0;
+  taxvatpercent = 0;
   special_instruction;
   isLoading;
   tax_vat_percent;
   orderSubtotal;
-  recomendedItemIdArray: any =[];
-  recomendedItemArray: any=[];
+  recomendedItemIdArray: any = [];
+  recomendedItemArray: any = [];
   slideConfig: { slidesToShow: number; slidesToScroll: number; };
-  shippingCost: any= 0;
-  zoneData: any =[];
+  shippingCost: any = 0;
+  zoneData: any = [];
   latitude: any;
   longitude: any;
   orderType: number;
-  menuslider:any =null
+  menuslider: any = null
   sliderId: any;
-  recomendedItemPopup: any =[];
+  recomendedItemPopup: any = [];
   menuItemRecommened: any;
-  addDiv: boolean =false;
+  addDiv: boolean = false;
+  reviewrId: any =false;
+  reviewPopup: any =[];
+
   constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog, private spinner: NgxSpinnerService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -65,11 +68,11 @@ export class ViewBasketComponent implements OnInit {
     } else {
       this.customer_address = CryptoJS.AES.decrypt(localStorage.getItem('customer_address'), '').toString(CryptoJS.enc.Utf8);
     }
-    this.special_instruction = (localStorage.getItem('order_instruction'))?CryptoJS.AES.decrypt(localStorage.getItem('order_instruction'), '').toString(CryptoJS.enc.Utf8):'';
-    this.latitude = (localStorage.getItem('lat'))?CryptoJS.AES.decrypt(localStorage.getItem('lat'), '').toString(CryptoJS.enc.Utf8):'';
-    this.longitude = (localStorage.getItem('lng'))?CryptoJS.AES.decrypt(localStorage.getItem('lng'), '').toString(CryptoJS.enc.Utf8):'';
-    this.orderType = (localStorage.getItem('order_type'))?CryptoJS.AES.decrypt(localStorage.getItem('order_type'), '').toString(CryptoJS.enc.Utf8):'';
-    
+    this.special_instruction = (localStorage.getItem('order_instruction')) ? CryptoJS.AES.decrypt(localStorage.getItem('order_instruction'), '').toString(CryptoJS.enc.Utf8) : '';
+    this.latitude = (localStorage.getItem('lat')) ? CryptoJS.AES.decrypt(localStorage.getItem('lat'), '').toString(CryptoJS.enc.Utf8) : '';
+    this.longitude = (localStorage.getItem('lng')) ? CryptoJS.AES.decrypt(localStorage.getItem('lng'), '').toString(CryptoJS.enc.Utf8) : '';
+    this.orderType = (localStorage.getItem('order_type')) ? CryptoJS.AES.decrypt(localStorage.getItem('order_type'), '').toString(CryptoJS.enc.Utf8) : '';
+
     this.get_all_rest_data();
     this.getAllorderData();
   }
@@ -96,15 +99,15 @@ export class ViewBasketComponent implements OnInit {
         this.restName = res.data.rest_name
         this.restAddress = res.data.rest_full_address
         this.minimumOrderValue = 0
-        this.tax_vat_percent= res.data.tax_vat_percent;
-        this.menuItemRecommened =(res.data.is_menu_item_recomadation ===1)?true:false
+        this.tax_vat_percent = res.data.tax_vat_percent;
+        this.menuItemRecommened = (res.data.is_menu_item_recomadation === 1) ? true : false
         this.zoneData = res.data.Zone_data
         // console.log(this.zoneData, "zoneData", this.orderType, Number(this.latitude), Number(this.longitude),typeof(this.orderType))
 
         if (this.orderType == 1) {
           this.zoneData.filter(e => {
             var zoneArea = (e.zone_cities) ? JSON.parse(e.zone_cities).map(e => ({ lat: e.lat, lng: e.lng })) : ''
-    
+
             if (e.draw_map_delevery_value === 2) {
               // isPointWithinRadius(point, centerPoint, radius)
               if (geolib.isPointWithinRadius(
@@ -120,19 +123,19 @@ export class ViewBasketComponent implements OnInit {
                 // console.log("outside the radius")
               }
             } else if (e.draw_map_delevery_value === 1) {
-                // isPointInPolygon(point, polygon)
-                if (geolib.isPointInPolygon(
-                  { lat: Number(this.latitude), lng: Number(this.longitude) },
-                  zoneArea
-                )) {
-                  this.shippingCost = e.delevery_fee
-                  this.minimumOrderValue = Number(e.minimum_order_value)
-                  // console.log("inside the polygon", this.minimumOrderValue)
-                  return
-                } else {
-                  // console.log("outside the polygon")
-                }
+              // isPointInPolygon(point, polygon)
+              if (geolib.isPointInPolygon(
+                { lat: Number(this.latitude), lng: Number(this.longitude) },
+                zoneArea
+              )) {
+                this.shippingCost = e.delevery_fee
+                this.minimumOrderValue = Number(e.minimum_order_value)
+                // console.log("inside the polygon", this.minimumOrderValue)
+                return
+              } else {
+                // console.log("outside the polygon")
               }
+            }
           });
         }
         this.getAllorderData();
@@ -163,12 +166,12 @@ export class ViewBasketComponent implements OnInit {
       const arr_total = this.itemArray
       // console.log(this.tax_vat_percent, 'oooooooo')
       this.itemArray.map((element, index) => {
-       this.recomendedItemIdArray.push(...element.recomended_items)
-        if(element.sell_price===0){
+        this.recomendedItemIdArray.push(...element.recomended_items)
+        if (element.sell_price === 0) {
           total = total + element.price
-        }else{
+        } else {
           total = total + element.sell_price;
-          savings = savings + element.price-element.sell_price
+          savings = savings + element.price - element.sell_price
         }
         if (element.is_modifire_status === 1) {
           const availmodifire = JSON.parse(element.available_modifire);
@@ -184,24 +187,24 @@ export class ViewBasketComponent implements OnInit {
           }
         }
       });
-      this.recomendedItemIdArray =[...new Set(this.recomendedItemIdArray.map(e =>e))]
-      if(this.recomendedItemIdArray.length !==0){
+      this.recomendedItemIdArray = [...new Set(this.recomendedItemIdArray.map(e => e))]
+      if (this.recomendedItemIdArray.length !== 0) {
         this.recomendedItem()
       }
       // console.log(this.recomendedItemIdArray,"this.recomendedItemIdArray")
       this.orderSubtotal = total;
       this.savingCost = savings;
 
-      if(this.tax_vat_percent){
+      if (this.tax_vat_percent) {
         let Amount = this.orderSubtotal * this.tax_vat_percent / 100
-        let totalamount = this.orderSubtotal + Amount+ Number(this.shippingCost);;
+        let totalamount = this.orderSubtotal + Amount + Number(this.shippingCost);;
         this.orderTotal = totalamount;
         this.taxvatpercent = Amount
-      }else{
-        this.orderTotal = total+ Number(this.shippingCost);;
+      } else {
+        this.orderTotal = total + Number(this.shippingCost);;
         this.taxvatpercent = 0
       }
-      
+
       const seen = new Set();
       const filteredArr = data.filter(el => {
         const duplicate = seen.has(el._id);
@@ -222,10 +225,10 @@ export class ViewBasketComponent implements OnInit {
           ...res.data.item
         ];
 
-        this.itemArray.forEach(e =>{
-          this.recomendedItemArray= this.recomendedItemArray.filter(r => e._id !== r._id)
+        this.itemArray.forEach(e => {
+          this.recomendedItemArray = this.recomendedItemArray.filter(r => e._id !== r._id)
         });
-        this.slideConfig = {"slidesToShow": 4, "slidesToScroll": 4};
+        this.slideConfig = { "slidesToShow": 4, "slidesToScroll": 4 };
       } else {
       }
     });
@@ -302,18 +305,25 @@ export class ViewBasketComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
+
   menuSliderAdd(item,sliderId){
     this.addDiv = !this.addDiv
     this.menuslider = item
-    this.sliderId =sliderId
-    this.recomendedItemPopup= this.recomendedItemArray.filter(e => e._id === this.sliderId)
-    // console.log(this.sliderId,"$$$")
-    // console.log("recomendedItemPopup" ,this.recomendedItemPopup);
+    this.sliderId = sliderId
+    this.recomendedItemPopup = this.recomendedItemArray.filter(e => e._id === this.sliderId)
   }
-  menuSliderRemove(){
+  menuSliderRemove() {
     this.menuslider = null
-    this.sliderId =null
+    this.sliderId = null
+  }
+  reviewFoodAdd(reviewrId){
+    this.reviewrId = reviewrId
+    this.reviewPopup = this.getItemData.filter(e => e._id === this.reviewrId)
+  }
+  reviewFoodRemove(){
+    this.reviewrId = null
   }
 
  showShortDesciption = false

@@ -356,7 +356,7 @@ a.app_full_btn.proceed-order {
     }
     .modal-content {
         border-radius: 0px;
-        width: 380px !important;
+        /* width: 345px !important; */
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
         border: none !important;
     }
@@ -381,6 +381,9 @@ a.app_full_btn.proceed-order {
         padding-top: 12px;
         margin-bottom: 0px;
     }
+    .review_display {
+        max-height: 50px !important;
+    }
 }
 
 @media only screen and (max-width: 1024px) and (min-width: 600px) {
@@ -393,7 +396,7 @@ a.app_full_btn.proceed-order {
     }
     .modal-content {
         border-radius: 0px;
-        width: 380px !important;
+        /* width: 380px !important; */
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
         border: none !important;
     }
@@ -429,7 +432,7 @@ a.app_full_btn.proceed-order {
 }
 .modal-content {
     border-radius: 0px;
-    width: 400px;
+    /* width: 400px; */
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     border: none;
     overflow: visible;
@@ -468,7 +471,7 @@ a.app_full_btn.proceed-order {
     margin: 0 auto;
     transform: translate(0%, 39%);
     bottom: 0;
-    position: absolute;
+    position: fixed;
 }
 .modal-opens button.close:focus{
     outline: none;
@@ -484,6 +487,11 @@ h6 {
 .aed_spacing span.app_footer {
     padding-right: 3px;
 }
+
+
+
+.readmore{
+    font-size: 16px;
 
 .content_des_byline{
     display: -webkit-box;
@@ -524,6 +532,7 @@ h6 {
 .readmore:focus{
     outline: none;
 }
+
 .addDiv{
     display: none;
 }
@@ -531,9 +540,31 @@ h6 {
     height: 100%;
 }
  span.readMore_button {
-    height: 21px;
+    height: 34px;
     font-size: 13px;
     overflow: hidden;
     position: relative;
     display: block;
+    cursor: pointer;
+}
+.review_display{
+    max-height: 56px;
+    overflow: hidden;
+    display: block;
+    cursor: pointer;
+}
+.add_slider .readmore {
+    font-size: 15px;
+    color: #007bff !important;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+span.readMore_button{
+    height: 38px;
+    font-size: 14px;
+    overflow: hidden;
+    position: relative;
+    display: block;
+    cursor: pointer;
+    margin-bottom: 9px;
 }

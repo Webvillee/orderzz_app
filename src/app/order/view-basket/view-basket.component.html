@@ -36,7 +36,8 @@
                                 <h5>{{itemData.item_name}}</h5>
                             </div>
                             <div class="app_your_basket_heading_6_right">
-                                <h6>{{itemData.item_description}}</h6>
+                                <h6 class="review_display">{{itemData.item_description}}</h6>
+                                <a class="readmore" (click)="reviewFoodAdd(itemData._id)"  *ngIf="(itemData.item_description)?itemData.item_description.trim().length >56:false">Read More</a>
                             </div>
                             <div class="app_your_basket_text_right aed_spacing">
                                 <span *ngIf="itemData.sell_price===0" class="app_footer">{{itemData.price | number :
@@ -75,6 +76,22 @@
                     </div>
                 </div>
             </div>
+            <ng-container *ngFor="let reviewData of reviewPopup">
+                <div class="modal fade" id="reviewModal{{reviewrId}}" role="dialog"
+                [ngClass]="(reviewrId ==reviewData._id)?'slideradd':'sliderremove'">
+                    <div class="modal-opens">
+                        <div class="modal-content">
+                            <div class="modal-body" >
+                                <button type="button" class="close" data-dismiss="modal"
+                                    (click)="reviewFoodRemove()">&times;</button>
+                                <h5>{{reviewData.item_name}}</h5>
+                                <p>{{reviewData.item_description}}.</p>
+                            </div>
+                        </div>
+            
+                    </div>
+                </div>
+            </ng-container>
         </div>
         <div *ngIf="recomendedItemArray.length !==0 && menuItemRecommened" class="add_slider">
             <label class="app_review_food_text__left_special">Menu Items Recommendation</label>
@@ -85,22 +102,11 @@
                     <div class="app_your_basket_heading_3_right">
                         <h5 class="cursorCss" data-toggle="modal" data-target="#myModal{{slide._id}}">
                             {{slide.item_name}}</h5>
-                            <!-- <span class="content_des_byline" [ngClass]="(addDiv) ? 'addDiv' : '' " >{{slide.item_description}}</span>
-                            <span class="collapse content_des" id="more{{slide._id}}">{{slide.item_description}}</span>
-                        <a href="#more{{slide._id}}" data-toggle="collapse" class="readmore" (click)="menuSliderAdd(i,slide._id)">{{(addDiv && slide._id ===sliderId) ? 'Read Less' : 'Read More' }} <i class="fa fa-caret-down"></i></a> -->
-
-                        
-                        <div [ngClass]="{'show-more': showShortDesciption && slide._id ===sliderId}">
-                            <span class="readMore_button" >{{slide.item_description}} </span>
-                        </div>   
-                        <a class="readmore" (click)="alterDescriptionText(i,slide._id)" >
-                            {{ (showShortDesciption && slide._id ===sliderId) ? 'Read More': 'Read Less' }}
-                        </a>  
+                        <div >
+                            <span class="readMore_button">{{slide.item_description}} </span>
+                        </div> 
+                        <a class="readmore" (click)="menuSliderAdd(i,slide._id)"  *ngIf="(slide.item_description)?slide.item_description.trim().length >56:false">Read More</a> 
                     </div>
-                    <!-- MAIN -->
-                    
-
-
                     <div class="app_your_basket_text_right aed_spacing">
                         <span *ngIf="slide.sell_price===0" class="app_footer">{{slide.price | number : '1.2-2'}}
                             AED</span>

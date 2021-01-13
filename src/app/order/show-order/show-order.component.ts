@@ -67,6 +67,8 @@ export class ShowOrderComponent implements OnInit {
   zoneData: any =[];
   latitude: any;
   longitude: any;
+  reviewrId: boolean =false;
+  reviewPopup: any=[];
   constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, public dialog: MatDialog, private spinner: NgxSpinnerService, private socketService: SocketioService) {
 
     if (localStorage.getItem('rest_id') == null) {
@@ -469,5 +471,13 @@ export class ShowOrderComponent implements OnInit {
   singUp(){
     let encrypted_signup = CryptoJS.AES.encrypt('signup_process', '');
     localStorage.setItem('signup_process', encrypted_signup.toString());
+  }
+
+  reviewFoodAdd(reviewrId){
+    this.reviewrId = reviewrId
+    this.reviewPopup = this.getItemData.filter(e => e._id === this.reviewrId)
+  }
+  reviewFoodRemove(){
+    this.reviewrId = null
   }
 }
