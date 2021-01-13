@@ -153,6 +153,7 @@ export class OtpVerificationComponent implements OnInit {
                 this.router.navigate(['/order']);
                 localStorage.removeItem('signup_process');
                 localStorage.removeItem('mobilenoGet');
+                localStorage.removeItem('mobilenoCodeGet');
               });
 
             setTimeout(function () { this.displaysuccess = '' }, 3000);

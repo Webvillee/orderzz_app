@@ -89,6 +89,7 @@ export class CheckoutComponent implements OnInit {
   transactionId: any;
   promocodeGet: any;
   disabledBtn: boolean = false;
+  showMsg : boolean = false;
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private spinner: NgxSpinnerService, private socketService: SocketioService, public dialog: MatDialog) {
 
     if (localStorage.getItem('rest_id') == null) {

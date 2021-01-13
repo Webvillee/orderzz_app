@@ -26,8 +26,8 @@
                     <div class="row app_row">
                         <div class="col-4">
                             <div class="app_your_basket_image">
-                                <span *ngIf="itemData.add_lable!=3"
-                                    class="image_title_sec">{{(itemData.add_lable===1)? 'New':  (itemData.add_lable===2)? 'Signature' : ''}}</span>
+                                <span *ngIf="itemData.add_lable!=3" class="image_title_sec">{{(itemData.add_lable===1)?
+                                    'New': (itemData.add_lable===2)? 'Signature' : ''}}</span>
                                 <img src="{{img_url}}{{itemData.item_image}}" alt="item Image" class="image_adjust">
                             </div>
                         </div>
@@ -36,14 +36,18 @@
                                 <h5>{{itemData.item_name}}</h5>
                             </div>
                             <div class="app_your_basket_heading_6_right">
-                                <h6>{{itemData.item_description}}</h6>
+                                <h6 class="review_display">{{itemData.item_description}}</h6>
+                                <a class="readmore" (click)="reviewFoodAdd(itemData._id)"  *ngIf="(itemData.item_description)?itemData.item_description.trim().length >56:false">Read More</a>
                             </div>
                             <div class="app_your_basket_text_right aed_spacing">
-                                <span *ngIf="itemData.sell_price===0" class="app_footer">{{itemData.price | number : '1.2-2'}} AED</span>
-                                <span *ngIf="itemData.sell_price!==0" class="app_footer">{{itemData.sell_price | number : '1.2-2'}}
+                                <span *ngIf="itemData.sell_price===0" class="app_footer">{{itemData.price | number :
+                                    '1.2-2'}} AED</span>
+                                <span *ngIf="itemData.sell_price!==0" class="app_footer">{{itemData.sell_price | number
+                                    : '1.2-2'}}
                                     AED</span>
                                 <span class="app_your_basket_text_right_del"
-                                    *ngIf="itemData.sell_price!==0"><del>{{itemData.price | number : '1.2-2'}} AED</del></span>
+                                    *ngIf="itemData.sell_price!==0"><del>{{itemData.price | number : '1.2-2'}}
+                                        AED</del></span>
                                 <!-- {{(itemData.priceNew)? itemData.priceNew: itemData.price}} AED -->
                                 <!-- <span class="app_your_basket_text_right_del">
                                         <del>{{itemData.price}} AED</del>
@@ -64,30 +68,55 @@
                             </div>
                             <div *ngIf="itemData.is_modifire_status===1" class="app_your_basket_text_right_bottom">
                                 <h2 class="customise_title"><a (click)="customiseOrder(itemData)"
-                                        class="linkColor">{{((customiseFun(itemData))===true? 'Edit Customise': 'Customise this')}}</a>
+                                        class="linkColor">{{((customiseFun(itemData))===true? 'Edit Customise':
+                                        'Customise this')}}</a>
                                 </h2>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <ng-container *ngFor="let reviewData of reviewPopup">
+                <div class="modal fade" id="reviewModal{{reviewrId}}" role="dialog"
+                [ngClass]="(reviewrId ==reviewData._id)?'slideradd':'sliderremove'">
+                    <div class="modal-opens">
+                        <div class="modal-content">
+                            <div class="modal-body" >
+                                <button type="button" class="close" data-dismiss="modal"
+                                    (click)="reviewFoodRemove()">&times;</button>
+                                <h5>{{reviewData.item_name}}</h5>
+                                <p>{{reviewData.item_description}}.</p>
+                            </div>
+                        </div>
+            
+                    </div>
+                </div>
+            </ng-container>
         </div>
         <div *ngIf="recomendedItemArray.length !==0 && menuItemRecommened" class="add_slider">
             <label class="app_review_food_text__left_special">Menu Items Recommendation</label>
             <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
                 <div ngxSlickItem *ngFor="let slide of recomendedItemArray ;let i= index" class="slide">
                     <img data-toggle="modal" data-target="#myModal{{slide._id}}" src="{{img_url}}{{slide.item_image}}"
-                        alt="" (click)="menuSliderAdd(i,slide._id)" class="cursorCss">
+                        alt="" class="cursorCss">
                     <div class="app_your_basket_heading_3_right">
-                        <h5 class="cursorCss" data-toggle="modal" data-target="#myModal{{slide._id}}"
-                            (click)="menuSliderAdd(i,slide._id)">{{slide.item_name}}</h5>
+                        <h5 class="cursorCss" data-toggle="modal" data-target="#myModal{{slide._id}}">
+                            {{slide.item_name}}</h5>
+                        <div >
+                            <span class="readMore_button">{{slide.item_description}} </span>
+                        </div> 
+                        <a class="readmore" (click)="menuSliderAdd(i,slide._id)"  *ngIf="(slide.item_description)?slide.item_description.trim().length >56:false">Read More</a> 
                     </div>
+                    
+
 
                     <div class="app_your_basket_text_right aed_spacing">
-                        <span *ngIf="slide.sell_price===0" class="app_footer">{{slide.price | number : '1.2-2'}} AED</span>
+                        <span *ngIf="slide.sell_price===0" class="app_footer">{{slide.price | number : '1.2-2'}}
+                            AED</span>
                         <span *ngIf="slide.sell_price!==0" class="app_footer">{{slide.sell_price | number : '1.2-2'}}
                             AED</span>
-                        <span class="app_your_basket_text_right_del" *ngIf="slide.sell_price!==0"><del>{{slide.price | number : '1.2-2'}}
+                        <span class="app_your_basket_text_right_del" *ngIf="slide.sell_price!==0"><del>{{slide.price |
+                                number : '1.2-2'}}
                                 AED</del></span>
                     </div>
                     <div class="app_add_baset_icon">
