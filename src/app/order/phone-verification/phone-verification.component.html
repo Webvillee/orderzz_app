@@ -7,7 +7,7 @@
 <div  class="app_verification">
     <div class="app_container">
         <div class="app_verification_image">
-            <a *ngIf="!signupProcess" [routerLink]="['/view-basket']"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+            <a *ngIf="!signupProcess" [routerLink]="['/order']"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
             <a *ngIf="signupProcess" (click)="signupClear()" [routerLink]="['/order']"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
         </div>
         <div class="app_verification_caption">
